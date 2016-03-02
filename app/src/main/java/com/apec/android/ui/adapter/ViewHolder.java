@@ -36,7 +36,7 @@ public class ViewHolder {
 
     public static ViewHolder get(Context context, View convertView,
                                  ViewGroup parent, int layoutId, int position
-                                 ) {
+    ) {
         if (convertView == null) {
             return new ViewHolder(context, parent, layoutId, position);
         } else {
@@ -56,6 +56,7 @@ public class ViewHolder {
 
     /**
      * 通过viewId获取控件
+     *
      * @param viewId
      * @param <T>
      * @return
@@ -63,9 +64,9 @@ public class ViewHolder {
     public <T extends View> T getView(int viewId) {
         View view = mViews.get(viewId);
 
-            if (view == null) {
-                view = mConvertView.findViewById(viewId);
-                mViews.put(viewId, view);
+        if (view == null) {
+            view = mConvertView.findViewById(viewId);
+            mViews.put(viewId, view);
         }
 
         return (T) view;
@@ -73,6 +74,7 @@ public class ViewHolder {
 
     /**
      * 设置TextView的值
+     *
      * @param viewId
      * @param text
      * @return

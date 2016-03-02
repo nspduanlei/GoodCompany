@@ -1,21 +1,18 @@
 package com.apec.android.ui.fragment.goods;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.domain.goods.Good;
-import com.apec.android.domain.goods.Goods;
+import com.apec.android.ui.activity.goods.GoodsDetailActivity;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.ViewHolder;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.goods.GoodsFPresenter;
-import com.apec.android.ui.presenter.goods.GoodsPresenter;
 
 import java.util.ArrayList;
 
@@ -69,6 +66,7 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     ListView mListView;
     ArrayList<Good> mData = new ArrayList<>();
     CommonAdapter<Good> commonAdapter;
+    private Good mGood;
 
     private void initView(View view) {
         //测试
@@ -81,12 +79,35 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
                 mData, R.layout.goods_item) {
             @Override
             public void convert(ViewHolder holder, Good good) {
-                holder.setText(R.id.tv_name, good.getGoodsName());
+                mGood = good;
+                holder.setText(R.id.tv_name, good.getGoodsName())
+                        .setOnClickLister(R.id.ll_item, onItemClickListener);
             }
         };
 
         mListView.setAdapter(commonAdapter);
     }
+
+    /**
+     * item点击监听
+     */
+    View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.ll_item:
+                    Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("goodsId", mGood.getId());
+
+                    startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
 
     @Override

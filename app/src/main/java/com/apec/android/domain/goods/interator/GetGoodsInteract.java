@@ -6,8 +6,14 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.Goods;
+import com.apec.android.domain.goods.ModelTest;
+import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
 import com.apec.android.support.test;
+
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 
 /**
@@ -22,10 +28,15 @@ public class GetGoodsInteract {
         GsonRequest<test> request = new GsonRequest<test>(
                 UrlConstant.URL_CATEGORY, test.class,
 
-                new Response.Listener<test>() {
+                new Listener<test>() {
                     @Override
                     public void onResponse(test response) {
                         callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
                     }
                 },
 
@@ -47,10 +58,15 @@ public class GetGoodsInteract {
         GsonRequest<Goods> request = new GsonRequest<>(
                 UrlConstant.URL_GOODS, Goods.class,
 
-                new Response.Listener<Goods>() {
+                new Listener<Goods>() {
                     @Override
                     public void onResponse(Goods response) {
                         callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
                     }
                 },
 
@@ -69,14 +85,23 @@ public class GetGoodsInteract {
      * @param callback
      * @param id 商品id
      */
-    public static void fetchGoodsDetail(final GetDataCallback<test> callback, int id) {
-        GsonRequest<test> request = new GsonRequest<>(
-                UrlConstant.URL_GOODS, test.class,
+    public static void fetchGoodsDetail(final GetDataCallback<ModelTest> callback,
+                                        final int id, final int originId) {
+        GsonRequest<ModelTest> request = new GsonRequest<>(
+                UrlConstant.URL_GOODS, ModelTest.class,
 
-                new Response.Listener<test>() {
+                new Listener<ModelTest>() {
                     @Override
-                    public void onResponse(test response) {
+                    public void onResponse(ModelTest response) {
                         callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        Map<String,String> params = new HashMap<>();
+                        params.put("id", String.valueOf(id));
+                        params.put("originId", String.valueOf(originId));
+                        return params;
                     }
                 },
 

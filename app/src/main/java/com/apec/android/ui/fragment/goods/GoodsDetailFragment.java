@@ -2,6 +2,8 @@ package com.apec.android.ui.fragment.goods;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.domain.goods.Good;
@@ -13,7 +15,7 @@ import com.apec.android.ui.presenter.goods.GoodsDetailPresenter;
  * Created by duanlei on 2016/3/2.
  */
 public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView,
-        GoodsDetailPresenter> implements GoodsDetailPresenter.IView {
+        GoodsDetailPresenter> implements GoodsDetailPresenter.IView, View.OnClickListener {
 
     @Override
     protected int getFragmentLayout() {
@@ -29,12 +31,22 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initView();
+        initView(view);
     }
 
-    private void initView() {
+    private void initView(View view) {
+        /**
+         * 导航栏初始化
+         */
+        Button back = (Button) view.findViewById(R.id.btn_top_back);
+        back.setOnClickListener(this);
+
+        TextView title = (TextView) view.findViewById(R.id.tv_top_title);
+        title.setText("商品详情");
+
 
     }
+
 
     @Override
     public void showGoods(Good goods) {
@@ -59,5 +71,15 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
     @Override
     public boolean isReady() {
         return isAdded();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_top_back:
+                getActivity().finish();
+                break;
+        }
+
     }
 }
