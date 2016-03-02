@@ -12,4 +12,9 @@
         android:text="1"
         android:textSize="60sp"/>
 
+    <ListView
+        android:id="@+id/lv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

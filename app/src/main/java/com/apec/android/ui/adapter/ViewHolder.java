@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * Author: duanlei
  * Date: 2015-08-04
@@ -16,9 +18,9 @@ import android.widget.TextView;
 public class ViewHolder {
 
     private SparseArray<View> mViews;
-
     private int mPosition;
     private View mConvertView;
+    private Context mContext;
 
     public ViewHolder(Context context, ViewGroup parent,
                       int layoutId, int position) {
@@ -29,6 +31,7 @@ public class ViewHolder {
                 .inflate(layoutId, parent, false);
 
         mConvertView.setTag(this);
+        mContext = context;
     }
 
     public static ViewHolder get(Context context, View convertView,
@@ -85,6 +88,13 @@ public class ViewHolder {
         iv.setImageResource(resId);
         return this;
     }
+
+    public ViewHolder setImageUrl(int viewId, String url) {
+        ImageView iv = getView(viewId);
+        Picasso.with(mContext).load(url).into(iv);
+        return this;
+    }
+
 
     public ViewHolder setVisibility(int viewId, int visibility) {
         View view = getView(viewId);

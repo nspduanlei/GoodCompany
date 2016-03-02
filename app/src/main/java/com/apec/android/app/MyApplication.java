@@ -2,7 +2,6 @@ package com.apec.android.app;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
 import org.litepal.LitePalApplication;
 
 /**

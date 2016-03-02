@@ -11,7 +11,7 @@ public class Goods {
     private H h;
     private Body b;
 
-    class Body {
+    public class Body {
         private int pageNo;
         private int pageSize;
         private int dataTotal;
@@ -58,5 +58,22 @@ public class Goods {
         public void setData(ArrayList<Good> data) {
             this.data = data;
         }
+    }
+
+
+    public H getH() {
+        return h;
+    }
+
+    public void setH(H h) {
+        this.h = h;
+    }
+
+    public Body getB() {
+        return b;
+    }
+
+    public void setB(Body b) {
+        this.b = b;
     }
 }

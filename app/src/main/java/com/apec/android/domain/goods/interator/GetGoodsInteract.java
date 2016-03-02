@@ -1,6 +1,5 @@
 package com.apec.android.domain.goods.interator;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.apec.android.app.MyApplication;
@@ -14,12 +13,12 @@ import com.apec.android.support.test;
 /**
  * Created by Administrator on 2016/2/26.
  */
-public class GetGoodsInterator {
+public class GetGoodsInteract {
     /**
-     * 获取所以的类型
+     * 获取所用的类型
      * @param callback
      */
-    public static void fecthCategorys(final GetDataCallback<test> callback) {
+    public static void fetchCategorys(final GetDataCallback<test> callback) {
         GsonRequest<test> request = new GsonRequest<test>(
                 UrlConstant.URL_CATEGORY, test.class,
 
@@ -44,13 +43,39 @@ public class GetGoodsInterator {
      * 获取商品列表
      * @param callback
      */
-    public static void fecthGoods(final GetDataCallback<Goods> callback) {
-        GsonRequest<Goods> request = new GsonRequest<Goods>(
+    public static void fetchGoods(final GetDataCallback<Goods> callback) {
+        GsonRequest<Goods> request = new GsonRequest<>(
                 UrlConstant.URL_GOODS, Goods.class,
 
                 new Response.Listener<Goods>() {
                     @Override
                     public void onResponse(Goods response) {
+                        callback.onRepose(response);
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    /**
+     * 获得商品详情
+     * @param callback
+     * @param id 商品id
+     */
+    public static void fetchGoodsDetail(final GetDataCallback<test> callback, int id) {
+        GsonRequest<test> request = new GsonRequest<>(
+                UrlConstant.URL_GOODS, test.class,
+
+                new Response.Listener<test>() {
+                    @Override
+                    public void onResponse(test response) {
                         callback.onRepose(response);
                     }
                 },

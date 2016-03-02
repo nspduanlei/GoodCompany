@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.apec.android.R;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
+import com.apec.android.ui.presenter.goods.GoodsPresenter;
 
 import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
@@ -19,12 +20,17 @@ import java.util.List;
 /**
  * 启动页
  */
-public class LaunchActivity extends BaseActivity {
+public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsPresenter> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected GoodsPresenter createPresenter() {
+        return new GoodsPresenter();
     }
 
     public void login(View view) {

@@ -11,4 +11,7 @@ public class UrlConstant {
     //商品列表
     public static final String URL_GOODS = URL_BASE + "/list/goods";
 
+    //商品详情
+    public static final String URL_GOODS_DETAIL = URL_BASE + "/goods";
+
 }
