@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GoodCompany</string>
+    <string name="shop_name">商家名称</string>
 </resources>

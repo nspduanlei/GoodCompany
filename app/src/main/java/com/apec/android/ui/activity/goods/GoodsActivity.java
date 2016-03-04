@@ -1,15 +1,26 @@
 package com.apec.android.ui.activity.goods;
 
-import android.app.Activity;
+import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.ui.fragment.goods.GoodsFragment;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
+import com.apec.android.util.DensityUtils;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.viewpagerindicator.TabPageIndicator;
 
 /**
  * 商品展示
@@ -17,7 +28,11 @@ import com.apec.android.ui.presenter.goods.GoodsPresenter;
  */
 public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IView {
 
-    GoodsPresenter mPresenter;
+//    RegisterPresenter mPresenter;
+
+    private static final String[] CONTENT =
+            new String[] {"  糖  ","  米  ","  油  ","  面  ","  调味品  "
+                    ,"  糖  ","  米  ","  油  ","  面  "," 调味品 "};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +40,9 @@ public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IV
         setContentView(R.layout.activity_goods);
         initViews();
 
-//        mPresenter = new GoodsPresenter(this);
+//        mPresenter = new RegisterPresenter(this);
 //        mPresenter.fetchGoodTypes();
+
     }
 
     /**
@@ -41,12 +57,20 @@ public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IV
             }
 
             @Override
+            public CharSequence getPageTitle(int position) {
+                return CONTENT[position % CONTENT.length].toUpperCase();
+            }
+
+            @Override
             public int getCount() {
-                return 5;
+                return CONTENT.length;
             }
         });
-    }
 
+
+        TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
+        indicator.setViewPager(viewPager);
+    }
 
     @Override
     public void hideLoading() {

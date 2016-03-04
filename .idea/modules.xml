@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dialogplusLibrary/dialogplusLibrary.iml" filepath="$PROJECT_DIR$/dialogplusLibrary/dialogplusLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/pullToRefreshLibrary/pullToRefreshLibrary.iml" filepath="$PROJECT_DIR$/pullToRefreshLibrary/pullToRefreshLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewPageIndicatorlibrary/viewPageIndicatorlibrary.iml" filepath="$PROJECT_DIR$/viewPageIndicatorlibrary/viewPageIndicatorlibrary.iml" />
     </modules>
   </component>
 </project>

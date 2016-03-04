@@ -1,1 +1,1 @@
-include ':app', ':pullToRefreshLibrary', ':dialogplusLibrary'
+include ':app', ':pullToRefreshLibrary', ':dialogplusLibrary', ':viewPageIndicatorlibrary'

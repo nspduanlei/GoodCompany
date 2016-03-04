@@ -29,4 +29,14 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.18'
     compile project(':dialogplusLibrary')
     compile project(':pullToRefreshLibrary')
+    compile project(':viewPageIndicatorlibrary')
+    compile files('src/libs/MobCommons.jar')
+    compile files('src/libs/MobTools.jar')
+    compile files('src/libs/ShareSDK-Core-2.6.6.jar')
+    compile files('src/libs/ShareSDK-QQ-2.6.6.jar')
+    compile files('src/libs/ShareSDK-QZone-2.6.6.jar')
+    compile files('src/libs/ShareSDK-SinaWeibo-2.6.6.jar')
+    compile files('src/libs/ShareSDK-Wechat-2.6.6.jar')
+    compile files('src/libs/ShareSDK-Wechat-Core-2.6.6.jar')
+    compile files('src/libs/ShareSDK-Wechat-Moments-2.6.6.jar')
 }
