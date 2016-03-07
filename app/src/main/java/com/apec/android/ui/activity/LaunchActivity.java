@@ -100,6 +100,4 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
         Intent intent = new Intent(this, GoodsActivity.class);
         startActivity(intent);
     }
-
-
 }
