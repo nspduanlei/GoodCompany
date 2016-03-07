@@ -1,21 +1,11 @@
 package com.apec.android.ui.fragment.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.apec.android.R;
-import com.apec.android.domain.goods.Good;
-import com.apec.android.ui.activity.goods.GoodsDetailActivity;
-import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.ViewHolder;
 import com.apec.android.ui.fragment.BaseFragment;
-import com.apec.android.ui.presenter.goods.GoodsFPresenter;
 import com.apec.android.ui.presenter.user.RegisterPresenter;
-
-import java.util.ArrayList;
 
 /**
  *

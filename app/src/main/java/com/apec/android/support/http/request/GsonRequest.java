@@ -30,10 +30,8 @@ public class GsonRequest<T> extends Request<T> {
         mGson = new Gson();
         mClass = clazz;
         mMap = listener.getRequestParams();
-
         mListener = listener;
     }
-
 
     public GsonRequest(String url, Class<T> clazz, Listener<T> listener,
                        Response.ErrorListener errorListener) {
@@ -60,5 +58,13 @@ public class GsonRequest<T> extends Request<T> {
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
         return mMap;
+    }
+
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+
+
+
+        return super.getHeaders();
     }
 }

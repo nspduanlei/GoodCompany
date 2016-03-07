@@ -6,4 +6,10 @@ package com.apec.android.config;
  */
 public class Constants {
 
+    //测试接口地址
+    public static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/api/mall";
+
+    //正式接口地址
+    public static String OFFICIAL_BASE_URL = "";
+
 }

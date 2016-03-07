@@ -14,7 +14,7 @@ public class L {
      */
     public static boolean isDebug = true;
 
-    private static final String TAG = "way";
+    private static final String TAG = "test";
 
     // 下面四个是默认tag的函数
     public static void i(String msg) {

@@ -3,6 +3,7 @@ package com.apec.android.ui.activity.user;
 import android.support.v4.app.Fragment;
 
 import com.apec.android.ui.activity.SingleFragmentActivity;
+import com.apec.android.ui.fragment.user.RegisterFragment;
 
 /**
  * 注册页面，用户信息填写
@@ -12,7 +13,7 @@ public class RegisterActivity extends SingleFragmentActivity{
 
     @Override
     protected Fragment createFragment() {
-        return null;
+        return RegisterFragment.newInstance();
     }
 
 }

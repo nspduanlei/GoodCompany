@@ -1,24 +1,19 @@
 package com.apec.android.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.apec.android.R;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
-
+import com.apec.android.util.L;
 import org.litepal.crud.DataSupport;
-import org.litepal.tablemanager.Connector;
-
 import java.util.HashMap;
 import java.util.List;
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -41,22 +36,22 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
     }
 
     public void login(View view) {
-
         Platform weixin = ShareSDK.getPlatform(Wechat.NAME);
         weixin.SSOSetting(false);
         weixin.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
                 Toast.makeText(LaunchActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
+                L.d("onError: " + i);
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
+                L.d("onCancel: " + i);
             }
         });
         weixin.authorize();
@@ -64,8 +59,6 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
 
     public void share(View view) {
         Toast.makeText(this, "登录", Toast.LENGTH_SHORT).show();
-
-
     }
 
     public void register(View view) {

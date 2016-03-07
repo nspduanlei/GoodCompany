@@ -5,9 +5,11 @@ package com.apec.android.config;
  */
 public class UrlConstant {
 
-    public static final String URL_BASE = "http://shoptest.ap-ec.cn/api/mall";
+    public static final String URL_BASE = Constants.TEST_BASE_URL;
+
     //商品类别
     public static final String URL_CATEGORY = URL_BASE + "/category/all";
+
     //商品列表
     public static final String URL_GOODS = URL_BASE + "/list/goods";
 
