@@ -1,25 +1,16 @@
 package com.apec.android.ui.activity.goods;
 
-import android.animation.ObjectAnimator;
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.ui.fragment.goods.GoodsFragment;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
-import com.apec.android.util.DensityUtils;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.viewpagerindicator.TabPageIndicator;
 
 /**
@@ -45,6 +36,8 @@ public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IV
 
     }
 
+    FrameLayout loading;
+
     /**
      * 初始化ui
      */
@@ -67,19 +60,20 @@ public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IV
             }
         });
 
-
         TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
+
+        loading = (FrameLayout) findViewById(R.id.fl_loading);
     }
 
     @Override
     public void hideLoading() {
-
+        loading.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
-
+        loading.setVisibility(View.VISIBLE);
     }
 
     @Override

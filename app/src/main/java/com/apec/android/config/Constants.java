@@ -7,9 +7,14 @@ package com.apec.android.config;
 public class Constants {
 
     //测试接口地址
-    public static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/api/mall";
+    public final static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/api/mall";
 
     //正式接口地址
-    public static String OFFICIAL_BASE_URL = "";
+    public final static String OFFICIAL_BASE_URL = "";
 
+    //ShareSdk App Key
+    public final static String SHARESDK_APP_KEY  = "1028215ab4b88";
+
+    //ShareSdk App Secret
+    public final static String SHARESDK_APP_SECRET  = "d1d6cf3d48de0aa6afac4d1f0ada4ef5";
 }

@@ -1,23 +1,11 @@
 [
     {
-        "merged": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
-    },
-    {
         "merged": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
         "source": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
     },
     {
-        "merged": "E:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
-        "source": "E:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
-        "merged": "E:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "E:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
-    },
-    {
-        "merged": "E:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
-        "source": "E:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
+        "merged": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
+        "source": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
     },
     {
         "merged": "D:\\zl_code\\GoodCompany\\pullToRefreshLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",

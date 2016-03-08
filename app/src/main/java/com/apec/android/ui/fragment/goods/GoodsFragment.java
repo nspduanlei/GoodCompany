@@ -3,6 +3,7 @@ package com.apec.android.ui.fragment.goods;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -58,15 +59,15 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mPresenter.fetchGoods();
         initView(view);
+        mPresenter.fetchGoods();
     }
 
     ListView mListView;
     ArrayList<Good> mData = new ArrayList<>();
     CommonAdapter<Good> commonAdapter;
     private Good mGood;
+    FrameLayout loading;
 
     private void initView(View view) {
         //测试
@@ -86,6 +87,8 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
         };
 
         mListView.setAdapter(commonAdapter);
+
+        loading = (FrameLayout) view.findViewById(R.id.fl_loading);
     }
 
     /**
@@ -112,12 +115,12 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
 
     @Override
     public void hideLoading() {
-
+        loading.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
-
+        loading.setVisibility(View.VISIBLE);
     }
 
     @Override

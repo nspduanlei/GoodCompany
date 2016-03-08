@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">GoodCompany</string>
     <string name="shop_name">商家名称</string>
+
+    //我们已发送验证码短信到这个号码：18052365541
+    //接收短信大约需要59s
+    //以下号码为诚信号码，无需验证短信：18052365541
+    <string name="hint_register_1">我们已发送验证码短信到这个号码：%s</string>
+    <string name="hint_register_2">接收短信大约需要 %d s</string>
+    <string name="hint_register_3">以下号码为诚信号码，无需验证短信：%s</string>
+
+
 </resources>
