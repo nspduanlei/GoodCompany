@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.test;
+import com.apec.android.util.L;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -43,6 +44,9 @@ public class GsonRequest<T> extends Request<T> {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
+
+            L.e("test001", jsonString);
+
             return Response.success(mGson.fromJson(jsonString, mClass),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
@@ -62,8 +66,6 @@ public class GsonRequest<T> extends Request<T> {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-
-
 
         return super.getHeaders();
     }

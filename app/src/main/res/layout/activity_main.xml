@@ -41,4 +41,16 @@
         android:text="注册"
         android:onClick="register"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用户资料完善"
+        android:onClick="registerData"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="购物车"
+        android:onClick="shoppingCart"/>
+
 </LinearLayout>

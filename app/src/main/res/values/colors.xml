@@ -2,4 +2,8 @@
 <resources>
     <color name="color_1">#2ba9fd</color>
     <color name="color_2">#21292b</color>
+    <color name="color_3">#02d451</color>
+    <color name="color_4">#ff8800</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_line">#aeaeae</color>
 </resources>

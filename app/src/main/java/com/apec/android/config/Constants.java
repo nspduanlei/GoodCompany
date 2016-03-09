@@ -13,8 +13,8 @@ public class Constants {
     public final static String OFFICIAL_BASE_URL = "";
 
     //ShareSdk App Key
-    public final static String SHARESDK_APP_KEY  = "1028215ab4b88";
+    public final static String SHARESDK_APP_KEY  = "1032dc40a9fff";
 
     //ShareSdk App Secret
-    public final static String SHARESDK_APP_SECRET  = "d1d6cf3d48de0aa6afac4d1f0ada4ef5";
+    public final static String SHARESDK_APP_SECRET  = "5b2c40f5a936c218b8a887354259cc95";
 }

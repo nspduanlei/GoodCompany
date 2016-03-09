@@ -34,6 +34,9 @@
 
         <activity android:name=".ui.activity.user.RegisterFActivity"/>
 
+        <activity android:name=".ui.activity.user.SelectCityActivity"/>
+
+        <activity android:name=".ui.activity.user.ShoppingCartActivity"/>
     </application>
 
 </manifest>

@@ -87,7 +87,6 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
         };
 
         mListView.setAdapter(commonAdapter);
-
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
     }
 

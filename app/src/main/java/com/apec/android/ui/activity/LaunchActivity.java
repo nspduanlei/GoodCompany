@@ -8,7 +8,9 @@ import android.widget.Toast;
 import com.apec.android.R;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
+import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
+import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
 
 import org.litepal.crud.DataSupport;
@@ -75,8 +77,18 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
         Toast.makeText(this, user.toString() + "-------------" + users.size(), Toast.LENGTH_LONG).show();
     }
 
-    public void gotoGoods(View view){
+    public void gotoGoods(View view) {
         Intent intent = new Intent(this, GoodsActivity.class);
+        startActivity(intent);
+    }
+
+    public void registerData(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void shoppingCart(View view) {
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
         startActivity(intent);
     }
 }

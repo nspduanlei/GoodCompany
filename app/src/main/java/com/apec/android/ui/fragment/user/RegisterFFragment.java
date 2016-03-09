@@ -19,7 +19,9 @@ import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.RegisterFPresenter;
 import com.apec.android.ui.presenter.user.RegisterPresenter;
+import com.apec.android.util.ColorPhrase;
 import com.apec.android.util.KeyBoardUtils;
+import com.apec.android.util.L;
 import com.apec.android.util.StringUtils;
 
 import org.json.JSONException;
@@ -143,11 +145,14 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                     Log.d("test00", "返回支持发送验证码的国家列表");
                 }
             } else {
+
+                ((Throwable) data).printStackTrace();
+
                 try {
                     JSONObject jsonObject = new JSONObject(((Throwable) data).getMessage());
 
                     myHandler.obtainMessage(HANDLER_ERROR,
-                            jsonObject.getString("description")).sendToTarget();
+                            jsonObject.getString("detail")).sendToTarget();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -156,6 +161,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     };
 
     int down = 60;
+    //是否正在倒计时
+    boolean isDown = false;
 
     static class MyHandler extends Handler {
         WeakReference<RegisterFFragment> mFragment;
@@ -194,13 +201,9 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
                     theFragment.showHint(str_1);
 
-
                     //启动倒计时
-                    String downStr = String.format(theFragment.getString(R.string.hint_register_2),
-                            theFragment.down);
+                    L.d("test00", "启动计时器");
                     theFragment.hint_down.setVisibility(View.VISIBLE);
-                    theFragment.hint_down.setText(downStr);
-
                     theFragment.startTimer();
 
                     break;
@@ -211,14 +214,18 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                     break;
 
                 case HANDLER_TIMER: //倒计时
-
                     if (theFragment.down > 0) {
                         String downStr_other = String.format(
                                 theFragment.getString(R.string.hint_register_2), theFragment.down--);
-                        theFragment.hint_down.setText(downStr_other);
+
+                        CharSequence chars = ColorPhrase.from(downStr_other).withSeparator("{}")
+                                .innerColor(0xFFE6454A).outerColor(0xFF666666).format();
+
+                        theFragment.hint_down.setText(chars);
                     } else {
-                        theFragment.mTimer.cancel();
-                        theFragment.down = 60;
+                        theFragment.isDown = false;
+                        //theFragment.mTimer.cancel();
+                        //theFragment.down = 60;
                         theFragment.hint_down.setText("如果您还没收到短信，请尝试重新获取");
                     }
 
@@ -228,6 +235,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     }
 
     private void startTimer() {
+        isDown = true;
+        down = 60;
         //1s执行一次
         mTimer.schedule(timerTask, 1000, 1000);
     }
@@ -235,8 +244,6 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mTimer.cancel();
-        timerTask.cancel();
     }
 
     /**
@@ -262,7 +269,6 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     FrameLayout loading;
 
     private void initView(View view) {
-
         Button start = (Button) view.findViewById(R.id.btn_start);
         start.setOnClickListener(this);
 
@@ -318,7 +324,7 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
             case R.id.btn_get_code: //获取验证码
 
-                if (down != 60) {
+                if (isDown) {
                     break;
                 }
 
