@@ -4,94 +4,148 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/top_bar_layout"/>
-
+    <include layout="@layout/top_bar_layout" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="产地"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp" />
+        android:textColor="@color/color_text_2"
+        style="@style/order_style_margin"/>
+
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="20dp">
+        style="@style/order_style_margin">
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="广东糖"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="广东糖" />
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="广东糖"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="广东糖" />
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="广东糖"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="广东糖" />
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="广东糖"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="广东糖" />
     </RadioGroup>
-
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="颗粒度"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp" />
+        android:textColor="@color/color_text_2"
+        style="@style/order_style_margin"/>
+
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="20dp">
+        style="@style/order_style_margin">
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="正常颗粒"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="正常颗粒" />
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="偏粗颗粒"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="正常颗粒" />
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="偏细颗粒"
-            android:button="@null"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/radio_selector"/>
+            style="@style/btn_style_radio"
+            android:text="正常颗粒" />
     </RadioGroup>
 
-    <include
-        layout="@layout/change_price_layout"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/order_style_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="净含量"
+            android:textColor="@color/color_text_2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="￥270(50kg/包)"
+            android:textColor="@color/color_text_4" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        style="@style/order_style_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量"
+            android:textColor="@color/color_text_2"
+            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+            <ImageButton
+                android:id="@+id/btn_add"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_add" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/color_text_1"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/btn_cut"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_cut" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="配送费：￥0.00"
+        style="@style/order_style_margin"
+        android:textColor="@color/color_text_1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*您的货物预计在3月2日18点送达"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/color_5"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="合计：￥1，350.00"
+        android:textColor="@color/color_5"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="34dp"
-        android:background="@drawable/button_shape_bg"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_shape_bg_2"
         android:text="加入购物车"
         android:textColor="@color/color_white"
-        android:layout_gravity="center"/>
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

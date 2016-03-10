@@ -37,6 +37,10 @@
         <activity android:name=".ui.activity.user.SelectCityActivity"/>
 
         <activity android:name=".ui.activity.user.ShoppingCartActivity"/>
+
+        <activity android:name=".ui.activity.order.OrderActivity"/>
+
+        <activity android:name=".ui.activity.order.MyOrdersActivity"/>
     </application>
 
 </manifest>

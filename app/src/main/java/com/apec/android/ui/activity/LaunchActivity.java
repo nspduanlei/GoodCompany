@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.apec.android.R;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
+import com.apec.android.ui.activity.order.MyOrdersActivity;
+import com.apec.android.ui.activity.order.OrderActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
@@ -89,6 +91,16 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
 
     public void shoppingCart(View view) {
         Intent intent = new Intent(this, ShoppingCartActivity.class);
+        startActivity(intent);
+    }
+
+    public void order(View view) {
+        Intent intent = new Intent(this, OrderActivity.class);
+        startActivity(intent);
+    }
+
+    public void myOrder(View view) {
+        Intent intent = new Intent(this, MyOrdersActivity.class);
         startActivity(intent);
     }
 }

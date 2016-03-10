@@ -99,10 +99,8 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
             switch (v.getId()) {
                 case R.id.ll_item:
                     Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
-
                     Bundle bundle = new Bundle();
                     bundle.putInt("goodsId", mGood.getId());
-
                     startActivity(intent);
                     break;
                 default:
@@ -110,7 +108,6 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
             }
         }
     };
-
 
     @Override
     public void hideLoading() {

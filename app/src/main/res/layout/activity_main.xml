@@ -53,4 +53,17 @@
         android:text="购物车"
         android:onClick="shoppingCart"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="订单详情"
+        android:onClick="order"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的订单"
+        android:onClick="myOrder"/>
+
+
 </LinearLayout>

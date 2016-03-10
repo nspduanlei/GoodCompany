@@ -43,10 +43,7 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
 
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
         title.setText("商品详情");
-
-
     }
-
 
     @Override
     public void showGoods(Good goods) {
@@ -80,6 +77,5 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
                 getActivity().finish();
                 break;
         }
-
     }
 }
