@@ -39,14 +39,14 @@
                 android:layout_height="0.5dp"
                 android:background="@color/color_6"
                 android:layout_below="@id/tv_order_num"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line_1"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/icon_user"
                 android:text="  陈旭"
                 android:textColor="@color/color_text_1" />
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line_1"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/tv_user_name"
                 android:drawableLeft="@drawable/icon_phone"
                 android:text="  18025346642"
@@ -78,7 +78,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/color_6"
                 android:layout_below="@id/tv_address"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
 
             <!--订单进度-->
             <FrameLayout
@@ -203,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line_3"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="支付方式：货到付款"
                 android:textColor="@color/color_text_1" />
 
@@ -213,7 +213,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/color_6"
                 android:layout_below="@id/tv_text_pay"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

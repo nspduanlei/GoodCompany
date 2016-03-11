@@ -71,7 +71,7 @@
         android:layout_below="@id/line_1"
         android:layout_marginTop="10dp"
         android:layout_alignParentRight="true"
-        android:textColor="@color/color_text_4"/>
+        android:textColor="@color/color_text_1"/>
 
     <TextView
         android:id="@+id/tv_num"

@@ -41,6 +41,10 @@
         <activity android:name=".ui.activity.order.OrderActivity"/>
 
         <activity android:name=".ui.activity.order.MyOrdersActivity"/>
+
+        <activity android:name=".ui.activity.user.EditDataActivity"/>
+
+        <activity android:name=".ui.activity.user.ManageAddrActivity"/>
     </application>
 
 </manifest>

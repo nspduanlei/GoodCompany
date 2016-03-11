@@ -3,6 +3,7 @@ package com.apec.android.ui.fragment.goods;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apec.android.R;
@@ -38,7 +39,7 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
         /**
          * 导航栏初始化
          */
-        Button back = (Button) view.findViewById(R.id.btn_top_back);
+        ImageView back = (ImageView) view.findViewById(R.id.iv_back);
         back.setOnClickListener(this);
 
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
@@ -73,7 +74,7 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_top_back:
+            case R.id.iv_back:
                 getActivity().finish();
                 break;
         }

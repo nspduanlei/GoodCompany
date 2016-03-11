@@ -10,9 +10,12 @@ import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
 import com.apec.android.ui.activity.order.OrderActivity;
+import com.apec.android.ui.activity.user.EditDataActivity;
+import com.apec.android.ui.activity.user.ManageAddrActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
+import com.apec.android.ui.fragment.user.ManageAddrFragment;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
 
 import org.litepal.crud.DataSupport;
@@ -101,6 +104,16 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
 
     public void myOrder(View view) {
         Intent intent = new Intent(this, MyOrdersActivity.class);
+        startActivity(intent);
+    }
+
+    public void editData(View view) {
+        Intent intent = new Intent(this, EditDataActivity.class);
+        startActivity(intent);
+    }
+
+    public void manageData(View view) {
+        Intent intent = new Intent(this, ManageAddrActivity.class);
         startActivity(intent);
     }
 }

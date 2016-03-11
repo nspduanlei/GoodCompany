@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:background">@color/color_white</item>
+        <item name="android:windowBackground">@color/color_white</item>
     </style>
 
     <style name="StyledIndicators" parent="AppTheme">
@@ -43,6 +43,35 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <!--android:layout_width="183.5dp"-->
+    <!--android:layout_height="36.5dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:text="去下单"-->
+    <!--android:background="@drawable/button_shape_bg_2"-->
+    <!--android:textColor="@color/color_white"-->
+    <!--android:textStyle="bold"-->
+
+    <style name="button_style_base">
+        <item name="android:layout_width">183.5dp</item>
+        <item name="android:layout_height">36.5dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="button_style_1" parent="button_style_base">
+        <item name="android:background">@drawable/button_shape_bg</item>
+    </style>
+
+    <style name="button_style_2" parent="button_style_base">
+        <item name="android:background">@drawable/button_shape_bg_2</item>
+    </style>
+
+    <style name="button_style_3" parent="button_style_base">
+        <item name="android:background">@drawable/button_shape_bg_3</item>
     </style>
 
 </resources>

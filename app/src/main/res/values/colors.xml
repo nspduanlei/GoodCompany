@@ -12,10 +12,15 @@
 
     <color name="color_line">#aeaeae</color>
     <color name="color_line_1">#e6e6e6</color>
+    <color name="color_line_2">#c5c3c3</color>
 
     <color name="color_text_1">#404040</color>
     <color name="color_text_4">#686a6a</color>
     <color name="color_text_2">#9A9A9A</color>
     <color name="color_text_3">#809382</color>
+
+    <color name="color_text_5">#888888</color>
+    <color name="color_text_6">#4f4f4f</color>
+    <color name="color_text_7">#4c4c4c</color>
 
 </resources>

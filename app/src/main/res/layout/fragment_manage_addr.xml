@@ -8,8 +8,13 @@
         layout="@layout/top_bar_layout"/>
 
     <ListView
-        android:id="@id/android:list"
+        android:id="@android:id/list"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"/>
 
+    <Button
+        style="@style/button_style_1"
+        android:layout_margin="20dp"
+        android:text="添加新的地址" />
 </LinearLayout>

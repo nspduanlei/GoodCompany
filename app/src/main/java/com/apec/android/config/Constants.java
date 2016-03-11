@@ -7,7 +7,8 @@ package com.apec.android.config;
 public class Constants {
 
     //测试接口地址
-    public final static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/api/mall";
+    //public final static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/api/mall";
+    public final static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/testapi/";
 
     //正式接口地址
     public final static String OFFICIAL_BASE_URL = "";

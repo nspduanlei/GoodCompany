@@ -21,9 +21,19 @@
         android:textSize="@dimen/title_text_size"
         android:textColor="@color/color_text_1"/>
 
+    <ImageView
+        android:id="@+id/iv_shopping_cart"
+        android:layout_width="51dp"
+        android:layout_height="48dp"
+        android:src="@drawable/shopping_cart_icon"
+        android:layout_gravity="center_vertical|right"
+        android:scaleType="center"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/color_line"
         android:layout_gravity="bottom"/>
+
+
 </FrameLayout>
