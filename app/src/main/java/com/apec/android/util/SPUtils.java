@@ -10,6 +10,9 @@ import java.util.Map;
 public class SPUtils {
 
     /**=============================key====================================**/
+
+    //0不是,1是
+
     //用户选择游客模式
     public static final String IS_NO_LOGIN = "select_no_login";
     //是否第一次进入app
@@ -18,6 +21,9 @@ public class SPUtils {
     public static final String SESSION_id = "session_id";
     //用户选择不更新版本
     public static final String IS_NOT_UPDATE_VERSION = "select_not_update_version";
+
+    //登录成功了未完善资料
+    public static final String IS_COMPLETE = "select_not_update_version";
 
     /**=================================================================**/
 

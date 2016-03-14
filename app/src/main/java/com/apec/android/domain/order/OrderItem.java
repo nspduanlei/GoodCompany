@@ -1,4 +1,4 @@
-package com.apec.android.ui.fragment.order;
+package com.apec.android.domain.order;
 
 import com.apec.android.domain.goods.Sku;
 

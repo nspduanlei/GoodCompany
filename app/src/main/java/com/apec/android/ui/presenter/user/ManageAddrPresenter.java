@@ -1,5 +1,7 @@
 package com.apec.android.ui.presenter.user;
 
+import android.content.Context;
+
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -9,6 +11,9 @@ import com.apec.android.ui.presenter.BaseViewInterface;
 public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView> {
 
 
+    public ManageAddrPresenter(Context context) {
+        super(context);
+    }
 
     public interface IView extends BaseViewInterface {
         boolean isReady();

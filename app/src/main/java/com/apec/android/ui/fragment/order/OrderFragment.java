@@ -33,7 +33,7 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
 
     @Override
     protected OrderPresenter createPresenter() {
-        return new OrderPresenter();
+        return new OrderPresenter(getActivity());
     }
 
     @Override

@@ -1,17 +1,24 @@
 package com.apec.android.support.http.request;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.apec.android.support.http.Listener;
+import com.apec.android.support.http.RequestHelper;
 import com.apec.android.support.test;
+import com.apec.android.util.AppUtils;
 import com.apec.android.util.L;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,19 +31,20 @@ public class GsonRequest<T> extends Request<T> {
     //请求参数
     private Map<String, String> mMap;
     private Class<T> mClass;
+    private RequestHelper mHelper;
+    private Context mContext;
 
-    public GsonRequest(int method, String url, Class<T> clazz, Listener<T> listener,
+    public GsonRequest(Context context, int method, String url, Class<T> clazz, Listener<T> listener,
                        Response.ErrorListener errorListener) {
         super(method, url, errorListener);
+
+        mMap = listener.getRequestParams();
         mGson = new Gson();
         mClass = clazz;
-        mMap = listener.getRequestParams();
         mListener = listener;
-    }
+        mContext = context;
 
-    public GsonRequest(String url, Class<T> clazz, Listener<T> listener,
-                       Response.ErrorListener errorListener) {
-        this(Method.GET, url, clazz, listener, errorListener);
+        this.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
     }
 
     @Override
@@ -66,7 +74,11 @@ public class GsonRequest<T> extends Request<T> {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-
-        return super.getHeaders();
+        mHelper = new RequestHelper(mContext);
+        Map<String, String> params = new HashMap<>();
+        params.put("_c", "android");
+        params.put("IMEI", AppUtils.getDeviceId(mContext));
+        params.put("UA", mHelper.getHeaderUserAgent());
+        return params;
     }
 }

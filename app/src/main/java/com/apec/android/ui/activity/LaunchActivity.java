@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
@@ -17,6 +18,8 @@ import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.user.ManageAddrFragment;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
+import com.apec.android.util.SPUtils;
+import com.apec.android.util.StringUtils;
 
 import org.litepal.crud.DataSupport;
 
@@ -31,11 +34,30 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //是否第一次登录
+        if (SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 1) {
+            //是第一次进入app，到引导页
+            Intent intent = new Intent(this, GuideActivity.class);
+            startActivity(intent);
+        } else {
+            //不是第一次进入，判断是否登录
+            if (StringUtils.isNullOrEmpty(
+                    (String) SPUtils.get(this, SPUtils.SESSION_id, ""))) {
+                //session_id为空没有登录，进入登录页面
+                Intent intent = new Intent(this, RegisterFActivity.class);
+                startActivity(intent);
+            } else {
+                //session_id存在，进入商品展示页
+                Intent intent = new Intent(this, GoodsActivity.class);
+                startActivity(intent);
+            }
+        }
+        this.finish();
     }
 
     @Override
     protected GoodsPresenter createPresenter() {
-        return new GoodsPresenter();
+        return new GoodsPresenter(this);
     }
 
     public void login(View view) {
@@ -75,10 +97,8 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
 
     public void queryData(View view) {
         //User user = DataSupport.find(User.class, 10);
-
         User user = DataSupport.findFirst(User.class);
         List<User> users = DataSupport.findAll(User.class);
-
         Toast.makeText(this, user.toString() + "-------------" + users.size(), Toast.LENGTH_LONG).show();
     }
 

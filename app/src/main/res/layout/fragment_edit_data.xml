@@ -20,8 +20,8 @@
             android:textColor="@color/color_text_5"/>
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="徐晓版"
             android:layout_marginLeft="15dp"
             android:textColor="@color/color_text_6"
@@ -48,8 +48,8 @@
             android:textColor="@color/color_text_5"/>
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="15025356363"
             android:layout_marginLeft="15dp"
             android:textColor="@color/color_text_6"
@@ -111,7 +111,7 @@
             android:textColor="@color/color_text_5"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="发酸发发送发发发发啊噶饭噶哈接哈急啊急啊感觉啊接啊为他人呀哈啊哈哈"
             android:layout_marginLeft="15dp"

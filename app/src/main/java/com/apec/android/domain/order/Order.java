@@ -2,7 +2,6 @@ package com.apec.android.domain.order;
 
 import com.apec.android.domain.transport.Deliveryman;
 import com.apec.android.domain.user.Address;
-import com.apec.android.ui.fragment.order.OrderItem;
 
 import java.util.List;
 

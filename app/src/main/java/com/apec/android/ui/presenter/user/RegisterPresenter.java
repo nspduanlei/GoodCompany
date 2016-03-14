@@ -1,5 +1,7 @@
 package com.apec.android.ui.presenter.user;
 
+import android.content.Context;
+
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.interator.GetGoodsInteract;
@@ -13,6 +15,9 @@ import com.apec.android.ui.presenter.BaseViewInterface;
 public class RegisterPresenter extends BasePresenter<RegisterPresenter.IView> {
 
 
+    public RegisterPresenter(Context context) {
+        super(context);
+    }
 
     public interface IView extends BaseViewInterface {
         boolean isReady();

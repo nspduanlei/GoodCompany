@@ -32,7 +32,7 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
 
     @Override
     protected EditDataPresenter createPresenter() {
-        return new EditDataPresenter();
+        return new EditDataPresenter(getActivity());
     }
 
     @Override

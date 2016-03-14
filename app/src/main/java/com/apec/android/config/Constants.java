@@ -12,10 +12,4 @@ public class Constants {
 
     //正式接口地址
     public final static String OFFICIAL_BASE_URL = "";
-
-    //ShareSdk App Key
-    public final static String SHARESDK_APP_KEY  = "1032dc40a9fff";
-
-    //ShareSdk App Secret
-    public final static String SHARESDK_APP_SECRET  = "5b2c40f5a936c218b8a887354259cc95";
 }

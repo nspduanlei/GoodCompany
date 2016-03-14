@@ -36,7 +36,4 @@ dependencies {
     compile project(':dialogplusLibrary')
     compile project(':pullToRefreshLibrary')
     compile project(':viewPageIndicatorlibrary')
-
-    compile name:'SMSSDK-2.0.1',ext:'aar'
-    compile name:'SMSSDKGUI-2.0.1',ext:'aar'
 }

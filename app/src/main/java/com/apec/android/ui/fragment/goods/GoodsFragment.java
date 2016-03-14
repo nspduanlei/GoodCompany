@@ -53,7 +53,7 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
 
     @Override
     protected GoodsFPresenter createPresenter() {
-        return new GoodsFPresenter();
+        return new GoodsFPresenter(getActivity());
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     @Override
     protected ShoppingCartPresenter createPresenter() {
-        return new ShoppingCartPresenter();
+        return new ShoppingCartPresenter(getActivity());
     }
 
     @Override

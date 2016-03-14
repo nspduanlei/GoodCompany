@@ -50,7 +50,7 @@ public class SelectCityFragment extends BaseListFragment<SelectCityPresenter.IVi
 
     @Override
     protected SelectCityPresenter createPresenter() {
-        return new SelectCityPresenter();
+        return new SelectCityPresenter(getActivity());
     }
 
     @Override

@@ -25,7 +25,7 @@ public class GoodsDetailFragment extends BaseFragment<GoodsDetailPresenter.IView
 
     @Override
     protected GoodsDetailPresenter createPresenter() {
-        return new GoodsDetailPresenter();
+        return new GoodsDetailPresenter(getActivity());
     }
 
     @Override

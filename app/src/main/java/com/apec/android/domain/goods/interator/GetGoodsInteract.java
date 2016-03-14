@@ -1,5 +1,8 @@
 package com.apec.android.domain.goods.interator;
 
+import android.content.Context;
+
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.apec.android.app.MyApplication;
@@ -24,10 +27,10 @@ public class GetGoodsInteract {
      * 获取所用的类型
      * @param callback
      */
-    public static void fetchCategorys(final GetDataCallback<test> callback) {
+    public static void fetchCategorys(Context context, final GetDataCallback<test> callback) {
         GsonRequest<test> request = new GsonRequest<test>(
+                context, Request.Method.POST,
                 UrlConstant.URL_CATEGORY, test.class,
-
                 new Listener<test>() {
                     @Override
                     public void onResponse(test response) {
@@ -54,10 +57,10 @@ public class GetGoodsInteract {
      * 获取商品列表
      * @param callback
      */
-    public static void fetchGoods(final GetDataCallback<Goods> callback) {
+    public static void fetchGoods(Context context, final GetDataCallback<Goods> callback) {
         GsonRequest<Goods> request = new GsonRequest<>(
+                context, Request.Method.POST,
                 UrlConstant.URL_GOODS, Goods.class,
-
                 new Listener<Goods>() {
                     @Override
                     public void onResponse(Goods response) {
@@ -85,11 +88,11 @@ public class GetGoodsInteract {
      * @param callback
      * @param id 商品id
      */
-    public static void fetchGoodsDetail(final GetDataCallback<ModelTest> callback,
+    public static void fetchGoodsDetail(Context context, final GetDataCallback<ModelTest> callback,
                                         final int id, final int originId) {
         GsonRequest<ModelTest> request = new GsonRequest<>(
+                context, Request.Method.POST,
                 UrlConstant.URL_GOODS, ModelTest.class,
-
                 new Listener<ModelTest>() {
                     @Override
                     public void onResponse(ModelTest response) {

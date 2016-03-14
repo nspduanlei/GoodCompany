@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,27 +12,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
-import com.apec.android.config.Constants;
+import com.apec.android.domain.H;
+import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
-import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.RegisterFPresenter;
-import com.apec.android.ui.presenter.user.RegisterPresenter;
 import com.apec.android.util.ColorPhrase;
 import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.StringUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.ref.WeakReference;
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 /**
  * 注册，手机验证
@@ -59,44 +50,27 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
     @Override
     protected RegisterFPresenter createPresenter() {
-        return new RegisterFPresenter();
+        return new RegisterFPresenter(getActivity());
     }
 
     /**
      * handler
      */
     private MyHandler myHandler;
-    //通过智能验证
-    public final static int HANDLER_GET_CODE_Z = 0;
-
-    //发送验证码成功
-    public final static int HANDLER_SEND_CODE = 1;
-
-    //提交验证码成功
-    public final static int HANDLER_SUBMIT_CODE = 2;
-
-    public final static int HANDLER_ERROR = 3;
-
     public final static int HANDLER_TIMER = 4;
-
     private String phoneNumberStr;
-
     private Timer mTimer;
     private TimerTask timerTask;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initView(view);
-
-        //初始化短信验证
-        initSMS();
-
         initTimer();
     }
 
     private void initTimer() {
+        myHandler = new MyHandler(this);
         //为timer提供一个定时执行的任务，在 Timer线程中无法直接操作 UI线程
         timerTask = new TimerTask() {
             @Override
@@ -107,58 +81,6 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
         mTimer = new Timer(true);
     }
 
-    private void initSMS() {
-        myHandler = new MyHandler(this);
-
-        //初始化短信sdk
-        SMSSDK.initSDK(getActivity(), Constants.SHARESDK_APP_KEY,
-                Constants.SHARESDK_APP_SECRET);
-        SMSSDK.registerEventHandler(eh); //注册短信回调
-    }
-
-    EventHandler eh = new EventHandler() {
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-
-            if (result == SMSSDK.RESULT_COMPLETE) {
-                //回调完成
-                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                    //提交验证码成功
-                    Log.d("test00", "提交验证码成功");
-                    myHandler.obtainMessage(HANDLER_SUBMIT_CODE).sendToTarget();
-
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    //获取验证码成功
-                    Log.d("test00", "获取验证码成功");
-
-                    boolean smart = (Boolean) data;
-                    if (smart) {
-                        //通过智能验证
-                        myHandler.obtainMessage(HANDLER_GET_CODE_Z).sendToTarget();
-                    } else {
-                        //走正常的验证码获取流程
-                        myHandler.obtainMessage(HANDLER_SEND_CODE).sendToTarget();
-                    }
-
-                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
-                    //返回支持发送验证码的国家列表
-                    Log.d("test00", "返回支持发送验证码的国家列表");
-                }
-            } else {
-
-                ((Throwable) data).printStackTrace();
-
-                try {
-                    JSONObject jsonObject = new JSONObject(((Throwable) data).getMessage());
-
-                    myHandler.obtainMessage(HANDLER_ERROR,
-                            jsonObject.getString("detail")).sendToTarget();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
 
     int down = 60;
     //是否正在倒计时
@@ -166,54 +88,18 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
     static class MyHandler extends Handler {
         WeakReference<RegisterFFragment> mFragment;
-
         MyHandler(RegisterFFragment fragment) {
             mFragment = new WeakReference<>(fragment);
         }
-
         @Override
         public void handleMessage(Message msg) {
             RegisterFFragment theFragment = mFragment.get();
             theFragment.hideLoading();
-
             switch (msg.what) {
-                case HANDLER_GET_CODE_Z: //获取验证码该号码是安全号码
-
-                    theFragment.showHint(
-                            String.format(theFragment.getString(R.string.hint_register_3),
-                                    theFragment.phoneNumberStr));
-
-                    theFragment.verCode.setText("获取验证码成功");
-                    theFragment.verCode.setEnabled(false);
-
-                    break;
-
-                case HANDLER_SUBMIT_CODE: //提交验证码成功
-
-                    Intent intent = new Intent(theFragment.getActivity(), RegisterActivity.class);
-                    theFragment.startActivity(intent);
-                    break;
-
-                case HANDLER_SEND_CODE: //发送验证码成功
-
-                    String str_1 = String.format(theFragment.getString(R.string.hint_register_1),
-                            theFragment.phoneNumberStr);
-
-                    theFragment.showHint(str_1);
-
-                    //启动倒计时
-                    L.d("test00", "启动计时器");
-                    theFragment.hint_down.setVisibility(View.VISIBLE);
-                    theFragment.startTimer();
-
-                    break;
-
-                case HANDLER_ERROR:
-                    String error_msg = (String) msg.obj;
-                    theFragment.showHint(error_msg);
-                    break;
-
                 case HANDLER_TIMER: //倒计时
+                    if (!theFragment.isAdded()) {
+                        break;
+                    }
                     if (theFragment.down > 0) {
                         String downStr_other = String.format(
                                 theFragment.getString(R.string.hint_register_2), theFragment.down--);
@@ -224,11 +110,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                         theFragment.hint_down.setText(chars);
                     } else {
                         theFragment.isDown = false;
-                        //theFragment.mTimer.cancel();
-                        //theFragment.down = 60;
                         theFragment.hint_down.setText("如果您还没收到短信，请尝试重新获取");
                     }
-
                     break;
             }
         }
@@ -254,13 +137,6 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
             hint.setVisibility(View.VISIBLE);
             hint.setText(msg);
         }
-    }
-
-    /**
-     * 隐藏提示
-     */
-    public void hideHint() {
-        hint.setVisibility(View.GONE);
     }
 
     EditText phoneNumber, verCode;
@@ -303,6 +179,46 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
         return isAdded();
     }
 
+
+    /**
+     * 验证码发送成功
+     */
+    @Override
+    public void sendCodeBack() {
+        String str_1 = String.format(getString(R.string.hint_register_1),
+                phoneNumberStr);
+
+        showHint(str_1);
+
+        //启动倒计时
+        L.d("test00", "启动计时器");
+        hint_down.setVisibility(View.VISIBLE);
+        startTimer();
+    }
+
+    @Override
+    public void submitCodeBack(H head) {
+        switch (head.getCode()) {
+            case 200: //登录成功，已完善资料
+                Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                break;
+            case 4017: //登录成功未完善资料
+                Intent intent1 = new Intent(getActivity(), RegisterActivity.class);
+                startActivity(intent1);
+                getActivity().finish();
+                break;
+
+            case 4025: //验证码输入有误
+                Toast.makeText(getActivity(), "验证码输入错误", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(getActivity(), head.getMsg(), Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -314,28 +230,23 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                     Toast.makeText(getActivity(), "请填写短信验证码", Toast.LENGTH_SHORT).show();
                 } else {
                     KeyBoardUtils.closeKeybord(phoneNumber, getActivity());
-                    SMSSDK.submitVerificationCode("86",
-                            phoneNumber.getText().toString(),
+                    mPresenter.submitVerCode(phoneNumber.getText().toString(),
                             verCode.getText().toString());
-                    showLoading();
                 }
 
                 break;
 
             case R.id.btn_get_code: //获取验证码
-
                 if (isDown) {
                     break;
                 }
-
                 KeyBoardUtils.closeKeybord(phoneNumber, getActivity());
 
                 //验证手机号格式
                 phoneNumberStr = phoneNumber.getText().toString();
                 String msg = StringUtils.checkMobile(phoneNumberStr);
                 if (msg.equals("")) {
-                    SMSSDK.getVerificationCode("86", phoneNumberStr);
-                    showLoading();
+                    mPresenter.getVerificationCode(phoneNumberStr);
                 } else {
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                 }

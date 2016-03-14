@@ -8,10 +8,10 @@
 
     <CheckBox
         android:id="@+id/cb_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:button="@drawable/check_selector"/>
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:button="@drawable/check_selector"
+        android:gravity="center" />
 
     <ImageView
         android:id="@+id/iv_goods"
@@ -19,7 +19,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/test"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
 
     <TextView

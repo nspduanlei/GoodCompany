@@ -40,7 +40,7 @@ public class ManageAddrFragment extends BaseListFragment<RegisterPresenter.IView
 
     @Override
     protected RegisterPresenter createPresenter() {
-        return new RegisterPresenter();
+        return new RegisterPresenter(getActivity());
     }
 
     @Override

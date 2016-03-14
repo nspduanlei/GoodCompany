@@ -21,7 +21,7 @@
             android:textColor="@color/color_3" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="9dp"
             android:background="@null"
@@ -76,7 +76,7 @@
             android:textColor="@color/color_3" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="9dp"
             android:background="@null"
@@ -116,6 +116,7 @@
             android:background="@color/color_line_2" />
 
         <Button
+            android:id="@+id/btn_finish"
             style="@style/button_style_1"
             android:layout_marginTop="30dp"
             android:text="去下单" />

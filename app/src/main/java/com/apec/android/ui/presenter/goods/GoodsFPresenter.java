@@ -1,5 +1,7 @@
 package com.apec.android.ui.presenter.goods;
 
+import android.content.Context;
+
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.Good;
@@ -16,6 +18,10 @@ import java.util.ArrayList;
  */
 public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
 
+    public GoodsFPresenter(Context context) {
+        super(context);
+    }
+
     /**
      * 获取商品列表
      */
@@ -25,6 +31,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
         }
 
         GetGoodsInteract.fetchGoods(
+                mContext,
                 new GetDataCallback<Goods>() {
                     @Override
                     public void onRepose(Goods response) {

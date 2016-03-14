@@ -39,7 +39,7 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
 
     @Override
     protected MyOrdersPresenter createPresenter() {
-        return new MyOrdersPresenter();
+        return new MyOrdersPresenter(getActivity());
     }
 
     @Override

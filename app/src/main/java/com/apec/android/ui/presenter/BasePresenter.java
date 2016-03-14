@@ -1,5 +1,7 @@
 package com.apec.android.ui.presenter;
 
+import android.content.Context;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -10,6 +12,11 @@ import java.lang.ref.WeakReference;
 public abstract class BasePresenter<T> {
 
     protected Reference<T> mViewRef;
+    protected Context mContext;
+
+    public BasePresenter(Context context) {
+        mContext = context;
+    }
 
     public void attachView(T view) {
         mViewRef = new WeakReference<>(view);
