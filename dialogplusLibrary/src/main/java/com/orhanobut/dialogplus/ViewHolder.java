@@ -1,5 +1,6 @@
 package com.orhanobut.dialogplus;
 
+import android.view.InflateException;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,7 @@ public class ViewHolder implements Holder {
     }
 
     private void addContent(LayoutInflater inflater, ViewGroup parent, ViewGroup container) {
+
         if (viewResourceId != INVALID) {
             contentView = inflater.inflate(viewResourceId, parent, false);
         } else {
@@ -80,7 +82,6 @@ public class ViewHolder implements Holder {
                 parentView.removeView(contentView);
             }
         }
-
         container.addView(contentView);
     }
 

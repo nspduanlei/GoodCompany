@@ -71,13 +71,6 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
     private void initTimer() {
         myHandler = new MyHandler(this);
-        //为timer提供一个定时执行的任务，在 Timer线程中无法直接操作 UI线程
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                myHandler.obtainMessage(HANDLER_TIMER).sendToTarget();
-            }
-        };
         mTimer = new Timer(true);
     }
 
@@ -121,6 +114,18 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
         isDown = true;
         down = 60;
         //1s执行一次
+        if (timerTask != null) {
+            timerTask.cancel(); //将原任务从队列移除
+        }
+
+        //为timer提供一个定时执行的任务，在 Timer线程中无法直接操作 UI线程
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                myHandler.obtainMessage(HANDLER_TIMER).sendToTarget();
+            }
+        };
+
         mTimer.schedule(timerTask, 1000, 1000);
     }
 

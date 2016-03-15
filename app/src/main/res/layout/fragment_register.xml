@@ -9,9 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
-        android:padding="45dp"
-        android:layout_marginTop="48dp">
+        android:padding="45dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="9dp"
             android:background="@null"
-            android:text="欢乐峰面包店"
             android:textColor="@color/color_text_1"
             android:textSize="@dimen/common_text_size"
             android:textStyle="bold" />
@@ -36,30 +35,26 @@
             android:background="@color/color_line_2" />
 
         <LinearLayout
+            android:id="@+id/ll_select_area"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="城市"
-                android:textColor="@color/color_3" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="|"
+                android:text="城市地区"
                 android:textColor="@color/color_3" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/tv_area"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@null"
+                android:clickable="false"
                 android:gravity="right"
-                android:text="地区"
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_text_1" />
+
         </LinearLayout>
 
         <View
@@ -68,6 +63,7 @@
             android:background="@color/color_line_2" />
 
         <TextView
+            android:id="@+id/tv_area_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/view_margin"
@@ -80,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="9dp"
             android:background="@null"
-            android:text="深圳市福田区海吉农飞洒发发发生发发发发发"
             android:textColor="@color/color_text_1"
             android:textSize="@dimen/common_text_size"
             android:textStyle="bold" />
@@ -106,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="right"
-                android:text="陈建军"
+                android:textColor="@color/color_text_1"
                 android:textSize="@dimen/common_text_size" />
         </LinearLayout>
 
@@ -121,4 +116,18 @@
             android:layout_marginTop="30dp"
             android:text="去下单" />
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+    </LinearLayout>
+
+
 </FrameLayout>

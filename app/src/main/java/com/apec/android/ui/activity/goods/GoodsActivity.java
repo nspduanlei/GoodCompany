@@ -22,8 +22,7 @@ public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IV
 //    RegisterPresenter mPresenter;
 
     private static final String[] CONTENT =
-            new String[] {"  糖  ","  米  ","  油  ","  面  ","  调味品  "
-                    ,"  糖  ","  米  ","  油  ","  面  "," 调味品 "};
+            new String[] {"糖","米","油","面","调味品"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

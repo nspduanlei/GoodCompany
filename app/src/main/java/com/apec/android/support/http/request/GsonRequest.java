@@ -15,6 +15,8 @@ import com.apec.android.support.http.RequestHelper;
 import com.apec.android.support.test;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.L;
+import com.apec.android.util.SPUtils;
+import com.apec.android.util.StringUtils;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -50,6 +52,11 @@ public class GsonRequest<T> extends Request<T> {
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
+            String token = response.headers.get("x-auth-token");
+            if (!StringUtils.isNullOrEmpty(token)) {
+                SPUtils.put(mContext, SPUtils.SESSION_id, token);
+            }
+
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
 
@@ -66,6 +73,7 @@ public class GsonRequest<T> extends Request<T> {
     protected void deliverResponse(T response) {
         mListener.onResponse(response);
     }
+
 
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {

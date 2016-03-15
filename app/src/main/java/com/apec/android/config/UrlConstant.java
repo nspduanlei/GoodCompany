@@ -23,4 +23,7 @@ public class UrlConstant {
     //提交短信验证码
     public static final String URL_SMS_LOGIN = URL_BASE + "/user/sms/login";
 
+    //地区选择
+    public static final String URL_AREA = URL_BASE + "/area";
+
 }

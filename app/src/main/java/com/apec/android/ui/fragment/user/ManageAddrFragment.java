@@ -10,6 +10,7 @@ import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.ViewHolder;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.fragment.BaseListFragment;
+import com.apec.android.ui.presenter.user.ManageAddrPresenter;
 import com.apec.android.ui.presenter.user.RegisterPresenter;
 
 import java.lang.reflect.Array;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
  *
  * Created by Administrator on 2016/2/26.
  */
-public class ManageAddrFragment extends BaseListFragment<RegisterPresenter.IView,
-        RegisterPresenter> implements RegisterPresenter.IView {
+public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IView,
+        ManageAddrPresenter> implements ManageAddrPresenter.IView {
 
     public static ManageAddrFragment newInstance() {
         ManageAddrFragment fragment = new ManageAddrFragment();
@@ -39,8 +40,8 @@ public class ManageAddrFragment extends BaseListFragment<RegisterPresenter.IView
     }
 
     @Override
-    protected RegisterPresenter createPresenter() {
-        return new RegisterPresenter(getActivity());
+    protected ManageAddrPresenter createPresenter() {
+        return new ManageAddrPresenter(getActivity());
     }
 
     @Override

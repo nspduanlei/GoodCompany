@@ -40,17 +40,27 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
             Intent intent = new Intent(this, GuideActivity.class);
             startActivity(intent);
         } else {
-            //不是第一次进入，判断是否登录
-            if (StringUtils.isNullOrEmpty(
-                    (String) SPUtils.get(this, SPUtils.SESSION_id, ""))) {
-                //session_id为空没有登录，进入登录页面
-                Intent intent = new Intent(this, RegisterFActivity.class);
-                startActivity(intent);
-            } else {
-                //session_id存在，进入商品展示页
-                Intent intent = new Intent(this, GoodsActivity.class);
-                startActivity(intent);
-            }
+//            //不是第一次进入，判断是否登录
+//            if (StringUtils.isNullOrEmpty(
+//                    (String) SPUtils.get(this, SPUtils.SESSION_id, ""))) {
+//                //session_id为空没有登录，进入登录页面
+//                Intent intent = new Intent(this, RegisterFActivity.class);
+//                startActivity(intent);
+//            } else {
+//                //session_id存在，进入商品展示页
+//                Intent intent = new Intent(this, GoodsActivity.class);
+//                startActivity(intent);
+//            }
+
+//            Intent intent = new Intent(this, GoodsActivity.class);
+//            startActivity(intent);
+
+//            Intent intent = new Intent(this, RegisterFActivity.class);
+//            startActivity(intent);
+
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+
         }
         this.finish();
     }
@@ -76,6 +86,7 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
 
     /**
      * sqlite添加数据测试
+     *
      * @param view
      */
     public void addData(View view) {
