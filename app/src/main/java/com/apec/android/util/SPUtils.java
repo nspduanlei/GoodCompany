@@ -18,7 +18,7 @@ public class SPUtils {
     //是否第一次进入app
     public static final String IS_FIRST_LAUNCH = "is_first_launch";
     //用户登录的回话id
-    public static final String SESSION_id = "session_id";
+    public static final String SESSION_ID = "session_id";
     //用户选择不更新版本
     public static final String IS_NOT_UPDATE_VERSION = "select_not_update_version";
 

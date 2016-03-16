@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
+import com.apec.android.domain.goods.GateGorys;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.goods.ModelTest;
 import com.apec.android.support.http.Listener;
@@ -27,13 +28,13 @@ public class GetGoodsInteract {
      * 获取所用的类型
      * @param callback
      */
-    public static void fetchCategorys(Context context, final GetDataCallback<test> callback) {
-        GsonRequest<test> request = new GsonRequest<test>(
+    public static void fetchCategorys(Context context, final GetDataCallback<GateGorys> callback) {
+        GsonRequest<GateGorys> request = new GsonRequest<>(
                 context, Request.Method.POST,
-                UrlConstant.URL_CATEGORY, test.class,
-                new Listener<test>() {
+                UrlConstant.URL_CATEGORY, GateGorys.class,
+                new Listener<GateGorys>() {
                     @Override
-                    public void onResponse(test response) {
+                    public void onResponse(GateGorys response) {
                         callback.onRepose(response);
                     }
 

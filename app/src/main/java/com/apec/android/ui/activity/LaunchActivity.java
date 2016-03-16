@@ -42,7 +42,7 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
         } else {
 //            //不是第一次进入，判断是否登录
 //            if (StringUtils.isNullOrEmpty(
-//                    (String) SPUtils.get(this, SPUtils.SESSION_id, ""))) {
+//                    (String) SPUtils.get(this, SPUtils.SESSION_ID, ""))) {
 //                //session_id为空没有登录，进入登录页面
 //                Intent intent = new Intent(this, RegisterFActivity.class);
 //                startActivity(intent);
@@ -52,14 +52,14 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
 //                startActivity(intent);
 //            }
 
-//            Intent intent = new Intent(this, GoodsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(this, GoodsActivity.class);
+            startActivity(intent);
 
 //            Intent intent = new Intent(this, RegisterFActivity.class);
 //            startActivity(intent);
 
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, RegisterActivity.class);
+//            startActivity(intent);
 
         }
         this.finish();

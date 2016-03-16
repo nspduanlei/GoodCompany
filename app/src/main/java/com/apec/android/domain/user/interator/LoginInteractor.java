@@ -126,4 +126,42 @@ public class LoginInteractor {
 
         MyApplication.getRequestQueue().add(request);
     }
+
+    public static void submitUserData(Context context, final GetDataCallback<NoBody> callback,
+                                      final String userShop,
+                                      final String userName,
+                                      final String userCity,
+                                      final String userAreacounty,
+                                      final String userAddress) {
+        GsonRequest<NoBody> request = new GsonRequest<>(
+                context, Request.Method.POST,
+                UrlConstant.URL_COMPLETE,
+                NoBody.class,
+                new Listener<NoBody>() {
+                    @Override
+                    public void onResponse(NoBody response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("userShop", userShop);
+                        params.put("userName", userName);
+                        params.put("userCity", userCity);
+                        params.put("userAreacounty", userAreacounty);
+                        params.put("userAddress", userAddress);
+                        return params;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                }
+        );
+
+        MyApplication.getRequestQueue().add(request);
+    }
 }

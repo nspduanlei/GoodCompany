@@ -25,6 +25,6 @@
 
 
     <color name="transparency">#00000000</color>
-
+    <color name="color_test">#aa0000</color>
 
 </resources>

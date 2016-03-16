@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <FrameLayout
@@ -14,11 +14,15 @@
             android:layout_gravity="center"
             android:text="所在地区" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:text="取消" />
+            android:onClick="cancel"
+            android:src="@drawable/cancel"
+            android:scaleType="center"
+            android:background="@null"/>
     </FrameLayout>
 
     <View
@@ -26,28 +30,33 @@
         android:layout_height="0.5dp"
         android:background="@color/color_line" />
 
-    <LinearLayout
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/ll_areas"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+        <RadioButton
+            style="@style/btn_style_radio_1"
+            android:id="@+id/rb_city"
+            android:visibility="gone" />
 
-        </LinearLayout>
+        <RadioButton
+            style="@style/btn_style_radio_1"
+            android:id="@+id/rb_area"
+            android:visibility="gone" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+        <RadioButton
+            style="@style/btn_style_radio_1"
+            android:id="@+id/rb_road"
+            android:visibility="gone" />
+
+        <RadioButton
+            style="@style/btn_style_radio_1"
+            android:id="@+id/rb_please_select"
             android:text="请选择"
-            android:textColor="@color/color_5" />
-
-    </LinearLayout>
+            android:checked="true"/>
+    </RadioGroup>
 
     <View
         android:layout_width="match_parent"
@@ -55,8 +64,8 @@
         android:background="@color/color_line" />
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/lv_areas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="200dp" />
 
 </LinearLayout>

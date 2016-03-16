@@ -4,26 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apec.android.R;
-import com.apec.android.domain.user.Area;
 import com.apec.android.ui.activity.goods.GoodsActivity;
+import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.RegisterPresenter;
+import com.apec.android.util.StringUtils;
 import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.ViewHolder;
-
-import java.util.ArrayList;
 
 /**
  * 注册流程，填写资料
  * Created by Administrator on 2016/2/26.
  */
 public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
-        RegisterPresenter> implements RegisterPresenter.IView, View.OnClickListener {
+        RegisterPresenter> implements RegisterPresenter.IView, View.OnClickListener,
+        SelectCityUtil.SelectArea {
 
     public static RegisterFragment newInstance() {
         RegisterFragment fragment = new RegisterFragment();
@@ -49,25 +51,18 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        //mPresenter.obtainArea(1);
     }
-
-    /**
-     * 地区选择
-     */
-//    ArrayList<Area> areaData;
-//    BaseAdapter mAdapter;
-//    View headView;
-//    TextView selectAreaName;
-//    StringBuffer strAreaName = new StringBuffer("");
-//    int level = 0;
 
     /**
      * 表单数据
      */
     TextView tvArea;
-
     DialogPlus dialog;
+
+    EditText etShop, etAreaDetail, etUserName;
+    int userCityId, userAreaId, userRoadId;
+
+    FrameLayout loading;
 
     private void initView(View view) {
         Button finish = (Button) view.findViewById(R.id.btn_finish);
@@ -82,36 +77,26 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
         LinearLayout selectArea = (LinearLayout) view.findViewById(R.id.ll_select_area);
         selectArea.setOnClickListener(this);
 
-//        areaData = new ArrayList<>();
-//        mAdapter =  new CommonAdapter<Area>(getActivity(), areaData,
-//                R.layout.select_city_item) {
-//            @Override
-//            public void convert(ViewHolder holder,
-//                                Area area) {
-//                holder.setText(R.id.tv_area_name, area.getAreaName());
-//            }
-//        };
-//
-//        headView = View.inflate(getActivity(), R.layout.select_city_head, null);
-//        selectAreaName = (TextView) headView.findViewById(R.id.tv_area);
+        //城市选择弹窗
+        dialog = new SelectCityUtil(getActivity(), this).dialog;
 
+        //表单数据
         tvArea = (TextView) view.findViewById(R.id.tv_area);
+        etShop = (EditText) view.findViewById(R.id.et_shop);
+        etAreaDetail = (EditText) view.findViewById(R.id.et_area_detail);
+        etUserName = (EditText) view.findViewById(R.id.et_user_name);
 
-        dialog = new DialogPlus.Builder(getActivity())
-                .setContentHolder(new ViewHolder(R.layout.dialog_content))
-                .setCancelable(true)
-                .setGravity(DialogPlus.Gravity.BOTTOM)
-                .create();
+        loading = (FrameLayout) view.findViewById(R.id.fl_loading);
     }
 
     @Override
     public void hideLoading() {
-
+        loading.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
-
+        loading.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -124,70 +109,56 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
         return isAdded();
     }
 
-    DialogPlus mDialog;
+    @Override
+    public void submitSuccess() {
+        Intent intent = new Intent(getActivity(), GoodsActivity.class);
+        startActivity(intent);
+    }
 
-    //@Override
-    //public void getAreaBack(ArrayList<Area> areas) {
-//        if (areas.size() == 0 || level > 1) {
-//            mDialog.dismiss();
-//            tvArea.setText(strAreaName.toString());
-//
-//            level = 0;
-//            mPresenter.obtainArea(1);
-//            strAreaName.delete(0, selectAreaName.toString().length());
-//            return;
-//        }
-//        level++;
-//        areaData.clear();
-//        areaData.addAll(areas);
-//        mAdapter.notifyDataSetChanged();
-//
-//        if (!StringUtils.isNullOrEmpty(strAreaName.toString())) {
-//            selectAreaName.setText(strAreaName.toString());
-//        }
- //  }
+    @Override
+    public void needLogin() {
+        Intent intent = new Intent(getActivity(), RegisterFActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_finish:
-                Intent intent = new Intent(getActivity(), GoodsActivity.class);
-                startActivity(intent);
+                //验证
+                String userShop = etShop.getText().toString();
+                String userName = etUserName.getText().toString();
+                int userCity = userCityId;
+                int userArea = userAreaId;
+                String userAddress = etAreaDetail.getText().toString();
+
+                if (StringUtils.isNullOrEmpty(userShop) ||
+                        StringUtils.isNullOrEmpty(userName) ||
+                        userCity == 0 ||
+                        userAreaId == 0 ||
+                        StringUtils.isNullOrEmpty(userAddress)) {
+                    Toast.makeText(getActivity(), "请填写完所用表单数据。。",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    //提交数据
+                    mPresenter.submitUserData(userShop, userName, userCity, userArea, userAddress);
+                }
+
                 break;
             case R.id.iv_back:
                 getActivity().finish();
                 break;
             case R.id.ll_select_area:
-                //TODO test 测试弹窗
-//                Holder holder = new ListHolder();
-//                DialogUtils.showTestDialog(
-//                        getActivity(),
-//                        holder,
-//                        DialogPlus.Gravity.BOTTOM,
-//                        mAdapter,
-//                        new OnItemClickListener() {
-//                            @Override
-//                            public void onItemClick(DialogPlus dialog, Object item,
-//                                                    View view, int position) {
-//                                if (position == 0) {
-//                                    return;
-//                                }
-//                                mDialog = dialog;
-//                                mPresenter.obtainArea(((Area) item).getId());
-//                                strAreaName.append(((Area) item).getAreaName());
-//                            }
-//                        }, headView);
-
-
-
-//                DialogUtils.showTest2Dialog(
-//                        getActivity(),
-//                        new com.orhanobut.dialogplus.ViewHolder()
-//                );
                 dialog.show();
-
-
                 break;
         }
+    }
+
+    @Override
+    public void finish(String areaStr, int selCityId, int selAreaId, int selRoadId) {
+        tvArea.setText(areaStr);
+        userCityId = selCityId;
+        userAreaId = selAreaId;
+        userRoadId = selRoadId;
     }
 }

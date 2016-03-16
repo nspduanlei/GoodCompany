@@ -24,7 +24,34 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenter.IView> {
         super(context);
     }
 
+
+    public void submitUserData(String userShop,
+                               String userName,
+                               int userCity,
+                               int userAreacounty,
+                               String userAddress) {
+        LoginInteractor.submitUserData(mContext, new GetDataCallback<NoBody>() {
+                    @Override
+                    public void onRepose(NoBody response) {
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            getView().submitSuccess();
+                        } else if (code == 10) { //需要登录
+                            getView().needLogin();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, userShop, userName, String.valueOf(userCity),
+                String.valueOf(userAreacounty), userAddress);
+    }
+
     public interface IView extends BaseViewInterface {
         boolean isReady();
+        void submitSuccess();
+        void needLogin();
     }
 }

@@ -1,6 +1,5 @@
 package com.apec.android.support.http.request;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
@@ -12,7 +11,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.RequestHelper;
-import com.apec.android.support.test;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.SPUtils;
@@ -54,7 +52,7 @@ public class GsonRequest<T> extends Request<T> {
         try {
             String token = response.headers.get("x-auth-token");
             if (!StringUtils.isNullOrEmpty(token)) {
-                SPUtils.put(mContext, SPUtils.SESSION_id, token);
+                SPUtils.put(mContext, SPUtils.SESSION_ID, token);
             }
 
             String jsonString = new String(response.data,
@@ -87,6 +85,8 @@ public class GsonRequest<T> extends Request<T> {
         params.put("_c", "android");
         params.put("IMEI", AppUtils.getDeviceId(mContext));
         params.put("UA", mHelper.getHeaderUserAgent());
+        params.put("x-auth-token", (String)
+                SPUtils.get(mContext, SPUtils.SESSION_ID, "0"));
         return params;
     }
 }

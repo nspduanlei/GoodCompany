@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.apec.android.R;
+import com.apec.android.ui.activity.BaseActivity;
+import com.apec.android.ui.activity.MVPBaseActivity;
 import com.apec.android.ui.fragment.goods.GoodsFragment;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
 import com.viewpagerindicator.TabPageIndicator;
@@ -17,9 +19,8 @@ import com.viewpagerindicator.TabPageIndicator;
  * 商品展示
  * Created by Administrator on 2016/2/26.
  */
-public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IView {
-
-//    RegisterPresenter mPresenter;
+public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
+        GoodsPresenter> implements GoodsPresenter.IView {
 
     private static final String[] CONTENT =
             new String[] {"糖","米","油","面","调味品"};
@@ -29,10 +30,12 @@ public class GoodsActivity extends FragmentActivity implements GoodsPresenter.IV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods);
         initViews();
+        mPresenter.fetchGoodTypes();
+    }
 
-//        mPresenter = new RegisterPresenter(this);
-//        mPresenter.fetchGoodTypes();
-
+    @Override
+    protected GoodsPresenter createPresenter() {
+        return new GoodsPresenter(this);
     }
 
     FrameLayout loading;
