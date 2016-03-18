@@ -26,5 +26,9 @@ public class UrlConstant {
     //地区选择
     public static final String URL_AREA = URL_BASE + "/area";
 
+    //完善资料
     public static final String URL_COMPLETE = URL_BASE + "/user/complete";
+
+    //获取商品全部规格属性
+    public static final String URL_ALL_ARRT = URL_BASE + "/goods/all/attribute";
 }

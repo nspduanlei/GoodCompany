@@ -9,6 +9,7 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.GateGorys;
+import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.goods.ModelTest;
 import com.apec.android.support.http.Listener;
@@ -26,6 +27,7 @@ import java.util.Map;
 public class GetGoodsInteract {
     /**
      * 获取所用的类型
+     *
      * @param callback
      */
     public static void fetchCategorys(Context context, final GetDataCallback<GateGorys> callback) {
@@ -56,6 +58,7 @@ public class GetGoodsInteract {
 
     /**
      * 获取商品列表
+     *
      * @param callback
      */
     public static void fetchGoods(Context context, final GetDataCallback<Goods> callback) {
@@ -86,8 +89,9 @@ public class GetGoodsInteract {
 
     /**
      * 获得商品详情
+     *
      * @param callback
-     * @param id 商品id
+     * @param id       商品id
      */
     public static void fetchGoodsDetail(Context context, final GetDataCallback<ModelTest> callback,
                                         final int id, final int originId) {
@@ -102,7 +106,7 @@ public class GetGoodsInteract {
 
                     @Override
                     public Map getRequestParams() {
-                        Map<String,String> params = new HashMap<>();
+                        Map<String, String> params = new HashMap<>();
                         params.put("id", String.valueOf(id));
                         params.put("originId", String.valueOf(originId));
                         return params;
@@ -119,4 +123,39 @@ public class GetGoodsInteract {
         MyApplication.getRequestQueue().add(request);
     }
 
+
+    /**
+     * 获得商品全部规格属性
+     *
+     * @param callback
+     * @param id       商品id
+     */
+    public static void fetchGoodsAttrs(Context context,
+                                       final GetDataCallback<GetAllAttribute> callback,
+                                       final int id) {
+        GsonRequest<GetAllAttribute> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_ALL_ARRT + "?id=" + id,
+                GetAllAttribute.class,
+                new Listener<GetAllAttribute>() {
+                    @Override
+                    public void onResponse(GetAllAttribute response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
 }

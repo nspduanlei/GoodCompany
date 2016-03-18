@@ -1,17 +1,14 @@
 package com.apec.android.ui.activity.goods;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.apec.android.R;
-import com.apec.android.ui.activity.BaseActivity;
 import com.apec.android.ui.activity.MVPBaseActivity;
-import com.apec.android.ui.fragment.goods.GoodsFragment;
+import com.apec.android.ui.adapter.IconPageViewAdapter;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -21,9 +18,6 @@ import com.viewpagerindicator.TabPageIndicator;
  */
 public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         GoodsPresenter> implements GoodsPresenter.IView {
-
-    private static final String[] CONTENT =
-            new String[] {"糖","米","油","面","调味品"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +38,13 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
      * 初始化ui
      */
     private void initViews() {
+        loading = (FrameLayout) findViewById(R.id.fl_loading);
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp_goods);
-        viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return GoodsFragment.newInstance(position);
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return CONTENT[position % CONTENT.length].toUpperCase();
-            }
-
-            @Override
-            public int getCount() {
-                return CONTENT.length;
-            }
-        });
-
+        FragmentPagerAdapter adapter = new IconPageViewAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
         TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
-
-        loading = (FrameLayout) findViewById(R.id.fl_loading);
     }
 
     @Override
@@ -85,6 +64,5 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
 
     @Override
     public void showGoodTypes() {
-
     }
 }

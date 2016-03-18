@@ -12,8 +12,16 @@ public class Good {
     private String goodsLevel;
     private String goodsRemark;
     private String price;
-
     private ArrayList<Pic> pics;
+    private ArrayList<Sku> skus;
+
+    public ArrayList<Sku> getSkus() {
+        return skus;
+    }
+
+    public void setSkus(ArrayList<Sku> skus) {
+        this.skus = skus;
+    }
 
     public int getId() {
         return id;

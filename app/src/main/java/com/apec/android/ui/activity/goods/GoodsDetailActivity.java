@@ -13,6 +13,7 @@ public class GoodsDetailActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return new GoodsDetailFragment();
+        return GoodsDetailFragment.newInstance(
+                getIntent().getIntExtra(GoodsDetailFragment.EXTRA_GOODS_ID, 0));
     }
 }

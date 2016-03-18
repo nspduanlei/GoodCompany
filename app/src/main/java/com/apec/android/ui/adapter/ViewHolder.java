@@ -7,9 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.apec.android.R;
+import com.apec.android.domain.goods.SkuAttrValue;
+import com.apec.android.util.DensityUtils;
+import com.apec.android.util.L;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Author: duanlei
@@ -125,6 +134,37 @@ public class ViewHolder {
     public ViewHolder setChecked(int checkId, boolean checked) {
         CheckBox checkBox = getView(checkId);
         checkBox.setChecked(checked);
+        return this;
+    }
+
+    public ViewHolder setRadioGroup(int viewId, ArrayList<SkuAttrValue> values) {
+        RadioGroup radioGroup = getView(viewId);
+
+        RadioButton radioButton;
+        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.setMargins(0, 0, DensityUtils.dp2px(mContext, 10), 0);
+
+        for (SkuAttrValue value : values) {
+            radioButton = new RadioButton(mContext);
+            radioButton.setTextAppearance(mContext, R.style.btn_style_radio);
+            radioButton.setButtonDrawable(null);
+            radioButton.setBackgroundResource(R.drawable.radio_selector);
+            radioButton.setTextAppearance(mContext, R.style.radio_text_color);
+            radioButton.setText(value.getName());
+            radioButton.setLayoutParams(layoutParams);
+            radioGroup.addView(radioButton);
+        }
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                L.e("test", "checkedId ----> " + checkedId);
+            }
+        });
+
+
         return this;
     }
 }

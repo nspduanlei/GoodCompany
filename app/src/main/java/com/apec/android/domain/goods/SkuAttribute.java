@@ -1,5 +1,6 @@
 package com.apec.android.domain.goods;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 public class SkuAttribute {
     private int id;
     private String name;
-    private List<SkuAttrValue> attributeValues;
+    private ArrayList<SkuAttrValue> attributeValues;
 
     public int getId() {
         return id;
@@ -26,11 +27,11 @@ public class SkuAttribute {
         this.name = name;
     }
 
-    public List<SkuAttrValue> getAttributeValues() {
+    public ArrayList<SkuAttrValue> getAttributeValues() {
         return attributeValues;
     }
 
-    public void setAttributeValues(List<SkuAttrValue> attributeValues) {
+    public void setAttributeValues(ArrayList<SkuAttrValue> attributeValues) {
         this.attributeValues = attributeValues;
     }
 }

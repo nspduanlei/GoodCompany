@@ -3,6 +3,7 @@ package com.apec.android.ui.fragment.goods;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,48 +67,34 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     ListView mListView;
     ArrayList<Good> mData = new ArrayList<>();
     CommonAdapter<Good> commonAdapter;
-    private Good mGood;
     FrameLayout loading;
 
     private void initView(View view) {
-        //测试
-        TextView test = (TextView) view.findViewById(R.id.tv_test);
-        test.setText(String.valueOf(mID));
-
         //商品列表初始化
         mListView = (ListView) view.findViewById(R.id.lv_goods);
         commonAdapter = new CommonAdapter<Good>(getActivity(),
                 mData, R.layout.goods_item) {
             @Override
             public void convert(ViewHolder holder, Good good) {
-                mGood = good;
-                holder.setText(R.id.tv_name, good.getGoodsName())
-                        .setOnClickLister(R.id.ll_item, onItemClickListener);
+                holder.setText(R.id.tv_name, good.getGoodsName());
             }
         };
-
         mListView.setAdapter(commonAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt(GoodsDetailFragment.EXTRA_GOODS_ID
+                        , mData.get(position).getId());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
     }
-
-    /**
-     * item点击监听
-     */
-    View.OnClickListener onItemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.ll_item:
-                    Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("goodsId", mGood.getId());
-                    startActivity(intent);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     public void hideLoading() {

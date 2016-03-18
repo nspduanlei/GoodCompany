@@ -48,6 +48,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
         convert(holder, getItem(position));
 
+
         return holder.getConvertView();
     }
 

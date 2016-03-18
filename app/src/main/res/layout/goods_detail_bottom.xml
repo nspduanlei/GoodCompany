@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        style="@style/order_style_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="净含量"
+            android:textColor="@color/color_text_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="￥270(50kg/包)"
+            android:textColor="@color/color_text_4" />
+    </FrameLayout>
+
+    <FrameLayout
+        style="@style/order_style_margin"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="数量"
+            android:textColor="@color/color_text_2" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <ImageButton
+                android:id="@+id/btn_add"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_add" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/color_text_1"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/btn_cut"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_cut" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_margin="20dp"
+        android:background="@color/color_line" />
+
+    <TextView
+        style="@style/order_style_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="配送费：￥0.00"
+        android:textColor="@color/color_text_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"
+        android:text="*您的货物预计在3月2日18点送达"
+        android:textColor="@color/color_5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="合计：￥1，350.00"
+        android:textColor="@color/color_5"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        style="@style/button_style_2"
+        android:layout_marginTop="15dp"
+        android:text="加入购物车" />
+
+</LinearLayout>

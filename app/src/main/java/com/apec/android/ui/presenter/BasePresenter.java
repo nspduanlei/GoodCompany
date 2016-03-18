@@ -22,7 +22,7 @@ public abstract class BasePresenter<T> {
         mViewRef = new WeakReference<>(view);
     }
 
-    protected T getView(){
+    protected T getView() {
         return mViewRef.get();
     }
 

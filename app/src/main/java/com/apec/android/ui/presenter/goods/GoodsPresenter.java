@@ -6,7 +6,6 @@ import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.GateGorys;
 import com.apec.android.domain.goods.interator.GetGoodsInteract;
-import com.apec.android.support.test;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -23,6 +22,7 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
      * 获取商品类型
      */
     public void fetchGoodTypes() {
+
         getView().showLoading();
 
         GetGoodsInteract.fetchCategorys(
@@ -30,11 +30,8 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
                 new GetDataCallback<GateGorys>() {
                     @Override
                     public void onRepose(GateGorys response) {
-
                         getView().hideLoading();
-
                         int code = response.getH().getCode();
-
                         if (code == 200) {
 
                         }
