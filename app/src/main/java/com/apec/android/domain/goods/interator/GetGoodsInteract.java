@@ -11,6 +11,7 @@ import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.GateGorys;
 import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Goods;
+import com.apec.android.domain.goods.GoodsDetail;
 import com.apec.android.domain.goods.ModelTest;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
@@ -93,23 +94,22 @@ public class GetGoodsInteract {
      * @param callback
      * @param id       商品id
      */
-    public static void fetchGoodsDetail(Context context, final GetDataCallback<ModelTest> callback,
-                                        final int id, final int originId) {
-        GsonRequest<ModelTest> request = new GsonRequest<>(
-                context, Request.Method.POST,
-                UrlConstant.URL_GOODS, ModelTest.class,
-                new Listener<ModelTest>() {
+    public static void fetchGoodsDetail(Context context,
+                                        final GetDataCallback<GoodsDetail> callback,
+                                        final int id) {
+        GsonRequest<GoodsDetail> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_GOODS_DETAIL + "?id=" + id,
+                GoodsDetail.class,
+                new Listener<GoodsDetail>() {
                     @Override
-                    public void onResponse(ModelTest response) {
+                    public void onResponse(GoodsDetail response) {
                         callback.onRepose(response);
                     }
 
                     @Override
                     public Map getRequestParams() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("id", String.valueOf(id));
-                        params.put("originId", String.valueOf(originId));
-                        return params;
+                        return null;
                     }
                 },
 
@@ -136,6 +136,35 @@ public class GetGoodsInteract {
         GsonRequest<GetAllAttribute> request = new GsonRequest<>(
                 context, Request.Method.GET,
                 UrlConstant.URL_ALL_ARRT + "?id=" + id,
+                GetAllAttribute.class,
+                new Listener<GetAllAttribute>() {
+                    @Override
+                    public void onResponse(GetAllAttribute response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    public static void querySku(Context context,
+                                       final GetDataCallback<GetAllAttribute> callback,
+                                       final int id, final String attrs) {
+        GsonRequest<GetAllAttribute> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_SKU_ATTR + "?goodsId=" + id + "&attributeValueIds=" + attrs,
                 GetAllAttribute.class,
                 new Listener<GetAllAttribute>() {
                     @Override

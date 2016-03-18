@@ -31,4 +31,9 @@ public class UrlConstant {
 
     //获取商品全部规格属性
     public static final String URL_ALL_ARRT = URL_BASE + "/goods/all/attribute";
+
+
+    //根据规格属性获取sku
+    public static final String URL_SKU_ATTR = URL_BASE + "/query/sku/by/attribute";
+
 }

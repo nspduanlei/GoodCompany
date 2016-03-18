@@ -139,6 +139,9 @@ public class ViewHolder {
 
     public ViewHolder setRadioGroup(int viewId, ArrayList<SkuAttrValue> values) {
         RadioGroup radioGroup = getView(viewId);
+        if(radioGroup.getChildCount() >= values.size()) {
+            return this;
+        }
 
         RadioButton radioButton;
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(

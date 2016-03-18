@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Good;
+import com.apec.android.domain.goods.GoodsDetail;
 import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.goods.interator.GetGoodsInteract;
 import com.apec.android.domain.goods.ModelTest;
@@ -52,16 +53,16 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
     }
 
     /**
-     * 获取商品全部规格属性
+     * 根据规格属性查询sku
      *
      * @return
      */
-    public void querySku(int goodsId, String arrrs) {
+    public void querySku(int goodsId, String attrs) {
         if (isViewAttached()) {
             getView().showLoading();
         }
 
-        GetGoodsInteract.fetchGoodsAttrs(
+        GetGoodsInteract.querySku(
                 mContext,
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
@@ -76,13 +77,38 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                     public void onErrorResponse(VolleyError error) {
 
                     }
+                }, goodsId, attrs);
+    }
+
+    /**
+     * 获取商品详情
+     * @param goodsId
+     */
+    public void queryGoodsDetail(int goodsId) {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        GetGoodsInteract.fetchGoodsDetail(
+                mContext, new GetDataCallback<GoodsDetail>() {
+                    @Override
+                    public void onRepose(GoodsDetail response) {
+                        getView().hideLoading();
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            getView().getGoodsDetail(response.getB());
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
                 }, goodsId);
     }
 
-
-
     public interface IView extends BaseViewInterface {
         void getAllAttrSuccess(ArrayList<SkuAttribute> attrs);
+        void getGoodsDetail(Good good);
         boolean isReady();
     }
 
