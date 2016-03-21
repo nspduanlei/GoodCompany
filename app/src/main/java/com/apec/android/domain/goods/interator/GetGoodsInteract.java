@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
+import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.GateGorys;
 import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Goods;
@@ -175,6 +176,38 @@ public class GetGoodsInteract {
                     @Override
                     public Map getRequestParams() {
                         return null;
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    public static void addShoppingCart(Context context,
+                                       final GetDataCallback<NoBody> callback,
+                                       final String s, final String num) {
+        GsonRequest<NoBody> request = new GsonRequest<>(
+                context, Request.Method.POST,
+                UrlConstant.URL_ADD_SHOPPING_CART,
+                NoBody.class,
+                new Listener<NoBody>() {
+                    @Override
+                    public void onResponse(NoBody response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("skuId", s);
+                        params.put("num", num);
+                        return params;
                     }
                 },
 

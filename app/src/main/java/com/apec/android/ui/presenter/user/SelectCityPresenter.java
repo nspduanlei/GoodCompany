@@ -6,7 +6,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.user.Area;
 import com.apec.android.domain.user.Areas;
-import com.apec.android.domain.user.interator.LoginInteractor;
+import com.apec.android.domain.user.interator.UserInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -23,7 +23,7 @@ public class SelectCityPresenter extends BasePresenter<SelectCityPresenter.IView
     }
 
     public void obtainArea(int id) {
-        LoginInteractor.obtainArea(mContext, new GetDataCallback<Areas>() {
+        UserInteract.obtainArea(mContext, new GetDataCallback<Areas>() {
             @Override
             public void onRepose(Areas response) {
                 if (response.getH().getCode() == 200) {

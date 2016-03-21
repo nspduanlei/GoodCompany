@@ -8,47 +8,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:background="@drawable/register_bg">
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/register_top"
+            android:scaleType="fitXY"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_height="60dp"
             android:orientation="horizontal"
             android:gravity="center">
 
             <EditText
                 android:id="@+id/et_phone_number"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:hint="手机号码"
                 android:numeric="integer"
                 android:background="@drawable/edit_shape_bg"
-                android:textColorHint="@color/color_text_2"/>
+                android:textColorHint="@color/color_text_2"
+                android:textColor="@color/color_text_1"
+                android:padding="20dp"/>
 
             <Button
                 android:id="@+id/btn_get_code"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="34dp"
-                android:text="获取验证码"
+                android:text="验证"
                 android:background="@drawable/button_shape_bg_4"
                 android:textColor="@color/color_white"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_line"/>
 
         <EditText
             android:id="@+id/et_verify_code"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="60dp"
             android:hint="验证码"
             android:numeric="integer"
             android:background="@drawable/edit_shape_bg"
-            android:layout_marginTop="20dp"
-            android:textColorHint="@color/color_text_2"/>
+            android:textColorHint="@color/color_text_2"
+            android:paddingLeft="20dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_line"/>
 
         <!--提示-->
         <TextView
@@ -70,10 +85,16 @@
             android:visibility="gone" />
 
         <Button
-            style="@style/button_style_3"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:id="@+id/btn_start"
             android:layout_marginTop="20dp"
-            android:text="开始" />
+            android:text="开始"
+            android:textColor="@color/color_white"
+            android:background="@drawable/button_shape_bg_5"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <include

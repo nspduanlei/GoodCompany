@@ -55,7 +55,7 @@ public class ViewHolder {
         }
     }
 
-    public int getmPosition() {
+    public int getMPosition() {
         return mPosition;
     }
 
@@ -137,37 +137,9 @@ public class ViewHolder {
         return this;
     }
 
-    public ViewHolder setRadioGroup(int viewId, ArrayList<SkuAttrValue> values) {
-        RadioGroup radioGroup = getView(viewId);
-        if(radioGroup.getChildCount() >= values.size()) {
-            return this;
-        }
-
-        RadioButton radioButton;
-        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.setMargins(0, 0, DensityUtils.dp2px(mContext, 10), 0);
-
-        for (SkuAttrValue value : values) {
-            radioButton = new RadioButton(mContext);
-            radioButton.setTextAppearance(mContext, R.style.btn_style_radio);
-            radioButton.setButtonDrawable(null);
-            radioButton.setBackgroundResource(R.drawable.radio_selector);
-            radioButton.setTextAppearance(mContext, R.style.radio_text_color);
-            radioButton.setText(value.getName());
-            radioButton.setLayoutParams(layoutParams);
-            radioGroup.addView(radioButton);
-        }
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                L.e("test", "checkedId ----> " + checkedId);
-            }
-        });
-
-
+    public ViewHolder setTextTow(int tv_add_count, String price, int count) {
+        TextView tv = getView(tv_add_count);
+        tv.setText(price + " X " + count);
         return this;
     }
 }

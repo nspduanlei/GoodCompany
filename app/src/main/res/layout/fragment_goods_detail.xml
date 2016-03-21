@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/top_bar_layout" />
+    <include layout="@layout/top_bar_layout_1" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,4 +17,5 @@
             android:divider="@null" />
         <include layout="@layout/loading_layout" />
     </FrameLayout>
+
 </LinearLayout>

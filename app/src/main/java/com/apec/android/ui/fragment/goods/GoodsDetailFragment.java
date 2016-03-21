@@ -1,15 +1,19 @@
 package com.apec.android.ui.fragment.goods;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,22 +22,17 @@ import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.Sku;
 import com.apec.android.domain.goods.SkuAttrValue;
 import com.apec.android.domain.goods.SkuAttribute;
-import com.apec.android.ui.activity.BaseActivity;
-import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.ViewHolder;
-import com.apec.android.ui.fragment.BaseFragment;
+import com.apec.android.ui.activity.user.RegisterActivity;
+import com.apec.android.ui.activity.user.RegisterFActivity;
+import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.goods.GoodsDetailPresenter;
 import com.apec.android.util.DensityUtils;
 import com.apec.android.util.L;
+import com.apec.android.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * 商品详情
@@ -80,6 +79,8 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         mPresenter.fetchGoodsAttrs(goodsId);
     }
 
+    private FrameLayout loading;
+
     private void initView(View view) {
         /**
          * 导航栏初始化
@@ -89,6 +90,10 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
         title.setText("订单");
+
+        loading = (FrameLayout) view.findViewById(R.id.fl_loading);
+
+        view.findViewById(R.id.iv_shopping_cart).setOnClickListener(this);
 
         footerView = getActivity().getLayoutInflater()
                 .inflate(R.layout.goods_detail_bottom, null);
@@ -101,15 +106,58 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     }
 
     private TextView totalPrice;
+    private EditText goodsCount;
+    private ImageButton addButton, cutButton;
 
     private void initFootView() {
         totalPrice = (TextView) footerView.findViewById(R.id.tv_total_price);
-    }
+        addButton = (ImageButton) footerView.findViewById(R.id.btn_add);
+        cutButton = (ImageButton) footerView.findViewById(R.id.btn_cut);
+        addButton.setOnClickListener(this);
+        cutButton.setOnClickListener(this);
+        footerView.findViewById(R.id.btn_add_shopping_cart).setOnClickListener(this);
 
+        goodsCount = (EditText) footerView.findViewById(R.id.et_goods_count);
+        goodsCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                L.e("test00", "--------->" + s.toString());
+
+                if (StringUtils.isNullOrEmpty(s.toString()) ||
+                        Integer.valueOf(s.toString()) < 1) {
+                    goodsCount.setText("1");
+//                    Toast.makeText(getActivity(),
+//                            "最小包数为1", Toast.LENGTH_SHORT).show();
+                } else if (Integer.valueOf(s.toString()) > 1000) {
+                    goodsCount.setText("1000");
+                    Toast.makeText(getActivity(),
+                            "最多只能买1000包", Toast.LENGTH_SHORT).show();
+                }
+
+                if (!StringUtils.isNullOrEmpty(s.toString()) && Integer.valueOf(s.toString()) > 0) {
+                    int textCount = Integer.valueOf(s.toString());
+                    Double textPrice = textCount * Double.parseDouble(mPrice);
+                    totalPrice.setText(String.format(getString(R.string.add_order_total),
+                            String.valueOf(textPrice)));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
 
     //记录选择的skuValue
     //private Map<Integer, Integer> selects = new HashMap<>();
     private int mSkuId;
+    private String mPrice;
 
     class MyAdapter extends BaseAdapter {
 
@@ -131,9 +179,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            MyViewHolder viewHolder = null;
-
+            MyViewHolder viewHolder;
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater()
                         .inflate(R.layout.sku_attr_item, null);
@@ -183,9 +229,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                         for (SkuAttribute attrLItem : listAttr) {
                             if (attrLItem.getAttributeValues().get(0).getId() == checkedId) {
                                 //找到了该id，则sku匹配成功
-                                Toast.makeText(getActivity(), "skuID:" + skuItem.getId(),
-                                        Toast.LENGTH_LONG).show();
-
                                 mSkuId = skuItem.getId();
 
                                 List<SkuAttribute> list = skuItem.getAttributeNames();
@@ -208,9 +251,10 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                                 }
 
                                 //TODO 填充相关数据
+                                mPrice = skuItem.getPrice();
                                 totalPrice.setText(String.format(getString(R.string.add_order_total),
                                         skuItem.getPrice()));
-
+                                goodsCount.setText("1");
                                 return;
                             }
                         }
@@ -228,12 +272,12 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
     @Override
     public void hideLoading() {
-
+        loading.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
-
+        loading.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -254,13 +298,22 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
     @Override
     public void getGoodsDetail(Good good) {
-
         mGood = good;
-
         RadioButton rb = (RadioButton) getListView().getChildAt(0)
                 .findViewById(datas.get(0).getAttributeValues().get(0).getId());
-
         rb.setChecked(true);
+    }
+
+    @Override
+    public void needLogin() {
+        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), RegisterFActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void addShoppingCartSuccess() {
+        Toast.makeText(getActivity(), "加入购物车成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -277,8 +330,24 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
             case R.id.btn_add_shopping_cart: //加入购物车
 
+                mPresenter.addShoppingCart(mSkuId, goodsCount.getText().toString());
                 break;
 
+            case R.id.btn_add:
+                int textAdd = Integer.valueOf(goodsCount.getText().toString());
+                goodsCount.setText(String.valueOf(textAdd + 1));
+                break;
+
+            case R.id.btn_cut:
+                int textCut = Integer.valueOf(goodsCount.getText().toString());
+                goodsCount.setText(String.valueOf(textCut - 1));
+                break;
+
+            case R.id.iv_shopping_cart:
+                //进入购物车
+                Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }

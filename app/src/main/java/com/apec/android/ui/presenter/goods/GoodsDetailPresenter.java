@@ -3,7 +3,9 @@ package com.apec.android.ui.presenter.goods;
 import android.content.Context;
 
 import com.android.volley.VolleyError;
+import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.GetDataCallback;
+import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.GoodsDetail;
@@ -106,9 +108,38 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 }, goodsId);
     }
 
+    public void addShoppingCart(int mSkuId, String num) {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        GetGoodsInteract.addShoppingCart(
+                mContext, new GetDataCallback<NoBody>() {
+                    @Override
+                    public void onRepose(NoBody response) {
+                        getView().hideLoading();
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            //加入购物车成功
+                            getView().addShoppingCartSuccess();
+
+                        } else if (code == ErrorCode.ERR_NEED_LOGIN) {
+                            //需要登录
+                            getView().needLogin();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, String.valueOf(mSkuId), num);
+    }
+
     public interface IView extends BaseViewInterface {
         void getAllAttrSuccess(ArrayList<SkuAttribute> attrs);
         void getGoodsDetail(Good good);
+        void needLogin();
+        void addShoppingCartSuccess();
         boolean isReady();
     }
 

@@ -205,8 +205,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     public void submitCodeBack(H head) {
         switch (head.getCode()) {
             case 200: //登录成功，已完善资料
-                Intent intent = new Intent(getActivity(), GoodsActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), GoodsActivity.class);
+//                startActivity(intent);
                 getActivity().finish();
                 break;
             case 4017: //登录成功未完善资料

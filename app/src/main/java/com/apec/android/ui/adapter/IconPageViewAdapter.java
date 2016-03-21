@@ -13,12 +13,13 @@ import com.viewpagerindicator.IconPagerAdapter;
  * Created by duanlei on 2016/3/17.
  */
 public class IconPageViewAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
-    protected static final String[] CONTENT = new String[]{"This", "Is", "A", "Test",};
+    protected static final String[] CONTENT = new String[]{"糖品", "米品", "油品", "面品", "调味品"};
     protected static final int[] ICONS = new int[]{
-            R.drawable.perm_group_calendar,
-            R.drawable.perm_group_camera,
-            R.drawable.perm_group_device_alarms,
-            R.drawable.perm_group_location
+            R.drawable.sugar_icon,
+            R.drawable.rice_icon,
+            R.drawable.ail_icon,
+            R.drawable.face_icon,
+            R.drawable.condiment_icon
     };
 
     private int mCount = CONTENT.length;

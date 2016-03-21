@@ -36,4 +36,9 @@ public class UrlConstant {
     //根据规格属性获取sku
     public static final String URL_SKU_ATTR = URL_BASE + "/query/sku/by/attribute";
 
+    //加入购物车
+    public static final String URL_ADD_SHOPPING_CART = URL_BASE + "/cart/add";
+
+    //获取购物车
+    public static final String URL_OBTAIN_SHOPPING_CART = URL_BASE + "/cart/items";
 }

@@ -6,9 +6,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.H;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.goods.Goods;
-import com.apec.android.domain.goods.interator.GetGoodsInteract;
-import com.apec.android.domain.user.interator.LoginInteractor;
+import com.apec.android.domain.user.interator.UserInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -31,7 +29,7 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
             getView().showLoading();
         }
 
-        LoginInteractor.getCode(
+        UserInteract.getCode(
                 mContext,
                 new GetDataCallback<NoBody>() {
                     @Override
@@ -64,7 +62,7 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
             getView().showLoading();
         }
 
-        LoginInteractor.submitVerCode(
+        UserInteract.submitVerCode(
                 mContext,
                 new GetDataCallback<NoBody>() {
                     @Override

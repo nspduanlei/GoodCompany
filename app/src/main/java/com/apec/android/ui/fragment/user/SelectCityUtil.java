@@ -12,7 +12,7 @@ import com.apec.android.R;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.user.Area;
 import com.apec.android.domain.user.Areas;
-import com.apec.android.domain.user.interator.LoginInteractor;
+import com.apec.android.domain.user.interator.UserInteract;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
@@ -176,7 +176,7 @@ public class SelectCityUtil implements OnClickListener {
      * @param id
      */
     public void obtainArea(int id) {
-        LoginInteractor.obtainArea(mActivity, new GetDataCallback<Areas>() {
+        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
             @Override
             public void onRepose(Areas response) {
                 if (response.getH().getCode() == 200) {

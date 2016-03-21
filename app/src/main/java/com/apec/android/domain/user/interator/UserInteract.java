@@ -11,6 +11,7 @@ import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.user.Areas;
+import com.apec.android.domain.user.ShopCartBack;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/25.
  */
-public class LoginInteractor {
+public class UserInteract {
 
     /**
      * 获取验证码
@@ -152,6 +153,34 @@ public class LoginInteractor {
                         params.put("userAreacounty", userAreacounty);
                         params.put("userAddress", userAddress);
                         return params;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                }
+        );
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    public static void obtainShoppingCart(Context context,
+                                          final GetDataCallback<ShopCartBack> callback) {
+        GsonRequest<ShopCartBack> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_OBTAIN_SHOPPING_CART,
+                ShopCartBack.class,
+                new Listener<ShopCartBack>() {
+                    @Override
+                    public void onResponse(ShopCartBack response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
                     }
                 },
                 new Response.ErrorListener() {

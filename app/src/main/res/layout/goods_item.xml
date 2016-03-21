@@ -2,22 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#ff66ff">
+    android:layout_height="@dimen/goods_item_height">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center">
+        <!--商品名-->
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="白砂糖"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="￥268"
+            android:layout_below="@id/tv_name"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="起"
+            android:layout_below="@id/tv_name"
+            android:layout_toRightOf="@id/tv_price"
+            android:textStyle="bold"
+            android:layout_marginLeft="3dp"/>
+
+        <TextView
+            android:id="@+id/tv_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  云南/广东/广西"
+            android:layout_below="@id/tv_price"
+            android:textColor="@color/color_text_3"
+            android:drawableLeft="@drawable/location_icon"/>
+
+    </RelativeLayout>
 
     <!--商品图片-->
     <ImageView
         android:id="@+id/iv_pic"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-    <!--商品名-->
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="fasfafa"
-        android:gravity="center"/>
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:scaleType="center"
+        android:src="@drawable/test001" />
 
 </LinearLayout>
