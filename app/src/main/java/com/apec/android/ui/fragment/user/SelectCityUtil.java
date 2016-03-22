@@ -14,6 +14,7 @@ import com.apec.android.domain.user.Area;
 import com.apec.android.domain.user.Areas;
 import com.apec.android.domain.user.interator.UserInteract;
 import com.apec.android.ui.adapter.CommonAdapter;
+import com.apec.android.ui.adapter.MyViewHolder;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -54,7 +55,6 @@ public class SelectCityUtil implements OnClickListener {
         obtainArea(1);
     }
 
-
     ArrayList<Area> mData;
     BaseAdapter mAdapter;
     Area curArea;
@@ -67,7 +67,7 @@ public class SelectCityUtil implements OnClickListener {
         mData = new ArrayList<>();
         mAdapter = new CommonAdapter<Area>(mActivity, mData, R.layout.select_city_item) {
             @Override
-            public void convert(com.apec.android.ui.adapter.ViewHolder holder, Area area) {
+            public void convert(MyViewHolder holder, Area area) {
                 holder.setText(R.id.tv_area_name, area.getAreaName());
                 switch (curIndex) {
                     case 1:
@@ -199,7 +199,6 @@ public class SelectCityUtil implements OnClickListener {
                         mData.addAll(areas);
                         mAdapter.notifyDataSetChanged();
                     }
-
                 }
             }
 

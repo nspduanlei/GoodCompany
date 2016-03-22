@@ -12,4 +12,7 @@ public class Constants {
 
     //正式接口地址
     public final static String OFFICIAL_BASE_URL = "";
+
+    //商品最大购买数量
+    public final static int MAX_GOODS_COUNT = 100;
 }

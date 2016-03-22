@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/top_bar_layout_1" />
+    <include layout="@layout/top_bar_layout_cart" />
 
     <FrameLayout
         android:layout_width="match_parent"

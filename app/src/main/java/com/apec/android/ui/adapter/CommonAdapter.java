@@ -43,7 +43,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = ViewHolder.get(mContext, convertView, parent,
+        MyViewHolder holder = MyViewHolder.get(mContext, convertView, parent,
                 mLayoutId, position);
 
         convert(holder, getItem(position));
@@ -52,5 +52,5 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         return holder.getConvertView();
     }
 
-    public abstract void convert(ViewHolder holder, T t);
+    public abstract void convert(MyViewHolder holder, T t);
 }

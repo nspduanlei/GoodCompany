@@ -87,6 +87,11 @@ public class GsonRequest<T> extends Request<T> {
         params.put("UA", mHelper.getHeaderUserAgent());
         params.put("x-auth-token", (String)
                 SPUtils.get(mContext, SPUtils.SESSION_ID, "0"));
+
+
+        L.e("test002", "token-->" +
+                SPUtils.get(mContext, SPUtils.SESSION_ID, "0"));
+
         return params;
     }
 }

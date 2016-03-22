@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.Sku;
 import com.apec.android.domain.goods.SkuAttrValue;
@@ -133,10 +134,11 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                     goodsCount.setText("1");
 //                    Toast.makeText(getActivity(),
 //                            "最小包数为1", Toast.LENGTH_SHORT).show();
-                } else if (Integer.valueOf(s.toString()) > 1000) {
-                    goodsCount.setText("1000");
+                } else if (Integer.valueOf(s.toString()) > Constants.MAX_GOODS_COUNT) {
+                    goodsCount.setText(String.valueOf(Constants.MAX_GOODS_COUNT));
                     Toast.makeText(getActivity(),
-                            "最多只能买1000包", Toast.LENGTH_SHORT).show();
+                            "最多只能买" + Constants.MAX_GOODS_COUNT + "包",
+                            Toast.LENGTH_SHORT).show();
                 }
 
                 if (!StringUtils.isNullOrEmpty(s.toString()) && Integer.valueOf(s.toString()) > 0) {

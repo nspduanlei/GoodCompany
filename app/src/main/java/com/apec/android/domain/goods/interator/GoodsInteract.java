@@ -17,6 +17,7 @@ import com.apec.android.domain.goods.ModelTest;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
 import com.apec.android.support.test;
+import com.apec.android.util.L;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -26,7 +27,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/26.
  */
-public class GetGoodsInteract {
+public class GoodsInteract {
     /**
      * 获取所用的类型
      *
@@ -204,6 +205,8 @@ public class GetGoodsInteract {
 
                     @Override
                     public Map getRequestParams() {
+                        L.e("test002", "skuId-->" + s + ", num--->" + num);
+
                         Map<String, String> params = new HashMap<>();
                         params.put("skuId", s);
                         params.put("num", num);

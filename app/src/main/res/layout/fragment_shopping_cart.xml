@@ -9,7 +9,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/top_bar_layout" />
+        <include layout="@layout/top_bar_layout_edit" />
+
+        <include
+            layout="@layout/address_show"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_line" />
 
         <ListView
             android:id="@id/android:list"
@@ -55,8 +63,6 @@
                 android:text="@string/goto_pay_btn"
                 android:textColor="@color/color_white" />
         </FrameLayout>
-
-
     </LinearLayout>
 
     <include

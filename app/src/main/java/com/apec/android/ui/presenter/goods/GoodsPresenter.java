@@ -5,7 +5,7 @@ import android.content.Context;
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.GateGorys;
-import com.apec.android.domain.goods.interator.GetGoodsInteract;
+import com.apec.android.domain.goods.interator.GoodsInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -25,7 +25,7 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
 
         getView().showLoading();
 
-        GetGoodsInteract.fetchCategorys(
+        GoodsInteract.fetchCategorys(
                 mContext,
                 new GetDataCallback<GateGorys>() {
                     @Override

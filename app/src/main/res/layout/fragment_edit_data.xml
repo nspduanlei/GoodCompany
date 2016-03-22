@@ -9,20 +9,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="收货人:    "
-            android:textColor="@color/color_text_5"/>
+            android:textColor="@color/color_text_5" />
 
         <EditText
+            android:id="@+id/et_person"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="徐晓版"
             android:layout_marginLeft="15dp"
             android:textColor="@color/color_text_6"
             android:background="@null"
@@ -37,9 +38,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,9 +50,9 @@
             android:textColor="@color/color_text_5"/>
 
         <EditText
+            android:id="@+id/et_phone_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="15025356363"
             android:layout_marginLeft="15dp"
             android:textColor="@color/color_text_6"
             android:background="@null"
@@ -65,31 +67,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="所在地区:"
-            android:textColor="@color/color_text_5"/>
+            android:textColor="@color/color_text_5"
+            android:layout_gravity="center"/>
 
-        <EditText
+        <TextView
+            android:id="@+id/tv_select_area"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="深圳罗湖"
+            android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:textColor="@color/color_text_6"
             android:background="@null"
             android:textSize="@dimen/common_text_size"/>
 
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_right"
-            android:layout_gravity="center" />
+        <!--<ImageView-->
+            <!--android:layout_width="10dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/arrow_right"-->
+            <!--android:layout_gravity="center" />-->
     </LinearLayout>
 
     <View
@@ -100,20 +104,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="详细地址:"
-            android:textColor="@color/color_text_5"/>
+            android:textColor="@color/color_text_5"
+            android:layout_gravity="center"/>
 
         <EditText
+            android:id="@+id/et_area_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="发酸发发送发发发发啊噶饭噶哈接哈急啊急啊感觉啊接啊为他人呀哈啊哈哈"
+            android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:textColor="@color/color_text_6"
             android:background="@null"

@@ -7,7 +7,6 @@ import com.apec.android.domain.user.Address;
  * Created by duanlei on 2016/3/11.
  */
 public class GoodsReceipt {
-
     private int userId;
     private int addressId;
     private String name;

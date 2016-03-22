@@ -1,28 +1,18 @@
 package com.apec.android.ui.fragment.user;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.domain.user.Area;
 import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.ViewHolder;
-import com.apec.android.ui.fragment.BaseFragment;
+import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
-import com.apec.android.ui.presenter.user.RegisterPresenter;
 import com.apec.android.ui.presenter.user.SelectCityPresenter;
-import com.apec.android.util.DensityUtils;
 
 import java.util.ArrayList;
 
@@ -47,7 +37,7 @@ public class SelectCityFragment extends BaseListFragment<SelectCityPresenter.IVi
         mData = new ArrayList<>();
         mAdapter = new CommonAdapter<Area>(getActivity(), mData, R.layout.select_city_item) {
             @Override
-            public void convert(ViewHolder holder, Area area) {
+            public void convert(MyViewHolder holder, Area area) {
                 holder.setText(R.id.tv_area_name, area.getAreaName());
                 switch (curIndex) {
                     case 1:

@@ -6,11 +6,9 @@ import android.view.View;
 import com.apec.android.R;
 import com.apec.android.domain.order.Order;
 import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.ViewHolder;
-import com.apec.android.ui.fragment.BaseFragment;
+import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.order.MyOrdersPresenter;
-import com.apec.android.ui.presenter.user.RegisterPresenter;
 
 import java.util.ArrayList;
 
@@ -60,7 +58,7 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
 
         setListAdapter(new CommonAdapter<Order>(getActivity(), datas, R.layout.my_order_item) {
             @Override
-            public void convert(ViewHolder holder, Order order) {
+            public void convert(MyViewHolder holder, Order order) {
 
             }
         });

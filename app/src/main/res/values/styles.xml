@@ -58,7 +58,6 @@
         <item name="android:background">@drawable/radio_selector_1</item>
     </style>
 
-
     <!--android:layout_width="183.5dp"-->
     <!--android:layout_height="36.5dp"-->
     <!--android:layout_gravity="center"-->

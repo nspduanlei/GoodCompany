@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        style="@style/order_style_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="配送费：￥0.00"
+        android:textColor="@color/color_text_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"
+        android:text="*您的货物预计在3月2日18点送达"
+        android:textColor="@color/color_5" />
+</merge>

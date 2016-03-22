@@ -6,8 +6,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.Goods;
-import com.apec.android.domain.goods.interator.GetGoodsInteract;
-import com.apec.android.ui.fragment.BaseFragment;
+import com.apec.android.domain.goods.interator.GoodsInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -30,7 +29,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
             getView().showLoading();
         }
 
-        GetGoodsInteract.fetchGoods(
+        GoodsInteract.fetchGoods(
                 mContext,
                 new GetDataCallback<Goods>() {
                     @Override

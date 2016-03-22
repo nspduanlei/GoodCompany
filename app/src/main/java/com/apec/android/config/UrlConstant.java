@@ -41,4 +41,7 @@ public class UrlConstant {
 
     //获取购物车
     public static final String URL_OBTAIN_SHOPPING_CART = URL_BASE + "/cart/items";
+
+    //获取全部地址
+    public static final String URL_OBTAIN_ADDR_ALL = URL_BASE + "/address/all/";
 }

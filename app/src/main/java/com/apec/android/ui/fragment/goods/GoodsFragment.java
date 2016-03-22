@@ -6,13 +6,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.domain.goods.Good;
 import com.apec.android.ui.activity.goods.GoodsDetailActivity;
 import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.ViewHolder;
+import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.goods.GoodsFPresenter;
 
@@ -75,7 +74,7 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
         commonAdapter = new CommonAdapter<Good>(getActivity(),
                 mData, R.layout.goods_item) {
             @Override
-            public void convert(ViewHolder holder, Good good) {
+            public void convert(MyViewHolder holder, Good good) {
                 holder.setText(R.id.tv_name, good.getGoodsName());
             }
         };

@@ -10,8 +10,7 @@ import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.GoodsDetail;
 import com.apec.android.domain.goods.SkuAttribute;
-import com.apec.android.domain.goods.interator.GetGoodsInteract;
-import com.apec.android.domain.goods.ModelTest;
+import com.apec.android.domain.goods.interator.GoodsInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -36,7 +35,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
             getView().showLoading();
         }
 
-        GetGoodsInteract.fetchGoodsAttrs(
+        GoodsInteract.fetchGoodsAttrs(
                 mContext,
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
@@ -64,7 +63,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
             getView().showLoading();
         }
 
-        GetGoodsInteract.querySku(
+        GoodsInteract.querySku(
                 mContext,
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
@@ -90,7 +89,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
         if (isViewAttached()) {
             getView().showLoading();
         }
-        GetGoodsInteract.fetchGoodsDetail(
+        GoodsInteract.fetchGoodsDetail(
                 mContext, new GetDataCallback<GoodsDetail>() {
                     @Override
                     public void onRepose(GoodsDetail response) {
@@ -112,7 +111,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
         if (isViewAttached()) {
             getView().showLoading();
         }
-        GetGoodsInteract.addShoppingCart(
+        GoodsInteract.addShoppingCart(
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
