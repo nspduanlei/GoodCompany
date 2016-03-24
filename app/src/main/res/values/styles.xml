@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/color_white</item>
     </style>
@@ -89,6 +89,11 @@
 
     <style name="button_style_4" parent="button_style_base">
         <item name="android:background">@drawable/button_shape_bg_4</item>
+    </style>
+
+    <style name="test001">
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

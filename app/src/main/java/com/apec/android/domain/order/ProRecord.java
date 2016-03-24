@@ -6,7 +6,7 @@ package com.apec.android.domain.order;
  */
 public class ProRecord {
     private int type;
-    private int time;
+    private String time;
 
     public int getType() {
         return type;
@@ -16,11 +16,11 @@ public class ProRecord {
         this.type = type;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

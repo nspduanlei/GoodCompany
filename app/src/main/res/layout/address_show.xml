@@ -3,32 +3,19 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:id="@+id/rl_address_show">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:id="@+id/rl_address_show"
+    android:visibility="gone">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="配送费："
+        android:text="配送信息："
         android:layout_centerVertical="true"
-        android:textColor="@color/color_text_1"/>
-
-    <TextView
-        android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发送到发生发生发生发发烧发烧"
-        android:layout_gravity="right"
-        android:layout_toRightOf="@id/tv_title"
-        android:textColor="@color/color_text_1"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="贾宝玉  18565652323"
-        android:layout_toRightOf="@id/tv_title"
-        android:layout_below="@id/tv_address"
         android:textColor="@color/color_text_1"/>
 
     <Button
@@ -40,4 +27,21 @@
         android:textColor="@color/color_white"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_toRightOf="@id/tv_title"
+        android:textColor="@color/color_text_1"
+        android:layout_toLeftOf="@id/btn_update"/>
+
+    <TextView
+        android:id="@+id/tv_user_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_title"
+        android:layout_below="@id/tv_address"
+        android:textColor="@color/color_text_1"/>
 </RelativeLayout>

@@ -7,6 +7,7 @@ package com.apec.android.domain.transport;
 public class Deliveryman {
     private String name;
     private String phone;
+    private String detail;
 
     public String getName() {
         return name;
@@ -22,5 +23,13 @@ public class Deliveryman {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

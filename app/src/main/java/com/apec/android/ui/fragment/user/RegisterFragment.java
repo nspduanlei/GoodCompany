@@ -111,8 +111,11 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
 
     @Override
     public void submitSuccess() {
-        Intent intent = new Intent(getActivity(), GoodsActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), GoodsActivity.class);
+//        startActivity(intent);
+
+        getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
+        getActivity().finish();
     }
 
     @Override

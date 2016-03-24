@@ -1,5 +1,6 @@
 package com.apec.android.ui.fragment.user;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -207,11 +208,14 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
             case 200: //登录成功，已完善资料
 //                Intent intent = new Intent(getActivity(), GoodsActivity.class);
 //                startActivity(intent);
+                getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
                 getActivity().finish();
                 break;
             case 4017: //登录成功未完善资料
                 Intent intent1 = new Intent(getActivity(), RegisterActivity.class);
+                getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
                 startActivity(intent1);
+
                 getActivity().finish();
                 break;
 

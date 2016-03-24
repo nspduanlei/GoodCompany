@@ -9,15 +9,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/top_bar_layout_edit" />
+        <include layout="@layout/top_bar_layout" />
 
         <include
             layout="@layout/address_show"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_line" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:background="@color/color_line_1" />-->
 
         <ListView
             android:id="@id/android:list"
@@ -49,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/total_price_cart"
                 android:textColor="@color/color_5"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -60,7 +59,6 @@
                 android:layout_height="30dp"
                 android:layout_gravity="right|center_vertical"
                 android:background="@drawable/button_shape_bg_2"
-                android:text="@string/goto_pay_btn"
                 android:textColor="@color/color_white" />
         </FrameLayout>
     </LinearLayout>
@@ -70,4 +68,10 @@
         layout="@layout/loading_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
+
+    <include
+        layout="@layout/empty_layout"
+        android:layout_marginTop="48dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 </FrameLayout>

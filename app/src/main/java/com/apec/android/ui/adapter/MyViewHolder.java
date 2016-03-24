@@ -5,8 +5,12 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -35,7 +39,7 @@ public class MyViewHolder {
     }
 
     public static MyViewHolder get(Context context, View convertView,
-                                 ViewGroup parent, int layoutId, int position
+                                   ViewGroup parent, int layoutId, int position
     ) {
         if (convertView == null) {
             return new MyViewHolder(context, parent, layoutId, position);
@@ -122,6 +126,12 @@ public class MyViewHolder {
         return this;
     }
 
+    public MyViewHolder setOnCheckChangeListerRadio(int checkId, CheckBox.OnCheckedChangeListener listener) {
+        RadioButton radioButton = getView(checkId);
+        radioButton.setOnCheckedChangeListener(listener);
+        return this;
+    }
+
     public MyViewHolder setChecked(int checkId, boolean checked) {
         CheckBox checkBox = getView(checkId);
         checkBox.setChecked(checked);
@@ -131,6 +141,33 @@ public class MyViewHolder {
     public MyViewHolder setTextTow(int tv_add_count, String price, int count) {
         TextView tv = getView(tv_add_count);
         tv.setText(count + " x ￥" + price);
+        return this;
+    }
+
+    public MyViewHolder setListView(int lv_sku, BaseAdapter itemAdapter) {
+        ListView listView = getView(lv_sku);
+        listView.setAdapter(itemAdapter);
+        return this;
+    }
+
+    public MyViewHolder setListViewItemClick(int lv_sku,
+                                             AdapterView.OnItemClickListener itemClickListener) {
+        ListView listView = getView(lv_sku);
+        listView.setOnItemClickListener(itemClickListener);
+        return this;
+    }
+
+    public MyViewHolder setTextBackground(int tv_order_pro, int order_pro_bg_1) {
+
+        TextView textView = getView(tv_order_pro);
+        textView.setBackgroundResource(order_pro_bg_1);
+
+        return this;
+    }
+
+    public MyViewHolder setTextChar(int tv_total_price, CharSequence chars) {
+        TextView textView = getView(tv_total_price);
+        textView.setText(chars);
         return this;
     }
 }

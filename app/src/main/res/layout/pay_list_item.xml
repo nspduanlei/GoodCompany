@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_goods_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -17,7 +18,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
+        <!--净含量-->
         <TextView
+            android:id="@+id/tv_goods_net"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -26,7 +29,9 @@
             android:textColor="@color/color_text_2"
             android:textSize="12sp" />
 
+        <!--商品数量和单价-->
         <TextView
+            android:id="@+id/tv_goods_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

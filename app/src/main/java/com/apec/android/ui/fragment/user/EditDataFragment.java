@@ -1,36 +1,44 @@
 package com.apec.android.ui.fragment.user;
 
 import android.content.Intent;
-import android.opengl.ETC1;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apec.android.R;
-import com.apec.android.ui.activity.user.EditDataActivity;
+import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.EditDataPresenter;
-import com.apec.android.ui.presenter.user.RegisterPresenter;
 import com.apec.android.util.StringUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 
 /**
- *
  * Created by Administrator on 2016/2/26.
  */
 public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
         EditDataPresenter> implements EditDataPresenter.IView, View.OnClickListener,
         SelectCityUtil.SelectArea {
 
-    public static EditDataFragment newInstance() {
+    public static EditDataFragment newInstance(GoodsReceipt goodsReceipt) {
         EditDataFragment fragment = new EditDataFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ManageAddrFragment.EXTRA_EDIT_ADDRESS,
+                goodsReceipt);
+        fragment.setArguments(bundle);
         return fragment;
     }
+
+    //供编辑的收货地址
+    private GoodsReceipt mGoodsReceipt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mGoodsReceipt = getArguments()
+                .getParcelable(ManageAddrFragment.EXTRA_EDIT_ADDRESS);
     }
 
     @Override
@@ -52,10 +60,28 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
     private TextView selectArea;
     private DialogPlus dialog;
     private int mSelCityId, mSelAreaId, mSelRoadId;
+    private String mSelCity, mSelArea;
 
     private EditText etPerson, etPhoneNumber, etAreaDetail;
 
+    //true编辑地址， false添加地址
+    private boolean isEdit;
+
     private void initView(View view) {
+
+        String titleStr;
+        if (mGoodsReceipt != null) {
+            isEdit = true;
+            titleStr = "编辑地址";
+        } else {
+            titleStr = "添加地址";
+        }
+
+        //标题
+        TextView title = (TextView) view.findViewById(R.id.tv_top_title);
+        title.setText(titleStr);
+        view.findViewById(R.id.iv_back).setOnClickListener(this);
+
         //收货信息
         selectArea = (TextView) view.findViewById(R.id.tv_select_area);
         selectArea.setOnClickListener(this);
@@ -64,13 +90,27 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
         etPhoneNumber = (EditText) view.findViewById(R.id.et_phone_number);
         etAreaDetail = (EditText) view.findViewById(R.id.et_area_detail);
 
-        TextView title = (TextView) view.findViewById(R.id.tv_top_title);
-        title.setText("添加地址");
-
-        //城市选择弹窗
-        dialog = new SelectCityUtil(getActivity(), this).dialog;
-
         view.findViewById(R.id.btn_save).setOnClickListener(this);
+
+        if (isEdit) {
+            etPerson.setText(mGoodsReceipt.getName());
+            etPhoneNumber.setText(mGoodsReceipt.getPhone());
+            etAreaDetail.setText(mGoodsReceipt.getAddrRes().getDetail());
+
+            mSelCity = mGoodsReceipt.getAddrRes().getCity();
+            mSelArea =  mGoodsReceipt.getAddrRes().getArea();
+
+            selectArea.setText(String.format("%s%s", mSelCity, mSelArea));
+            mSelCityId = Integer.valueOf(mGoodsReceipt.getAddrRes().getCityId());
+            mSelAreaId = Integer.valueOf(mGoodsReceipt.getAddrRes().getAreaId());
+
+            //城市选择弹窗
+            dialog = new SelectCityUtil(getActivity(), this, mSelCity,
+                    mSelArea, null, mSelCityId, mSelAreaId, 0).dialog;
+        } else {
+            //城市选择弹窗
+            dialog = new SelectCityUtil(getActivity(), this).dialog;
+        }
 
     }
 
@@ -87,6 +127,17 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
     @Override
     public void showEmptyCase() {
 
+    }
+
+    @Override
+    public void needLogin() {
+
+    }
+
+    @Override
+    public void saveAddressSuccess() {
+        getActivity().setResult(ManageAddrFragment.RESULT_CODE_EDIT);
+        getActivity().finish();
     }
 
     @Override
@@ -120,10 +171,12 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
                 //详细地址
                 String addreDetailAddress = etAreaDetail.getText().toString();
 
-                if (StringUtils.isNullOrEmpty(takeGoodsPhone)) {
+                String checkPhone = StringUtils.checkMobile(takeGoodsPhone);
 
-                } else if (StringUtils.isNullOrEmpty(takeGoodsUser)) {
+                if (StringUtils.isNullOrEmpty(takeGoodsUser)) {
 
+                } else if (!checkPhone.equals("")) {
+                    Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
                 } else if (StringUtils.isNullOrEmpty(addreDetailAddress)) {
 
                 } else if (addreCity == 0) {
@@ -131,8 +184,17 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
                 } else if (addreAreacounty == 0) {
 
                 } else {
-                    mPresenter.saveAddress(takeGoodsPhone,takeGoodsUser,
-                            addreCity,addreAreacounty,addreDetailAddress);
+                    if (isEdit) {
+                        //编辑地址
+                        mPresenter.updateAddress(mGoodsReceipt.getAddressId(),
+                                takeGoodsPhone, takeGoodsUser,
+                                addreCity, addreAreacounty, addreDetailAddress);
+
+                    } else {
+                        //添加地址
+                        mPresenter.saveAddress(takeGoodsPhone, takeGoodsUser,
+                                addreCity, addreAreacounty, addreDetailAddress);
+                    }
                 }
 
                 break;

@@ -7,7 +7,6 @@ public class UrlConstant {
 
     public static final String URL_BASE = Constants.TEST_BASE_URL;
 
-
     //商品类别
     public static final String URL_CATEGORY = URL_BASE + "/category/all";
 
@@ -32,7 +31,6 @@ public class UrlConstant {
     //获取商品全部规格属性
     public static final String URL_ALL_ARRT = URL_BASE + "/goods/all/attribute";
 
-
     //根据规格属性获取sku
     public static final String URL_SKU_ATTR = URL_BASE + "/query/sku/by/attribute";
 
@@ -43,5 +41,31 @@ public class UrlConstant {
     public static final String URL_OBTAIN_SHOPPING_CART = URL_BASE + "/cart/items";
 
     //获取全部地址
-    public static final String URL_OBTAIN_ADDR_ALL = URL_BASE + "/address/all/";
+    public static final String URL_OBTAIN_ADDRESS_ALL = URL_BASE + "/address/all/";
+
+    //新增收货地址
+    public static final String URL_ADD_ADDRESS = URL_BASE + "/address/add/";
+
+    //设置默认收货地址
+    public static final String URL_DEFAULT_ADDRESS = URL_BASE + "/address/default/set";
+
+    //删除收货地址
+    public static final String URL_DELETE_ADDRESS = URL_BASE + "/address/del";
+
+    //更新收货地址
+    public static final String URL_UPDATE_ADDRESS = URL_BASE + "/address/update";
+
+
+    //获取默认收货地址
+    public static final String URL_GET_DEFAULT_ADDRESS = URL_BASE + "/address/default";
+
+    //购物车创建订单
+    public static final String URL_CART_CREATE_ORDER = URL_BASE + "/cart/create/order";
+
+    //我的订单列表
+    public static final String URL_MY_ORDERS = URL_BASE + "/orders";
+    //我的订单列表
+    public static final String URL_ORDER = URL_BASE + "/order";
+
+
 }

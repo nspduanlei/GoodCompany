@@ -190,6 +190,14 @@ public class GoodsInteract {
         MyApplication.getRequestQueue().add(request);
     }
 
+
+    /**
+     * 购物车添加商品或修改商品数量
+     * @param context
+     * @param callback
+     * @param s
+     * @param num
+     */
     public static void addShoppingCart(Context context,
                                        final GetDataCallback<NoBody> callback,
                                        final String s, final String num) {
@@ -205,7 +213,7 @@ public class GoodsInteract {
 
                     @Override
                     public Map getRequestParams() {
-                        L.e("test002", "skuId-->" + s + ", num--->" + num);
+                        L.e("test002", "skuId-->" + s + "|num--->" + num);
 
                         Map<String, String> params = new HashMap<>();
                         params.put("skuId", s);

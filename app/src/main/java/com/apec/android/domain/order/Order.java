@@ -15,7 +15,7 @@ public class Order {
     private int orderType;
     private Address addreRes;
     private List<ProRecord> processLogs;
-    private Deliveryman deliverRes;
+    private Deliveryman orderAddress;
     private List<OrderItem> orderItems;
 
     public int getId() {
@@ -66,12 +66,12 @@ public class Order {
         this.processLogs = processLogs;
     }
 
-    public Deliveryman getDeliverRes() {
-        return deliverRes;
+    public Deliveryman getOrderAddress() {
+        return orderAddress;
     }
 
-    public void setDeliverRes(Deliveryman deliverRes) {
-        this.deliverRes = deliverRes;
+    public void setOrderAddress(Deliveryman orderAddress) {
+        this.orderAddress = orderAddress;
     }
 
     public List<OrderItem> getOrderItems() {

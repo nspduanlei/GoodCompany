@@ -42,7 +42,14 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                     public void onRepose(GetAllAttribute response) {
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().getAllAttrSuccess(response.getB());
+
+                            if (response.getB().size() == 0) {
+                                return;
+                            }
+
+                            if (isViewAttached()) {
+                                getView().getAllAttrSuccess(response.getB());
+                            }
                         }
                     }
 
@@ -121,7 +128,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                             //加入购物车成功
                             getView().addShoppingCartSuccess();
 
-                        } else if (code == ErrorCode.ERR_NEED_LOGIN) {
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
                             getView().needLogin();
                         }

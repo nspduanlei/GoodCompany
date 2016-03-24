@@ -2,8 +2,10 @@ package com.apec.android.ui.activity.user;
 
 import android.support.v4.app.Fragment;
 
+import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.ui.activity.SingleFragmentActivity;
 import com.apec.android.ui.fragment.user.EditDataFragment;
+import com.apec.android.ui.fragment.user.ManageAddrFragment;
 import com.apec.android.ui.fragment.user.RegisterFragment;
 
 /**
@@ -14,7 +16,11 @@ public class EditDataActivity extends SingleFragmentActivity{
 
     @Override
     protected Fragment createFragment() {
-        return EditDataFragment.newInstance();
+        GoodsReceipt goodsReceipt =
+                getIntent().getParcelableExtra(
+                        ManageAddrFragment.EXTRA_EDIT_ADDRESS);
+
+        return EditDataFragment.newInstance(goodsReceipt);
     }
 
 }

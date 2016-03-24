@@ -11,10 +11,11 @@ import com.apec.android.ui.fragment.order.OrderFragment;
  */
 public class OrderActivity extends SingleFragmentActivity {
 
+    public final static String EXTRA_ORDER_ID = "order_id";
+
     @Override
     protected Fragment createFragment() {
-        return new OrderFragment();
+        int order_id = getIntent().getIntExtra(EXTRA_ORDER_ID, 0);
+        return OrderFragment.newInstance(order_id);
     }
-
-
 }

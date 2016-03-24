@@ -7,6 +7,10 @@ import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.interator.GoodsInteract;
+import com.apec.android.domain.order.interator.OrderInteract;
+import com.apec.android.domain.transport.GoodsReceipt;
+import com.apec.android.domain.transport.ReceiptDefalut;
+import com.apec.android.domain.transport.interator.TransportInteract;
 import com.apec.android.domain.user.ShopCart;
 import com.apec.android.domain.user.ShopCartBack;
 import com.apec.android.domain.user.interator.UserInteract;
@@ -23,10 +27,10 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
         super(context);
     }
 
+    /**
+     * 获取购物车全部商品
+     */
     public void obtainShopCart() {
-        if (isViewAttached()) {
-            getView().showLoading();
-        }
         UserInteract.obtainShoppingCart(
                 mContext, new GetDataCallback<ShopCartBack>() {
                     @Override
@@ -35,9 +39,12 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //加入购物车成功
-                            getView().obtainCartSuccess(response.getB());
-
-                        } else if (code == ErrorCode.ERR_NEED_LOGIN) {
+                            if (response.getB().getTotal() == 0) {
+                                getView().showEmptyCase();
+                            } else {
+                                getView().obtainCartSuccess(response.getB());
+                            }
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
                             getView().needLogin();
                         }
@@ -63,13 +70,11 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
-
-
-                        } else if (code == ErrorCode.ERR_NEED_LOGIN) {
+                            getView().updateNumSuccess();
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
                             getView().needLogin();
                         }
@@ -82,9 +87,75 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 }, String.valueOf(id), String.valueOf(i));
     }
 
+    /**
+     * 获取默认收货地址
+     */
+    public void obtainDefaultAddress() {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        TransportInteract.obtainDefaultAddress(
+                mContext, new GetDataCallback<ReceiptDefalut>() {
+                    @Override
+                    public void onRepose(ReceiptDefalut response) {
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            //修改商品数量成功
+                            getView().obtainDefaultSuccess(response.getB());
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
+                            //需要登录
+                            getView().needLogin();
+                        } else if (code == ErrorCode.NOT_EXIST_DEFAULT_ADDRESS) {
+                            //不存在默认收货地址
+                            getView().obtainDefaultSuccess(null);
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+    }
+
+    /**
+     * 创建订单
+     * @param skus
+     * @param addressId
+     */
+    public void createOrder(String skus, int addressId) {
+        OrderInteract.createOrder(
+                mContext, new GetDataCallback<NoBody>() {
+                    @Override
+                    public void onRepose(NoBody response) {
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            //下单成功
+                            getView().obtainOrderSuccess();
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN ||
+                                code == ErrorCode.ERROR_NOT_EXIST_USER) {
+                            //需要登录
+                            getView().needLoginPay();
+                        } else if (code == ErrorCode.NOT_EXIST_DEFAULT_ADDRESS) {
+                            //不存在默认收货地址
+                            getView().obtainDefaultSuccess(null);
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, skus, addressId);
+    }
+
     public interface IView extends BaseViewInterface {
+        void updateNumSuccess();
+        void obtainOrderSuccess();
+        void obtainDefaultSuccess(GoodsReceipt goodsReceipt);
         void obtainCartSuccess(ShopCart shopCart);
         void needLogin();
+        void needLoginPay();
         boolean isReady();
     }
 }

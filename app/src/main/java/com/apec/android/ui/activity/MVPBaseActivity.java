@@ -1,7 +1,7 @@
 package com.apec.android.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.apec.android.ui.presenter.BasePresenter;
 
@@ -9,7 +9,7 @@ import com.apec.android.ui.presenter.BasePresenter;
  * 通过这个基类的生命周期来控制它与Presenter的关系
  * Created by duanlei on 2016/3/2.
  */
-public abstract class MVPBaseActivity<V, T extends BasePresenter<V>> extends FragmentActivity {
+public abstract class MVPBaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
 
     protected T mPresenter;
 

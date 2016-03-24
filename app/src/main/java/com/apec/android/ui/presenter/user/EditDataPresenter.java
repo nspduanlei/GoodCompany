@@ -41,10 +41,11 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
                         getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            //修改商品数量成功
+                            //收货地址添加成功
 
+                            getView().saveAddressSuccess();
 
-                        } else if (code == ErrorCode.ERR_NEED_LOGIN) {
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
                             getView().needLogin();
                         }
@@ -55,12 +56,42 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
 
                     }
                 }, takeGoodsPhone, takeGoodsUser,
-       addreCity, addreAreacounty, addreDetailAddress);
+                addreCity, addreAreacounty, addreDetailAddress);
+    }
 
+    public void updateAddress(int addressId, String takeGoodsPhone, String takeGoodsUser,
+                              int addreCity, int addreAreacounty, String addreDetailAddress) {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        TransportInteract.updateDeliveryManInfo(
+                mContext, new GetDataCallback<NoBody>() {
+                    @Override
+                    public void onRepose(NoBody response) {
+                        getView().hideLoading();
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            //收货地址添加成功
+
+                            getView().saveAddressSuccess();
+
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
+                            //需要登录
+                            getView().needLogin();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, addressId, takeGoodsPhone, takeGoodsUser,
+                addreCity, addreAreacounty, addreDetailAddress);
     }
 
     public interface IView extends BaseViewInterface {
         void needLogin();
+        void saveAddressSuccess();
         boolean isReady();
     }
 }

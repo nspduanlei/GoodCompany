@@ -289,6 +289,9 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
     @Override
     public void getAllAttrSuccess(ArrayList<SkuAttribute> attrs) {
+        if (attrs.size() == 0) {
+            return;
+        }
         datas.clear();
         datas.addAll(attrs);
         mAdapter.notifyDataSetChanged();

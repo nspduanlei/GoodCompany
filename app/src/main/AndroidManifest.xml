@@ -27,7 +27,8 @@
 
         <activity
             android:name=".ui.activity.goods.GoodsActivity"
-            android:theme="@style/StyledIndicators" />
+            android:theme="@style/StyledIndicators"
+            android:launchMode="singleTask"/>
 
         <activity android:name=".ui.activity.goods.GoodsDetailActivity" />
 

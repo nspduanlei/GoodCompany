@@ -1,9 +1,12 @@
 package com.apec.android.domain.user;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by duanlei on 2016/3/10.
  */
-public class Address {
+public class Address implements Parcelable {
     private String province;
     private String provinceId;
     private String city;
@@ -67,4 +70,42 @@ public class Address {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(province);
+        dest.writeString(provinceId);
+        dest.writeString(city);
+        dest.writeString(cityId);
+        dest.writeString(area);
+        dest.writeString(areaId);
+        dest.writeString(detail);
+    }
+
+    protected Address(Parcel in) {
+        province = in.readString();
+        provinceId = in.readString();
+        city = in.readString();
+        cityId = in.readString();
+        area = in.readString();
+        areaId = in.readString();
+        detail = in.readString();
+    }
+
+    public static final Creator<Address> CREATOR = new Creator<Address>() {
+        @Override
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
+        }
+
+        @Override
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
 }
