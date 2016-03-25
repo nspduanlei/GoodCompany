@@ -9,7 +9,7 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.interator.GoodsInteract;
 import com.apec.android.domain.order.interator.OrderInteract;
 import com.apec.android.domain.transport.GoodsReceipt;
-import com.apec.android.domain.transport.ReceiptDefalut;
+import com.apec.android.domain.transport.ReceiptDefault;
 import com.apec.android.domain.transport.interator.TransportInteract;
 import com.apec.android.domain.user.ShopCart;
 import com.apec.android.domain.user.ShopCartBack;
@@ -31,6 +31,9 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
      * 获取购物车全部商品
      */
     public void obtainShopCart() {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
         UserInteract.obtainShoppingCart(
                 mContext, new GetDataCallback<ShopCartBack>() {
                     @Override
@@ -63,13 +66,14 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
      * @param i 商品数量
      */
     public void updateCartItem(int id, int i) {
-        if (isViewAttached()) {
-            getView().showLoading();
-        }
+//        if (isViewAttached()) {
+//            getView().showLoading();
+//        }
         GoodsInteract.addShoppingCart(
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        //getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
@@ -95,9 +99,10 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
             getView().showLoading();
         }
         TransportInteract.obtainDefaultAddress(
-                mContext, new GetDataCallback<ReceiptDefalut>() {
+                mContext, new GetDataCallback<ReceiptDefault>() {
                     @Override
-                    public void onRepose(ReceiptDefalut response) {
+                    public void onRepose(ReceiptDefault response) {
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
@@ -124,10 +129,15 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
      * @param addressId
      */
     public void createOrder(String skus, int addressId) {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
         OrderInteract.createOrder(
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        getView().hideLoading();
+
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //下单成功

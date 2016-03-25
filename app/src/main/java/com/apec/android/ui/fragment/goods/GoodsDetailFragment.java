@@ -289,13 +289,11 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
     @Override
     public void getAllAttrSuccess(ArrayList<SkuAttribute> attrs) {
-        if (attrs.size() == 0) {
-            return;
-        }
         datas.clear();
         datas.addAll(attrs);
         mAdapter.notifyDataSetChanged();
         getListView().addFooterView(footerView, null, false);
+
         mPresenter.queryGoodsDetail(goodsId);
     }
 
@@ -304,9 +302,11 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     @Override
     public void getGoodsDetail(Good good) {
         mGood = good;
-        RadioButton rb = (RadioButton) getListView().getChildAt(0)
-                .findViewById(datas.get(0).getAttributeValues().get(0).getId());
-        rb.setChecked(true);
+        if (good.getSkus().size() > 0) {
+            RadioButton rb = (RadioButton) getListView().getChildAt(0)
+                    .findViewById(datas.get(0).getAttributeValues().get(0).getId());
+            rb.setChecked(true);
+        }
     }
 
     @Override
@@ -332,10 +332,10 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             case R.id.iv_back:
                 getActivity().finish();
                 break;
-
             case R.id.btn_add_shopping_cart: //加入购物车
-
-                mPresenter.addShoppingCart(mSkuId, goodsCount.getText().toString());
+                if (mSkuId != 0) {
+                    mPresenter.addShoppingCart(mSkuId, goodsCount.getText().toString());
+                }
                 break;
 
             case R.id.btn_add:

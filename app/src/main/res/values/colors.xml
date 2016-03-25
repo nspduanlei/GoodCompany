@@ -27,6 +27,7 @@
     <color name="color_text_7">#4c4c4c</color>
 
 
+    <color name="t_bg">#50000000</color>
     <color name="transparency">#00000000</color>
     <color name="color_test">#aa0000</color>
 

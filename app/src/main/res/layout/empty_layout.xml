@@ -8,8 +8,14 @@
     android:visibility="gone"
     android:background="@color/color_white">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_big_img"/>
+
     <TextView
         android:id="@+id/tv_hint"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="您的订单还是空的, 赶紧行动起来"/>

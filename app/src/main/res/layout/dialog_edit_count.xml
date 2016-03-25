@@ -54,7 +54,6 @@
         </LinearLayout>
 
 
-
         <Button
             android:id="@+id/btn_sure"
             android:layout_width="60dp"

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by duanlei on 2016/3/23.
  */
-public class ReceiptDefalut {
+public class ReceiptDefault {
     private H h;
     private GoodsReceipt b;
 

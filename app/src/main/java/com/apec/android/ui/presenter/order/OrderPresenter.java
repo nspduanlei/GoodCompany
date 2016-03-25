@@ -54,7 +54,38 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
                 }, orderId);
     }
 
+    /**
+     * 取消订单
+     * @param orderId
+     */
+    public void cancelOrder(int orderId) {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        OrderInteract.cancelOrder(
+                mContext, new GetDataCallback<NoBody>() {
+                    @Override
+                    public void onRepose(NoBody response) {
+                        getView().hideLoading();
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            //取消订单成功
+                            getView().cancelOrderSuccess();
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
+                            //需要登录
+                            getView().needLogin();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, orderId);
+    }
+
     public interface IView extends BaseViewInterface {
+        void cancelOrderSuccess();
         void getOrderSuccess(Order order);
         void needLogin();
         boolean isReady();

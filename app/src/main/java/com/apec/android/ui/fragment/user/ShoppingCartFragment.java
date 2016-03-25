@@ -67,7 +67,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        mPresenter.obtainDefaultAddress();
+        mPresenter.obtainShopCart();
     }
 
     private ArrayList<Skus> mData;
@@ -155,15 +155,21 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 R.layout.shopping_cart_item) {
             @Override
             public void convert(final MyViewHolder holder, final Skus skus) {
-
                 holder.setText(R.id.tv_count, String.valueOf(skus.getCount()))
                         .setText(R.id.tv_goods_name, skus.getSku().getSkuName())
                         .setText(R.id.tv_price, String.format("￥%s", skus.getSku().getPrice()));
 
-                if (skus.isSelectCart()) {
+                if (skus.isSelectCart() && skus.getSku().getStatus() == 1) {
                     holder.setChecked(R.id.cb_select, true);
                 } else {
                     holder.setChecked(R.id.cb_select, false);
+                }
+
+                if (skus.getSku().getStatus() == 2) {
+                    //该商品已下架
+                    holder.setVisibility(R.id.fl_sold_out, View.VISIBLE);
+                } else {
+                    holder.setVisibility(R.id.fl_sold_out, View.GONE);
                 }
 
                 //商品数量编辑
@@ -177,9 +183,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                         final EditText etGoodsCount =
                                 (EditText) dialogView.findViewById(R.id.et_goods_count);
                         etGoodsCount.setText(String.valueOf(mData.get(holder.getMPosition()).getCount()));
-
                         ViewHolder viewHolder = new ViewHolder(dialogView);
-
                         DialogPlus dialogPlus = new DialogPlus.Builder(getActivity())
                                 .setContentHolder(viewHolder)
                                 .setCancelable(true)
@@ -189,6 +193,25 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                     @Override
                                     public void onClick(DialogPlus dialog, View view) {
                                         switch (view.getId()) {
+
+                                            case R.id.btn_add:
+                                                int count_add = Integer.valueOf(
+                                                        etGoodsCount.getText().toString());
+                                                if (count_add == 100) {
+                                                    Toast.makeText(getActivity(), "最多只能购买100包",
+                                                            Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    etGoodsCount.setText(String.valueOf(count_add + 1));
+                                                }
+                                                break;
+                                            case R.id.btn_cut:
+                                                int count_cut = Integer.valueOf(
+                                                        etGoodsCount.getText().toString());
+                                                if (count_cut > 0) {
+                                                    etGoodsCount.setText(String.valueOf(count_cut - 1));
+                                                }
+                                                break;
+
                                             case R.id.tv_cancel:
                                                 dialog.dismiss();
                                                 break;
@@ -196,6 +219,13 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                                 dialog.dismiss();
                                                 int count = Integer.valueOf(
                                                         etGoodsCount.getText().toString());
+
+                                                if (count > 100) {
+                                                    count = 100;
+                                                    Toast.makeText(getActivity(), "最多只能购买100包",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+
                                                 int addCount =
                                                         count - mData.get(holder.getMPosition())
                                                                 .getCount();
@@ -255,7 +285,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (isChecked) {
                             mCount++;
-
                             mPrice = mPrice + Double.valueOf(
                                     mData.get(holder.getMPosition()).getSku().getPrice()) *
                                     mData.get(holder.getMPosition()).getCount();
@@ -266,7 +295,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                             }
                         } else {
                             mCount--;
-
                             mPrice = mPrice - Double.valueOf(
                                     mData.get(holder.getMPosition()).getSku().getPrice()) *
                                     mData.get(holder.getMPosition()).getCount();
@@ -316,11 +344,14 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public void obtainOrderSuccess() {
         //下单成功
         Toast.makeText(getActivity(), "创建订单成功！", Toast.LENGTH_SHORT).show();
-        mDialog.dismiss();
+        mPresenter.obtainShopCart();
     }
+
+    private boolean isGetAddressed;
 
     @Override
     public void obtainDefaultSuccess(GoodsReceipt goodsReceipt) {
+        isGetAddressed = true;
         if (goodsReceipt == null) {
             //不存在默认收货地址
             addressId = 0;
@@ -335,13 +366,17 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             TextView userInfo = (TextView) addressShow.findViewById(R.id.tv_user_info);
             userInfo.setText(String.format("%s   %s", goodsReceipt.getName(),
                     goodsReceipt.getPhone()));
-        }
 
-        mPresenter.obtainShopCart();
+            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+        }
     }
 
     @Override
     public void obtainCartSuccess(ShopCart shopCart) {
+        if (!isGetAddressed) {
+            mPresenter.obtainDefaultAddress();
+        }
+
         mData.clear();
         mData.addAll(shopCart.getSkus());
         mAdapter.notifyDataSetChanged();
@@ -351,9 +386,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         totalPrices.setText(String.format(getString(R.string.total_price_cart),
                 shopCart.getTotalPrice()));
 
-        if (addressId != 0) {
-            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-        }
+//        if (addressId != 0) {
+//            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+//        }
     }
 
     private final static int REQUEST_CODE_LOGIN = 1001;
@@ -379,7 +414,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public boolean isReady() {
         return isAdded();
     }
-
 
     //购买商品skuId拼接
     StringBuffer sbSkus = new StringBuffer();
@@ -447,9 +481,11 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                             dialog.dismiss();
                                             break;
                                         case R.id.btn_pay:
+                                            mDialog.dismiss();
                                             //TODO 货到付款
                                             //下单
                                             mPresenter.createOrder(sbSkus.toString(), addressId);
+                                            sbSkus.delete(0, sbSkus.toString().length());
                                             break;
                                         default:
                                             break;
@@ -486,7 +522,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             public void convert(MyViewHolder holder, Skus skus) {
                 holder.setText(R.id.tv_goods_name, String.format("   %s",
                         skus.getSku().getSkuName()))
-                        .setText(R.id.tv_goods_price, String.format("%d x %s￥",
+                        .setText(R.id.tv_goods_price, String.format("%d x ￥%s",
                                 skus.getCount(), skus.getSku().getPrice()));
             }
         });

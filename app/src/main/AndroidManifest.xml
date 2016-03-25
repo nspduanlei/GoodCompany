@@ -51,6 +51,8 @@
         <activity android:name=".ui.activity.user.ManageAddrActivity" />
 
         <activity android:name=".ui.activity.GuideActivity" />
+
+        <activity android:name=".ui.activity.user.MyAccountActivity" />
     </application>
 
 </manifest>

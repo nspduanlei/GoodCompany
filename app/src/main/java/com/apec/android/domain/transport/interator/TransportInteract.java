@@ -9,7 +9,7 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.transport.ReceiptDefalut;
+import com.apec.android.domain.transport.ReceiptDefault;
 import com.apec.android.domain.transport.ReceiptList;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
@@ -240,14 +240,14 @@ public class TransportInteract {
      * @param callback
      */
     public static void obtainDefaultAddress(Context context,
-                                            final GetDataCallback<ReceiptDefalut> callback) {
-        GsonRequest<ReceiptDefalut> request = new GsonRequest<>(
+                                            final GetDataCallback<ReceiptDefault> callback) {
+        GsonRequest<ReceiptDefault> request = new GsonRequest<>(
                 context, Request.Method.GET,
                 UrlConstant.URL_GET_DEFAULT_ADDRESS,
-                ReceiptDefalut.class,
-                new Listener<ReceiptDefalut>() {
+                ReceiptDefault.class,
+                new Listener<ReceiptDefault>() {
                     @Override
-                    public void onResponse(ReceiptDefalut response) {
+                    public void onResponse(ReceiptDefault response) {
                         callback.onRepose(response);
                     }
 

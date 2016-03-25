@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--商品详情-->
+    <ImageView
+        android:id="@+id/tv_goods_pic"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/ll_state"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/test" />
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_state"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/tv_goods_pic"
+        android:text="白砂糖（正常颗粒）"
+        android:textColor="@color/color_text_1" />
+
+    <TextView
+        android:id="@+id/tv_goods_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goods_name"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/tv_goods_pic"
+        android:text="@string/goods_type"
+        android:textColor="@color/color_text_2"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/tv_goods_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goods_unit"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_goods_pic"
+        android:text="￥270.00 x 1"
+        android:textColor="@color/color_text_1"/>
+
+</RelativeLayout>

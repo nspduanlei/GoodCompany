@@ -13,6 +13,19 @@ public class Sku {
     private List<SkuAttribute> attributeNames;
     private List<Pic> pics;
     private String skuRemark;
+    /**
+     * 1 上架
+     * 2 下架
+     */
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;

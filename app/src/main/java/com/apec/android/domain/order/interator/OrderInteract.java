@@ -126,4 +126,40 @@ public class OrderInteract {
         );
         MyApplication.getRequestQueue().add(request);
     }
+
+    /**
+     * 取消订单
+     * @param context
+     * @param callback
+     * @param orderId
+     */
+    public static void cancelOrder(Context context,
+                                   final GetDataCallback<NoBody> callback,
+                                   final int orderId) {
+        L.e("test001", "orderId--->" + orderId);
+
+        GsonRequest<NoBody> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_CANCEL_ORDER + "?id=" +orderId,
+                NoBody.class,
+                new Listener<NoBody>() {
+                    @Override
+                    public void onResponse(NoBody response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                }
+        );
+        MyApplication.getRequestQueue().add(request);
+    }
 }

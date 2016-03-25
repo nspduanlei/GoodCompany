@@ -64,8 +64,12 @@ public class UrlConstant {
 
     //我的订单列表
     public static final String URL_MY_ORDERS = URL_BASE + "/orders";
+
     //我的订单列表
     public static final String URL_ORDER = URL_BASE + "/order";
+
+    //取消订单
+    public static final String URL_CANCEL_ORDER = URL_BASE + "/order/cancel";
 
 
 }

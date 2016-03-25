@@ -62,6 +62,9 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
     private FrameLayout loading;
     private LinearLayout empty;
 
+    private final static int REQUEST_CODE_DETAIL = 1001;
+    public final static int RESULT_CODE_DETAIL = 101;
+
     private void initView(View view) {
         //标题
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
@@ -121,7 +124,7 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
                         Intent intent = new Intent(getActivity(), OrderActivity.class);
                         intent.putExtra(OrderActivity.EXTRA_ORDER_ID,
                                 mData.get(holder.getMPosition()).getId());
-                        startActivity(intent);
+                        startActivityForResult(intent, REQUEST_CODE_DETAIL);
                     }
                 });
 
@@ -202,6 +205,15 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
                 Intent intent = new Intent(getActivity(), GoodsActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_DETAIL) {
+            if (resultCode == RESULT_CODE_DETAIL) { //订单取消
+                mPresenter.getMyOrders();
+            }
         }
     }
 }

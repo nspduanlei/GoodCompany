@@ -40,15 +40,13 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
                     public void onRepose(GetAllAttribute response) {
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-
-                            if (response.getB().size() == 0) {
-                                return;
-                            }
-
-                            if (isViewAttached()) {
-                                getView().getAllAttrSuccess(response.getB());
+                            if (response.getB().size() != 0) {
+                                if (isViewAttached()) {
+                                    getView().getAllAttrSuccess(response.getB());
+                                }
                             }
                         }
                     }
@@ -69,12 +67,12 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
         if (isViewAttached()) {
             getView().showLoading();
         }
-
         GoodsInteract.querySku(
                 mContext,
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
                     public void onRepose(GetAllAttribute response) {
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             getView().getAllAttrSuccess(response.getB());
