@@ -8,15 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.domain.order.Order;
 import com.apec.android.domain.order.OrderItem;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.order.OrderActivity;
+import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
+import com.apec.android.ui.fragment.user.ShoppingCartFragment;
 import com.apec.android.ui.presenter.order.MyOrdersPresenter;
 import com.apec.android.util.ColorPhrase;
 
@@ -62,7 +65,7 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
     private FrameLayout loading;
     private LinearLayout empty;
 
-    private final static int REQUEST_CODE_DETAIL = 1001;
+    private final static int REQUEST_CODE_DETAIL = 1002;
     public final static int RESULT_CODE_DETAIL = 101;
 
     private void initView(View view) {
@@ -147,7 +150,7 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
 
                     case 4://订单取消
                         holder.setText(R.id.tv_order_pro, String.format("   %s ", "订单取消"));
-                        holder.setTextBackground(R.id.tv_order_pro, R.drawable.order_pro_bg_4);
+                        holder.setTextBackground(R.id.tv_order_pro, R.drawable.order_pro_bg_1);
                         break;
                 }
             }
@@ -178,7 +181,9 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
 
     @Override
     public void needLogin() {
-
+        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), RegisterFActivity.class);
+        startActivityForResult(intent, ShoppingCartFragment.REQUEST_CODE_LOGIN);
     }
 
     /**
@@ -208,12 +213,30 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
         }
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == REQUEST_CODE_DETAIL) {
+//            if (resultCode == RESULT_CODE_DETAIL) { //订单取消
+//                mPresenter.getMyOrders();
+//            }
+//        }
+//    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_DETAIL) {
-            if (resultCode == RESULT_CODE_DETAIL) { //订单取消
-                mPresenter.getMyOrders();
-            }
+        switch (requestCode) {
+            case ShoppingCartFragment.REQUEST_CODE_LOGIN:
+                if (resultCode == ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS) {
+                    mPresenter.getMyOrders();
+                } else {
+                    getActivity().finish();
+                }
+                break;
+            case REQUEST_CODE_DETAIL:
+                if (resultCode == RESULT_CODE_DETAIL) { //订单取消
+                    mPresenter.getMyOrders();
+                }
+                break;
         }
     }
 }

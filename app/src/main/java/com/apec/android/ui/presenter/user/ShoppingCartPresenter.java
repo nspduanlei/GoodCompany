@@ -38,18 +38,26 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<ShopCartBack>() {
                     @Override
                     public void onRepose(ShopCartBack response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //加入购物车成功
                             if (response.getB().getTotal() == 0) {
-                                getView().showEmptyCase();
+                                if (isViewAttached()) {
+                                    getView().showEmptyCase();
+                                }
                             } else {
-                                getView().obtainCartSuccess(response.getB());
+                                if (isViewAttached()) {
+                                    getView().obtainCartSuccess(response.getB());
+                                }
                             }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 
@@ -77,10 +85,14 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
-                            getView().updateNumSuccess();
+                            if (isViewAttached()) {
+                                getView().updateNumSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 

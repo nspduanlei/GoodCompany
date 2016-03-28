@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.H;
 import com.apec.android.domain.NoBody;
+import com.apec.android.domain.user.UserBack;
 import com.apec.android.domain.user.interator.UserInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
@@ -20,7 +21,7 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
     }
 
     /**
-     * 或区验证码
+     * 获取验证码
      *
      * @param mobile
      */
@@ -34,19 +35,24 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
                 new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
-
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         switch (code) {
                             case 200:
-                                getView().sendCodeBack();
+                                if (isViewAttached()) {
+                                    getView().sendCodeBack();
+                                }
                                 break;
                         }
                     }
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                     }
                 }, mobile, "3");
     }
@@ -64,11 +70,18 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
 
         UserInteract.submitVerCode(
                 mContext,
-                new GetDataCallback<NoBody>() {
+                new GetDataCallback<UserBack>() {
                     @Override
-                    public void onRepose(NoBody response) {
-                        getView().hideLoading();
-                        getView().submitCodeBack(response.getH());
+                    public void onRepose(UserBack response) {
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
+
+                        if (response.getH().getCode() == 200) {
+                            if (isViewAttached()) {
+                                getView().submitCodeBack(response);
+                            }
+                        }
                     }
 
                     @Override
@@ -81,6 +94,6 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
     public interface IView extends BaseViewInterface {
         boolean isReady();
         void sendCodeBack();
-        void submitCodeBack(H head);
+        void submitCodeBack(UserBack head);
     }
 }

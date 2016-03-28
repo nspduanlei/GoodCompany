@@ -13,16 +13,16 @@ import com.viewpagerindicator.IconPagerAdapter;
  * Created by duanlei on 2016/3/17.
  */
 public class IconPageViewAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
-    protected static final String[] CONTENT = new String[]{"糖品", "米品", "油品", "面品", "调味品"};
+    //protected static final String[] CONTENT = new String[]{"糖品", "米品", "油品", "面品", "调味品"};
     protected static final int[] ICONS = new int[]{
-            R.drawable.sugar_icon,
-            R.drawable.rice_icon,
-            R.drawable.ail_icon,
-            R.drawable.face_icon,
-            R.drawable.condiment_icon
+            R.drawable.top_icon_selector_1,
+            R.drawable.top_icon_selector_2,
+            R.drawable.top_icon_selector_3,
+            R.drawable.top_icon_selector_4,
+            R.drawable.top_icon_selector_5
     };
 
-    private int mCount = CONTENT.length;
+    private int mCount = ICONS.length;
 
     public IconPageViewAdapter(FragmentManager fm) {
         super(fm);
@@ -38,10 +38,10 @@ public class IconPageViewAdapter extends FragmentPagerAdapter implements IconPag
         return mCount;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return CONTENT[position % CONTENT.length];
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return CONTENT[position % CONTENT.length];
+//    }
 
     @Override
     public int getIconResId(int index) {

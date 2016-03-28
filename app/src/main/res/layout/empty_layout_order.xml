@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/ll_empty"
+    android:visibility="gone"
+    android:background="@color/color_white">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/order_empty"/>
+
+    <TextView
+        android:id="@+id/tv_hint"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_black"
+        android:text="亲！还没有订单哦"/>
+
+    <Button
+        android:id="@+id/btn_goto"
+        style="@style/button_style_7"
+        android:layout_marginTop="30dp"
+        android:text="返 回"
+        android:textColor="@color/color_10"/>
+
+</LinearLayout>

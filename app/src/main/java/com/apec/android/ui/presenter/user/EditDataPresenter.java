@@ -30,7 +30,6 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
      */
     public void saveAddress(String takeGoodsPhone, String takeGoodsUser,
                             int addreCity, int addreAreacounty, String addreDetailAddress) {
-
         if (isViewAttached()) {
             getView().showLoading();
         }
@@ -38,16 +37,20 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //收货地址添加成功
-
-                            getView().saveAddressSuccess();
-
+                            if (isViewAttached()) {
+                                getView().saveAddressSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 
@@ -68,16 +71,20 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //收货地址添加成功
-
-                            getView().saveAddressSuccess();
-
+                            if (isViewAttached()) {
+                                getView().saveAddressSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 

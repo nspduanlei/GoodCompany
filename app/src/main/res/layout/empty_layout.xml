@@ -11,19 +11,21 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/empty_big_img"/>
+        android:src="@drawable/shop_cart_empty"/>
 
     <TextView
         android:id="@+id/tv_hint"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="您的订单还是空的, 赶紧行动起来"/>
+        android:textColor="@color/color_black"
+        android:text="购物车怎么是空的"/>
 
     <Button
         android:id="@+id/btn_goto"
-        style="@style/button_style_2"
+        style="@style/button_style_6"
         android:layout_marginTop="30dp"
-        android:text="去下单"/>
+        android:text="去下单"
+        android:textColor="@color/color_9"/>
 
 </LinearLayout>

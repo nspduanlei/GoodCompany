@@ -11,8 +11,6 @@ public class SPUtils {
 
     /**=============================key====================================**/
 
-    //0不是,1是
-
     //用户选择游客模式
     public static final String IS_NO_LOGIN = "select_no_login";
     //是否第一次进入app
@@ -24,6 +22,13 @@ public class SPUtils {
 
     //登录成功了未完善资料
     public static final String IS_COMPLETE = "select_not_update_version";
+
+    //手机号
+    public static final String PHONE = "user_phone";
+
+    //用户名
+    public static final String USER_NAME = "user_name";
+
 
     /**=================================================================**/
 

@@ -28,15 +28,18 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
         if(isViewAttached()) {
             getView().showLoading();
         }
-
         GoodsInteract.fetchGoods(
                 mContext,
                 new GetDataCallback<Goods>() {
                     @Override
                     public void onRepose(Goods response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         if (response.getH().getCode() == 200) {
-                            getView().showGoods(response.getB().getData());
+                            if (isViewAttached()) {
+                                getView().showGoods(response.getB().getData());
+                            }
                         } else {
 
                         }

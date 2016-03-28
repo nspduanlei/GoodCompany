@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.RegisterPresenter;
+import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 
@@ -111,9 +113,10 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
 
     @Override
     public void submitSuccess() {
-//        Intent intent = new Intent(getActivity(), GoodsActivity.class);
-//        startActivity(intent);
+        Intent mIntent = new Intent(GoodsActivity.ACTION_USER_UPDATE);
+        getActivity().sendBroadcast(mIntent);
 
+        SPUtils.put(getActivity(), SPUtils.USER_NAME, etUserName.getText().toString());
         getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
         getActivity().finish();
     }
@@ -140,6 +143,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
                         userCity == 0 ||
                         userAreaId == 0 ||
                         StringUtils.isNullOrEmpty(userAddress)) {
+
                     Toast.makeText(getActivity(), "请填写完所用表单数据。。",
                             Toast.LENGTH_SHORT).show();
                 } else {

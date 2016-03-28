@@ -12,6 +12,8 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.user.Areas;
 import com.apec.android.domain.user.ShopCartBack;
+import com.apec.android.domain.user.User;
+import com.apec.android.domain.user.UserBack;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
 
@@ -63,14 +65,14 @@ public class UserInteract {
      *
      * @param callback
      */
-    public static void submitVerCode(Context context, final GetDataCallback<NoBody> callback,
+    public static void submitVerCode(Context context, final GetDataCallback<UserBack> callback,
                                      final String phone, final String code) {
-        GsonRequest<NoBody> request = new GsonRequest<>(
+        GsonRequest<UserBack> request = new GsonRequest<>(
                 context, Request.Method.POST,
-                UrlConstant.URL_SMS_LOGIN, NoBody.class,
-                new Listener<NoBody>() {
+                UrlConstant.URL_SMS_LOGIN, UserBack.class,
+                new Listener<UserBack>() {
                     @Override
-                    public void onResponse(NoBody response) {
+                    public void onResponse(UserBack response) {
                         callback.onRepose(response);
                     }
 
@@ -181,6 +183,78 @@ public class UserInteract {
                     @Override
                     public Map getRequestParams() {
                         return null;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                }
+        );
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    /**
+     * 获取用户信息
+     * @param context
+     * @param callback
+     */
+    public static void obtainUserInfo(Context context,
+                                      final GetDataCallback<UserBack> callback) {
+        GsonRequest<UserBack> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_USER_INFO,
+                UserBack.class,
+                new Listener<UserBack>() {
+                    @Override
+                    public void onResponse(UserBack response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                }
+        );
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    /**
+     * 修改用户信息
+     * @param context
+     * @param callback
+     * @param user
+     */
+    public static void updateUserInfo(Context context,
+                                      final GetDataCallback<NoBody> callback,
+                                      final User user) {
+        GsonRequest<NoBody> request = new GsonRequest<>(
+                context, Request.Method.POST,
+                UrlConstant.URL_UPDATE_USER_INFO,
+                NoBody.class,
+                new Listener<NoBody>() {
+                    @Override
+                    public void onResponse(NoBody response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("userPhone", user.getPhone());
+                        params.put("userShop", user.getShopName());
+                        params.put("userName", user.getName());
+                        return params;
                     }
                 },
                 new Response.ErrorListener() {

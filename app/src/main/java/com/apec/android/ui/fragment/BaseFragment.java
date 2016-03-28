@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apec.android.app.MyApplication;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.goods.GoodsFPresenter;
 
@@ -27,7 +28,6 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         super.onViewCreated(view, savedInstanceState);
         mPresenter = createPresenter();
         mPresenter.attachView((V) this);
-
     }
 
     protected abstract int getFragmentLayout();

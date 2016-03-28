@@ -391,7 +391,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 //        }
     }
 
-    private final static int REQUEST_CODE_LOGIN = 1001;
+    public final static int REQUEST_CODE_LOGIN = 1001;
     private final static int REQUEST_CODE_ADDR = 1002;
     private final static int REQUEST_CODE_LOGIN_PAY = 1003;
 
@@ -537,6 +537,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             case REQUEST_CODE_LOGIN:
                 if (resultCode == RESULT_CODE_LOGIN_SUCCESS) {
                     mPresenter.obtainShopCart();
+                } else {
+                    getActivity().finish();
                 }
 
                 break;

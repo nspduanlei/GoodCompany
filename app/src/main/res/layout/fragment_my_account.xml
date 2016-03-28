@@ -1,84 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/top_bar_layout_edit" />
-
+    <include layout="@layout/top_bar_layout_cart" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="48dp">
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_phone" />
+            android:layout_gravity="right"
+            android:layout_margin="25dp"
+            android:drawableLeft="@drawable/edit_icon"
+            android:gravity="center_vertical"
+            android:text="  编辑"
+            android:textColor="@color/color_text_4" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="商家名称"
-            android:layout_marginLeft="6dp"
-            android:textColor="@color/color_text_1"
-            android:textColorHint="@color/color_text_2"/>
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/shop_icon" />
+
+            <EditText
+                android:id="@+id/et_shop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/edit_line_bg"
+                android:enabled="false"
+                android:hint="商家名称"
+                android:paddingBottom="5dp"
+                android:textColor="@color/edit_selector_text"
+                android:textColorHint="@color/color_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user_icon" />
+
+            <EditText
+                android:id="@+id/et_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/edit_line_bg"
+                android:enabled="false"
+                android:hint="联系人"
+                android:paddingBottom="5dp"
+                android:textColor="@color/edit_selector_text"
+                android:textColorHint="@color/color_hint" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/phone_icon" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/edit_line_bg"
+                android:enabled="false"
+                android:hint="电话"
+                android:inputType="phone"
+                android:paddingBottom="5dp"
+                android:textColor="@color/edit_selector_text"
+                android:textColorHint="@color/color_hint" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/button_style_2"
+            android:layout_marginTop="30dp"
+            android:enabled="false"
+            android:text="保 存" />
     </LinearLayout>
 
-    <LinearLayout
+    <include
+        layout="@layout/loading_layout"
+        android:layout_marginTop="48dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_phone" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="联系人"
-            android:layout_marginLeft="6dp"
-            android:textColor="@color/color_text_1"
-            android:textColorHint="@color/color_text_2"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_phone" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="电话"
-            android:layout_marginLeft="6dp"
-            android:textColor="@color/color_text_1"
-            android:textColorHint="@color/color_text_2"
-            android:text="154****8566"/>
-
-    </LinearLayout>
-
-
-
-
-</LinearLayout>
+        android:layout_height="match_parent"/>
+</FrameLayout>

@@ -1,6 +1,5 @@
 package com.apec.android.ui.fragment.user;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.domain.H;
+import com.apec.android.domain.user.UserBack;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.fragment.BaseFragment;
@@ -21,6 +21,7 @@ import com.apec.android.ui.presenter.user.RegisterFPresenter;
 import com.apec.android.util.ColorPhrase;
 import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
+import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 
 import java.lang.ref.WeakReference;
@@ -203,27 +204,33 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     }
 
     @Override
-    public void submitCodeBack(H head) {
-        switch (head.getCode()) {
+    public void submitCodeBack(UserBack userBack) {
+        switch (userBack.getH().getCode()) {
             case 200: //登录成功，已完善资料
-//                Intent intent = new Intent(getActivity(), GoodsActivity.class);
-//                startActivity(intent);
+                SPUtils.put(getActivity(), SPUtils.USER_NAME, userBack.getB().getName());
+
+                Intent mIntent = new Intent(GoodsActivity.ACTION_USER_UPDATE);
+                getActivity().sendBroadcast(mIntent);
+
+                SPUtils.put(getActivity(), SPUtils.PHONE, phoneNumberStr);
                 getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
                 getActivity().finish();
                 break;
             case 4017: //登录成功未完善资料
+                Intent mIntent1 = new Intent(GoodsActivity.ACTION_USER_UPDATE);
+                getActivity().sendBroadcast(mIntent1);
+
+                SPUtils.put(getActivity(), SPUtils.PHONE, phoneNumberStr);
                 Intent intent1 = new Intent(getActivity(), RegisterActivity.class);
                 getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
                 startActivity(intent1);
-
                 getActivity().finish();
                 break;
-
             case 4025: //验证码输入有误
                 Toast.makeText(getActivity(), "验证码输入错误", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(getActivity(), head.getMsg(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), userBack.getH().getMsg(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

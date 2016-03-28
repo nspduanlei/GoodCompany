@@ -13,8 +13,8 @@
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:background">@drawable/custom_tab_indicator</item>
         <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
-        <item name="android:textColor">@color/color_text_1</item>
-        <item name="android:textSize">14sp</item>
+        <!--<item name="android:textColor">@color/color_text_1</item>-->
+        <!--<item name="android:textSize">14sp</item>-->
         <!--<item name="android:divider">@drawable/custom_tab_indicator_divider</item>-->
         <!--<item name="android:dividerPadding">10dp</item>-->
         <!--<item name="android:showDividers">middle</item>-->
@@ -80,7 +80,7 @@
     </style>
 
     <style name="button_style_2" parent="button_style_base">
-        <item name="android:background">@drawable/button_shape_bg_2</item>
+        <item name="android:background">@drawable/button_selector</item>
     </style>
 
     <style name="button_style_3" parent="button_style_base">
@@ -89,6 +89,18 @@
 
     <style name="button_style_4" parent="button_style_base">
         <item name="android:background">@drawable/button_shape_bg_4</item>
+    </style>
+
+    <style name="button_style_5" parent="button_style_base">
+        <item name="android:background">@drawable/button_shape_bg_7</item>
+    </style>
+
+    <style name="button_style_6" parent="button_style_base">
+        <item name="android:background">@drawable/button_shape_bg_8</item>
+    </style>
+
+    <style name="button_style_7" parent="button_style_base">
+        <item name="android:background">@drawable/button_shape_bg_9</item>
     </style>
 
     <style name="test001">

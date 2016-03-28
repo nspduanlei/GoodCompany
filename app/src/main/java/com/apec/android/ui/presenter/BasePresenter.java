@@ -2,6 +2,8 @@ package com.apec.android.ui.presenter;
 
 import android.content.Context;
 
+import com.apec.android.domain.user.User;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 

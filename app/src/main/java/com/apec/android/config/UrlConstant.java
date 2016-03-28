@@ -71,5 +71,10 @@ public class UrlConstant {
     //取消订单
     public static final String URL_CANCEL_ORDER = URL_BASE + "/order/cancel";
 
+    //获取用户信息
+    public static final String URL_USER_INFO = URL_BASE + "/user";
+
+    //修改用户信息
+    public static final String URL_UPDATE_USER_INFO = URL_BASE + "/user/update";
 
 }

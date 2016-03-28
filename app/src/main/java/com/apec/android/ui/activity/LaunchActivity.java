@@ -35,7 +35,8 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //是否第一次登录
-        if (SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 1) {
+        if (SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
+            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
             //是第一次进入app，到引导页
             Intent intent = new Intent(this, GuideActivity.class);
             startActivity(intent);
@@ -91,14 +92,14 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
      */
     public void addData(View view) {
         User user = new User();
-        user.setUsername("duanlei");
-        user.setPassword("11111");
+        user.setName("duanlei");
+        user.setPhone("11111");
         user.saveThrows();
     }
 
     public void updateData(View view) {
         User user = new User();
-        user.setUsername("duanlei1111");
+        user.setName("duanlei1111");
         user.update(10);
     }
 

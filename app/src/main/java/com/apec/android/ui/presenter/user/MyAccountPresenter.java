@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
+import com.apec.android.domain.NoBody;
 import com.apec.android.domain.user.Area;
 import com.apec.android.domain.user.Areas;
+import com.apec.android.domain.user.User;
+import com.apec.android.domain.user.UserBack;
 import com.apec.android.domain.user.interator.UserInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
@@ -22,12 +25,21 @@ public class MyAccountPresenter extends BasePresenter<MyAccountPresenter.IView> 
         super(context);
     }
 
-    public void obtainArea(int id) {
-        UserInteract.obtainArea(mContext, new GetDataCallback<Areas>() {
+    public void obtainUserInfo() {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+
+        UserInteract.obtainUserInfo(mContext, new GetDataCallback<UserBack>() {
             @Override
-            public void onRepose(Areas response) {
+            public void onRepose(UserBack response) {
+                if (isViewAttached()) {
+                    getView().hideLoading();
+                }
                 if (response.getH().getCode() == 200) {
-                    getView().getAreaBack(response.getB());
+                    if (isViewAttached()) {
+                        getView().getUserInfoBack(response.getB());
+                    }
                 }
             }
 
@@ -35,11 +47,38 @@ public class MyAccountPresenter extends BasePresenter<MyAccountPresenter.IView> 
             public void onErrorResponse(VolleyError error) {
 
             }
-        }, String.valueOf(id));
+        });
+    }
+
+    /**
+     * 更新用户信息
+     * @param user
+     */
+    public void updateUserInfo(User user) {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+
+        UserInteract.updateUserInfo(mContext, new GetDataCallback<NoBody>() {
+            @Override
+            public void onRepose(NoBody response) {
+                if (response.getH().getCode() == 200) {
+                    if (isViewAttached()) {
+                        getView().updateSuccess();
+                    }
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, user);
     }
 
     public interface IView extends BaseViewInterface {
         boolean isReady();
-        void getAreaBack(ArrayList<Area> areas);
+        void getUserInfoBack(User user);
+        void updateSuccess();
     }
 }

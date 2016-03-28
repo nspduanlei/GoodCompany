@@ -37,19 +37,27 @@ public class MyOrdersPresenter extends BasePresenter<MyOrdersPresenter.IView> {
                 mContext, new GetDataCallback<OrderListBack>() {
                     @Override
                     public void onRepose(OrderListBack response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //获取订单成功
                             if (response.getB().getDataTotal() == 0) {
-                                getView().showEmptyCase();
+                                if (isViewAttached()) {
+                                    getView().showEmptyCase();
+                                }
                             } else {
-                                getView().obtainOrdersSuccess(response.getB().getData());
+                                if (isViewAttached()) {
+                                    getView().obtainOrdersSuccess(response.getB().getData());
+                                }
                             }
 
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 

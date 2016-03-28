@@ -22,15 +22,18 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
      * 获取商品类型
      */
     public void fetchGoodTypes() {
-
-        getView().showLoading();
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
 
         GoodsInteract.fetchCategorys(
                 mContext,
                 new GetDataCallback<GateGorys>() {
                     @Override
                     public void onRepose(GateGorys response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
 

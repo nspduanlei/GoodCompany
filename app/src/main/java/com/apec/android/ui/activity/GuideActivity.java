@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.apec.android.R;
+import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 
 /**
@@ -19,7 +20,7 @@ public class GuideActivity extends Activity {
     }
 
     public void start(View view) {
-        Intent intent = new Intent(this, RegisterFActivity.class);
+        Intent intent = new Intent(this, GoodsActivity.class);
         startActivity(intent);
         this.finish();
     }

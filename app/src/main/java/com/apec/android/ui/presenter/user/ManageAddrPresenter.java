@@ -35,14 +35,19 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
                 mContext, new GetDataCallback<ReceiptList>() {
                     @Override
                     public void onRepose(ReceiptList response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().getAllAddressSuccess(response.getB());
-
+                            if (isViewAttached()) {
+                                getView().getAllAddressSuccess(response.getB());
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 
@@ -65,14 +70,19 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        //getView().hideLoading();
+//                        if (isViewAttached()) {
+//                            getView().hideLoading();
+//                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().setDefaultSuccess();
-
+                            if (isViewAttached()) {
+                                getView().setDefaultSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 
@@ -95,14 +105,19 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        //getView().hideLoading();
+//                        if (isViewAttached()) {
+//                            getView().hideLoading();
+//                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().deleteSuccess();
-
+                            if (isViewAttached()) {
+                                getView().deleteSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 

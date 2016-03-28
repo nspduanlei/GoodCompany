@@ -36,14 +36,19 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
                 mContext, new GetDataCallback<OrderBack>() {
                     @Override
                     public void onRepose(OrderBack response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().getOrderSuccess(response.getB());
-
+                            if (isViewAttached()) {
+                                getView().getOrderSuccess(response.getB());
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 
@@ -66,14 +71,20 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //取消订单成功
-                            getView().cancelOrderSuccess();
+                            if (isViewAttached()) {
+                                getView().cancelOrderSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 

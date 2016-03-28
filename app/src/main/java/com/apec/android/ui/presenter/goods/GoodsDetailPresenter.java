@@ -40,7 +40,9 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
                     public void onRepose(GetAllAttribute response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             if (response.getB().size() != 0) {
@@ -72,10 +74,14 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 new GetDataCallback<GetAllAttribute>() {
                     @Override
                     public void onRepose(GetAllAttribute response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().getAllAttrSuccess(response.getB());
+                            if (isViewAttached()) {
+                                getView().getAllAttrSuccess(response.getB());
+                            }
                         }
                     }
 
@@ -98,10 +104,14 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 mContext, new GetDataCallback<GoodsDetail>() {
                     @Override
                     public void onRepose(GoodsDetail response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().getGoodsDetail(response.getB());
+                            if (isViewAttached()) {
+                                getView().getGoodsDetail(response.getB());
+                            }
                         }
                     }
 
@@ -120,7 +130,9 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //加入购物车成功

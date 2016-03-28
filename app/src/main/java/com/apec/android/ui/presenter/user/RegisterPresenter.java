@@ -24,14 +24,27 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenter.IView> {
                                int userCity,
                                int userAreacounty,
                                String userAddress) {
+
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+
         UserInteract.submitUserData(mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
+
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().submitSuccess();
+                            if (isViewAttached()) {
+                                getView().submitSuccess();
+                            }
                         } else if (code == 10) { //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         }
                     }
 

@@ -7,50 +7,40 @@ import org.litepal.crud.DataSupport;
  */
 public class User extends DataSupport {
 
-    private int id;
-    private String username;
-    private String password;
-    private int phoneNumber;
+    private int userId;
+    private String shopName;
+    private String name;
+    private String phone;
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                '}';
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
