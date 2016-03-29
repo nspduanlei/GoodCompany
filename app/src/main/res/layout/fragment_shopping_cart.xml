@@ -54,12 +54,9 @@
                 android:textStyle="bold" />
 
             <Button
+                style="@style/button_style_8"
                 android:id="@+id/btn_goto_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="right|center_vertical"
-                android:background="@drawable/button_shape_bg_2"
-                android:textColor="@color/color_white" />
+                android:layout_gravity="right|center_vertical" />
         </FrameLayout>
     </LinearLayout>
 

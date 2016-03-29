@@ -11,6 +11,7 @@ import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.GoodsDetail;
 import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.goods.interator.GoodsInteract;
+import com.apec.android.domain.transport.ArrivalTime;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 
@@ -34,7 +35,6 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
         if (isViewAttached()) {
             getView().showLoading();
         }
-
         GoodsInteract.fetchGoodsAttrs(
                 mContext,
                 new GetDataCallback<GetAllAttribute>() {
@@ -151,7 +151,36 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 }, String.valueOf(mSkuId), num);
     }
 
+    /**
+     * 获取到货时间
+     */
+    public void getArrivalTime() {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        GoodsInteract.getArrivalTime(
+                mContext, new GetDataCallback<ArrivalTime>() {
+                    @Override
+                    public void onRepose(ArrivalTime response) {
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            getView().getArrivalTimeSuccess(response.getB().getTime());
+
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+    }
+
     public interface IView extends BaseViewInterface {
+        void getArrivalTimeSuccess(String time);
         void getAllAttrSuccess(ArrayList<SkuAttribute> attrs);
         void getGoodsDetail(Good good);
         void needLogin();

@@ -1,5 +1,8 @@
 package com.apec.android.ui.fragment.order;
 
+import android.annotation.TargetApi;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -91,6 +94,7 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
 
     //view_circle_1  view_line_1
     private View circle1, circle2, circle3, line1, line2;
+    private TextView tvStateText1, tvStateText2, tvStateText3;
 
     private FrameLayout loading;
 
@@ -124,6 +128,9 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
         circle3 = view.findViewById(R.id.view_circle_3);
         line1 = view.findViewById(R.id.view_line_1);
         line2 = view.findViewById(R.id.view_line_2);
+        tvStateText1 = (TextView) view.findViewById(R.id.tv_state_text_1);
+        tvStateText2 = (TextView) view.findViewById(R.id.tv_state_text_2);
+        tvStateText3 = (TextView) view.findViewById(R.id.tv_state_text_3);
     }
 
     @Override
@@ -177,15 +184,20 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
         switch (order.getOrderType()) {
             case 1: //待处理
                 break;
-            case 3: //处理中
+            case 2: //处理中
                 circle2.setBackgroundResource(R.drawable.circle_order_state);
                 line1.setBackgroundResource(R.color.color_5);
+
+                tvStateText2.setTextColor(getResources().getColor(R.color.color_5));
                 break;
-            case 2: //已完成
+            case 3: //已完成
                 circle2.setBackgroundResource(R.drawable.circle_order_state);
                 line1.setBackgroundResource(R.color.color_5);
                 circle3.setBackgroundResource(R.drawable.circle_order_state);
                 line2.setBackgroundResource(R.color.color_5);
+
+                tvStateText3.setTextColor(getResources().getColor(R.color.color_5));
+                tvStateText2.setTextColor(getResources().getColor(R.color.color_5));
 
                 btnCancelOrder.setVisibility(View.GONE);
                 break;

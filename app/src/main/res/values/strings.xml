@@ -18,6 +18,7 @@
     <string name="total_price_order">总价：{￥%s}</string>
     <string name="price_and_num">￥%1$s x %2$d</string>
     <string name="goods_type">50kg/袋</string>
+    <string name="arrival_time">*您的货物预计在%s送达</string>
 
 
 </resources>

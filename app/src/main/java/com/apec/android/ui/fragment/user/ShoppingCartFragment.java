@@ -392,9 +392,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         totalPrices.setText(String.format(getString(R.string.total_price_cart),
                 shopCart.getTotalPrice()));
 
-//        if (addressId != 0) {
-//            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-//        }
+        if (addressId != 0) {
+            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+        }
     }
 
     @Override
@@ -528,8 +528,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             }
         });
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -222,9 +222,11 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                 getActivity().sendBroadcast(mIntent1);
 
                 SPUtils.put(getActivity(), SPUtils.PHONE, phoneNumberStr);
+
                 Intent intent1 = new Intent(getActivity(), RegisterActivity.class);
                 getActivity().setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
                 startActivity(intent1);
+
                 getActivity().finish();
                 break;
             case 4025: //验证码输入有误
@@ -250,7 +252,6 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                     mPresenter.submitVerCode(phoneNumber.getText().toString(),
                             verCode.getText().toString());
                 }
-
                 break;
 
             case R.id.btn_get_code: //获取验证码

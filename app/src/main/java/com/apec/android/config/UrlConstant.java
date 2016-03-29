@@ -77,4 +77,8 @@ public class UrlConstant {
     //修改用户信息
     public static final String URL_UPDATE_USER_INFO = URL_BASE + "/user/update";
 
+    //获取到货时间
+    public static final String URL_ARRIVALTIME = URL_BASE + "/arrivaltime";
+
+
 }

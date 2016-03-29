@@ -67,7 +67,6 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
         if (isViewAttached()) {
             getView().showLoading();
         }
-
         UserInteract.submitVerCode(
                 mContext,
                 new GetDataCallback<UserBack>() {
@@ -77,11 +76,11 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
                             getView().hideLoading();
                         }
 
-                        if (response.getH().getCode() == 200) {
-                            if (isViewAttached()) {
-                                getView().submitCodeBack(response);
-                            }
+                        //if (response.getH().getCode() == 200) {
+                        if (isViewAttached()) {
+                            getView().submitCodeBack(response);
                         }
+                        //}
                     }
 
                     @Override

@@ -13,6 +13,7 @@ import com.apec.android.domain.goods.GateGory;
 import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.goods.GoodsDetail;
+import com.apec.android.domain.transport.ArrivalTime;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
 import com.apec.android.util.L;
@@ -221,6 +222,38 @@ public class GoodsInteract {
                         params.put("skuId", s);
                         params.put("num", num);
                         return params;
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    /**
+     * 获取到货时间
+     * @param context
+     * @param callback
+     */
+    public static void getArrivalTime(Context context, final GetDataCallback<ArrivalTime> callback) {
+        GsonRequest<ArrivalTime> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_ARRIVALTIME,
+                ArrivalTime.class,
+                new Listener<ArrivalTime>() {
+                    @Override
+                    public void onResponse(ArrivalTime response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
                     }
                 },
 

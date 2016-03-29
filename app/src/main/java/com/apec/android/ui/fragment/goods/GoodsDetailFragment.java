@@ -1,13 +1,14 @@
 package com.apec.android.ui.fragment.goods;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -23,7 +24,6 @@ import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.Sku;
 import com.apec.android.domain.goods.SkuAttrValue;
 import com.apec.android.domain.goods.SkuAttribute;
-import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;
@@ -53,7 +53,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     }
 
     private int goodsId;
-    private ArrayList<SkuAttribute> datas;
+    private ArrayList<SkuAttribute> mData;
     private BaseAdapter mAdapter;
     private View footerView;
 
@@ -101,7 +101,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
         initFootView();
 
-        datas = new ArrayList<>();
+        mData = new ArrayList<>();
         mAdapter = new MyAdapter();
         setListAdapter(mAdapter);
     }
@@ -109,8 +109,10 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     private TextView totalPrice;
     private EditText goodsCount;
     private ImageButton addButton, cutButton;
+    private TextView arrivalTime;
 
     private void initFootView() {
+        arrivalTime = (TextView) footerView.findViewById(R.id.tv_arrival_time);
         totalPrice = (TextView) footerView.findViewById(R.id.tv_total_price);
         addButton = (ImageButton) footerView.findViewById(R.id.btn_add);
         cutButton = (ImageButton) footerView.findViewById(R.id.btn_cut);
@@ -165,12 +167,12 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
         @Override
         public int getCount() {
-            return datas.size();
+            return mData.size();
         }
 
         @Override
         public SkuAttribute getItem(int position) {
-            return datas.get(position);
+            return mData.get(position);
         }
 
         @Override
@@ -211,7 +213,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             for (SkuAttrValue value : values) {
                 radioButton = new RadioButton(getActivity());
                 radioButton.setTextAppearance(getActivity(), R.style.btn_style_radio);
-                radioButton.setButtonDrawable(null);
+                radioButton.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
                 radioButton.setBackgroundResource(R.drawable.radio_selector);
                 radioButton.setTextAppearance(getActivity(), R.style.radio_text_color);
                 radioButton.setText(value.getName());
@@ -288,9 +290,16 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     }
 
     @Override
+    public void getArrivalTimeSuccess(String time) {
+        //到货时间获取成功，填充
+        arrivalTime.setText(String.format(getString(R.string.arrival_time), time));
+
+    }
+
+    @Override
     public void getAllAttrSuccess(ArrayList<SkuAttribute> attrs) {
-        datas.clear();
-        datas.addAll(attrs);
+        mData.clear();
+        mData.addAll(attrs);
         mAdapter.notifyDataSetChanged();
         getListView().addFooterView(footerView, null, false);
 
@@ -304,9 +313,12 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         mGood = good;
         if (good.getSkus().size() > 0) {
             RadioButton rb = (RadioButton) getListView().getChildAt(0)
-                    .findViewById(datas.get(0).getAttributeValues().get(0).getId());
+                    .findViewById(mData.get(0).getAttributeValues().get(0).getId());
             rb.setChecked(true);
         }
+
+        //获取到货时间
+        mPresenter.getArrivalTime();
     }
 
     @Override

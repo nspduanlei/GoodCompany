@@ -10,10 +10,11 @@
         android:textColor="@color/color_text_1" />
 
     <TextView
+        android:id="@+id/tv_arrival_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="3dp"
-        android:text="*您的货物预计在3月2日18点送达"
+        android:text="@string/arrival_time"
         android:textColor="@color/color_5" />
 </merge>
