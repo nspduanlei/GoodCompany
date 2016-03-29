@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.ui.activity.user.EditDataActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
@@ -115,7 +116,7 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
                         GoodsReceipt item = mData.get(holder.getMPosition());
                         Intent intent = new Intent(getActivity(), EditDataActivity.class);
                         intent.putExtra(EXTRA_EDIT_ADDRESS, item);
-                        startActivityForResult(intent, REQUEST_CODE_EDIT);
+                        startActivityForResult(intent, Constants.REQUEST_CODE_EDIT);
                     }
                 });
             }
@@ -142,21 +143,19 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
     @Override
     public void deleteSuccess() {
         mPresenter.getAllAddress();
-        getActivity().setResult(ShoppingCartFragment.RESULT_CODE_ADDRESS_SUCCESS);
+        getActivity().setResult(Constants.RESULT_CODE_ADDRESS_SUCCESS);
     }
-
-    private final static int REQUEST_CODE_LOGIN = 1002;
 
     @Override
     public void needLogin() {
         Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_LOGIN);
+        startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }
 
     @Override
     public void setDefaultSuccess() {
-        getActivity().setResult(ShoppingCartFragment.RESULT_CODE_ADDRESS_SUCCESS);
+        getActivity().setResult(Constants.RESULT_CODE_ADDRESS_SUCCESS);
         mPresenter.getAllAddress();
     }
 
@@ -172,8 +171,6 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
         return isAdded();
     }
 
-    private final static int REQUEST_CODE_EDIT = 1001;
-    public final static int RESULT_CODE_EDIT = 101;
 
     @Override
     public void onClick(View v) {
@@ -184,18 +181,29 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
 
             case R.id.btn_add_address:
                 Intent intent = new Intent(getActivity(), EditDataActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_EDIT);
+                startActivityForResult(intent, Constants.REQUEST_CODE_EDIT);
                 break;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_EDIT) {
-            if (resultCode == RESULT_CODE_EDIT) { //编辑收货地址提交成功
-                mPresenter.getAllAddress();
-                getActivity().setResult(ShoppingCartFragment.RESULT_CODE_ADDRESS_SUCCESS);
-            }
+
+        switch (requestCode) {
+            case Constants.REQUEST_CODE_LOGIN:
+                if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
+                    mPresenter.getAllAddress();
+                } else {
+                    getActivity().finish();
+                }
+                break;
+            case Constants.REQUEST_CODE_EDIT:
+                if (resultCode == Constants.RESULT_CODE_EDIT) { //编辑收货地址提交成功
+                    mPresenter.getAllAddress();
+                    getActivity().setResult(Constants.RESULT_CODE_ADDRESS_SUCCESS);
+                }
+                break;
         }
     }
+
 }

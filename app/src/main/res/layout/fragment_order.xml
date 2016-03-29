@@ -4,8 +4,6 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/top_bar_layout" />
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/tv_cancel_order"
@@ -182,7 +180,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_below="@id/lv_sku"
-                    android:layout_marginTop="20dp"
                     android:background="@color/color_6" />
 
                 <TextView
@@ -206,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/line_4"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:text="实付款(含运费)" />
 
 
@@ -216,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/line_4"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/color_5"
                     android:textStyle="bold" />
             </RelativeLayout>

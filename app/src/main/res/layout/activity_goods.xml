@@ -4,25 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/top_bar_layout_toolbar" />
-
-        <com.viewpagerindicator.TabPageIndicator
-            android:id="@+id/indicator"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_goods"
+            <include layout="@layout/top_bar_layout_toolbar" />
+
+            <com.viewpagerindicator.TabPageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_goods"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <include
+            layout="@layout/loading_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-    </LinearLayout>
-
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp" />
+    </FrameLayout>
 
     <!--android:layout_gravity="start"-->
 
@@ -38,9 +49,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/hello_bg"
-            android:layout_marginLeft="22dp"/>
+            android:src="@drawable/hello_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,15 +62,15 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/menu_logo"
-                android:paddingLeft="22dp"/>
+                android:paddingLeft="22dp"
+                android:src="@drawable/menu_logo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingLeft="22dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="22dp">
 
                 <TextView
                     android:id="@+id/tv_user_name"
@@ -80,13 +91,13 @@
                     android:id="@+id/btn_login"
                     android:layout_width="80dp"
                     android:layout_height="26dp"
-                    android:text="登  录"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:visibility="gone"
                     android:background="@drawable/button_shape_bg_2"
+                    android:text="登  录"
                     android:textColor="@color/color_white"
                     android:textSize="13sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
             <TextView
@@ -94,53 +105,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/ll_press_bg"
                 android:drawableLeft="@drawable/icon_left_menu"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
+                android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  我的帐号"
-                android:textColor="@color/color_black"
-                android:background="@drawable/ll_press_bg"
-                android:paddingLeft="22dp"/>
+                android:textColor="@color/color_black" />
 
             <TextView
                 android:id="@+id/tv_my_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ll_press_bg"
                 android:drawableLeft="@drawable/icon_left_menu"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
+                android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  我的订单"
-                android:textColor="@color/color_black"
-                android:background="@drawable/ll_press_bg"
-                android:paddingLeft="22dp"/>
+                android:textColor="@color/color_black" />
 
             <TextView
                 android:id="@+id/tv_manage_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ll_press_bg"
                 android:drawableLeft="@drawable/icon_left_menu"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
+                android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  地址管理"
-                android:textColor="@color/color_black"
-                android:background="@drawable/ll_press_bg"
-                android:paddingLeft="22dp"/>
+                android:textColor="@color/color_black" />
 
             <TextView
                 android:id="@+id/tv_my_shopping_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ll_press_bg"
                 android:drawableLeft="@drawable/icon_left_menu"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
+                android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  我的购物车"
-                android:textColor="@color/color_black"
-                android:background="@drawable/ll_press_bg"
-                android:paddingLeft="22dp"/>
+                android:textColor="@color/color_black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,18 +159,18 @@
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@drawable/icon_left_menu"
                 android:gravity="center"
+                android:paddingLeft="22dp"
                 android:text="  客服电话"
-                android:textColor="@color/color_black"
-                android:paddingLeft="22dp"/>
+                android:textColor="@color/color_black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
                 android:layout_marginTop="5dp"
+                android:paddingLeft="22dp"
                 android:text="4001000747"
-                android:textColor="@color/color_text_2"
-                android:paddingLeft="22dp"/>
+                android:textColor="@color/color_text_2" />
         </LinearLayout>
 
         <Button
@@ -168,12 +179,9 @@
             android:layout_height="36dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="25dp"
+            android:layout_marginLeft="22dp"
             android:background="@drawable/button_shape_bg_7"
             android:text="登  出"
-            android:textColor="@color/color_5"
-            android:layout_marginLeft="22dp"/>
+            android:textColor="@color/color_5" />
     </FrameLayout>
-
-
-    <include layout="@layout/loading_layout" />
 </android.support.v4.widget.DrawerLayout>

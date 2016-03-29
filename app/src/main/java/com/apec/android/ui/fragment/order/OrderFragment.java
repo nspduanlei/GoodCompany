@@ -120,10 +120,10 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
         flStateText = (FrameLayout) view.findViewById(R.id.fl_state_text);
         llState = (LinearLayout) view.findViewById(R.id.ll_state);
         circle1 = view.findViewById(R.id.view_circle_1);
-        circle2 = view.findViewById(R.id.view_circle_1);
-        circle3 = view.findViewById(R.id.view_circle_1);
-        line1 = view.findViewById(R.id.view_circle_1);
-        line2 = view.findViewById(R.id.view_circle_1);
+        circle2 = view.findViewById(R.id.view_circle_2);
+        circle3 = view.findViewById(R.id.view_circle_3);
+        line1 = view.findViewById(R.id.view_line_1);
+        line2 = view.findViewById(R.id.view_line_2);
     }
 
     @Override
@@ -148,7 +148,6 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
         flStateText.setVisibility(View.GONE);
         llState.setVisibility(View.GONE);
         btnCancelOrder.setVisibility(View.GONE);
-
         getActivity().setResult(MyOrdersFragment.RESULT_CODE_DETAIL);
     }
 
@@ -167,7 +166,6 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
                 R.layout.goods_item_order) {
             @Override
             public void convert(MyViewHolder holder, OrderItem orderItem) {
-                //tv_goods_pic   tv_goods_name  tv_goods_unit  tv_goods_price
                 holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
                         .setText(R.id.tv_goods_price,
                                 String.format(getString(R.string.price_and_num),
@@ -179,15 +177,17 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
         switch (order.getOrderType()) {
             case 1: //待处理
                 break;
-            case 2: //处理中
-                circle2.setBackgroundResource(R.color.color_5);
+            case 3: //处理中
+                circle2.setBackgroundResource(R.drawable.circle_order_state);
                 line1.setBackgroundResource(R.color.color_5);
                 break;
-            case 3: //已完成
-                circle2.setBackgroundResource(R.color.color_5);
+            case 2: //已完成
+                circle2.setBackgroundResource(R.drawable.circle_order_state);
                 line1.setBackgroundResource(R.color.color_5);
-                circle3.setBackgroundResource(R.color.color_5);
+                circle3.setBackgroundResource(R.drawable.circle_order_state);
                 line2.setBackgroundResource(R.color.color_5);
+
+                btnCancelOrder.setVisibility(View.GONE);
                 break;
             case 4: //订单取消
                 cancelOrderSuccess();

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.domain.user.ShopCart;
 import com.apec.android.domain.user.Skus;
@@ -32,6 +33,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
 
+import org.litepal.util.Const;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -217,8 +219,12 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                                 break;
                                             case R.id.btn_sure:
                                                 dialog.dismiss();
-                                                int count = Integer.valueOf(
-                                                        etGoodsCount.getText().toString());
+
+                                                int count = 0;
+                                                if (!etGoodsCount.getText().toString().equals("")) {
+                                                    count = Integer.valueOf(
+                                                            etGoodsCount.getText().toString());
+                                                }
 
                                                 if (count > 100) {
                                                     count = 100;
@@ -391,23 +397,18 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 //        }
     }
 
-    public final static int REQUEST_CODE_LOGIN = 1001;
-    private final static int REQUEST_CODE_ADDR = 1002;
-    private final static int REQUEST_CODE_LOGIN_PAY = 1003;
-
-
     @Override
     public void needLogin() {
         Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_LOGIN);
+        startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }
 
     @Override
     public void needLoginPay() {
         Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_LOGIN_PAY);
+        startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN_PAY);
     }
 
     @Override
@@ -427,7 +428,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 break;
             case R.id.btn_update:
                 Intent intent = new Intent(getActivity(), ManageAddrActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_ADDR);
+                startActivityForResult(intent, Constants.REQUEST_CODE_ADDR);
                 break;
 //            case R.id.tv_edit:
 //                if (isEdit) {
@@ -497,7 +498,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 } else {
                     //没有选择收货地址
                     Intent intent1 = new Intent(getActivity(), ManageAddrActivity.class);
-                    startActivityForResult(intent1, REQUEST_CODE_ADDR);
+                    startActivityForResult(intent1, Constants.REQUEST_CODE_ADDR);
                 }
                 break;
 
@@ -528,28 +529,27 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         });
     }
 
-    public final static int RESULT_CODE_LOGIN_SUCCESS = 100; //登录成功返回
-    public final static int RESULT_CODE_ADDRESS_SUCCESS = 101; //默认地址设置成功返回
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         switch (requestCode) {
-            case REQUEST_CODE_LOGIN:
-                if (resultCode == RESULT_CODE_LOGIN_SUCCESS) {
+            case Constants.REQUEST_CODE_LOGIN:
+                if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
                     mPresenter.obtainShopCart();
                 } else {
                     getActivity().finish();
                 }
 
                 break;
-            case REQUEST_CODE_ADDR: //更改收货地址
-                if (resultCode == RESULT_CODE_ADDRESS_SUCCESS) {
+            case Constants.REQUEST_CODE_ADDR: //更改收货地址
+                if (resultCode == Constants.RESULT_CODE_ADDRESS_SUCCESS) {
                     mPresenter.obtainDefaultAddress();
                 }
                 break;
 
-            case REQUEST_CODE_LOGIN_PAY:
-                if (resultCode == RESULT_CODE_LOGIN_SUCCESS) {
+            case Constants.REQUEST_CODE_LOGIN_PAY:
+                if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
                     mPresenter.createOrder(sbSkus.toString(), addressId);
                 }
                 break;

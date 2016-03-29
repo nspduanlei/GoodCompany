@@ -9,10 +9,12 @@
         android:id="@+id/tv_top_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="好伙计"
+        android:text="  好伙计"
         android:layout_gravity="center"
         android:textSize="@dimen/title_text_size"
-        android:textColor="@color/color_text_1"/>
+        android:textColor="@color/color_text_1"
+        android:drawableLeft="@drawable/top_icon"
+        android:gravity="center"/>
 
     <ImageView
         android:id="@+id/iv_shopping_cart"

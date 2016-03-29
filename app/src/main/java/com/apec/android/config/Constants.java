@@ -15,4 +15,20 @@ public class Constants {
 
     //商品最大购买数量
     public final static int MAX_GOODS_COUNT = 100;
+
+    /**
+     * result
+     */
+    public final static int RESULT_CODE_LOGIN_SUCCESS = 100; //登录成功返回
+    public final static int RESULT_CODE_ADDRESS_SUCCESS = 101; //默认地址设置成功返回
+    public final static int RESULT_CODE_EDIT = 102;  //地址修改成功
+
+
+    /**
+     * request
+     */
+    public final static int REQUEST_CODE_LOGIN = 1001; //登录
+    public final static int REQUEST_CODE_ADDR = 1002;  //地址管理
+    public final static int REQUEST_CODE_LOGIN_PAY = 1003; //支付
+    public final static int REQUEST_CODE_EDIT = 1004; //地址详情修改
 }

@@ -24,7 +24,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
     /**
      * 获取商品列表
      */
-    public void fetchGoods() {
+    public void fetchGoods(int cid) {
         if(isViewAttached()) {
             getView().showLoading();
         }
@@ -38,7 +38,9 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
                         }
                         if (response.getH().getCode() == 200) {
                             if (isViewAttached()) {
-                                getView().showGoods(response.getB().getData());
+                                if (response.getB().getData().size() > 0) {
+                                    getView().showGoods(response.getB().getData());
+                                }
                             }
                         } else {
 
@@ -49,7 +51,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                });
+                }, cid);
     }
 
     public interface IView extends BaseViewInterface {

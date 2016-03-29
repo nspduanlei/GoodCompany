@@ -3,6 +3,7 @@ package com.apec.android.ui.presenter.user;
 import android.content.Context;
 
 import com.android.volley.VolleyError;
+import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.user.Area;
@@ -36,9 +37,17 @@ public class MyAccountPresenter extends BasePresenter<MyAccountPresenter.IView> 
                 if (isViewAttached()) {
                     getView().hideLoading();
                 }
-                if (response.getH().getCode() == 200) {
+
+                int code = response.getH().getCode();
+
+                if (code == 200) {
                     if (isViewAttached()) {
                         getView().getUserInfoBack(response.getB());
+                    }
+                }  else if (code == ErrorCode.ERROR_NEED_LOGIN) {
+                    //需要登录
+                    if (isViewAttached()) {
+                        getView().needLogin();
                     }
                 }
             }
@@ -80,5 +89,6 @@ public class MyAccountPresenter extends BasePresenter<MyAccountPresenter.IView> 
         boolean isReady();
         void getUserInfoBack(User user);
         void updateSuccess();
+        void needLogin();
     }
 }

@@ -9,18 +9,15 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.goods.GateGorys;
+import com.apec.android.domain.goods.GateGory;
 import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.goods.GoodsDetail;
-import com.apec.android.domain.goods.ModelTest;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
-import com.apec.android.support.test;
 import com.apec.android.util.L;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 
@@ -33,13 +30,13 @@ public class GoodsInteract {
      *
      * @param callback
      */
-    public static void fetchCategorys(Context context, final GetDataCallback<GateGorys> callback) {
-        GsonRequest<GateGorys> request = new GsonRequest<>(
+    public static void fetchCategory(Context context, final GetDataCallback<GateGory> callback) {
+        GsonRequest<GateGory> request = new GsonRequest<>(
                 context, Request.Method.POST,
-                UrlConstant.URL_CATEGORY, GateGorys.class,
-                new Listener<GateGorys>() {
+                UrlConstant.URL_CATEGORY, GateGory.class,
+                new Listener<GateGory>() {
                     @Override
-                    public void onResponse(GateGorys response) {
+                    public void onResponse(GateGory response) {
                         callback.onRepose(response);
                     }
 
@@ -64,10 +61,15 @@ public class GoodsInteract {
      *
      * @param callback
      */
-    public static void fetchGoods(Context context, final GetDataCallback<Goods> callback) {
+    public static void fetchGoods(Context context,
+                                  final GetDataCallback<Goods> callback,
+                                  final int cid) {
+        L.e("test0001", "cid==="+cid);
+
         GsonRequest<Goods> request = new GsonRequest<>(
-                context, Request.Method.POST,
-                UrlConstant.URL_GOODS, Goods.class,
+                context, Request.Method.GET,
+                UrlConstant.URL_GOODS + "?categoryId=" + cid,
+                Goods.class,
                 new Listener<Goods>() {
                     @Override
                     public void onResponse(Goods response) {

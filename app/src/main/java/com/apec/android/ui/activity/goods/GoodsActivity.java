@@ -29,6 +29,9 @@ import com.apec.android.ui.presenter.goods.GoodsPresenter;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnClickListener;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -180,10 +183,43 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
                 startActivity(intent3);
                 break;
             case R.id.btn_login_out:
-                //退出登录
-                SPUtils.clear(this);
-                SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
-                loginOut();
+                //退出登录确定
+                View dialogView = getLayoutInflater()
+                        .inflate(R.layout.dialog_cancel_order, null);
+
+                TextView title = (TextView) dialogView.findViewById(R.id.tv_title);
+                title.setText(String.format("    %s", "确定退出登录吗？"));
+                ViewHolder viewHolder = new ViewHolder(dialogView);
+                DialogPlus dialog = new DialogPlus.Builder(this)
+                        .setContentHolder(viewHolder)
+                        .setCancelable(true)
+                        .setGravity(DialogPlus.Gravity.CENTER)
+                        .setBackgroundColorResourceId(R.color.transparency)
+                        .setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(DialogPlus dialog, View view) {
+                                switch (view.getId()) {
+                                    case R.id.tv_cancel:
+                                        dialog.dismiss();
+                                        break;
+                                    case R.id.tv_sure:
+                                        dialog.dismiss();
+
+                                        //退出登录
+                                        SPUtils.clear(GoodsActivity.this);
+                                        SPUtils.put(GoodsActivity.this, SPUtils.IS_FIRST_LAUNCH, 1);
+                                        loginOut();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        })
+                        .create();
+                dialog.show();
+
+
+
                 break;
             case R.id.btn_login:
                 Intent intent4 = new Intent(this, RegisterFActivity.class);

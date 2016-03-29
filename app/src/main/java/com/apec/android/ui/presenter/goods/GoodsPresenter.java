@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
-import com.apec.android.domain.goods.GateGorys;
+import com.apec.android.domain.goods.GateGory;
 import com.apec.android.domain.goods.interator.GoodsInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
@@ -25,12 +25,11 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
         if (isViewAttached()) {
             getView().showLoading();
         }
-
-        GoodsInteract.fetchCategorys(
+        GoodsInteract.fetchCategory(
                 mContext,
-                new GetDataCallback<GateGorys>() {
+                new GetDataCallback<GateGory>() {
                     @Override
-                    public void onRepose(GateGorys response) {
+                    public void onRepose(GateGory response) {
                         if (isViewAttached()) {
                             getView().hideLoading();
                         }

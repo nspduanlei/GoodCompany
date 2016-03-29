@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.EditDataPresenter;
@@ -136,7 +137,7 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
 
     @Override
     public void saveAddressSuccess() {
-        getActivity().setResult(ManageAddrFragment.RESULT_CODE_EDIT);
+        getActivity().setResult(Constants.RESULT_CODE_EDIT);
         getActivity().finish();
     }
 

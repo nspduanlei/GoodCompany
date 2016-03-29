@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
@@ -117,7 +118,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
         getActivity().sendBroadcast(mIntent);
 
         SPUtils.put(getActivity(), SPUtils.USER_NAME, etUserName.getText().toString());
-        getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
+        getActivity().setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
         getActivity().finish();
     }
 

@@ -11,10 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.user.Area;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
+import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.fragment.BaseListFragment;
@@ -174,6 +176,26 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
                 user.setShopName(userShop);
 
                 mPresenter.updateUserInfo(user);
+                break;
+        }
+    }
+
+    @Override
+    public void needLogin() {
+        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), RegisterFActivity.class);
+        startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constants.REQUEST_CODE_LOGIN:
+                if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
+                    mPresenter.obtainUserInfo();
+                } else {
+                    getActivity().finish();
+                }
                 break;
         }
     }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.H;
 import com.apec.android.domain.user.UserBack;
 import com.apec.android.ui.activity.goods.GoodsActivity;
@@ -213,7 +214,7 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                 getActivity().sendBroadcast(mIntent);
 
                 SPUtils.put(getActivity(), SPUtils.PHONE, phoneNumberStr);
-                getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
+                getActivity().setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
                 getActivity().finish();
                 break;
             case 4017: //登录成功未完善资料
@@ -222,7 +223,7 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
                 SPUtils.put(getActivity(), SPUtils.PHONE, phoneNumberStr);
                 Intent intent1 = new Intent(getActivity(), RegisterActivity.class);
-                getActivity().setResult(ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS);
+                getActivity().setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
                 startActivity(intent1);
                 getActivity().finish();
                 break;

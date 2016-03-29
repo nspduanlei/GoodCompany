@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by duanlei on 2016/3/16.
  */
-public class GateGorys {
+public class GateGory {
     private H h;
     private ArrayList<CateGory> b;
 

@@ -14,6 +14,9 @@ import com.viewpagerindicator.IconPagerAdapter;
  */
 public class IconPageViewAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
     //protected static final String[] CONTENT = new String[]{"糖品", "米品", "油品", "面品", "调味品"};
+    protected static final int[] IDS = new int[] {
+            12, 15, 11, 13, 46
+    };
     protected static final int[] ICONS = new int[]{
             R.drawable.top_icon_selector_1,
             R.drawable.top_icon_selector_2,
@@ -30,7 +33,7 @@ public class IconPageViewAdapter extends FragmentPagerAdapter implements IconPag
 
     @Override
     public Fragment getItem(int position) {
-        return GoodsFragment.newInstance(position);
+        return GoodsFragment.newInstance(IDS[position]);
     }
 
     @Override

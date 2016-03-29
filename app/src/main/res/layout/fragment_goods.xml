@@ -7,7 +7,8 @@
     <ListView
         android:id="@+id/lv_goods"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@null"/>
 
     <include layout="@layout/loading_layout" />
 </FrameLayout>

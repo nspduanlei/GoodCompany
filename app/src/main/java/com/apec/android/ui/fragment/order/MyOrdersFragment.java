@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.order.Order;
 import com.apec.android.domain.order.OrderItem;
 import com.apec.android.ui.activity.goods.GoodsActivity;
@@ -83,16 +84,11 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
                 R.layout.my_order_item) {
             @Override
             public void convert(final MyViewHolder holder, Order order) {
-                //tv_order_pro    tv_order_num   iv_goods_pic  lv_sku
-
                 //商品list适配器
                 BaseAdapter itemAdapter = new CommonAdapter<OrderItem>(getActivity(),
                         order.getOrderItems(), R.layout.order_goods_item) {
                     @Override
                     public void convert(MyViewHolder holder, OrderItem orderItem) {
-
-                        //iv_goods_pic  tv_goods_name  tv_goods_type  tv_price  tv_num
-
                         holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
                                 .setText(R.id.tv_price, String.format("￥%s",
                                         orderItem.getSku().getPrice()))
@@ -183,7 +179,7 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
     public void needLogin() {
         Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
-        startActivityForResult(intent, ShoppingCartFragment.REQUEST_CODE_LOGIN);
+        startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }
 
     /**
@@ -213,20 +209,11 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_CODE_DETAIL) {
-//            if (resultCode == RESULT_CODE_DETAIL) { //订单取消
-//                mPresenter.getMyOrders();
-//            }
-//        }
-//    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case ShoppingCartFragment.REQUEST_CODE_LOGIN:
-                if (resultCode == ShoppingCartFragment.RESULT_CODE_LOGIN_SUCCESS) {
+            case Constants.REQUEST_CODE_LOGIN:
+                if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
                     mPresenter.getMyOrders();
                 } else {
                     getActivity().finish();
