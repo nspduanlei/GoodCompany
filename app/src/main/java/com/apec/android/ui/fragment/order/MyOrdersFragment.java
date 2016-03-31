@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
+import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.order.Order;
 import com.apec.android.domain.order.OrderItem;
 import com.apec.android.ui.activity.goods.GoodsActivity;
@@ -27,6 +28,7 @@ import com.apec.android.util.ColorPhrase;
 import java.util.ArrayList;
 
 /**
+ * 我的订单
  * Created by Administrator on 2016/2/26.
  */
 public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
@@ -85,10 +87,32 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
             @Override
             public void convert(final MyViewHolder holder, Order order) {
                 //商品list适配器
-                BaseAdapter itemAdapter = new CommonAdapter<OrderItem>(getActivity(),
+                final BaseAdapter itemAdapter = new CommonAdapter<OrderItem>(getActivity(),
                         order.getOrderItems(), R.layout.order_goods_item) {
                     @Override
                     public void convert(MyViewHolder holder, OrderItem orderItem) {
+
+                        //净含量
+                        boolean hasNet =false;
+                        for (SkuAttribute attr:orderItem.getSku().getAttributeNames()) {
+                            if (attr.getType().equals("2")) {
+                                hasNet = true;
+                                holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                                holder.setText(R.id.tv_goods_net,
+                                        attr.getAttributeValues().get(0).getName());
+                                break;
+                            }
+                        }
+                        if (!hasNet) {
+                            holder.setVisibility(R.id.tv_goods_net, View.GONE);
+                        }
+
+
+                        if (orderItem.getSku().getPics().size() > 0) {
+                            holder.setImageUrl(R.id.iv_goods_pic,
+                                    orderItem.getSku().getPics().get(0).getUrl());
+                        }
+
                         holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
                                 .setText(R.id.tv_price, String.format("￥%s",
                                         orderItem.getSku().getPrice()))

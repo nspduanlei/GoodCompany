@@ -38,7 +38,8 @@
         android:text="金含量：10kg"
         android:textSize="12sp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/color_text_2"/>
+        android:textColor="@color/color_text_2"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_price"

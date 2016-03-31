@@ -5,22 +5,25 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/fl_net_content"
         style="@style/order_style_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <TextView
+            android:id="@+id/tv_net_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="净含量"
             android:textColor="@color/color_text_2" />
 
         <!--￥270(50kg/包)-->
         <TextView
+            android:id="@+id/tv_goods_net"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text=""
+            android:text="@string/net_content"
             android:textColor="@color/color_text_4" />
     </FrameLayout>
 

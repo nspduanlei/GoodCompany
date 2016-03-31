@@ -9,8 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:drawableLeft="@drawable/shape_dot"
-        android:text="   嘎嘎嘎嘎嘎嘎阿斯蒂芬撒饿" />
+        android:drawableLeft="@drawable/shape_dot" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -25,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="2dp"
-            android:text="净含量：10KG"
             android:textColor="@color/color_text_2"
             android:textSize="12sp" />
 
@@ -37,7 +35,6 @@
             android:layout_gravity="right"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
-            android:text="5 x ￥129.0"
             android:textColor="@color/color_text_5"
             android:textSize="12sp" />
     </FrameLayout>

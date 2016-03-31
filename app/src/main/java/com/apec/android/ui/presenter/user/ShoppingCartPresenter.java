@@ -8,6 +8,7 @@ import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.goods.interator.GoodsInteract;
 import com.apec.android.domain.order.interator.OrderInteract;
+import com.apec.android.domain.transport.ArrivalTime;
 import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.domain.transport.ReceiptDefault;
 import com.apec.android.domain.transport.interator.TransportInteract;
@@ -171,7 +172,36 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 }, skus, addressId);
     }
 
+    /**
+     * 获取到货时间
+     */
+    public void getArrivalTime() {
+        if (isViewAttached()) {
+            getView().showLoading();
+        }
+        GoodsInteract.getArrivalTime(
+                mContext, new GetDataCallback<ArrivalTime>() {
+                    @Override
+                    public void onRepose(ArrivalTime response) {
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            getView().getArrivalTimeSuccess(response.getB().getTime());
+
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+    }
+
     public interface IView extends BaseViewInterface {
+        void getArrivalTimeSuccess(String time);
         void updateNumSuccess();
         void obtainOrderSuccess();
         void obtainDefaultSuccess(GoodsReceipt goodsReceipt);

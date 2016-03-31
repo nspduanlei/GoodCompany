@@ -1,8 +1,5 @@
 package com.apec.android.ui.fragment.order;
 
-import android.annotation.TargetApi;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apec.android.R;
+import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.order.Order;
 import com.apec.android.domain.order.OrderItem;
 import com.apec.android.ui.activity.order.OrderActivity;
@@ -173,10 +171,31 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
                 R.layout.goods_item_order) {
             @Override
             public void convert(MyViewHolder holder, OrderItem orderItem) {
+
+                if (orderItem.getSku().getPics().size() > 0) {
+                    holder.setImageUrl(R.id.iv_goods_pic,
+                            orderItem.getSku().getPics().get(0).getUrl());
+                }
+
                 holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
                         .setText(R.id.tv_goods_price,
                                 String.format(getString(R.string.price_and_num),
                                         orderItem.getSku().getPrice(), orderItem.getNum()));
+
+                //净含量
+                boolean hasNet =false;
+                for (SkuAttribute attr:orderItem.getSku().getAttributeNames()) {
+                    if (attr.getType().equals("2")) {
+                        hasNet = true;
+                        holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                        holder.setText(R.id.tv_goods_net,
+                                attr.getAttributeValues().get(0).getName());
+                        break;
+                    }
+                }
+                if (!hasNet) {
+                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
+                }
             }
         });
 

@@ -24,6 +24,7 @@ import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.Sku;
 import com.apec.android.domain.goods.SkuAttrValue;
 import com.apec.android.domain.goods.SkuAttribute;
+import com.apec.android.domain.user.Skus;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;
@@ -111,7 +112,16 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     private ImageButton addButton, cutButton;
     private TextView arrivalTime;
 
+    //净含量 fl_net_content tv_goods_net tv_net_title
+    private FrameLayout flNetContent;
+    private TextView tvGoodsNet;
+    private TextView tvNetTitle;
+
     private void initFootView() {
+        tvGoodsNet = (TextView) footerView.findViewById(R.id.tv_goods_net);
+        flNetContent = (FrameLayout) footerView.findViewById(R.id.fl_net_content);
+        tvNetTitle = (TextView) footerView.findViewById(R.id.tv_net_title);
+
         arrivalTime = (TextView) footerView.findViewById(R.id.tv_arrival_time);
         totalPrice = (TextView) footerView.findViewById(R.id.tv_total_price);
         addButton = (ImageButton) footerView.findViewById(R.id.btn_add);
@@ -162,6 +172,8 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     //private Map<Integer, Integer> selects = new HashMap<>();
     private int mSkuId;
     private String mPrice;
+    private String mNetContent;
+    private String mNetTitle;
 
     class MyAdapter extends BaseAdapter {
 
@@ -180,7 +192,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             return position;
         }
 
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             MyViewHolder viewHolder;
@@ -189,16 +200,19 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                         .inflate(R.layout.sku_attr_item, null);
                 viewHolder = new MyViewHolder();
                 viewHolder.radioGroup = (RadioGroup) convertView.findViewById(R.id.rg_attrs);
+                viewHolder.textView = (TextView) convertView.findViewById(R.id.tv_attr_name);
 
                 addSkuAttrValue(viewHolder.radioGroup,
                         getItem(position).getAttributeValues(), position);
 
-                viewHolder.textView = (TextView) convertView.findViewById(R.id.tv_attr_name);
+
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (MyViewHolder) convertView.getTag();
             }
+
             viewHolder.textView.setText(getItem(position).getName());
+
             return convertView;
         }
 
@@ -238,6 +252,10 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                                 List<SkuAttribute> list = skuItem.getAttributeNames();
 
                                 for (int i = 0; i < list.size(); i++) {
+                                    if(list.get(i).getType().equals("2")) {
+                                        break;
+                                    }
+
                                     //如果要选择的项是隐藏的，则显示
                                     View itemView = getListView().getChildAt(i);
                                     if (itemView.getVisibility() == View.GONE) {
@@ -259,10 +277,15 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                                 totalPrice.setText(String.format(getString(R.string.add_order_total),
                                         skuItem.getPrice()));
                                 goodsCount.setText("1");
+
+                                if (mNetTitle != null) {
+                                    tvGoodsNet.setText(String.format(getString(R.string.net_content),
+                                            mPrice, mNetContent));
+                                    tvNetTitle.setText(mNetTitle);
+                                }
                                 return;
                             }
                         }
-
                     }
                 }
             });
@@ -293,13 +316,22 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     public void getArrivalTimeSuccess(String time) {
         //到货时间获取成功，填充
         arrivalTime.setText(String.format(getString(R.string.arrival_time), time));
-
     }
 
     @Override
     public void getAllAttrSuccess(ArrayList<SkuAttribute> attrs) {
         mData.clear();
-        mData.addAll(attrs);
+
+        for (SkuAttribute skuAttribute : attrs) {
+            if (skuAttribute.getType().equals("1")) {
+                mData.add(skuAttribute);
+            } else if (skuAttribute.getType().equals("2")) {
+                mNetContent = skuAttribute.getAttributeValues().get(0).getName();
+                mNetTitle = skuAttribute.getName();
+                flNetContent.setVisibility(View.VISIBLE);
+            }
+        }
+
         mAdapter.notifyDataSetChanged();
         getListView().addFooterView(footerView, null, false);
 
@@ -311,6 +343,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     @Override
     public void getGoodsDetail(Good good) {
         mGood = good;
+
         if (good.getSkus().size() > 0) {
             RadioButton rb = (RadioButton) getListView().getChildAt(0)
                     .findViewById(mData.get(0).getAttributeValues().get(0).getId());

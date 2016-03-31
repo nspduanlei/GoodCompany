@@ -1,10 +1,8 @@
 package com.apec.android.ui.adapter;
 
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import com.apec.android.R;
 import com.apec.android.ui.fragment.goods.GoodsFragment;
 import com.viewpagerindicator.IconPagerAdapter;

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
+import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.domain.user.ShopCart;
 import com.apec.android.domain.user.Skus;
@@ -37,6 +38,7 @@ import org.litepal.util.Const;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.jar.Attributes;
 
 /**
  * 购物车
@@ -157,6 +159,27 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 R.layout.shopping_cart_item) {
             @Override
             public void convert(final MyViewHolder holder, final Skus skus) {
+
+                //净含量
+                boolean hasNet =false;
+                for (SkuAttribute attr:skus.getSku().getAttributeNames()) {
+                    if (attr.getType().equals("2")) {
+                        hasNet = true;
+                        holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                        holder.setText(R.id.tv_goods_net, String.format("%s : %s", attr.getName(),
+                                attr.getAttributeValues().get(0).getName()));
+                        break;
+                    }
+                }
+                if (!hasNet) {
+                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
+                }
+
+                if (skus.getSku().getPics().size() > 0) {
+                    holder.setImageUrl(R.id.iv_goods,
+                            skus.getSku().getPics().get(0).getUrl());
+                }
+
                 holder.setText(R.id.tv_count, String.valueOf(skus.getCount()))
                         .setText(R.id.tv_goods_name, skus.getSku().getSkuName())
                         .setText(R.id.tv_price, String.format("￥%s", skus.getSku().getPrice()));
@@ -342,6 +365,12 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private int addressId;
 
     @Override
+    public void getArrivalTimeSuccess(String time) {
+        //获取到货时间
+        arrivalTime.setText(String.format(getString(R.string.arrival_time), time));
+    }
+
+    @Override
     public void updateNumSuccess() {
         mPresenter.obtainShopCart();
     }
@@ -418,6 +447,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     //购买商品skuId拼接
     StringBuffer sbSkus = new StringBuffer();
+    TextView arrivalTime;
     DialogPlus mDialog;
 
     @Override
@@ -513,6 +543,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private ArrayList<Skus> mPayData;
 
     private void initViewDialog(View view) {
+        arrivalTime = (TextView) view.findViewById(R.id.tv_arrival_time);
         TextView money = (TextView) view.findViewById(R.id.tv_money);
         money.setText("￥" + mPrice);
 
@@ -525,8 +556,26 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                         skus.getSku().getSkuName()))
                         .setText(R.id.tv_goods_price, String.format("%d x ￥%s",
                                 skus.getCount(), skus.getSku().getPrice()));
+
+                //净含量
+                boolean hasNet =false;
+                for (SkuAttribute attr:skus.getSku().getAttributeNames()) {
+                    if (attr.getType().equals("2")) {
+                        hasNet = true;
+                        holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                        holder.setText(R.id.tv_goods_net, String.format("%s : %s", attr.getName(),
+                                attr.getAttributeValues().get(0).getName()));
+                        break;
+                    }
+                }
+                if (!hasNet) {
+                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
+                }
             }
         });
+
+        //获取到货时间
+        mPresenter.getArrivalTime();
     }
 
     @Override

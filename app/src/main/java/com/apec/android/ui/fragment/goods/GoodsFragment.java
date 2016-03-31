@@ -69,6 +69,13 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     FrameLayout loading;
 
     private void initView(View view) {
+        //TODO test
+//        for (int i = 0; i < 3; i++) {
+//            Good good = new Good();
+//            good.setId(i);
+//            mData.add(good);
+//        }
+
         //商品列表初始化
         mListView = (ListView) view.findViewById(R.id.lv_goods);
         commonAdapter = new CommonAdapter<Good>(getActivity(),
@@ -76,9 +83,25 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
             @Override
             public void convert(MyViewHolder holder, Good good) {
                 holder.setText(R.id.tv_name, good.getGoodsName());
-//                if (good.getPics().size() != 0) {
-//                    holder.setImageUrl(R.id.iv_pic, good.getPics().get(0).getUrl());
+                if (good.getPics().size() != 0) {
+                    holder.setImageUrl(R.id.iv_pic, good.getPics().get(0).getUrl());
+                }
+
+//                //TODO test
+//                switch (good.getId()) {
+//                    case 0:
+//                        holder.setImageResource(R.id.iv_pic, R.drawable.test0010);
+//                        break;
+//
+//                    case 1:
+//                        holder.setImageResource(R.id.iv_pic, R.drawable.test002);
+//                        break;
+//
+//                    case 2:
+//                        holder.setImageResource(R.id.iv_pic, R.drawable.test003);
+//                        break;
 //                }
+
             }
         };
         mListView.setAdapter(commonAdapter);

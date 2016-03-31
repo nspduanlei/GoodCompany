@@ -24,13 +24,12 @@
         android:textSize="17sp" />
 
     <TextView
-        android:id="@+id/tv_go"
+        android:id="@+id/tv_goods_net"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_name"
         android:layout_marginTop="3dp"
         android:layout_toRightOf="@id/iv_goods_pic"
-        android:text="50kg/袋"
         android:textColor="@color/color_text_2" />
 
     <TextView

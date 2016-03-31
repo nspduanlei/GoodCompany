@@ -9,6 +9,11 @@ import java.util.List;
 public class SkuAttribute {
     private int id;
     private String name;
+
+    /**
+     * 1:非净含量属性，2:净含量属性
+     */
+    private String type;
     private ArrayList<SkuAttrValue> attributeValues;
 
     public int getId() {
@@ -33,5 +38,13 @@ public class SkuAttribute {
 
     public void setAttributeValues(ArrayList<SkuAttrValue> attributeValues) {
         this.attributeValues = attributeValues;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
