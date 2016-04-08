@@ -233,62 +233,66 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                 radioButton.setText(value.getName());
                 radioButton.setLayoutParams(layoutParams);
                 radioButton.setId(value.getId());
-                radioGroup.addView(radioButton);
-            }
 
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    //找到选择的id属于哪个sku
-                    List<Sku> listSku = mGood.getSkus();
-                    for (Sku skuItem : listSku) {
-                        //遍历sku中的 attr
-                        List<SkuAttribute> listAttr = skuItem.getAttributeNames();
-                        for (SkuAttribute attrLItem : listAttr) {
-                            if (attrLItem.getAttributeValues().get(0).getId() == checkedId) {
-                                //找到了该id，则sku匹配成功
-                                mSkuId = skuItem.getId();
+                radioButton.setOnClickListener(new View.OnClickListener() {
 
-                                List<SkuAttribute> list = skuItem.getAttributeNames();
+                    @Override
+                    public void onClick(View view) {
 
-                                for (int i = 0; i < list.size(); i++) {
-                                    if(list.get(i).getType().equals("2")) {
-                                        break;
+                        //找到选择的id属于哪个sku
+                        List<Sku> listSku = mGood.getSkus();
+                        for (Sku skuItem : listSku) {
+                            //遍历sku中的 attr
+                            List<SkuAttribute> listAttr = skuItem.getAttributeNames();
+
+                            for (SkuAttribute attrLItem : listAttr) {
+                                if (attrLItem.getAttributeValues().get(0).getId() == view.getId()) {
+                                    //找到了该id，则sku匹配成功
+                                    mSkuId = skuItem.getId();
+
+                                    //自动将该sku选中
+                                    List<SkuAttribute> list = skuItem.getAttributeNames();
+                                    for (int i = 0; i < list.size(); i++) {
+                                        //属性的sku，type = 2 代表尽含量
+                                        if (list.get(i).getType().equals("2")) {
+                                            break;
+                                        }
+
+                                        //如果要选择的项是隐藏的，则显示
+                                        View itemView = getListView().getChildAt(i);
+                                        if (itemView.getVisibility() == View.GONE) {
+                                            itemView.setVisibility(View.VISIBLE);
+                                        }
+
+                                        int attrValue = list.get(i).getAttributeValues().get(0).getId();
+                                        RadioButton rb = (RadioButton) itemView.findViewById(attrValue);
+                                        rb.setChecked(true);
                                     }
 
-                                    //如果要选择的项是隐藏的，则显示
-                                    View itemView = getListView().getChildAt(i);
-                                    if (itemView.getVisibility() == View.GONE) {
-                                        itemView.setVisibility(View.VISIBLE);
+                                    //选择完了如果还有项没选择，则隐藏
+                                    for (int i = list.size(); i < getListView().getCount() - 1; i++) {
+                                        getListView().getChildAt(i).setVisibility(View.GONE);
                                     }
 
-                                    int attrValue = list.get(i).getAttributeValues().get(0).getId();
-                                    RadioButton rb = (RadioButton) itemView.findViewById(attrValue);
-                                    rb.setChecked(true);
-                                }
+                                    //填充相关数据
+                                    mPrice = skuItem.getPrice();
+                                    totalPrice.setText(String.format(getString(R.string.add_order_total),
+                                            skuItem.getPrice()));
+                                    goodsCount.setText("1");
 
-                                //选择完了如果还有项没选择，则隐藏
-                                for (int i = list.size(); i < getListView().getCount() - 1; i++) {
-                                    getListView().getChildAt(i).setVisibility(View.GONE);
+                                    if (mNetTitle != null) {
+                                        tvGoodsNet.setText(String.format(getString(R.string.net_content),
+                                                mPrice, mNetContent));
+                                        tvNetTitle.setText(mNetTitle);
+                                    }
+                                    return;
                                 }
-
-                                //TODO 填充相关数据
-                                mPrice = skuItem.getPrice();
-                                totalPrice.setText(String.format(getString(R.string.add_order_total),
-                                        skuItem.getPrice()));
-                                goodsCount.setText("1");
-
-                                if (mNetTitle != null) {
-                                    tvGoodsNet.setText(String.format(getString(R.string.net_content),
-                                            mPrice, mNetContent));
-                                    tvNetTitle.setText(mNetTitle);
-                                }
-                                return;
                             }
                         }
                     }
-                }
-            });
+                });
+                radioGroup.addView(radioButton);
+            }
         }
 
         public final class MyViewHolder {
@@ -348,6 +352,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             RadioButton rb = (RadioButton) getListView().getChildAt(0)
                     .findViewById(mData.get(0).getAttributeValues().get(0).getId());
             rb.setChecked(true);
+            rb.performClick();
         }
 
         //获取到货时间
