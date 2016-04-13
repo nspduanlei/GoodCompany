@@ -59,6 +59,10 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                             if (isViewAttached()) {
                                 getView().needLogin();
                             }
+                        } else {
+                            if (isViewAttached()) {
+                                getView().showEmptyCase();
+                            }
                         }
                     }
 

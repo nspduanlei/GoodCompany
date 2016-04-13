@@ -3,6 +3,7 @@ package com.apec.android.ui.fragment.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,6 +33,7 @@ import com.apec.android.util.DialogUtils;
 import com.apec.android.util.L;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
+import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
 
 import org.litepal.util.Const;
@@ -88,7 +90,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     //购物车中的商品数量
     private int mCount;
-    private Double mPrice;
+    private Double mPrice = 0.0;
 
     //private TextView editBtn;
 
@@ -96,12 +98,19 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     //private boolean isEdit;
 
     //收货地址显示
-    private RelativeLayout addressShow;
+    //private RelativeLayout addressShow;
+    private ViewStub addressShow;
+
 
     //购物车编辑用
     //private ArrayList<Skus> mDataForEdit;
 
+    private View mView;
+
     private void initView(View view) {
+
+        mView = view;
+
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
         title.setText("购物车");
 
@@ -121,10 +130,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 //        editBtn = (TextView) view.findViewById(R.id.tv_edit);
 //        editBtn.setOnClickListener(this);
 
-        addressShow = (RelativeLayout) view.findViewById(R.id.rl_address_show);
-
-        //收货信息
-        view.findViewById(R.id.btn_update).setOnClickListener(this);
+        //addressShow = (RelativeLayout) view.findViewById(R.id.rl_address_show);
+        addressShow = (ViewStub) view.findViewById(R.id.stub_address);
 
         totalPrices = (TextView) view.findViewById(R.id.tv_total_carts);
         gotoPay = (Button) view.findViewById(R.id.btn_goto_pay);
@@ -160,9 +167,44 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             @Override
             public void convert(final MyViewHolder holder, final Skus skus) {
 
+                holder.setOnCheckChangeLister(R.id.cb_select,
+                        new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    mCount++;
+                                    mPrice = mPrice + Double.valueOf(
+                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
+                                            mData.get(holder.getMPosition()).getCount();
+
+                                    //如果商品被全部选择了，则将全选复选框设为选择状态，反正则异然
+                                    if (mCount == mData.size()) {
+                                        allSelect.setChecked(true);
+                                    }
+                                } else {
+                                    mCount--;
+                                    mPrice = mPrice - Double.valueOf(
+                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
+                                            mData.get(holder.getMPosition()).getCount();
+
+                                    allSelect.setChecked(false);
+                                }
+                                //填充购物车数量
+                                if (addressId != 0) {
+                                    gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+                                }
+
+                                //填充总价
+                                totalPrices.setText(String.format(getString(R.string.total_price_cart),
+                                        mPrice));
+
+                            }
+                        });
+
+
                 //净含量
-                boolean hasNet =false;
-                for (SkuAttribute attr:skus.getSku().getAttributeNames()) {
+                boolean hasNet = false;
+                for (SkuAttribute attr : skus.getSku().getAttributeNames()) {
                     if (attr.getType().equals("2")) {
                         hasNet = true;
                         holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
@@ -190,7 +232,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                     holder.setChecked(R.id.cb_select, false);
                 }
 
-                if (skus.getSku().getStatus() == 2) {
+                if (skus.getSku().getStatus() == 2 || skus.getSku().getStatus() == 3) {
                     //该商品已下架
                     holder.setVisibility(R.id.fl_sold_out, View.VISIBLE);
                 } else {
@@ -308,39 +350,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                     }
                 });
 
-                holder.setOnCheckChangeLister(R.id.cb_select,
-                        new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            mCount++;
-                            mPrice = mPrice + Double.valueOf(
-                                    mData.get(holder.getMPosition()).getSku().getPrice()) *
-                                    mData.get(holder.getMPosition()).getCount();
 
-                            //如果商品被全部选择了，则将全选复选框设为选择状态，反正则异然
-                            if (mCount == mData.size()) {
-                                allSelect.setChecked(true);
-                            }
-                        } else {
-                            mCount--;
-                            mPrice = mPrice - Double.valueOf(
-                                    mData.get(holder.getMPosition()).getSku().getPrice()) *
-                                    mData.get(holder.getMPosition()).getCount();
-
-                            allSelect.setChecked(false);
-                        }
-                        //填充购物车数量
-                        if (addressId != 0) {
-                            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-                        }
-
-                        //填充总价
-                        totalPrices.setText(String.format(getString(R.string.total_price_cart),
-                                mPrice));
-
-                    }
-                });
             }
         };
         setListAdapter(mAdapter);
@@ -391,14 +401,17 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             //不存在默认收货地址
             addressId = 0;
             gotoPay.setText("设置地址");
-            addressShow.setVisibility(View.GONE);
+            //addressShow.setVisibility(View.GONE);
         } else {
             addressId = goodsReceipt.getAddressId();
-            addressShow.setVisibility(View.VISIBLE);
+            addressShow.inflate();
 
-            TextView address = (TextView) addressShow.findViewById(R.id.tv_address);
+            View addressView = mView.findViewById(R.id.rl_address_show);
+
+            addressView.findViewById(R.id.btn_update).setOnClickListener(this);
+            TextView address = (TextView) addressView.findViewById(R.id.tv_address);
             address.setText(goodsReceipt.getAddrRes().getDetail());
-            TextView userInfo = (TextView) addressShow.findViewById(R.id.tv_user_info);
+            TextView userInfo = (TextView) addressView.findViewById(R.id.tv_user_info);
             userInfo.setText(String.format("%s   %s", goodsReceipt.getName(),
                     goodsReceipt.getPhone()));
 
@@ -416,14 +429,14 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         mData.addAll(shopCart.getSkus());
         mAdapter.notifyDataSetChanged();
 
-        mCount = shopCart.getTotal();
-        mPrice = Double.valueOf(shopCart.getTotalPrice());
-        totalPrices.setText(String.format(getString(R.string.total_price_cart),
-                shopCart.getTotalPrice()));
+        //mCount = shopCart.getTotal();
+//        mPrice = Double.valueOf(shopCart.getTotalPrice());
+//        totalPrices.setText(String.format(getString(R.string.total_price_cart),
+//                shopCart.getTotalPrice()));
 
-        if (addressId != 0) {
-            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-        }
+//        if (addressId != 0) {
+//            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+//        }
     }
 
     @Override
@@ -483,7 +496,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 if (addressId != 0) {
                     mPayData = new ArrayList<>();
                     for (Skus item : mData) {
-                        if (item.isSelectCart()) {
+                        if (item.isSelectCart() && item.getSku().getStatus() == 1) {
                             mPayData.add(item);
                             sbSkus.append(item.getSku().getId());
                             sbSkus.append(",");
@@ -504,19 +517,26 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                             .setCancelable(true)
                             .setGravity(DialogPlus.Gravity.CENTER)
                             .setBackgroundColorResourceId(R.color.transparency)
+
+                            .setOnDismissListener(new OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogPlus dialog) {
+                                    sbSkus.delete(0, sbSkus.toString().length());
+                                }
+                            })
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(DialogPlus dialog, View view) {
                                     switch (view.getId()) {
                                         case R.id.iv_cancel:
                                             dialog.dismiss();
+
                                             break;
                                         case R.id.btn_pay:
-                                            mDialog.dismiss();
+                                            dialog.dismiss();
                                             //TODO 货到付款
                                             //下单
                                             mPresenter.createOrder(sbSkus.toString(), addressId);
-                                            sbSkus.delete(0, sbSkus.toString().length());
                                             break;
                                         default:
                                             break;
@@ -558,8 +578,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                 skus.getCount(), skus.getSku().getPrice()));
 
                 //净含量
-                boolean hasNet =false;
-                for (SkuAttribute attr:skus.getSku().getAttributeNames()) {
+                boolean hasNet = false;
+                for (SkuAttribute attr : skus.getSku().getAttributeNames()) {
                     if (attr.getType().equals("2")) {
                         hasNet = true;
                         holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);

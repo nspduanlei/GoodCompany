@@ -16,6 +16,7 @@ public class Sku {
     /**
      * 1 上架
      * 2 下架
+     * 3 删除
      */
     private int status;
 
