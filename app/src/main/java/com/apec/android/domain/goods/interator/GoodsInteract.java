@@ -266,4 +266,41 @@ public class GoodsInteract {
 
         MyApplication.getRequestQueue().add(request);
     }
+
+
+    /**
+     * 删除购物车商品
+     * @param context
+     * @param callback
+     * @param skuId
+     */
+    public static void deleteShoppingCart(Context context, final GetDataCallback<NoBody> callback,
+                                          final String skuId) {
+        GsonRequest<NoBody> request = new GsonRequest<>(
+                context, Request.Method.POST,
+                UrlConstant.URL_DEL_SHOPPING_CART,
+                NoBody.class,
+                new Listener<NoBody>() {
+                    @Override
+                    public void onResponse(NoBody response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("skuId", skuId);
+                        return params;
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
 }

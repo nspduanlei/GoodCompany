@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,6 +32,7 @@ import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.ShoppingCartPresenter;
 import com.apec.android.util.DialogUtils;
 import com.apec.android.util.L;
+import com.apec.android.util.SPUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
@@ -92,19 +94,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private int mCount;
     private Double mPrice = 0.0;
 
-    //private TextView editBtn;
-
-    //是否是编辑状态
-    //private boolean isEdit;
-
-    //收货地址显示
-    //private RelativeLayout addressShow;
     private ViewStub addressShow;
-
-
-    //购物车编辑用
-    //private ArrayList<Skus> mDataForEdit;
-
     private View mView;
 
     private void initView(View view) {
@@ -126,16 +116,53 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         allSelect = (CheckBox) view.findViewById(R.id.cb_all_select);
         allSelect.setChecked(true);
 
-        //编辑购物车
-//        editBtn = (TextView) view.findViewById(R.id.tv_edit);
-//        editBtn.setOnClickListener(this);
-
-        //addressShow = (RelativeLayout) view.findViewById(R.id.rl_address_show);
         addressShow = (ViewStub) view.findViewById(R.id.stub_address);
 
         totalPrices = (TextView) view.findViewById(R.id.tv_total_carts);
         gotoPay = (Button) view.findViewById(R.id.btn_goto_pay);
         gotoPay.setOnClickListener(this);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+
+                View dialogView = getActivity().getLayoutInflater()
+                        .inflate(R.layout.dialog_cancel_order, null);
+                TextView title = (TextView) dialogView.findViewById(R.id.tv_title);
+                title.setText(String.format("    %s", "确定删除吗？"));
+                ViewHolder viewHolder = new ViewHolder(dialogView);
+                DialogPlus dialog = new DialogPlus.Builder(getActivity())
+                        .setContentHolder(viewHolder)
+                        .setCancelable(true)
+                        .setGravity(DialogPlus.Gravity.CENTER)
+                        .setBackgroundColorResourceId(R.color.transparency)
+                        .setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(DialogPlus dialog, View view) {
+                                switch (view.getId()) {
+                                    case R.id.tv_cancel:
+                                        dialog.dismiss();
+                                        break;
+                                    case R.id.tv_sure:
+                                        dialog.dismiss();
+
+                                        //TODO 删除商品
+
+                                        mPresenter.deleteGoods(mData.get(i).getSku().getId());
+
+
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        })
+                        .create();
+                dialog.show();
+
+                return false;
+            }
+        });
 
         allSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,41 +193,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 R.layout.shopping_cart_item) {
             @Override
             public void convert(final MyViewHolder holder, final Skus skus) {
-
-                holder.setOnCheckChangeLister(R.id.cb_select,
-                        new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (isChecked) {
-                                    mCount++;
-                                    mPrice = mPrice + Double.valueOf(
-                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
-                                            mData.get(holder.getMPosition()).getCount();
-
-                                    //如果商品被全部选择了，则将全选复选框设为选择状态，反正则异然
-                                    if (mCount == mData.size()) {
-                                        allSelect.setChecked(true);
-                                    }
-                                } else {
-                                    mCount--;
-                                    mPrice = mPrice - Double.valueOf(
-                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
-                                            mData.get(holder.getMPosition()).getCount();
-
-                                    allSelect.setChecked(false);
-                                }
-                                //填充购物车数量
-                                if (addressId != 0) {
-                                    gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-                                }
-
-                                //填充总价
-                                totalPrices.setText(String.format(getString(R.string.total_price_cart),
-                                        mPrice));
-
-                            }
-                        });
-
 
                 //净含量
                 boolean hasNet = false;
@@ -345,12 +337,41 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
                         mData.get(position).setCount(count);
                         mAdapter.notifyDataSetChanged();
-
-
                     }
                 });
 
+                holder.setOnCheckChangeLister(R.id.cb_select,
+                        new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    mCount++;
+                                    mPrice = mPrice + Double.valueOf(
+                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
+                                            mData.get(holder.getMPosition()).getCount();
 
+                                    //如果商品被全部选择了，则将全选复选框设为选择状态，反正则异然
+                                    if (mCount == mData.size()) {
+                                        allSelect.setChecked(true);
+                                    }
+                                } else {
+                                    mCount--;
+                                    mPrice = mPrice - Double.valueOf(
+                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
+                                            mData.get(holder.getMPosition()).getCount();
+
+                                    allSelect.setChecked(false);
+                                }
+                                //填充购物车数量
+                                if (addressId != 0) {
+                                    gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+                                }
+
+                                //填充总价
+                                totalPrices.setText(String.format(getString(R.string.total_price_cart),
+                                        mPrice));
+                            }
+                        });
             }
         };
         setListAdapter(mAdapter);
@@ -429,14 +450,15 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         mData.addAll(shopCart.getSkus());
         mAdapter.notifyDataSetChanged();
 
-        //mCount = shopCart.getTotal();
-//        mPrice = Double.valueOf(shopCart.getTotalPrice());
-//        totalPrices.setText(String.format(getString(R.string.total_price_cart),
-//                shopCart.getTotalPrice()));
-
-//        if (addressId != 0) {
-//            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-//        }
+        //总价
+        mCount = shopCart.getTotal();
+        //总数量
+        mPrice = Double.valueOf(shopCart.getTotalPrice());
+        totalPrices.setText(String.format(getString(R.string.total_price_cart),
+                shopCart.getTotalPrice()));
+        if (addressId != 0) {
+            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+        }
     }
 
     @Override
@@ -473,25 +495,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 Intent intent = new Intent(getActivity(), ManageAddrActivity.class);
                 startActivityForResult(intent, Constants.REQUEST_CODE_ADDR);
                 break;
-//            case R.id.tv_edit:
-//                if (isEdit) {
-//                    //退出编辑状态
-//                    isEdit = false;
-//
-//                    editBtn.setText("编辑");
-//                    totalPrices.setVisibility(View.VISIBLE);
-//                    gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-//
-//                } else {
-//                    //进入编辑状态
-//                    isEdit = true;
-//                    editBtn.setText("完成");
-//                    totalPrices.setVisibility(View.GONE);
-//
-//                    gotoPay.setText("删除");
-//                }
-//                break;
-
             case R.id.btn_goto_pay:
                 if (addressId != 0) {
                     mPayData = new ArrayList<>();
@@ -502,6 +505,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                             sbSkus.append(",");
                         }
                     }
+
+                    if (mPayData.size() == 0) return;
 
                     sbSkus.deleteCharAt(sbSkus.lastIndexOf(","));
 
@@ -534,7 +539,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                             break;
                                         case R.id.btn_pay:
                                             dialog.dismiss();
-                                            //TODO 货到付款
                                             //下单
                                             mPresenter.createOrder(sbSkus.toString(), addressId);
                                             break;

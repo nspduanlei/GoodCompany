@@ -11,6 +11,7 @@ public class Sku {
     private String skuName;
     private String price;
     private List<SkuAttribute> attributeNames;
+    private List<SkuAttribute> nonkeyAttr;
     private List<Pic> pics;
     private String skuRemark;
     /**
@@ -19,6 +20,14 @@ public class Sku {
      * 3 删除
      */
     private int status;
+
+    public List<SkuAttribute> getNonkeyAttr() {
+        return nonkeyAttr;
+    }
+
+    public void setNonkeyAttr(List<SkuAttribute> nonkeyAttr) {
+        this.nonkeyAttr = nonkeyAttr;
+    }
 
     public int getStatus() {
         return status;

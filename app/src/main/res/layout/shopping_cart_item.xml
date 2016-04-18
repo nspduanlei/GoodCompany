@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:descendantFocusability="blocksDescendants">
 
     <CheckBox
         android:id="@+id/cb_select"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:button="@drawable/check_selector"
-        android:gravity="center" />
+        android:gravity="center"
+        android:focusable="false"/>
 
     <ImageView
         android:id="@+id/iv_goods"
@@ -65,7 +68,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fl_sold_out"
-        android:clickable="true"
         android:visibility="gone">
         <TextView
             android:layout_width="wrap_content"

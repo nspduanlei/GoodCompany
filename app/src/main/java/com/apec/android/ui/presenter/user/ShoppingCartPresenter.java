@@ -45,7 +45,7 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //加入购物车成功
-                            if (response.getB().getTotal() == 0) {
+                            if (response.getB().getSkus().size() == 0) {
                                 if (isViewAttached()) {
                                     getView().showEmptyCase();
                                 }
@@ -202,6 +202,37 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
 
                     }
                 });
+    }
+
+    /**
+     * 删除商品
+     * @param id
+     */
+    public void deleteGoods(int id) {
+        GoodsInteract.deleteShoppingCart(
+                mContext, new GetDataCallback<NoBody>() {
+                    @Override
+                    public void onRepose(NoBody response) {
+                        //getView().hideLoading();
+                        int code = response.getH().getCode();
+                        if (code == 200) {
+                            //修改商品数量成功
+                            if (isViewAttached()) {
+                                getView().updateNumSuccess();
+                            }
+                        } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
+                            //需要登录
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }, String.valueOf(id));
     }
 
     public interface IView extends BaseViewInterface {

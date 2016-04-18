@@ -80,5 +80,6 @@ public class UrlConstant {
     //获取到货时间
     public static final String URL_ARRIVALTIME = URL_BASE + "/arrivaltime";
 
-
+    //删除购物车
+    public static final String URL_DEL_SHOPPING_CART = URL_BASE + "/cart/del";
 }

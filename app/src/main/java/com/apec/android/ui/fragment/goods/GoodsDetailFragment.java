@@ -139,7 +139,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                L.e("test00", "--------->" + s.toString());
 
                 if (StringUtils.isNullOrEmpty(s.toString()) ||
                         Integer.valueOf(s.toString()) < 1) {
@@ -285,6 +284,15 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                                                 mPrice, mNetContent));
                                         tvNetTitle.setText(mNetTitle);
                                     }
+
+                                    if (skuItem.getNonkeyAttr().size() > 0) {
+                                        mNetContent = skuItem.getNonkeyAttr().get(0).getAttributeValues().get(0).getName();
+                                        mNetTitle = skuItem.getNonkeyAttr().get(0).getName();
+                                        flNetContent.setVisibility(View.VISIBLE);
+                                    } else {
+                                        flNetContent.setVisibility(View.GONE);
+                                    }
+
                                     return;
                                 }
                             }
@@ -329,10 +337,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         for (SkuAttribute skuAttribute : attrs) {
             if (skuAttribute.getType().equals("1")) {
                 mData.add(skuAttribute);
-            } else if (skuAttribute.getType().equals("2")) {
-                mNetContent = skuAttribute.getAttributeValues().get(0).getName();
-                mNetTitle = skuAttribute.getName();
-                flNetContent.setVisibility(View.VISIBLE);
             }
         }
 
