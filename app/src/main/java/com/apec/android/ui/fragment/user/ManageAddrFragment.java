@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.RadioButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,7 +99,6 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
                     }
                 });
 
-
                 holder.setOnClickLister(R.id.tv_delete, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -123,6 +122,18 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
         };
 
         setListAdapter(mAdapter);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        if (getActivity().getIntent().getStringExtra("isCart") != null) { //如果是从购物车进入，选择地址后直接返回
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("address", mData.get(position));
+            getActivity().setResult(Constants.RESULT_CODE_ADDRESS_CHANGE,
+                    getActivity().getIntent().putExtras(bundle));
+            getActivity().finish();
+        }
+
     }
 
     @Override

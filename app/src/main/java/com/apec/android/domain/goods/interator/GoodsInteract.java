@@ -76,7 +76,7 @@ public class GoodsInteract {
 
         GsonRequest<Goods> request = new GsonRequest<>(
                 context, Request.Method.GET,
-                UrlConstant.URL_GOODS + "?categoryId=" + cid + "&cityId" + cityId,
+                UrlConstant.URL_GOODS + "?categoryId=" + cid + "&cityId=" + cityId,
                 Goods.class,
                 new Listener<Goods>() {
                     @Override

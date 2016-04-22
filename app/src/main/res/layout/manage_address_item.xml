@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="10dp">
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="陈旭"
         android:textColor="@color/color_text_6"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tv_phone_number"
@@ -20,7 +21,7 @@
         android:layout_toRightOf="@id/tv_user_name"
         android:text="18025633659"
         android:textColor="@color/color_text_6"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tv_address"
@@ -29,48 +30,48 @@
         android:layout_below="@id/tv_phone_number"
         android:layout_marginTop="4dp"
         android:text="发烧发到发烧发到发售股份噶哈哈达和司法纠纷解决很多几乎是世界上副教授介绍介绍"
-        android:textColor="@color/color_text_5" />
+        android:textColor="@color/color_text_5"/>
 
     <View
         android:id="@+id/line_1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/color_line_2"
         android:layout_below="@id/tv_address"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:background="@color/color_line_2"/>
 
     <CheckBox
         android:id="@+id/cb_default_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  默认地址"
-        android:textColor="@color/color_text_5"
         android:layout_below="@id/line_1"
+        android:layout_marginTop="10dp"
         android:button="@drawable/check_selector"
-        android:layout_marginTop="10dp"/>
+        android:text="  默认地址"
+        android:textColor="@color/color_text_5"/>
 
     <TextView
         android:id="@+id/tv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  删除"
-        android:drawableLeft="@drawable/delete_icon"
         android:layout_alignParentRight="true"
         android:layout_below="@id/line_1"
         android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/delete_icon"
         android:gravity="center"
+        android:text="  删除"
         android:textColor="@color/color_text_5"/>
 
     <TextView
         android:id="@+id/tv_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  编辑"
-        android:drawableLeft="@drawable/edit_icon"
-        android:layout_toLeftOf="@id/tv_delete"
         android:layout_below="@id/line_1"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/tv_delete"
+        android:drawableLeft="@drawable/edit_icon"
+        android:gravity="center"
+        android:text="  编辑"
         android:textColor="@color/color_text_5"/>
 </RelativeLayout>

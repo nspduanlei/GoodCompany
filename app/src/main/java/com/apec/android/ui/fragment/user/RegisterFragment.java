@@ -2,6 +2,8 @@ package com.apec.android.ui.fragment.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.RegisterPresenter;
+import com.apec.android.util.EditUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -90,6 +93,8 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
         etUserName = (EditText) view.findViewById(R.id.et_user_name);
 
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
+
+        etUserName.addTextChangedListener(new EditUtils(etUserName, getActivity()));
     }
 
     @Override
@@ -146,9 +151,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
                         StringUtils.isNullOrEmpty(userAddress)) {
                     Toast.makeText(getActivity(), "请填写完所用表单数据。。",
                             Toast.LENGTH_SHORT).show();
-                } else if (userName.length() > 10) {
-                    Toast.makeText(getActivity(), "用户名过长!", Toast.LENGTH_SHORT).show();
-                }  else {
+                } else {
                     //提交数据
                     mPresenter.submitUserData(userShop, userName, userCity, userArea, userAddress);
                 }

@@ -15,5 +15,7 @@ public class ErrorCode {
 
     public static final int NOT_EXIST_DEFAULT_ADDRESS = 2001; //不存在默认收货地址
 
+    public static final int GOODS_OUT_OF_STOCK = 1007; //商品下架
+
 
 }

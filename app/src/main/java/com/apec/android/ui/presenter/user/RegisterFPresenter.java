@@ -75,12 +75,9 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
                         if (isViewAttached()) {
                             getView().hideLoading();
                         }
-
-                        //if (response.getH().getCode() == 200) {
                         if (isViewAttached()) {
                             getView().submitCodeBack(response);
                         }
-                        //}
                     }
 
                     @Override

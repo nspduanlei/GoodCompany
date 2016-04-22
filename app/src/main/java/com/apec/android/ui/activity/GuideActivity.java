@@ -12,7 +12,7 @@ import com.apec.android.ui.activity.user.RegisterFActivity;
 /**
  * Created by duanlei on 2016/3/14.
  */
-public class GuideActivity extends Activity {
+public class GuideActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

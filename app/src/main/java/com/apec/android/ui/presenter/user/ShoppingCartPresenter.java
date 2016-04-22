@@ -44,7 +44,6 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            //加入购物车成功
                             if (response.getB().getSkus() == null ||
                                     response.getB().getSkus().size() == 0) {
                                 if (isViewAttached()) {
@@ -124,13 +123,19 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
-                            getView().obtainDefaultSuccess(response.getB());
+                            if (isViewAttached()) {
+                                getView().obtainDefaultSuccess(response.getB());
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            getView().needLogin();
+                            if (isViewAttached()) {
+                                getView().needLogin();
+                            }
                         } else if (code == ErrorCode.NOT_EXIST_DEFAULT_ADDRESS) {
                             //不存在默认收货地址
-                            getView().obtainDefaultSuccess(null);
+                            if (isViewAttached()) {
+                                getView().obtainDefaultSuccess(null);
+                            }
                         }
                     }
 
@@ -154,19 +159,32 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        getView().hideLoading();
+
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                        }
 
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //下单成功
-                            getView().obtainOrderSuccess();
+                            if (isViewAttached()) {
+                                getView().obtainOrderSuccess();
+                            }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN ||
                                 code == ErrorCode.ERROR_NOT_EXIST_USER) {
                             //需要登录
-                            getView().needLoginPay();
+                            if (isViewAttached()) {
+                                getView().needLoginPay();
+                            }
                         } else if (code == ErrorCode.NOT_EXIST_DEFAULT_ADDRESS) {
                             //不存在默认收货地址
-                            getView().obtainDefaultSuccess(null);
+                            if (isViewAttached()) {
+                                getView().obtainDefaultSuccess(null);
+                            }
+                        } else {
+                            if (isViewAttached()) {
+                                getView().orderError("创建订单失败：" + response.getH().getMsg());
+                            }
                         }
                     }
 
@@ -193,7 +211,9 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            getView().getArrivalTimeSuccess(response.getB().getTime());
+                            if (isViewAttached()) {
+                                getView().getArrivalTimeSuccess(response.getB().getTime());
+                            }
 
                         }
                     }
@@ -245,5 +265,6 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
         void needLogin();
         void needLoginPay();
         boolean isReady();
+        void orderError(String msg);
     }
 }

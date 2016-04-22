@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.apec.android.app.MyApplication;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.goods.GoodsFPresenter;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by Administrator on 2016/2/29.
@@ -39,4 +40,14 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         super.onDestroy();
         mPresenter.detachView();
     }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
+    }
+
 }

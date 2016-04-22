@@ -6,7 +6,7 @@
     //接收短信大约需要59s
     //以下号码为诚信号码，无需验证短信：18052365541
     <string name="hint_register_1">我们已发送验证码短信到这个号码：%s</string>
-    <string name="hint_register_2">接收短信大约需要{ %d }s</string>
+    <string name="hint_register_2">{%d}秒后可重新获取验证码</string>
     <string name="hint_register_3">以下号码为诚信号码，无需验证短信：%s</string>
     <string name="add_order_total">￥%s</string>
     <string name="please_login">请先登录</string>

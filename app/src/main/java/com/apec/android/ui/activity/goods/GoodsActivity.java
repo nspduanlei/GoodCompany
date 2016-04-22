@@ -13,13 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +39,6 @@ import com.apec.android.util.StringUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
-import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
@@ -351,9 +347,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         dialog.show();
     }
 
-
     public static final String ACTION_USER_UPDATE = "用户修改";
-    public static final String GET_LOCATION_CITY = "获取到定位城市";
 
     //定义广播
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -363,10 +357,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
             switch (action) {
                 case ACTION_USER_UPDATE:
                     updateUser();
-                    break;
-                case GET_LOCATION_CITY:
-                    //获取到定位城市
-                    updateGoods();
                     break;
             }
         }
@@ -384,7 +374,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     public void registerBroadcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(ACTION_USER_UPDATE);
-        myIntentFilter.addAction(GET_LOCATION_CITY);
         //注册广播
         registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
@@ -392,11 +381,18 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     @Override
     public void locationSuccess(int cityId, String cityName) {
         //城市id获取成功
-        SPUtils.put(this, SPUtils.LOCATION_CITY_ID, cityId);
-        SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
-        //发送广播
-        Intent mIntent = new Intent(GoodsActivity.GET_LOCATION_CITY);
-        sendBroadcast(mIntent);
+        if (cityId != 0) {
+            mCityId = cityId;
+            SPUtils.put(this, SPUtils.LOCATION_CITY_ID, cityId);
+            SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
+            if (cityId != Constants.DEFAULT_CITY_ID) {
+                updateGoods();
+            }
+        } else {
+            mCityId = Constants.DEFAULT_CITY_ID;
+            SPUtils.put(this, SPUtils.LOCATION_CITY_ID, Constants.DEFAULT_CITY_ID);
+            SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, Constants.DEFAULT_CITY_NAME);
+        }
     }
 
     @Override

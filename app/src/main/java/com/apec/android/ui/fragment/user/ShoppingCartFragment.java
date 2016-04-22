@@ -98,7 +98,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private int mCount;
     private Double mPrice = 0.0;
 
-    private ViewStub addressShow;
+    private RelativeLayout addressShow;
     private View mView;
 
     private void initView(View view) {
@@ -120,7 +120,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         allSelect = (CheckBox) view.findViewById(R.id.cb_all_select);
         allSelect.setChecked(true);
 
-        addressShow = (ViewStub) view.findViewById(R.id.stub_address);
+        addressShow = (RelativeLayout) view.findViewById(R.id.rl_address_show);
 
         totalPrices = (TextView) view.findViewById(R.id.tv_total_carts);
         gotoPay = (Button) view.findViewById(R.id.btn_goto_pay);
@@ -422,23 +422,32 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             //不存在默认收货地址
             addressId = 0;
             gotoPay.setText("设置地址");
-            //addressShow.setVisibility(View.GONE);
+            addressShow.setVisibility(View.GONE);
         } else {
-            addressId = goodsReceipt.getAddressId();
-            addressShow.inflate();
-
-            View addressView = mView.findViewById(R.id.rl_address_show);
-
-            addressView.findViewById(R.id.btn_update).setOnClickListener(this);
-            TextView address = (TextView) addressView.findViewById(R.id.tv_address);
-            address.setText(goodsReceipt.getAddrRes().getDetail());
-            TextView userInfo = (TextView) addressView.findViewById(R.id.tv_user_info);
-            userInfo.setText(String.format("%s   %s", goodsReceipt.getName(),
-                    goodsReceipt.getPhone()));
-
-            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+            updateAddress(goodsReceipt);
         }
     }
+
+    /**
+     * 更新收货信息
+     */
+    private void updateAddress(GoodsReceipt goodsReceipt) {
+        addressId = goodsReceipt.getAddressId();
+
+        if (addressShow.getVisibility() == View.GONE) {
+            addressShow.setVisibility(View.VISIBLE);
+        }
+
+        addressShow.findViewById(R.id.btn_update).setOnClickListener(this);
+        TextView address = (TextView) addressShow.findViewById(R.id.tv_address);
+        address.setText(goodsReceipt.getAddrRes().getDetail());
+        TextView userInfo = (TextView) addressShow.findViewById(R.id.tv_user_info);
+        userInfo.setText(String.format("%s   %s", goodsReceipt.getName(),
+                goodsReceipt.getPhone()));
+
+        gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+    }
+
 
     @Override
     public void obtainCartSuccess(ShopCart shopCart) {
@@ -480,6 +489,11 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         return isAdded();
     }
 
+    @Override
+    public void orderError(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
     //购买商品skuId拼接
     StringBuffer sbSkus = new StringBuffer();
     TextView arrivalTime;
@@ -493,6 +507,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 break;
             case R.id.btn_update:
                 Intent intent = new Intent(getActivity(), ManageAddrActivity.class);
+                intent.putExtra("isCart", "true");
                 startActivityForResult(intent, Constants.REQUEST_CODE_ADDR);
                 break;
             case R.id.btn_goto_pay:
@@ -552,6 +567,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 } else {
                     //没有选择收货地址
                     Intent intent1 = new Intent(getActivity(), ManageAddrActivity.class);
+                    intent1.putExtra("isCart", "true");
                     startActivityForResult(intent1, Constants.REQUEST_CODE_ADDR);
                 }
                 break;
@@ -610,11 +626,18 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 }
 
                 break;
-            case Constants.REQUEST_CODE_ADDR: //更改收货地址
+            case Constants.REQUEST_CODE_ADDR: //重新获取默认收货地址
                 if (resultCode == Constants.RESULT_CODE_ADDRESS_SUCCESS) {
                     mPresenter.obtainDefaultAddress();
+                } else if (resultCode == Constants.RESULT_CODE_ADDRESS_CHANGE) {
+                    //TODO 切换地址
+
+                    GoodsReceipt addressInfo = data.getParcelableExtra("address");
+                    updateAddress(addressInfo);
+
                 }
                 break;
+
 
             case Constants.REQUEST_CODE_LOGIN_PAY:
                 if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {

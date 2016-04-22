@@ -80,7 +80,7 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
     int down = 60;
     //是否正在倒计时
-    boolean isDown = false;
+//    boolean isDown = false;
 
     static class MyHandler extends Handler {
         WeakReference<RegisterFFragment> mFragment;
@@ -105,7 +105,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
 
                         theFragment.hint_down.setText(chars);
                     } else {
-                        theFragment.isDown = false;
+                        //theFragment.isDown = false;
+                        theFragment.getVerCode.setEnabled(true);
                         theFragment.hint_down.setText("如果您还没收到短信，请尝试重新获取");
                     }
                     break;
@@ -114,7 +115,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     }
 
     private void startTimer() {
-        isDown = true;
+        getVerCode.setEnabled(false);
+        //isDown = true;
         down = 60;
         //1s执行一次
         if (timerTask != null) {
@@ -242,7 +244,7 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start: //提交验证码
-                //验证手机号了验证码是否输入
+                //验证手机号验证码是否输入
                 if (StringUtils.isNullOrEmpty(phoneNumber.getText().toString())) {
                     Toast.makeText(getActivity(), "请填写您的手机号", Toast.LENGTH_SHORT).show();
                 } else if (StringUtils.isNullOrEmpty(verCode.getText().toString())){
@@ -255,9 +257,9 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                 break;
 
             case R.id.btn_get_code: //获取验证码
-                if (isDown) {
-                    break;
-                }
+//                if (isDown) {
+//                    break;
+//                }
                 KeyBoardUtils.closeKeybord(phoneNumber, getActivity());
 
                 //验证手机号格式

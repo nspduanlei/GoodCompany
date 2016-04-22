@@ -2,17 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apec.android">
 
+    <!--允许应用程序联网，以便向我们的服务器端发送数据。-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--检测联网方式，区分用户设备使用的是2G、3G或是WiFi-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--获取用户设备的mac地址，在平板设备上，无法通过imei标示设备，我们会将mac地址作为用户的唯一标识-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--获取用户设备的IMEI，通过IMEI和mac来唯一的标识用户-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 
 
     <application
@@ -64,6 +69,10 @@
         <service android:name="com.amap.api.location.APSService"/>
         <meta-data android:name="com.amap.api.v2.apikey"
                    android:value="3b5cf788eafa06f66b800edec4ff61d5"/>
+
+        <!--umeng-->
+        <meta-data android:value="5719c65267e58e7b5d002445" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="${TD_CHANNEL_ID}" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

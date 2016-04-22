@@ -2,6 +2,8 @@ package com.apec.android.ui.fragment.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.MyAccountPresenter;
 import com.apec.android.ui.presenter.user.SelectCityPresenter;
+import com.apec.android.util.EditUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 
@@ -82,6 +85,8 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
         etShop = (EditText) view.findViewById(R.id.et_shop);
         etUser = (EditText) view.findViewById(R.id.et_user);
         etPhone = (EditText) view.findViewById(R.id.et_phone);
+
+        etUser.addTextChangedListener(new EditUtils(etUser, getActivity()));
     }
 
     @Override
@@ -168,8 +173,6 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
                     Toast.makeText(getActivity(), "用户名不能为空!", Toast.LENGTH_SHORT).show();
                 } else if (!checkPhone.equals("")) {
                     Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
-                } else if (userName.length() > 10) {
-                    Toast.makeText(getActivity(), "用户名过长!", Toast.LENGTH_SHORT).show();
                 } else {
                     User user = new User();
                     user.setPhone(userPhone);

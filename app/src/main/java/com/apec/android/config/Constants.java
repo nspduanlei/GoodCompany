@@ -22,6 +22,7 @@ public class Constants {
     public final static int RESULT_CODE_LOGIN_SUCCESS = 100; //登录成功返回
     public final static int RESULT_CODE_ADDRESS_SUCCESS = 101; //默认地址设置成功返回
     public final static int RESULT_CODE_EDIT = 102;  //地址修改成功
+    public final static int RESULT_CODE_ADDRESS_CHANGE = 103; //切换地址
 
 
     /**

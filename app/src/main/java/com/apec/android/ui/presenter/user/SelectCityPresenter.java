@@ -27,7 +27,9 @@ public class SelectCityPresenter extends BasePresenter<SelectCityPresenter.IView
             @Override
             public void onRepose(Areas response) {
                 if (response.getH().getCode() == 200) {
-                    getView().getAreaBack(response.getB());
+                    if (isViewAttached()) {
+                        getView().getAreaBack(response.getB());
+                    }
                 }
             }
 

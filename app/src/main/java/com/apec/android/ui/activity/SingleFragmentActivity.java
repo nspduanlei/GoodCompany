@@ -11,7 +11,7 @@ import com.apec.android.R;
 /**
  * 包含fragment继承的类
  */
-public abstract class SingleFragmentActivity extends FragmentActivity {
+public abstract class SingleFragmentActivity extends BaseActivity {
 
     protected abstract Fragment createFragment();
 
