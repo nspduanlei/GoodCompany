@@ -3,7 +3,10 @@ package com.apec.android.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
 import com.apec.android.R;
+import com.apec.android.domain.goods.Goods;
 import com.apec.android.ui.fragment.goods.GoodsFragment;
 import com.viewpagerindicator.IconPagerAdapter;
 
@@ -43,6 +46,15 @@ public class IconPageViewAdapter extends FragmentPagerAdapter implements IconPag
 //    public CharSequence getPageTitle(int position) {
 //        return CONTENT[position % CONTENT.length];
 //    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        Log.e("test002", "getItemPosition");
+        if (object instanceof GoodsFragment) {
+            ((GoodsFragment) object).updateData();
+        }
+        return super.getItemPosition(object);
+    }
 
     @Override
     public int getIconResId(int index) {

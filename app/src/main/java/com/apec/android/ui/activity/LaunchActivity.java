@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.apec.android.R;
-import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
@@ -16,8 +15,7 @@ import com.apec.android.ui.activity.user.ManageAddrActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
-import com.apec.android.ui.fragment.user.ManageAddrFragment;
-import com.apec.android.ui.presenter.goods.GoodsPresenter;
+import com.apec.android.ui.presenter.user.LaunchPresenter;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 
@@ -28,14 +26,16 @@ import java.util.List;
 /**
  * 启动页
  */
-public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsPresenter> {
+public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, LaunchPresenter>
+        implements LaunchPresenter.IView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //是否第一次登录
-        if (SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
+        if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
             SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
             //是第一次进入app，到引导页
             Intent intent = new Intent(this, GuideActivity.class);
@@ -56,19 +56,13 @@ public class LaunchActivity extends MVPBaseActivity<GoodsPresenter.IView, GoodsP
             Intent intent = new Intent(this, GoodsActivity.class);
             startActivity(intent);
 
-//            Intent intent = new Intent(this, RegisterFActivity.class);
-//            startActivity(intent);
-
-//            Intent intent = new Intent(this, RegisterActivity.class);
-//            startActivity(intent);
-
         }
         this.finish();
     }
 
     @Override
-    protected GoodsPresenter createPresenter() {
-        return new GoodsPresenter(this);
+    protected LaunchPresenter createPresenter() {
+        return new LaunchPresenter(this);
     }
 
     public void login(View view) {

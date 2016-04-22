@@ -9,6 +9,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -53,6 +59,11 @@
         <activity android:name=".ui.activity.GuideActivity" />
 
         <activity android:name=".ui.activity.user.MyAccountActivity" />
+
+        <!--定位-->
+        <service android:name="com.amap.api.location.APSService"/>
+        <meta-data android:name="com.amap.api.v2.apikey"
+                   android:value="3b5cf788eafa06f66b800edec4ff61d5"/>
     </application>
 
 </manifest>

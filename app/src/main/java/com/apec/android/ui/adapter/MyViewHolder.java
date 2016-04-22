@@ -138,6 +138,13 @@ public class MyViewHolder {
         return this;
     }
 
+    public MyViewHolder setSelected(int radioId, boolean selected) {
+        RadioButton radioButton = getView(radioId);
+        radioButton.setChecked(selected);
+        return this;
+    }
+
+
     public MyViewHolder setTextTow(int tv_add_count, String price, int count) {
         TextView tv = getView(tv_add_count);
         tv.setText(count + " x ￥" + price);
@@ -158,10 +165,8 @@ public class MyViewHolder {
     }
 
     public MyViewHolder setTextBackground(int tv_order_pro, int order_pro_bg_1) {
-
         TextView textView = getView(tv_order_pro);
         textView.setBackgroundResource(order_pro_bg_1);
-
         return this;
     }
 

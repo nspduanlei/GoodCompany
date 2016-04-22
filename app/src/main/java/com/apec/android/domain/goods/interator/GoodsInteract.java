@@ -1,11 +1,14 @@
 package com.apec.android.domain.goods.interator;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.apec.android.app.MyApplication;
+import com.apec.android.config.Constants;
 import com.apec.android.config.UrlConstant;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
@@ -14,9 +17,12 @@ import com.apec.android.domain.goods.GetAllAttribute;
 import com.apec.android.domain.goods.Goods;
 import com.apec.android.domain.goods.GoodsDetail;
 import com.apec.android.domain.transport.ArrivalTime;
+import com.apec.android.domain.user.Areas;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.request.GsonRequest;
 import com.apec.android.util.L;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,12 +70,13 @@ public class GoodsInteract {
      */
     public static void fetchGoods(Context context,
                                   final GetDataCallback<Goods> callback,
-                                  final int cid) {
-        L.e("test0001", "cid==="+cid);
+                                  final int cid,
+                                  final int cityId) {
+        L.e("test0001", "cid===" + cid + ",  cityId===" + cityId);
 
         GsonRequest<Goods> request = new GsonRequest<>(
                 context, Request.Method.GET,
-                UrlConstant.URL_GOODS + "?categoryId=" + cid,
+                UrlConstant.URL_GOODS + "?categoryId=" + cid + "&cityId" + cityId,
                 Goods.class,
                 new Listener<Goods>() {
                     @Override
@@ -165,8 +172,8 @@ public class GoodsInteract {
     }
 
     public static void querySku(Context context,
-                                       final GetDataCallback<GetAllAttribute> callback,
-                                       final int id, final String attrs) {
+                                final GetDataCallback<GetAllAttribute> callback,
+                                final int id, final String attrs) {
         GsonRequest<GetAllAttribute> request = new GsonRequest<>(
                 context, Request.Method.GET,
                 UrlConstant.URL_SKU_ATTR + "?goodsId=" + id + "&attributeValueIds=" + attrs,
@@ -196,6 +203,7 @@ public class GoodsInteract {
 
     /**
      * 购物车添加商品或修改商品数量
+     *
      * @param context
      * @param callback
      * @param s
@@ -237,6 +245,7 @@ public class GoodsInteract {
 
     /**
      * 获取到货时间
+     *
      * @param context
      * @param callback
      */
@@ -270,6 +279,7 @@ public class GoodsInteract {
 
     /**
      * 删除购物车商品
+     *
      * @param context
      * @param callback
      * @param skuId
@@ -291,6 +301,65 @@ public class GoodsInteract {
                         Map<String, String> params = new HashMap<>();
                         params.put("skuId", skuId);
                         return params;
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                });
+
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    /**
+     * 获取开发城市列表
+     *
+     * @param callback
+     */
+    public static void getOpenCityList(final GetDataCallback<JSONObject> callback) {
+        JsonObjectRequest jsonObjectRequest =
+                new JsonObjectRequest(UrlConstant.URL_OPEN_CITY_CODE, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.e("test01", response.toString());
+                                callback.onRepose(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                callback.onErrorResponse(error);
+                            }
+                        });
+
+        MyApplication.getRequestQueue().add(jsonObjectRequest);
+    }
+
+
+    /**
+     * 获取已开放的城市（用于主页选择城市）
+     * @param context
+     * @param callback
+     */
+    public static void getOpenCityListArea(Context context,
+                                           final GetDataCallback<Areas> callback) {
+        GsonRequest<Areas> request = new GsonRequest<>(
+                context, Request.Method.GET,
+                UrlConstant.URL_SELECT_CITY,
+                Areas.class,
+                new Listener<Areas>() {
+                    @Override
+                    public void onResponse(Areas response) {
+                        callback.onRepose(response);
+                    }
+
+                    @Override
+                    public Map getRequestParams() {
+                        return null;
                     }
                 },
 

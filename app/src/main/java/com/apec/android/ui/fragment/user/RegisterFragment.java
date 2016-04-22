@@ -142,12 +142,13 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
                 if (StringUtils.isNullOrEmpty(userShop) ||
                         StringUtils.isNullOrEmpty(userName) ||
                         userCity == 0 ||
-                        userAreaId == 0 ||
+                        userArea == 0 ||
                         StringUtils.isNullOrEmpty(userAddress)) {
-
                     Toast.makeText(getActivity(), "请填写完所用表单数据。。",
                             Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (userName.length() > 10) {
+                    Toast.makeText(getActivity(), "用户名过长!", Toast.LENGTH_SHORT).show();
+                }  else {
                     //提交数据
                     mPresenter.submitUserData(userShop, userName, userCity, userArea, userAddress);
                 }

@@ -7,6 +7,15 @@ public class Area {
     private int id;
     private String areaName;
     private int parentId;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public int getId() {
         return id;

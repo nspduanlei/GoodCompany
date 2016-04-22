@@ -1,19 +1,23 @@
 package com.apec.android.ui.fragment.goods;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.goods.Good;
 import com.apec.android.ui.activity.goods.GoodsDetailActivity;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.goods.GoodsFPresenter;
+import com.apec.android.util.SPUtils;
 
 import java.util.ArrayList;
 
@@ -59,8 +63,10 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         initView(view);
-        mPresenter.fetchGoods(mID);
+
+        updateData();
     }
 
     ListView mListView;
@@ -146,5 +152,12 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     @Override
     public boolean isReady() {
         return isAdded();
+    }
+
+    public void updateData() {
+        Log.e("test002", "updateDate");
+        int cityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
+                Constants.DEFAULT_CITY_ID);
+        mPresenter.fetchGoods(mID, cityId);
     }
 }

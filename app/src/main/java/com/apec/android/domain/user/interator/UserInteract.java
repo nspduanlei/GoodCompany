@@ -1,6 +1,7 @@
 package com.apec.android.domain.user.interator;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -169,10 +170,14 @@ public class UserInteract {
     }
 
     public static void obtainShoppingCart(Context context,
-                                          final GetDataCallback<ShopCartBack> callback) {
+                                          final GetDataCallback<ShopCartBack> callback,
+                                          final String cityId) {
+
+        Log.e("test001", "cityId:" + cityId);
+
         GsonRequest<ShopCartBack> request = new GsonRequest<>(
                 context, Request.Method.GET,
-                UrlConstant.URL_OBTAIN_SHOPPING_CART,
+                UrlConstant.URL_OBTAIN_SHOPPING_CART + "?cityId=" + cityId,
                 ShopCartBack.class,
                 new Listener<ShopCartBack>() {
                     @Override

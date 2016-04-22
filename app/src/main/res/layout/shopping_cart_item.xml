@@ -21,7 +21,7 @@
         android:layout_toRightOf="@id/cb_select"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/test"
+        android:src="@drawable/test"
         android:layout_marginRight="10dp"/>
 
     <TextView

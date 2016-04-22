@@ -6,9 +6,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -24,13 +27,12 @@ import com.apec.android.domain.goods.Good;
 import com.apec.android.domain.goods.Sku;
 import com.apec.android.domain.goods.SkuAttrValue;
 import com.apec.android.domain.goods.SkuAttribute;
-import com.apec.android.domain.user.Skus;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.goods.GoodsDetailPresenter;
 import com.apec.android.util.DensityUtils;
-import com.apec.android.util.L;
+import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 
 import java.util.ArrayList;
@@ -78,6 +80,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+
         mPresenter.fetchGoodsAttrs(goodsId);
     }
 
@@ -117,6 +120,8 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     private TextView tvGoodsNet;
     private TextView tvNetTitle;
 
+    private Button addShoppingCart;
+
     private void initFootView() {
         tvGoodsNet = (TextView) footerView.findViewById(R.id.tv_goods_net);
         flNetContent = (FrameLayout) footerView.findViewById(R.id.fl_net_content);
@@ -126,9 +131,12 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         totalPrice = (TextView) footerView.findViewById(R.id.tv_total_price);
         addButton = (ImageButton) footerView.findViewById(R.id.btn_add);
         cutButton = (ImageButton) footerView.findViewById(R.id.btn_cut);
+
+        addShoppingCart = (Button) footerView.findViewById(R.id.btn_add_shopping_cart);
+
         addButton.setOnClickListener(this);
         cutButton.setOnClickListener(this);
-        footerView.findViewById(R.id.btn_add_shopping_cart).setOnClickListener(this);
+        addShoppingCart.setOnClickListener(this);
 
         goodsCount = (EditText) footerView.findViewById(R.id.et_goods_count);
         goodsCount.addTextChangedListener(new TextWatcher() {
@@ -174,6 +182,8 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     private String mNetContent;
     private String mNetTitle;
 
+    private SparseArray<Integer> mSelectAttrs = new SparseArray<>();
+
     class MyAdapter extends BaseAdapter {
 
         @Override
@@ -215,7 +225,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             return convertView;
         }
 
-        private void addSkuAttrValue(RadioGroup radioGroup, ArrayList<SkuAttrValue> values,
+        private void addSkuAttrValue(final RadioGroup radioGroup, ArrayList<SkuAttrValue> values,
                                      final int position) {
             RadioButton radioButton;
             RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
@@ -234,69 +244,39 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                 radioButton.setId(value.getId());
 
                 radioButton.setOnClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View view) {
 
-                        //找到选择的id属于哪个sku
-                        List<Sku> listSku = mGood.getSkus();
-                        for (Sku skuItem : listSku) {
-                            //遍历sku中的 attr
-                            List<SkuAttribute> listAttr = skuItem.getAttributeNames();
+                        mSelectAttrs.put(position, view.getId());
 
-                            for (SkuAttribute attrLItem : listAttr) {
-                                if (attrLItem.getAttributeValues().get(0).getId() == view.getId()) {
-                                    //找到了该id，则sku匹配成功
-                                    mSkuId = skuItem.getId();
+                        List<Sku> skus = mGood.getSkus();
 
-                                    //自动将该sku选中
-                                    List<SkuAttribute> list = skuItem.getAttributeNames();
-                                    for (int i = 0; i < list.size(); i++) {
-                                        //属性的sku，type = 2 代表尽含量
-                                        if (list.get(i).getType().equals("2")) {
-                                            break;
-                                        }
+                        for (int j = 0; j < skus.size(); j++) {
+                            boolean isSelect = true;
 
-                                        //如果要选择的项是隐藏的，则显示
-                                        View itemView = getListView().getChildAt(i);
-                                        if (itemView.getVisibility() == View.GONE) {
-                                            itemView.setVisibility(View.VISIBLE);
-                                        }
+                            List<SkuAttribute> attrs = skus.get(j).getAttributeNames();
+                            for (int k = 0; k < attrs.size(); k++) {
 
-                                        int attrValue = list.get(i).getAttributeValues().get(0).getId();
-                                        RadioButton rb = (RadioButton) itemView.findViewById(attrValue);
-                                        rb.setChecked(true);
-                                    }
-
-                                    //选择完了如果还有项没选择，则隐藏
-                                    for (int i = list.size(); i < getListView().getCount() - 1; i++) {
-                                        getListView().getChildAt(i).setVisibility(View.GONE);
-                                    }
-
-                                    //填充相关数据
-                                    mPrice = skuItem.getPrice();
-                                    totalPrice.setText(String.format(getString(R.string.add_order_total),
-                                            skuItem.getPrice()));
-                                    goodsCount.setText("1");
-
-                                    if (mNetTitle != null) {
-                                        tvGoodsNet.setText(String.format(getString(R.string.net_content),
-                                                mPrice, mNetContent));
-                                        tvNetTitle.setText(mNetTitle);
-                                    }
-
-                                    if (skuItem.getNonkeyAttr().size() > 0) {
-                                        mNetContent = skuItem.getNonkeyAttr().get(0).getAttributeValues().get(0).getName();
-                                        mNetTitle = skuItem.getNonkeyAttr().get(0).getName();
-                                        flNetContent.setVisibility(View.VISIBLE);
-                                    } else {
-                                        flNetContent.setVisibility(View.GONE);
-                                    }
-
-                                    return;
+                                if (mSelectAttrs.get(k) != null &&
+                                        mSelectAttrs.get(k) != attrs.get(k).getAttributeValues()
+                                        .get(0).getId()) {
+                                    isSelect = false;
                                 }
                             }
+
+                            if (isSelect) {
+                                //找到了匹配的sku
+                                mSkuId = skus.get(j).getId();
+                                addShoppingCart.setEnabled(true);
+                                setSkuData(skus.get(j));
+                                break;
+                            } else {
+                                mSkuId = 0;
+                                addShoppingCart.setEnabled(false);
+                            }
+
                         }
+
                     }
                 });
                 radioGroup.addView(radioButton);
@@ -308,6 +288,67 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             public TextView textView;
         }
     }
+
+    /**
+     * 选择指定sku
+     * @param skuItem
+     */
+    private void selectSku(Sku skuItem) {
+        //自动将该sku选中
+        List<SkuAttribute> list = skuItem.getAttributeNames();
+        for (int i = 0; i < list.size(); i++) {
+            //属性的sku，type = 2 代表尽含量
+            if (list.get(i).getType().equals("2")) {
+                break;
+            }
+
+            mSelectAttrs.put(i, list.get(i).getAttributeValues().get(0).getId());
+
+            //如果要选择的项是隐藏的，则显示
+            View itemView = getListView().getChildAt(i);
+//            if (itemView.getVisibility() == View.GONE) {
+//                itemView.setVisibility(View.VISIBLE);
+//            }
+
+            int attrValue = list.get(i).getAttributeValues().get(0).getId();
+            RadioButton rb = (RadioButton) itemView.findViewById(attrValue);
+            rb.setChecked(true);
+        }
+
+        //选择完了如果还有项没选择，则隐藏
+//        for (int i = list.size(); i < getListView().getCount() - 1; i++) {
+//            getListView().getChildAt(i).setVisibility(View.GONE);
+//        }
+
+        //填充相关数据
+        setSkuData(skuItem);
+    }
+
+    /**
+     * 填充相关数据
+     * @param skuItem
+     */
+    private void setSkuData(Sku skuItem) {
+        mPrice = skuItem.getPrice();
+        totalPrice.setText(String.format(getString(R.string.add_order_total),
+                skuItem.getPrice()));
+        goodsCount.setText("1");
+
+        if (skuItem.getNonkeyAttr().size() > 0) {
+            mNetContent = skuItem.getNonkeyAttr().get(0).getAttributeValues().get(0).getName();
+            mNetTitle = skuItem.getNonkeyAttr().get(0).getName();
+            flNetContent.setVisibility(View.VISIBLE);
+
+            if (mNetTitle != null) {
+                tvGoodsNet.setText(String.format(getString(R.string.net_content),
+                        mPrice, mNetContent));
+                tvNetTitle.setText(mNetTitle);
+            }
+        } else {
+            flNetContent.setVisibility(View.GONE);
+        }
+    }
+
 
     @Override
     public void hideLoading() {
@@ -353,14 +394,20 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         mGood = good;
 
         if (good.getSkus().size() > 0) {
-            RadioButton rb = (RadioButton) getListView().getChildAt(0)
-                    .findViewById(mData.get(0).getAttributeValues().get(0).getId());
-            rb.setChecked(true);
-            rb.performClick();
-        }
+//            RadioButton rb = (RadioButton) getListView().getChildAt(0)
+//                    .findViewById(mData.get(0).getAttributeValues().get(0).getId());
+//            rb.setChecked(true);
+//            rb.performClick();
 
-        //获取到货时间
-        mPresenter.getArrivalTime();
+            //默认选择第一个sku
+            mSkuId = good.getSkus().get(0).getId();
+            selectSku(good.getSkus().get(0));
+
+            //获取到货时间
+            mPresenter.getArrivalTime();
+        } else {
+            addShoppingCart.setEnabled(false);
+        }
     }
 
     @Override

@@ -10,21 +10,31 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.ListAdapter;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
+import com.apec.android.domain.user.Area;
 import com.apec.android.ui.activity.MVPBaseActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
 import com.apec.android.ui.activity.user.ManageAddrActivity;
 import com.apec.android.ui.activity.user.MyAccountActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
+import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.IconPageViewAdapter;
+import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.presenter.goods.GoodsPresenter;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
@@ -35,6 +45,8 @@ import com.orhanobut.dialogplus.ViewHolder;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -62,19 +74,23 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     private Button loginOut, btnLogin;
     private TextView tvUserC, tvUserName;
 
+    private int mCityId;
+
+    FragmentPagerAdapter mAdapter;
     /**
      * 初始化ui
      */
     private void initViews() {
         initToolbar();
+
         //注册广播
         registerBroadcastReceiver();
 
         loading = (FrameLayout) findViewById(R.id.fl_loading);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.vp_goods);
-        FragmentPagerAdapter adapter = new IconPageViewAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
+        mAdapter = new IconPageViewAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mAdapter);
         TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
 
@@ -91,6 +107,12 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         tvUserName = (TextView) findViewById(R.id.tv_user_name);
 
         updateUser();
+
+        mCityId = (int)SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
+
+        if (mCityId == 0) {
+            mPresenter.startLocation();
+        }
     }
 
     private void updateUser() {
@@ -121,10 +143,16 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     }
 
     private DrawerLayout drawerLayout;
+    private TextView tvLocation;
 
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.findViewById(R.id.iv_shopping_cart).setOnClickListener(this);
+        tvLocation = (TextView) toolbar.findViewById(R.id.tv_location);
+        String cityName = (String) SPUtils.get(this, SPUtils.LOCATION_CITY_NAME,
+                Constants.DEFAULT_CITY_NAME);
+        tvLocation.setText(cityName);
+        tvLocation.setOnClickListener(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
@@ -184,51 +212,148 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
                 break;
             case R.id.btn_login_out:
                 //退出登录确定
-                View dialogView = getLayoutInflater()
-                        .inflate(R.layout.dialog_cancel_order, null);
-
-                TextView title = (TextView) dialogView.findViewById(R.id.tv_title);
-                title.setText(String.format("    %s", "确定退出登录吗？"));
-                ViewHolder viewHolder = new ViewHolder(dialogView);
-                DialogPlus dialog = new DialogPlus.Builder(this)
-                        .setContentHolder(viewHolder)
-                        .setCancelable(true)
-                        .setGravity(DialogPlus.Gravity.CENTER)
-                        .setBackgroundColorResourceId(R.color.transparency)
-                        .setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(DialogPlus dialog, View view) {
-                                switch (view.getId()) {
-                                    case R.id.tv_cancel:
-                                        dialog.dismiss();
-                                        break;
-                                    case R.id.tv_sure:
-                                        dialog.dismiss();
-
-                                        //退出登录
-                                        SPUtils.clear(GoodsActivity.this);
-                                        SPUtils.put(GoodsActivity.this, SPUtils.IS_FIRST_LAUNCH, 1);
-                                        loginOut();
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        })
-                        .create();
-                dialog.show();
-
-
-
+                showLoginOutDialog();
                 break;
             case R.id.btn_login:
                 Intent intent4 = new Intent(this, RegisterFActivity.class);
                 startActivity(intent4);
                 break;
+
+            case R.id.tv_location:
+                //updateGoods();
+                //城市选择
+                mPresenter.getOpenCityListArea();
+                break;
         }
     }
 
+    /**
+     * 显示退出登录弹窗
+     */
+    private void showLoginOutDialog() {
+        View dialogView = getLayoutInflater()
+                .inflate(R.layout.dialog_cancel_order, null);
+
+        TextView title = (TextView) dialogView.findViewById(R.id.tv_title);
+        title.setText(String.format("    %s", "确定退出登录吗？"));
+        ViewHolder viewHolder = new ViewHolder(dialogView);
+        DialogPlus dialog = new DialogPlus.Builder(this)
+                .setContentHolder(viewHolder)
+                .setCancelable(true)
+                .setGravity(DialogPlus.Gravity.CENTER)
+                .setBackgroundColorResourceId(R.color.transparency)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(DialogPlus dialog, View view) {
+                        switch (view.getId()) {
+                            case R.id.tv_cancel:
+                                dialog.dismiss();
+                                break;
+                            case R.id.tv_sure:
+                                dialog.dismiss();
+
+                                //退出登录
+                                SPUtils.clear(GoodsActivity.this);
+                                SPUtils.put(GoodsActivity.this, SPUtils.IS_FIRST_LAUNCH, 1);
+                                loginOut();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
+
+    List<Area> mCityData = new ArrayList<>();
+    CommonAdapter mCityAdapter;
+    int mSelectCityId;
+    String mSelectCityName;
+    /**
+     * 显示城市选择弹窗
+     */
+    private void showSelectCityDialog() {
+        View dialogView = getLayoutInflater()
+                .inflate(R.layout.dialog_select_city, null);
+
+        GridView gridView = (GridView) dialogView.findViewById(R.id.gv_open_city);
+
+        mCityAdapter = new CommonAdapter<Area>(GoodsActivity.this,
+                mCityData, R.layout.item_open_city) {
+            @Override
+            public void convert(final MyViewHolder holder, final Area city) {
+                holder.setText(R.id.rb_city_name, city.getAreaName());
+                if (city.isSelect()) {
+                    holder.setSelected(R.id.rb_city_name, true);
+                } else {
+                    holder.setSelected(R.id.rb_city_name, false);
+                }
+
+                holder.setOnCheckChangeListerRadio(R.id.rb_city_name,
+                        new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (b) {
+                            for (Area area:mCityData) {
+                                mSelectCityId = mCityData.get(holder.getMPosition()).getId();
+                                mSelectCityName = mCityData.get(holder.getMPosition()).getAreaName();
+
+                                if (area.getId() == mSelectCityId) {
+                                    area.setSelect(true);
+                                } else {
+                                    area.setSelect(false);
+                                }
+                            }
+                            mCityAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+        };
+
+        gridView.setAdapter(mCityAdapter);
+
+        ViewHolder viewHolder = new ViewHolder(dialogView);
+        DialogPlus dialog = new DialogPlus.Builder(this)
+                .setContentHolder(viewHolder)
+                .setCancelable(true)
+                .setGravity(DialogPlus.Gravity.CENTER)
+                .setBackgroundColorResourceId(R.color.transparency)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(DialogPlus dialog, View view) {
+                        switch (view.getId()) {
+                            case R.id.tv_cancel:
+                                dialog.dismiss();
+                                break;
+
+                            case R.id.tv_sure:
+                                dialog.dismiss();
+
+                                if (mCityId != mSelectCityId && mSelectCityName != null) {
+                                    mCityId = mSelectCityId;
+                                    SPUtils.put(GoodsActivity.this, SPUtils.LOCATION_CITY_ID,
+                                            mSelectCityId);
+                                    SPUtils.put(GoodsActivity.this, SPUtils.LOCATION_CITY_NAME,
+                                            mSelectCityName);
+                                    updateGoods();
+                                }
+
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
+
     public static final String ACTION_USER_UPDATE = "用户修改";
+    public static final String GET_LOCATION_CITY = "获取到定位城市";
 
     //定义广播
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -239,16 +364,52 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
                 case ACTION_USER_UPDATE:
                     updateUser();
                     break;
+                case GET_LOCATION_CITY:
+                    //获取到定位城市
+                    updateGoods();
+                    break;
             }
         }
     };
+
+    private void updateGoods() {
+        Log.e("test001", "cityId---->" + SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0));
+        mAdapter.notifyDataSetChanged();
+        String cityName = (String) SPUtils.get(this, SPUtils.LOCATION_CITY_NAME,
+                Constants.DEFAULT_CITY_NAME);
+        tvLocation.setText(cityName);
+    }
 
     //注册广播
     public void registerBroadcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(ACTION_USER_UPDATE);
+        myIntentFilter.addAction(GET_LOCATION_CITY);
         //注册广播
         registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void locationSuccess(int cityId, String cityName) {
+        //城市id获取成功
+        SPUtils.put(this, SPUtils.LOCATION_CITY_ID, cityId);
+        SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
+        //发送广播
+        Intent mIntent = new Intent(GoodsActivity.GET_LOCATION_CITY);
+        sendBroadcast(mIntent);
+    }
+
+    @Override
+    public void getCitySuccess(List<Area> areas) {
+        mCityData.clear();
+        mCityData.addAll(areas);
+        for (Area area:mCityData) {
+            if (area.getId() == mCityId) {
+                area.setSelect(true);
+            }
+
+        }
+        showSelectCityDialog();
     }
 
     private boolean isExit;

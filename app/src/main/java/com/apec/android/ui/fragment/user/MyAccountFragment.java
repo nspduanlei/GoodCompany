@@ -168,14 +168,16 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
                     Toast.makeText(getActivity(), "用户名不能为空!", Toast.LENGTH_SHORT).show();
                 } else if (!checkPhone.equals("")) {
                     Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
+                } else if (userName.length() > 10) {
+                    Toast.makeText(getActivity(), "用户名过长!", Toast.LENGTH_SHORT).show();
+                } else {
+                    User user = new User();
+                    user.setPhone(userPhone);
+                    user.setName(userName);
+                    user.setShopName(userShop);
+
+                    mPresenter.updateUserInfo(user);
                 }
-
-                User user = new User();
-                user.setPhone(userPhone);
-                user.setName(userName);
-                user.setShopName(userShop);
-
-                mPresenter.updateUserInfo(user);
                 break;
         }
     }

@@ -31,7 +31,7 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
     /**
      * 获取购物车全部商品
      */
-    public void obtainShopCart() {
+    public void obtainShopCart(String cityId) {
         if (isViewAttached()) {
             getView().showLoading();
         }
@@ -45,7 +45,8 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //加入购物车成功
-                            if (response.getB().getSkus().size() == 0) {
+                            if (response.getB().getSkus() == null ||
+                                    response.getB().getSkus().size() == 0) {
                                 if (isViewAttached()) {
                                     getView().showEmptyCase();
                                 }
@@ -70,7 +71,7 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                });
+                }, cityId);
     }
 
     /**

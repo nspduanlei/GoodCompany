@@ -93,17 +93,13 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
                     public void convert(MyViewHolder holder, OrderItem orderItem) {
 
                         //净含量
-                        boolean hasNet =false;
-                        for (SkuAttribute attr:orderItem.getSku().getAttributeNames()) {
-                            if (attr.getType().equals("2")) {
-                                hasNet = true;
-                                holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-                                holder.setText(R.id.tv_goods_net,
-                                        attr.getAttributeValues().get(0).getName());
-                                break;
-                            }
-                        }
-                        if (!hasNet) {
+                        if (orderItem.getSku().getNonkeyAttr().size() > 0) {
+                            holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                            holder.setText(R.id.tv_goods_net, String.format("%s : %s",
+                                    orderItem.getSku().getNonkeyAttr().get(0).getName(),
+                                    orderItem.getSku().getNonkeyAttr().get(0)
+                                            .getAttributeValues().get(0).getName()));
+                        } else {
                             holder.setVisibility(R.id.tv_goods_net, View.GONE);
                         }
 

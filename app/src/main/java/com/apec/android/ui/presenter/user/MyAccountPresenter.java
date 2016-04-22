@@ -71,6 +71,10 @@ public class MyAccountPresenter extends BasePresenter<MyAccountPresenter.IView> 
         UserInteract.updateUserInfo(mContext, new GetDataCallback<NoBody>() {
             @Override
             public void onRepose(NoBody response) {
+                if (isViewAttached()) {
+                    getView().hideLoading();
+                }
+
                 if (response.getH().getCode() == 200) {
                     if (isViewAttached()) {
                         getView().updateSuccess();
@@ -80,7 +84,9 @@ public class MyAccountPresenter extends BasePresenter<MyAccountPresenter.IView> 
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                if (isViewAttached()) {
+                    getView().hideLoading();
+                }
             }
         }, user);
     }

@@ -24,7 +24,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
     /**
      * 获取商品列表
      */
-    public void fetchGoods(int cid) {
+    public void fetchGoods(int cid, int cityId) {
         if(isViewAttached()) {
             getView().showLoading();
         }
@@ -51,7 +51,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }, cid);
+                }, cid, cityId);
     }
 
     public interface IView extends BaseViewInterface {

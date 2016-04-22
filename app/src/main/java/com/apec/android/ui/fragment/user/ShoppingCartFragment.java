@@ -71,11 +71,15 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         return new ShoppingCartPresenter(getActivity());
     }
 
+    private String cityId;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        mPresenter.obtainShopCart();
+        cityId = String.valueOf((int)SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
+                Constants.DEFAULT_CITY_ID));
+        mPresenter.obtainShopCart(cityId);
     }
 
     private ArrayList<Skus> mData;
@@ -195,17 +199,13 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             public void convert(final MyViewHolder holder, final Skus skus) {
 
                 //净含量
-                boolean hasNet = false;
-                for (SkuAttribute attr : skus.getSku().getAttributeNames()) {
-                    if (attr.getType().equals("2")) {
-                        hasNet = true;
-                        holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-                        holder.setText(R.id.tv_goods_net, String.format("%s : %s", attr.getName(),
-                                attr.getAttributeValues().get(0).getName()));
-                        break;
-                    }
-                }
-                if (!hasNet) {
+                if (skus.getSku().getNonkeyAttr().size() > 0) {
+                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
+                            skus.getSku().getNonkeyAttr().get(0).getName(),
+                            skus.getSku().getNonkeyAttr().get(0)
+                                    .getAttributeValues().get(0).getName()));
+                } else {
                     holder.setVisibility(R.id.tv_goods_net, View.GONE);
                 }
 
@@ -403,14 +403,14 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     @Override
     public void updateNumSuccess() {
-        mPresenter.obtainShopCart();
+        mPresenter.obtainShopCart(cityId);
     }
 
     @Override
     public void obtainOrderSuccess() {
         //下单成功
         Toast.makeText(getActivity(), "创建订单成功！", Toast.LENGTH_SHORT).show();
-        mPresenter.obtainShopCart();
+        mPresenter.obtainShopCart(cityId);
     }
 
     private boolean isGetAddressed;
@@ -582,19 +582,16 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                 skus.getCount(), skus.getSku().getPrice()));
 
                 //净含量
-                boolean hasNet = false;
-                for (SkuAttribute attr : skus.getSku().getAttributeNames()) {
-                    if (attr.getType().equals("2")) {
-                        hasNet = true;
-                        holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-                        holder.setText(R.id.tv_goods_net, String.format("%s : %s", attr.getName(),
-                                attr.getAttributeValues().get(0).getName()));
-                        break;
-                    }
-                }
-                if (!hasNet) {
+                if (skus.getSku().getNonkeyAttr().size() > 0) {
+                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
+                            skus.getSku().getNonkeyAttr().get(0).getName(),
+                            skus.getSku().getNonkeyAttr().get(0)
+                                    .getAttributeValues().get(0).getName()));
+                } else {
                     holder.setVisibility(R.id.tv_goods_net, View.GONE);
                 }
+
             }
         });
 
@@ -607,7 +604,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         switch (requestCode) {
             case Constants.REQUEST_CODE_LOGIN:
                 if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
-                    mPresenter.obtainShopCart();
+                    mPresenter.obtainShopCart(cityId);
                 } else {
                     getActivity().finish();
                 }

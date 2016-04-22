@@ -82,4 +82,12 @@ public class UrlConstant {
 
     //删除购物车
     public static final String URL_DEL_SHOPPING_CART = URL_BASE + "/cart/del";
+
+    //匹配开放城市id
+    public static final String URL_OPEN_CITY_CODE =
+            "http://shoptest.ap-ec.cn/html/javascript/citymaping.json";
+
+    //选择城市
+    public static final String URL_SELECT_CITY = URL_BASE + "/citys";
+
 }

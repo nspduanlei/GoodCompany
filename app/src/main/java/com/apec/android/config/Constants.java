@@ -31,4 +31,10 @@ public class Constants {
     public final static int REQUEST_CODE_ADDR = 1002;  //地址管理
     public final static int REQUEST_CODE_LOGIN_PAY = 1003; //支付
     public final static int REQUEST_CODE_EDIT = 1004; //地址详情修改
+
+    /**
+     * default
+     */
+    public final static int DEFAULT_CITY_ID = 100;
+    public final static String DEFAULT_CITY_NAME = "深圳市";
 }

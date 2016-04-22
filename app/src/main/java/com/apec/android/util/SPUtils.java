@@ -9,7 +9,13 @@ import java.util.Map;
 
 public class SPUtils {
 
-    /**=============================key====================================**/
+    /**
+     * =============================key====================================
+     **/
+
+    //城市id
+    public static final String LOCATION_CITY_ID = "open_city_id";
+    public static final String LOCATION_CITY_NAME = "open_city_name";
 
     //用户选择游客模式
     public static final String IS_NO_LOGIN = "select_no_login";
@@ -29,8 +35,9 @@ public class SPUtils {
     //用户名
     public static final String USER_NAME = "user_name";
 
-
-    /**=================================================================**/
+    /**
+     * =================================================================
+     **/
 
     public SPUtils() {
         /* cannot be instantiated */
@@ -150,7 +157,6 @@ public class SPUtils {
                 Context.MODE_PRIVATE);
         return sp.getAll();
     }
-
 
 
     /**
