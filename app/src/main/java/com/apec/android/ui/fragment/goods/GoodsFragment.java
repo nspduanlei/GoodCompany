@@ -63,9 +63,7 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initView(view);
-
         updateData();
     }
 
@@ -88,7 +86,7 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
                 mData, R.layout.goods_item) {
             @Override
             public void convert(MyViewHolder holder, Good good) {
-                holder.setText(R.id.tv_name, good.getGoodsName());
+                //holder.setText(R.id.tv_name, good.getGoodsName());
                 if (good.getPics().size() != 0) {
                     holder.setImageUrl(R.id.iv_pic, good.getPics().get(0).getUrl());
                 }

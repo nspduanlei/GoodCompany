@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apec.android.R;
-import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.order.Order;
 import com.apec.android.domain.order.OrderItem;
 import com.apec.android.ui.activity.order.OrderActivity;

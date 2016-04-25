@@ -16,8 +16,8 @@ android {
         applicationId "com.apec.android"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 103
+        versionName "1.0.3"
     }
     buildTypes {
         release {
@@ -54,7 +54,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.mcxiaoke.volley:library:1.0.18'
     compile 'com.umeng.analytics:analytics:latest.integration'
-
     compile project(':dialogplusLibrary')
     compile project(':pullToRefreshLibrary')
     compile project(':viewPageIndicatorlibrary')
