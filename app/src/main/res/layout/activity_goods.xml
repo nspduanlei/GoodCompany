@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+<android.support.v4.widget.DrawerLayout android:id="@+id/drawer"
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/color_white">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,25 +14,25 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/top_bar_layout_toolbar" />
+            <include layout="@layout/top_bar_layout_toolbar"/>
 
             <com.viewpagerindicator.TabPageIndicator
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                android:layout_height="60dp"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_goods"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <include
             layout="@layout/loading_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="48dp" />
+            android:layout_marginTop="48dp"/>
     </FrameLayout>
 
     <!--android:layout_gravity="start"-->
@@ -42,62 +42,77 @@
         android:id="@+id/menuFL"
         android:layout_width="218dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/white"
-        android:clickable="true">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/hello_bg" />
+        android:background="@color/color_white"
+        android:clickable="true"
+        android:layout_gravity="start">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="22dp"
-                android:src="@drawable/menu_logo" />
-
+            <!--头部-->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingLeft="22dp">
+                android:background="@color/color_bg"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_user_name"
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/hello_bg"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:paddingLeft="22dp"
+                        android:src="@drawable/menu_logo"/>
+                </FrameLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_text_4"
-                    android:textSize="25sp" />
+                    android:orientation="horizontal"
+                    android:paddingLeft="22dp"
+                    android:layout_marginTop="-5dp">
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_text_4"
+                        android:textSize="25sp"/>
+                    <TextView
+                        android:id="@+id/tv_user_c"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="客户,"
+                        android:textColor="@color/color_text_4"/>
+                    <Button
+                        android:id="@+id/btn_login"
+                        android:layout_width="80dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/button_shape_bg_2"
+                        android:text="登  录"
+                        android:textColor="@color/color_white"
+                        android:textSize="13sp"
+                        android:visibility="gone"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_user_c"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="客户,"
-                    android:textColor="@color/color_text_4" />
-
-                <Button
-                    android:id="@+id/btn_login"
-                    android:layout_width="80dp"
-                    android:layout_height="26dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/button_shape_bg_2"
-                    android:text="登  录"
-                    android:textColor="@color/color_white"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_line_1"/>
             </LinearLayout>
 
             <TextView
@@ -112,56 +127,56 @@
                 android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  我的帐号"
-                android:textColor="@color/color_black" />
+                android:textColor="@color/color_black"/>
 
             <TextView
                 android:id="@+id/tv_my_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ll_press_bg"
-                android:drawableLeft="@drawable/icon_left_menu"
+                android:drawableLeft="@drawable/icon_left_menu_1"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
                 android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  我的订单"
-                android:textColor="@color/color_black" />
+                android:textColor="@color/color_black"/>
 
             <TextView
                 android:id="@+id/tv_manage_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ll_press_bg"
-                android:drawableLeft="@drawable/icon_left_menu"
+                android:drawableLeft="@drawable/icon_left_menu_2"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
                 android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  地址管理"
-                android:textColor="@color/color_black" />
+                android:textColor="@color/color_black"/>
 
             <TextView
                 android:id="@+id/tv_my_shopping_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ll_press_bg"
-                android:drawableLeft="@drawable/icon_left_menu"
+                android:drawableLeft="@drawable/icon_left_menu_3"
                 android:gravity="center_vertical"
                 android:paddingBottom="15dp"
                 android:paddingLeft="22dp"
                 android:paddingTop="15dp"
                 android:text="  我的购物车"
-                android:textColor="@color/color_black" />
+                android:textColor="@color/color_black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:drawableLeft="@drawable/icon_left_menu"
+                android:drawableLeft="@drawable/icon_left_menu_4"
                 android:gravity="center"
                 android:paddingLeft="22dp"
                 android:text="  客服电话"
-                android:textColor="@color/color_black" />
+                android:textColor="@color/color_black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -170,7 +185,8 @@
                 android:layout_marginTop="5dp"
                 android:paddingLeft="22dp"
                 android:text="4001000747"
-                android:textColor="@color/color_text_2" />
+                android:textColor="@color/color_text_2"
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <Button
@@ -182,6 +198,6 @@
             android:layout_marginLeft="22dp"
             android:background="@drawable/button_shape_bg_7"
             android:text="登  出"
-            android:textColor="@color/color_7" />
+            android:textColor="@color/color_5"/>
     </FrameLayout>
 </android.support.v4.widget.DrawerLayout>

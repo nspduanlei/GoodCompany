@@ -6,6 +6,13 @@
         <item name="android:windowBackground">@color/color_white</item>
         <!--<item name="android:button">@null</item>-->
         <item name="android:textSize">@dimen/common_text_size</item>
+        <!--<item name="android:textColor">@color/color_text_6</item>-->
+        <!--<item name="android:editTextColor">@color/color_text_6</item>-->
+    </style>
+
+    <style name="StartAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="StyledIndicators" parent="AppTheme">

@@ -1,5 +1,6 @@
 package com.apec.android.util;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -97,6 +100,14 @@ public class AppUtils {
      * @return
      */
     public static String getDeviceId(Context context) {
+
+        //
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            return "000000000000000";
+        }
+
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
         if (tm == null) {

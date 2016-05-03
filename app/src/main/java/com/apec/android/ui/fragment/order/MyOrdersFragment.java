@@ -133,7 +133,8 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
                         getString(R.string.total_price_order), order.getOrderAmount());
 
                 CharSequence chars = ColorPhrase.from(total).withSeparator("{}")
-                        .innerColor(0xFF24e098).outerColor(0xFF404040).format();
+                        .innerColor(getResources().getColor(R.color.color_5))
+                        .outerColor(getResources().getColor(R.color.color_text_1)).format();
                 holder.setTextChar(R.id.tv_total_price, chars);
 
                 holder.setOnClickLister(R.id.tv_detail, new View.OnClickListener() {
