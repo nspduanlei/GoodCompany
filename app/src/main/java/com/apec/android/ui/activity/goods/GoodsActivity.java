@@ -18,7 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
@@ -36,6 +35,7 @@ import com.apec.android.ui.presenter.goods.GoodsPresenter;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -414,7 +414,8 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     private void exit() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(this, "再按一次退出" + AppUtils.getAppName(this), Toast.LENGTH_SHORT).show();
+            T.showShort(this, "再按一次退出" + AppUtils.getAppName(this));
+            //Toast.makeText(this, "再按一次退出" + AppUtils.getAppName(this), Toast.LENGTH_SHORT).show();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

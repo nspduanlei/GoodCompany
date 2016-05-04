@@ -2,15 +2,10 @@ package com.apec.android.ui.fragment.user;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.domain.user.Area;
-import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.SelectCityPresenter;
 

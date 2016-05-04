@@ -27,6 +27,7 @@ import com.apec.android.ui.presenter.user.SelectCityPresenter;
 import com.apec.android.util.EditUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 
 import java.util.ArrayList;
 
@@ -120,8 +121,8 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
     public void updateSuccess() {
         //修改用户信息成功
         SPUtils.put(getActivity(), SPUtils.USER_NAME, etUser.getText().toString());
-        Toast.makeText(getActivity(), "修改成功！", Toast.LENGTH_SHORT).show();
-
+        T.showShort(getActivity(), "修改成功！");
+        //Toast.makeText(getActivity(), "修改成功！", Toast.LENGTH_SHORT).show();
         Intent mIntent = new Intent(GoodsActivity.ACTION_USER_UPDATE);
         getActivity().sendBroadcast(mIntent);
 
@@ -168,11 +169,14 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
                 String checkPhone = StringUtils.checkMobile(userPhone);
 
                 if (StringUtils.isNullOrEmpty(userShop)) {
-                    Toast.makeText(getActivity(), "商品名不能为空!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "商品名不能为空!", Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), "商品名不能为空!");
                 } else if (StringUtils.isNullOrEmpty(userName)) {
-                    Toast.makeText(getActivity(), "用户名不能为空!", Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), "用户名不能为空!");
+                    //Toast.makeText(getActivity(), "用户名不能为空!", Toast.LENGTH_SHORT).show();
                 } else if (!checkPhone.equals("")) {
-                    Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), checkPhone);
+                    //Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
                 } else {
                     User user = new User();
                     user.setPhone(userPhone);
@@ -187,7 +191,8 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
 
     @Override
     public void needLogin() {
-        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), R.string.please_login);
+        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }

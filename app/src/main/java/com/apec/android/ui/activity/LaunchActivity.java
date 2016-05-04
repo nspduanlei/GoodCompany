@@ -3,6 +3,8 @@ package com.apec.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.apec.android.R;
@@ -33,6 +35,7 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         /** 设置是否对日志信息进行加密, 默认false(不加密). */
@@ -56,7 +59,6 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
 //                Intent intent = new Intent(this, GoodsActivity.class);
 //                startActivity(intent);
 //            }
-
             Intent intent = new Intent(this, GoodsActivity.class);
             startActivity(intent);
 

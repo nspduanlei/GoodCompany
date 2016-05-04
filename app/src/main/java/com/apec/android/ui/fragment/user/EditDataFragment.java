@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
@@ -12,6 +11,7 @@ import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.ui.fragment.BaseFragment;
 import com.apec.android.ui.presenter.user.EditDataPresenter;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 import com.orhanobut.dialogplus.DialogPlus;
 
 /**
@@ -176,7 +176,8 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
                 if (StringUtils.isNullOrEmpty(takeGoodsUser)) {
 
                 } else if (!checkPhone.equals("")) {
-                    Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), checkPhone);
+                    //Toast.makeText(getActivity(), checkPhone, Toast.LENGTH_SHORT).show();
                 } else if (StringUtils.isNullOrEmpty(addreDetailAddress)) {
 
                 } else if (addreCity == 0) {

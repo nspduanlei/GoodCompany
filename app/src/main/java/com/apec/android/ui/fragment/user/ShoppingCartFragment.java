@@ -3,7 +3,6 @@ package com.apec.android.ui.fragment.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -15,11 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.goods.SkuAttribute;
 import com.apec.android.domain.transport.GoodsReceipt;
 import com.apec.android.domain.user.ShopCart;
 import com.apec.android.domain.user.Skus;
@@ -30,19 +27,15 @@ import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.ShoppingCartPresenter;
-import com.apec.android.util.DialogUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.SPUtils;
+import com.apec.android.util.T;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.ViewHolder;
 
-import org.litepal.util.Const;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 
 /**
  * 购物车
@@ -257,8 +250,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                                 int count_add = Integer.valueOf(
                                                         etGoodsCount.getText().toString());
                                                 if (count_add == 100) {
-                                                    Toast.makeText(getActivity(), "最多只能购买100包",
-                                                            Toast.LENGTH_SHORT).show();
+                                                    T.showShort(getActivity(), "最多只能购买100包");
+//                                                    Toast.makeText(getActivity(), "最多只能购买100包",
+//                                                            Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     etGoodsCount.setText(String.valueOf(count_add + 1));
                                                 }
@@ -285,8 +279,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
                                                 if (count > 100) {
                                                     count = 100;
-                                                    Toast.makeText(getActivity(), "最多只能购买100包",
-                                                            Toast.LENGTH_SHORT).show();
+                                                    T.showShort(getActivity(), "最多只能购买100包");
+//                                                    Toast.makeText(getActivity(), "最多只能购买100包",
+//                                                            Toast.LENGTH_SHORT).show();
                                                 }
 
                                                 int addCount =
@@ -409,7 +404,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     @Override
     public void obtainOrderSuccess() {
         //下单成功
-        Toast.makeText(getActivity(), "创建订单成功！", Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), "创建订单成功！");
+        //Toast.makeText(getActivity(), "创建订单成功！", Toast.LENGTH_SHORT).show();
         mPresenter.obtainShopCart(cityId);
     }
 
@@ -472,14 +468,16 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     @Override
     public void needLogin() {
-        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), R.string.please_login);
+        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }
 
     @Override
     public void needLoginPay() {
-        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), R.string.please_login);
+        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN_PAY);
     }
@@ -491,7 +489,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
     @Override
     public void orderError(String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), msg);
+        //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     //购买商品skuId拼接

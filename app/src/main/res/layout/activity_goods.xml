@@ -56,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_bg"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -108,18 +109,18 @@
                         android:textSize="13sp"
                         android:visibility="gone"/>
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_line_1"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_line_1"/>
 
             <TextView
                 android:id="@+id/tv_my_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/ll_press_bg"
                 android:drawableLeft="@drawable/icon_left_menu"
                 android:gravity="center_vertical"

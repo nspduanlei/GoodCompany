@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
@@ -19,6 +17,7 @@ import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.ManageAddrPresenter;
+import com.apec.android.util.T;
 
 import java.util.ArrayList;
 
@@ -159,7 +158,8 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
 
     @Override
     public void needLogin() {
-        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), R.string.please_login);
+        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }

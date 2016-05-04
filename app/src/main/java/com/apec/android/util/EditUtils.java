@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * Created by duanlei on 2016/4/22.
@@ -40,7 +39,8 @@ public class EditUtils implements TextWatcher {
         editStart = mEditText.getSelectionStart();
         editEnd = mEditText.getSelectionEnd();
         if (temp.length() > charMaxNum) {
-            Toast.makeText(mContext, "你输入的字数已经超过了限制！", Toast.LENGTH_LONG).show();
+            T.showShort(mContext, "你输入的字数已经超过了限制！");
+            //Toast.makeText(mContext, "你输入的字数已经超过了限制！", Toast.LENGTH_LONG).show();
             s.delete(editStart - 1, editEnd);
             int tempSelection = editStart;
             mEditText.setText(s);

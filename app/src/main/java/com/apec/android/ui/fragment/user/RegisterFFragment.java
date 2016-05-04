@@ -9,11 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.H;
 import com.apec.android.domain.user.UserBack;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
@@ -24,6 +22,7 @@ import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
@@ -232,10 +231,12 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                 getActivity().finish();
                 break;
             case 4025: //验证码输入有误
-                Toast.makeText(getActivity(), "验证码输入错误", Toast.LENGTH_SHORT).show();
+                T.showShort(getActivity(), "验证码输入错误");
+                //Toast.makeText(getActivity(), "验证码输入错误", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(getActivity(), userBack.getH().getMsg(), Toast.LENGTH_SHORT).show();
+                T.showShort(getActivity(), userBack.getH().getMsg());
+                //Toast.makeText(getActivity(), userBack.getH().getMsg(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -246,9 +247,11 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
             case R.id.btn_start: //提交验证码
                 //验证手机号验证码是否输入
                 if (StringUtils.isNullOrEmpty(phoneNumber.getText().toString())) {
-                    Toast.makeText(getActivity(), "请填写您的手机号", Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), "请填写您的手机号");
+                    //Toast.makeText(getActivity(), "请填写您的手机号", Toast.LENGTH_SHORT).show();
                 } else if (StringUtils.isNullOrEmpty(verCode.getText().toString())){
-                    Toast.makeText(getActivity(), "请填写短信验证码", Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), "请填写短信验证码");
+                    //Toast.makeText(getActivity(), "请填写短信验证码", Toast.LENGTH_SHORT).show();
                 } else {
                     KeyBoardUtils.closeKeybord(phoneNumber, getActivity());
                     mPresenter.submitVerCode(phoneNumber.getText().toString(),
@@ -268,7 +271,8 @@ public class RegisterFFragment extends BaseFragment<RegisterFPresenter.IView,
                 if (msg.equals("")) {
                     mPresenter.getVerificationCode(phoneNumberStr);
                 } else {
-                    Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    T.showShort(getActivity(), msg);
+                    //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                 }
 
                 break;

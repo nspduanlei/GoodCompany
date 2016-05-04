@@ -24,6 +24,7 @@ import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.fragment.user.ShoppingCartFragment;
 import com.apec.android.ui.presenter.order.MyOrdersPresenter;
 import com.apec.android.util.ColorPhrase;
+import com.apec.android.util.T;
 
 import java.util.ArrayList;
 
@@ -198,7 +199,8 @@ public class MyOrdersFragment extends BaseListFragment<MyOrdersPresenter.IView,
 
     @Override
     public void needLogin() {
-        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), R.string.please_login);
+        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
     }

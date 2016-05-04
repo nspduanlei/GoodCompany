@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
@@ -32,8 +30,8 @@ import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.goods.GoodsDetailPresenter;
 import com.apec.android.util.DensityUtils;
-import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,9 +153,13 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 //                            "最小包数为1", Toast.LENGTH_SHORT).show();
                 } else if (Integer.valueOf(s.toString()) > Constants.MAX_GOODS_COUNT) {
                     goodsCount.setText(String.valueOf(Constants.MAX_GOODS_COUNT));
-                    Toast.makeText(getActivity(),
-                            "最多只能买" + Constants.MAX_GOODS_COUNT + "包",
-                            Toast.LENGTH_SHORT).show();
+
+                    T.showShort(getActivity(),
+                            "最多只能买" + Constants.MAX_GOODS_COUNT + "包");
+
+//                    Toast.makeText(getActivity(),
+//                            "最多只能买" + Constants.MAX_GOODS_COUNT + "包",
+//                            Toast.LENGTH_SHORT).show();
                 }
 
                 if (!StringUtils.isNullOrEmpty(s.toString()) && Integer.valueOf(s.toString()) > 0) {
@@ -412,14 +414,16 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
     @Override
     public void needLogin() {
-        Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), R.string.please_login);
+        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void addShoppingCartSuccess() {
-        Toast.makeText(getActivity(), "加入购物车成功", Toast.LENGTH_SHORT).show();
+        T.showShort(getActivity(), "加入购物车成功");
+        //Toast.makeText(getActivity(), "加入购物车成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override

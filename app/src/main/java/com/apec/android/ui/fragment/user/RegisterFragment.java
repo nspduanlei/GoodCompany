@@ -2,8 +2,6 @@ package com.apec.android.ui.fragment.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,11 +9,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.fragment.BaseFragment;
@@ -23,6 +19,7 @@ import com.apec.android.ui.presenter.user.RegisterPresenter;
 import com.apec.android.util.EditUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 import com.orhanobut.dialogplus.DialogPlus;
 
 /**
@@ -149,8 +146,10 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
                         userCity == 0 ||
                         userArea == 0 ||
                         StringUtils.isNullOrEmpty(userAddress)) {
-                    Toast.makeText(getActivity(), "请填写完所用表单数据。。",
-                            Toast.LENGTH_SHORT).show();
+
+                    T.showShort(getActivity(), "请填写完所用表单数据。。");
+//                    Toast.makeText(getActivity(), "请填写完所用表单数据。。",
+//                            Toast.LENGTH_SHORT).show();
                 } else {
                     //提交数据
                     mPresenter.submitUserData(userShop, userName, userCity, userArea, userAddress);
