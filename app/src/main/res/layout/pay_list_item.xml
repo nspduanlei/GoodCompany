@@ -18,14 +18,14 @@
         android:layout_marginRight="20dp">
 
         <!--净含量-->
-        <TextView
-            android:id="@+id/tv_goods_net"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="2dp"
-            android:textColor="@color/color_text_2"
-            android:textSize="12sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_goods_net"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginTop="2dp"-->
+            <!--android:textColor="@color/color_text_2"-->
+            <!--android:textSize="12sp" />-->
 
         <!--商品数量和单价-->
         <TextView
@@ -36,7 +36,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:textColor="@color/color_text_5"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold"/>
     </FrameLayout>
 
 </LinearLayout>

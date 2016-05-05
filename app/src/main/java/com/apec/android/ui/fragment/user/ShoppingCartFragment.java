@@ -1,5 +1,6 @@
 package com.apec.android.ui.fragment.user;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -95,9 +96,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private View mView;
 
     private void initView(View view) {
-
         mView = view;
-
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
         title.setText("购物车");
 
@@ -122,7 +121,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-
                 View dialogView = getActivity().getLayoutInflater()
                         .inflate(R.layout.dialog_cancel_order, null);
                 TextView title = (TextView) dialogView.findViewById(R.id.tv_title);
@@ -142,12 +140,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                         break;
                                     case R.id.tv_sure:
                                         dialog.dismiss();
-
-                                        //TODO 删除商品
-
+                                        // 删除商品
                                         mPresenter.deleteGoods(mData.get(i).getSku().getId());
-
-
                                         break;
                                     default:
                                         break;
@@ -188,28 +182,34 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         mData = new ArrayList<>();
         mAdapter = new CommonAdapter<Skus>(getActivity(), mData,
                 R.layout.shopping_cart_item) {
+            @SuppressLint("DefaultLocale")
             @Override
             public void convert(final MyViewHolder holder, final Skus skus) {
 
                 //净含量
-                if (skus.getSku().getNonkeyAttr().size() > 0) {
-                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
-                            skus.getSku().getNonkeyAttr().get(0).getName(),
-                            skus.getSku().getNonkeyAttr().get(0)
-                                    .getAttributeValues().get(0).getName()));
-                } else {
-                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
-                }
+//                if (skus.getSku().getNonkeyAttr().size() > 0) {
+//                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+//                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
+//                            skus.getSku().getNonkeyAttr().get(0).getName(),
+//                            skus.getSku().getNonkeyAttr().get(0)
+//                                    .getAttributeValues().get(0).getName()));
+//                } else {
+//                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
+//                }
 
                 if (skus.getSku().getPics().size() > 0) {
                     holder.setImageUrl(R.id.iv_goods,
                             skus.getSku().getPics().get(0).getUrl());
                 }
 
-                holder.setText(R.id.tv_count, String.valueOf(skus.getCount()))
-                        .setText(R.id.tv_goods_name, skus.getSku().getSkuName())
-                        .setText(R.id.tv_price, String.format("￥%s", skus.getSku().getPrice()));
+                holder.setText(R.id.tv_goods_name, skus.getSku().getSkuName());
+
+                //TODO 商品价格单价和单价商品总价以及数量的显示
+                float total = skus.getCount() * Float.valueOf(skus.getSku().getPrice());
+                holder.setText(R.id.tv_add_count, String.format("%d x ￥%s", skus.getCount(),
+                        skus.getSku().getPrice()))
+                        .setText(R.id.tv_total, String.format("￥%s", String.valueOf(total)));
+
 
                 if (skus.isSelectCart() && skus.getSku().getStatus() == 1) {
                     holder.setChecked(R.id.cb_select, true);
@@ -225,10 +225,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 }
 
                 //商品数量编辑
-                holder.setOnClickLister(R.id.tv_count, new View.OnClickListener() {
+                holder.setOnClickLister(R.id.tv_add_count, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         View dialogView = getActivity().getLayoutInflater()
                                 .inflate(R.layout.dialog_edit_count, null);
                         //填充数据
@@ -245,14 +244,11 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                     @Override
                                     public void onClick(DialogPlus dialog, View view) {
                                         switch (view.getId()) {
-
                                             case R.id.btn_add:
                                                 int count_add = Integer.valueOf(
                                                         etGoodsCount.getText().toString());
                                                 if (count_add == 100) {
                                                     T.showShort(getActivity(), "最多只能购买100包");
-//                                                    Toast.makeText(getActivity(), "最多只能购买100包",
-//                                                            Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     etGoodsCount.setText(String.valueOf(count_add + 1));
                                                 }
@@ -280,8 +276,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                                 if (count > 100) {
                                                     count = 100;
                                                     T.showShort(getActivity(), "最多只能购买100包");
-//                                                    Toast.makeText(getActivity(), "最多只能购买100包",
-//                                                            Toast.LENGTH_SHORT).show();
                                                 }
 
                                                 int addCount =
@@ -405,7 +399,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public void obtainOrderSuccess() {
         //下单成功
         T.showShort(getActivity(), "创建订单成功！");
-        //Toast.makeText(getActivity(), "创建订单成功！", Toast.LENGTH_SHORT).show();
         mPresenter.obtainShopCart(cityId);
     }
 
@@ -443,7 +436,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
         gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
     }
-
 
     @Override
     public void obtainCartSuccess(ShopCart shopCart) {
@@ -597,15 +589,15 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                 skus.getCount(), skus.getSku().getPrice()));
 
                 //净含量
-                if (skus.getSku().getNonkeyAttr().size() > 0) {
-                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
-                            skus.getSku().getNonkeyAttr().get(0).getName(),
-                            skus.getSku().getNonkeyAttr().get(0)
-                                    .getAttributeValues().get(0).getName()));
-                } else {
-                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
-                }
+//                if (skus.getSku().getNonkeyAttr().size() > 0) {
+//                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
+//                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
+//                            skus.getSku().getNonkeyAttr().get(0).getName(),
+//                            skus.getSku().getNonkeyAttr().get(0)
+//                                    .getAttributeValues().get(0).getName()));
+//                } else {
+//                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
+//                }
 
             }
         });

@@ -30,39 +30,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:textColor="@color/color_text_4"/>
+        android:textColor="@color/color_text_4"
+        android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/tv_goods_net"
-        android:layout_below="@id/tv_goods_name"
-        android:layout_toRightOf="@id/iv_goods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="金含量：10kg"
-        android:textSize="12sp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/color_text_2"
-        android:visibility="gone"/>
+    <!--<TextView-->
+        <!--android:id="@+id/tv_goods_net"-->
+        <!--android:layout_below="@id/tv_goods_name"-->
+        <!--android:layout_toRightOf="@id/iv_goods"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="金含量：10kg"-->
+        <!--android:textSize="12sp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:textColor="@color/color_text_2"-->
+        <!--android:visibility="gone"/>-->
 
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="34.5dp"
-        android:text="￥200"
-        android:textStyle="bold"
-        android:textColor="@color/color_5"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/iv_goods"
-        android:gravity="center"
-        android:textSize="17sp"/>
+    <!--<TextView-->
+        <!--android:id="@+id/tv_price"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="34.5dp"-->
+        <!--android:text="￥200"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="@color/color_5"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_toRightOf="@id/iv_goods"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="17sp"/>-->
 
     <include
-        android:layout_toRightOf="@id/tv_price"
-        layout="@layout/change_price_new_layout"
+        android:layout_toRightOf="@id/iv_goods"
+        layout="@layout/change_price_layout"
         android:layout_width="match_parent"
         android:layout_height="34.5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"/>
+        android:layout_alignParentBottom="true"/>
 
     <FrameLayout
         android:layout_width="match_parent"

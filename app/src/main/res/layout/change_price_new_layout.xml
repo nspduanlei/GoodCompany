@@ -10,7 +10,6 @@
         android:layout_height="34.5dp"
         android:background="@drawable/btn_cut" />
 
-
     <TextView
         android:id="@+id/tv_count"
         android:layout_width="match_parent"

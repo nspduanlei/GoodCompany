@@ -21,23 +21,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_state"
         android:layout_toRightOf="@id/iv_goods_pic"
-        android:textColor="@color/color_text_1" />
+        android:textColor="@color/color_text_1"/>
 
-    <TextView
-        android:id="@+id/tv_goods_net"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_goods_name"
-        android:layout_marginTop="3dp"
-        android:layout_toRightOf="@id/iv_goods_pic"
-        android:textColor="@color/color_text_2"
-        android:textSize="11sp" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_goods_net"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/tv_goods_name"-->
+        <!--android:layout_marginTop="3dp"-->
+        <!--android:layout_toRightOf="@id/iv_goods_pic"-->
+        <!--android:textColor="@color/color_text_2"-->
+        <!--android:textSize="11sp"-->
+        <!--android:text="fafdafaf"/>-->
 
     <TextView
         android:id="@+id/tv_goods_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_goods_net"
+        android:layout_below="@id/tv_goods_name"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/iv_goods_pic"
         android:textColor="@color/color_text_1"/>
