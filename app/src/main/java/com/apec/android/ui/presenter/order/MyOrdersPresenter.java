@@ -50,7 +50,6 @@ public class MyOrdersPresenter extends BasePresenter<MyOrdersPresenter.IView> {
                             } else {
                                 getView().obtainOrdersSuccess(response.getB().getData());
                             }
-
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
                             getView().needLogin();
@@ -67,9 +66,7 @@ public class MyOrdersPresenter extends BasePresenter<MyOrdersPresenter.IView> {
 
     public interface IView extends BaseViewInterface {
         boolean isReady();
-
         void needLogin();
-
         void obtainOrdersSuccess(ArrayList<Order> orders);
     }
 }
