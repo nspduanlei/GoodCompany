@@ -32,19 +32,16 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenter.IView> {
         UserInteract.submitUserData(mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
 
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().submitSuccess();
-                            }
+                            getView().submitSuccess();
                         } else if (code == 10) { //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -58,7 +55,9 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenter.IView> {
 
     public interface IView extends BaseViewInterface {
         boolean isReady();
+
         void submitSuccess();
+
         void needLogin();
     }
 }

@@ -35,19 +35,17 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
                 mContext, new GetDataCallback<ReceiptList>() {
                     @Override
                     public void onRepose(ReceiptList response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().getAllAddressSuccess(response.getB());
-                            }
+                            getView().getAllAddressSuccess(response.getB());
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -60,6 +58,7 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
 
     /**
      * 设置默认收货地址
+     *
      * @param addressId
      */
     public void setDefaultAddress(int addressId) {
@@ -70,19 +69,19 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
 //                        if (isViewAttached()) {
 //                            getView().hideLoading();
 //                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().setDefaultSuccess();
-                            }
+                            getView().setDefaultSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -95,6 +94,7 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
 
     /**
      * 删除地址
+     *
      * @param addressId
      */
     public void deleteAddress(int addressId) {
@@ -105,19 +105,18 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
 //                        if (isViewAttached()) {
 //                            getView().hideLoading();
 //                        }
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().deleteSuccess();
-                            }
+                            getView().deleteSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -130,9 +129,13 @@ public class ManageAddrPresenter extends BasePresenter<ManageAddrPresenter.IView
 
     public interface IView extends BaseViewInterface {
         void deleteSuccess();
+
         void needLogin();
+
         void setDefaultSuccess();
+
         void getAllAddressSuccess(ArrayList<GoodsReceipt> receipts);
+
         boolean isReady();
     }
 }

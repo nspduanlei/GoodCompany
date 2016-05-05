@@ -30,7 +30,7 @@ android {
     }
 
     productFlavors {
-        develope {
+        develop {
             applicationId 'com.apec.android'
         }
     }

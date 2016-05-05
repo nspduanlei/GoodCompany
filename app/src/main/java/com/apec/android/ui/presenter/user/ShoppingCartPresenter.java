@@ -39,30 +39,24 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<ShopCartBack>() {
                     @Override
                     public void onRepose(ShopCartBack response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             if (response.getB().getSkus() == null ||
                                     response.getB().getSkus().size() == 0) {
-                                if (isViewAttached()) {
-                                    getView().showEmptyCase();
-                                }
+                                getView().showEmptyCase();
                             } else {
-                                if (isViewAttached()) {
-                                    getView().obtainCartSuccess(response.getB());
-                                }
+                                getView().obtainCartSuccess(response.getB());
                             }
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         } else {
-                            if (isViewAttached()) {
-                                getView().showEmptyCase();
-                            }
+                            getView().showEmptyCase();
                         }
                     }
 
@@ -75,8 +69,9 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
 
     /**
      * 更新商品数量
+     *
      * @param id skuId
-     * @param i 商品数量
+     * @param i  商品数量
      */
     public void updateCartItem(int id, int i) {
 //        if (isViewAttached()) {
@@ -86,18 +81,18 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
                         //getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
-                            if (isViewAttached()) {
-                                getView().updateNumSuccess();
-                            }
+                            getView().updateNumSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -119,23 +114,21 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<ReceiptDefault>() {
                     @Override
                     public void onRepose(ReceiptDefault response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
                         getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
-                            if (isViewAttached()) {
-                                getView().obtainDefaultSuccess(response.getB());
-                            }
+                            getView().obtainDefaultSuccess(response.getB());
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         } else if (code == ErrorCode.NOT_EXIST_DEFAULT_ADDRESS) {
                             //不存在默认收货地址
-                            if (isViewAttached()) {
-                                getView().obtainDefaultSuccess(null);
-                            }
+                            getView().obtainDefaultSuccess(null);
                         }
                     }
 
@@ -148,6 +141,7 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
 
     /**
      * 创建订单
+     *
      * @param skus
      * @param addressId
      */
@@ -159,32 +153,24 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
 
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //下单成功
-                            if (isViewAttached()) {
-                                getView().obtainOrderSuccess();
-                            }
+                            getView().obtainOrderSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN ||
                                 code == ErrorCode.ERROR_NOT_EXIST_USER) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLoginPay();
-                            }
+                            getView().needLoginPay();
                         } else if (code == ErrorCode.NOT_EXIST_DEFAULT_ADDRESS) {
                             //不存在默认收货地址
-                            if (isViewAttached()) {
-                                getView().obtainDefaultSuccess(null);
-                            }
+                            getView().obtainDefaultSuccess(null);
                         } else {
-                            if (isViewAttached()) {
-                                getView().orderError("创建订单失败：" + response.getH().getMsg());
-                            }
+                            getView().orderError("创建订单失败：" + response.getH().getMsg());
                         }
                     }
 
@@ -206,15 +192,14 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<ArrivalTime>() {
                     @Override
                     public void onRepose(ArrivalTime response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().getArrivalTimeSuccess(response.getB().getTime());
-                            }
-
+                            getView().getArrivalTimeSuccess(response.getB().getTime());
                         }
                     }
 
@@ -227,6 +212,7 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
 
     /**
      * 删除商品
+     *
      * @param id
      */
     public void deleteGoods(int id) {
@@ -234,18 +220,18 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
                         //getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //修改商品数量成功
-                            if (isViewAttached()) {
-                                getView().updateNumSuccess();
-                            }
+                            getView().updateNumSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -258,13 +244,21 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.I
 
     public interface IView extends BaseViewInterface {
         void getArrivalTimeSuccess(String time);
+
         void updateNumSuccess();
+
         void obtainOrderSuccess();
+
         void obtainDefaultSuccess(GoodsReceipt goodsReceipt);
+
         void obtainCartSuccess(ShopCart shopCart);
+
         void needLogin();
+
         void needLoginPay();
+
         boolean isReady();
+
         void orderError(String msg);
     }
 }

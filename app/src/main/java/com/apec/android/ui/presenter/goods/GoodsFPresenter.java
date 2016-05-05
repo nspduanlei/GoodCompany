@@ -25,7 +25,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
      * 获取商品列表
      */
     public void fetchGoods(int cid, int cityId) {
-        if(isViewAttached()) {
+        if (isViewAttached()) {
             getView().showLoading();
         }
         GoodsInteract.fetchGoods(
@@ -33,14 +33,14 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
                 new GetDataCallback<Goods>() {
                     @Override
                     public void onRepose(Goods response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         if (response.getH().getCode() == 200) {
-                            if (isViewAttached()) {
-                                if (response.getB().getData().size() > 0) {
-                                    getView().showGoods(response.getB().getData());
-                                }
+                            if (response.getB().getData().size() > 0) {
+                                getView().showGoods(response.getB().getData());
                             }
                         } else {
 
@@ -56,6 +56,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
 
     public interface IView extends BaseViewInterface {
         void showGoods(ArrayList<Good> goods);
+
         boolean isReady();
     }
 }

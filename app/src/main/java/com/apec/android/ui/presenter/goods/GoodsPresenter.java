@@ -59,11 +59,13 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
                 new GetDataCallback<JSONObject>() {
                     @Override
                     public void onRepose(JSONObject response) {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
                         try {
                             int cityId = response.getInt(cityCode);
-                            if (isViewAttached()) {
-                                getView().locationSuccess(cityId, cityName);
-                            }
+                            getView().locationSuccess(cityId, cityName);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -117,14 +119,14 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
                 new GetDataCallback<Areas>() {
                     @Override
                     public void onRepose(Areas response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().getCitySuccess(response.getB());
-                            }
+                            getView().getCitySuccess(response.getB());
                         }
                     }
 
@@ -137,7 +139,9 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
 
     public interface IView extends BaseViewInterface {
         void showGoodTypes();
+
         void locationSuccess(int cityId, String cityName);
+
         void getCitySuccess(List<Area> areas);
     }
 }

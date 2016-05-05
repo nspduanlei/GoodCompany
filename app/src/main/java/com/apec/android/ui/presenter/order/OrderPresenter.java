@@ -26,6 +26,7 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
 
     /**
      * 获取某个订单的订单详情
+     *
      * @param orderId
      */
     public void getOrder(int orderId) {
@@ -36,19 +37,17 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
                 mContext, new GetDataCallback<OrderBack>() {
                     @Override
                     public void onRepose(OrderBack response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
-                            if (isViewAttached()) {
-                                getView().getOrderSuccess(response.getB());
-                            }
+                            getView().getOrderSuccess(response.getB());
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -61,6 +60,7 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
 
     /**
      * 取消订单
+     *
      * @param orderId
      */
     public void cancelOrder(int orderId) {
@@ -71,20 +71,18 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //取消订单成功
-                            if (isViewAttached()) {
-                                getView().cancelOrderSuccess();
-                            }
+                            getView().cancelOrderSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -97,8 +95,11 @@ public class OrderPresenter extends BasePresenter<OrderPresenter.IView> {
 
     public interface IView extends BaseViewInterface {
         void cancelOrderSuccess();
+
         void getOrderSuccess(Order order);
+
         void needLogin();
+
         boolean isReady();
     }
 }

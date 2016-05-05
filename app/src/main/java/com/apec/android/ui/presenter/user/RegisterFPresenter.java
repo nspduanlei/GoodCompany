@@ -74,8 +74,6 @@ public class RegisterFPresenter extends BasePresenter<RegisterFPresenter.IView> 
                     public void onRepose(UserBack response) {
                         if (isViewAttached()) {
                             getView().hideLoading();
-                        }
-                        if (isViewAttached()) {
                             getView().submitCodeBack(response);
                         }
                     }

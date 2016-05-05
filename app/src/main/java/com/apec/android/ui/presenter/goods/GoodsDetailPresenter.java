@@ -130,9 +130,11 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //加入购物车成功
@@ -162,9 +164,11 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
                 mContext, new GetDataCallback<ArrivalTime>() {
                     @Override
                     public void onRepose(ArrivalTime response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             getView().getArrivalTimeSuccess(response.getB().getTime());

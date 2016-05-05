@@ -22,6 +22,7 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
 
     /**
      * 保存收货信息
+     *
      * @param takeGoodsPhone
      * @param takeGoodsUser
      * @param addreCity
@@ -37,20 +38,18 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //收货地址添加成功
-                            if (isViewAttached()) {
-                                getView().saveAddressSuccess();
-                            }
+                            getView().saveAddressSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -71,20 +70,18 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
                 mContext, new GetDataCallback<NoBody>() {
                     @Override
                     public void onRepose(NoBody response) {
-                        if (isViewAttached()) {
-                            getView().hideLoading();
+                        if (!isViewAttached()) {
+                            return;
                         }
+
+                        getView().hideLoading();
                         int code = response.getH().getCode();
                         if (code == 200) {
                             //收货地址添加成功
-                            if (isViewAttached()) {
-                                getView().saveAddressSuccess();
-                            }
+                            getView().saveAddressSuccess();
                         } else if (code == ErrorCode.ERROR_NEED_LOGIN) {
                             //需要登录
-                            if (isViewAttached()) {
-                                getView().needLogin();
-                            }
+                            getView().needLogin();
                         }
                     }
 
@@ -98,7 +95,9 @@ public class EditDataPresenter extends BasePresenter<EditDataPresenter.IView> {
 
     public interface IView extends BaseViewInterface {
         void needLogin();
+
         void saveAddressSuccess();
+
         boolean isReady();
     }
 }
