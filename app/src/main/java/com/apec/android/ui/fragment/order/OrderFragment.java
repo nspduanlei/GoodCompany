@@ -9,8 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apec.android.R;
-import com.apec.android.domain.order.Order;
-import com.apec.android.domain.order.OrderItem;
+import com.apec.android.domain.entities.order.Order;
+import com.apec.android.domain.entities.order.OrderItem;
 import com.apec.android.ui.activity.order.OrderActivity;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;

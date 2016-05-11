@@ -2,34 +2,24 @@ package com.apec.android.ui.fragment.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.goods.Goods;
-import com.apec.android.domain.user.Area;
-import com.apec.android.domain.user.User;
+import com.apec.android.domain.entities.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseFragment;
-import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.MyAccountPresenter;
-import com.apec.android.ui.presenter.user.SelectCityPresenter;
 import com.apec.android.util.EditUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
-
-import java.util.ArrayList;
 
 /**
  * 我的帐号

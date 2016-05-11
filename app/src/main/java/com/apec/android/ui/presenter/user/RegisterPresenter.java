@@ -5,7 +5,7 @@ import android.content.Context;
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.user.interator.UserInteract;
+import com.apec.android.domain.entities.user.interator.UserInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 

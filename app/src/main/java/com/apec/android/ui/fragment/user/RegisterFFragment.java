@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.user.UserBack;
+import com.apec.android.domain.entities.user.UserBack;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.RegisterActivity;
 import com.apec.android.ui.fragment.BaseFragment;

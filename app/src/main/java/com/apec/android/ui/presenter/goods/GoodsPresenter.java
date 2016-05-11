@@ -1,18 +1,16 @@
 package com.apec.android.ui.presenter.goods;
 
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
-import com.apec.android.domain.goods.GateGory;
-import com.apec.android.domain.goods.interator.GoodsInteract;
-import com.apec.android.domain.user.Area;
-import com.apec.android.domain.user.Areas;
+import com.apec.android.domain.entities.goods.GateGory;
+import com.apec.android.domain.entities.goods.interator.GoodsInteract;
+import com.apec.android.domain.entities.user.Area;
+import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 import com.apec.android.util.LocationHelp;
@@ -32,14 +30,14 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
     }
 
 
-    LocationHelp mLocationHelp = new LocationHelp();
+    LocationHelp mLocationHelp = new LocationHelp(mContext);
     String cityCode, cityName;
 
     /**
      * 启动定位
      */
     public void startLocation() {
-        mLocationHelp.startLocation(mContext, new AMapLocationListener() {
+        mLocationHelp.startLocation(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
                 if (isViewAttached()) {

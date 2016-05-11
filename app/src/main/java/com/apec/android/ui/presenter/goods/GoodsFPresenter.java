@@ -4,9 +4,9 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
-import com.apec.android.domain.goods.Good;
-import com.apec.android.domain.goods.Goods;
-import com.apec.android.domain.goods.interator.GoodsInteract;
+import com.apec.android.domain.entities.goods.Good;
+import com.apec.android.domain.entities.goods.Goods;
+import com.apec.android.domain.entities.goods.interator.GoodsInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 

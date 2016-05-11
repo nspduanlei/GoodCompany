@@ -1,7 +1,6 @@
 package com.apec.android.ui.fragment.user;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -11,9 +10,9 @@ import android.widget.RadioButton;
 import com.android.volley.VolleyError;
 import com.apec.android.R;
 import com.apec.android.domain.GetDataCallback;
-import com.apec.android.domain.user.Area;
-import com.apec.android.domain.user.Areas;
-import com.apec.android.domain.user.interator.UserInteract;
+import com.apec.android.domain.entities.user.Area;
+import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.interator.UserInteract;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.util.StringUtils;

@@ -1,7 +1,6 @@
 package com.apec.android.ui.fragment.goods;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.ListView;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.goods.Good;
+import com.apec.android.domain.entities.goods.Good;
 import com.apec.android.ui.activity.goods.GoodsDetailActivity;
 import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;

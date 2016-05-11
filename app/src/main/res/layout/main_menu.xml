@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--菜单-->
+<FrameLayout android:id="@+id/menuFL"
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="218dp"
+             android:layout_height="match_parent"
+             android:layout_gravity="start"
+             android:background="@color/color_white"
+             android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--头部-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_bg"
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/hello_bg"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:paddingLeft="22dp"
+                    android:src="@drawable/menu_logo"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="22dp">
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_text_4"
+                    android:textSize="25sp"/>
+
+                <TextView
+                    android:id="@+id/tv_user_c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="客户,"
+                    android:textColor="@color/color_text_4"/>
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="80dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/button_shape_bg_2"
+                    android:text="登  录"
+                    android:textColor="@color/color_white"
+                    android:textSize="13sp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_line_1"/>
+
+        <TextView
+            android:id="@+id/tv_my_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ll_press_bg"
+            android:drawableLeft="@drawable/icon_left_menu"
+            android:gravity="center_vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="22dp"
+            android:paddingTop="15dp"
+            android:text="  我的帐号"
+            android:textColor="@color/color_black"/>
+
+        <TextView
+            android:id="@+id/tv_my_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ll_press_bg"
+            android:drawableLeft="@drawable/icon_left_menu_1"
+            android:gravity="center_vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="22dp"
+            android:paddingTop="15dp"
+            android:text="  我的订单"
+            android:textColor="@color/color_black"/>
+
+        <TextView
+            android:id="@+id/tv_manage_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ll_press_bg"
+            android:drawableLeft="@drawable/icon_left_menu_2"
+            android:gravity="center_vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="22dp"
+            android:paddingTop="15dp"
+            android:text="  地址管理"
+            android:textColor="@color/color_black"/>
+
+        <TextView
+            android:id="@+id/tv_my_shopping_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ll_press_bg"
+            android:drawableLeft="@drawable/icon_left_menu_3"
+            android:gravity="center_vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="22dp"
+            android:paddingTop="15dp"
+            android:text="  我的购物车"
+            android:textColor="@color/color_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/icon_left_menu_4"
+            android:gravity="center"
+            android:paddingLeft="22dp"
+            android:text="  客服电话"
+            android:textColor="@color/color_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="22dp"
+            android:text="4001000747"
+            android:textColor="@color/color_text_2"
+            android:textSize="17sp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login_out"
+        android:layout_width="165dp"
+        android:layout_height="36dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="22dp"
+        android:background="@drawable/button_shape_bg_7"
+        android:text="登  出"
+        android:textColor="@color/color_5"/>
+</FrameLayout>

@@ -6,15 +6,11 @@ import com.android.volley.VolleyError;
 import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.user.Area;
-import com.apec.android.domain.user.Areas;
-import com.apec.android.domain.user.User;
-import com.apec.android.domain.user.UserBack;
-import com.apec.android.domain.user.interator.UserInteract;
+import com.apec.android.domain.entities.user.User;
+import com.apec.android.domain.entities.user.UserBack;
+import com.apec.android.domain.entities.user.interator.UserInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
-
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/2/26.

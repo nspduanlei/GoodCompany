@@ -16,6 +16,8 @@ public class Constants {
     //商品最大购买数量
     public final static int MAX_GOODS_COUNT = 100;
 
+    public final static int SUCCESS_CODE = 200;
+
     /**
      * result
      */

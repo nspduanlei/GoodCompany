@@ -21,10 +21,10 @@ import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.goods.Good;
-import com.apec.android.domain.goods.Sku;
-import com.apec.android.domain.goods.SkuAttrValue;
-import com.apec.android.domain.goods.SkuAttribute;
+import com.apec.android.domain.entities.goods.Good;
+import com.apec.android.domain.entities.goods.Sku;
+import com.apec.android.domain.entities.goods.SkuAttrValue;
+import com.apec.android.domain.entities.goods.SkuAttribute;
 import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;

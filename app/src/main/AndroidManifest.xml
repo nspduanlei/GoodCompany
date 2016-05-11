@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.activity.LaunchActivity"
+            android:name=".views.activities.LaunchActivity"
             android:theme="@style/StartAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,6 +64,11 @@
         <activity android:name=".ui.activity.GuideActivity" />
 
         <activity android:name=".ui.activity.user.MyAccountActivity" />
+
+
+        <!--重构-->
+        <activity android:name=".views.activities.GoodsActivity" />
+        <activity android:name=".views.activities.LoginActivity" />
 
         <!--定位-->
         <service android:name="com.amap.api.location.APSService"/>

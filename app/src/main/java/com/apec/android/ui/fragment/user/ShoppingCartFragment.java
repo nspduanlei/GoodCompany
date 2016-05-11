@@ -18,9 +18,9 @@ import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.transport.GoodsReceipt;
-import com.apec.android.domain.user.ShopCart;
-import com.apec.android.domain.user.Skus;
+import com.apec.android.domain.entities.transport.GoodsReceipt;
+import com.apec.android.domain.entities.user.ShopCart;
+import com.apec.android.domain.entities.user.Skus;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.user.ManageAddrActivity;
 import com.apec.android.ui.activity.user.RegisterFActivity;

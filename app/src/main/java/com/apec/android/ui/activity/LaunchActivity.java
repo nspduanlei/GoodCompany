@@ -3,13 +3,10 @@ package com.apec.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.apec.android.R;
-import com.apec.android.domain.user.User;
-import com.apec.android.ui.activity.goods.GoodsActivity;
+import com.apec.android.domain.entities.user.User;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
 import com.apec.android.ui.activity.order.OrderActivity;
 import com.apec.android.ui.activity.user.EditDataActivity;
@@ -19,7 +16,7 @@ import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.presenter.user.LaunchPresenter;
 import com.apec.android.util.SPUtils;
-import com.apec.android.util.StringUtils;
+import com.apec.android.views.activities.GoodsActivity;
 import com.umeng.analytics.AnalyticsConfig;
 
 import org.litepal.crud.DataSupport;
@@ -61,7 +58,6 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
 //            }
             Intent intent = new Intent(this, GoodsActivity.class);
             startActivity(intent);
-
         }
         this.finish();
     }

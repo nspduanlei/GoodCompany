@@ -6,11 +6,9 @@ import com.android.volley.VolleyError;
 import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.order.Order;
-import com.apec.android.domain.order.OrderBack;
-import com.apec.android.domain.order.interator.OrderInteract;
-import com.apec.android.domain.user.ShopCartBack;
-import com.apec.android.domain.user.interator.UserInteract;
+import com.apec.android.domain.entities.order.Order;
+import com.apec.android.domain.entities.order.OrderBack;
+import com.apec.android.domain.entities.order.interator.OrderInteract;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 

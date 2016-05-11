@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.user.Area;
+import com.apec.android.domain.entities.user.Area;
 import com.apec.android.ui.activity.MVPBaseActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
 import com.apec.android.ui.activity.user.ManageAddrActivity;
@@ -105,7 +105,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         updateUser();
 
         mCityId = (int)SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
-
         if (mCityId == 0) {
             mPresenter.startLocation();
         }
@@ -223,6 +222,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         }
     }
 
+
     /**
      * 显示退出登录弹窗
      */
@@ -261,7 +261,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
                 .create();
         dialog.show();
     }
-
 
     List<Area> mCityData = new ArrayList<>();
     CommonAdapter mCityAdapter;
@@ -415,7 +414,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         if (!isExit) {
             isExit = true;
             T.showShort(this, "再按一次退出" + AppUtils.getAppName(this));
-            //Toast.makeText(this, "再按一次退出" + AppUtils.getAppName(this), Toast.LENGTH_SHORT).show();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

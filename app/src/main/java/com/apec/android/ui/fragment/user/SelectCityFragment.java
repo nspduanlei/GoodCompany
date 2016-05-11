@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.apec.android.R;
-import com.apec.android.domain.user.Area;
+import com.apec.android.domain.entities.user.Area;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.SelectCityPresenter;
 

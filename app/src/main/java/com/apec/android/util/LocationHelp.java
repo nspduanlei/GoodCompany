@@ -6,6 +6,8 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
+import javax.inject.Inject;
+
 /**
  * Created by duanlei on 2016/4/20.
  */
@@ -17,15 +19,20 @@ public class LocationHelp {
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
 
+    Context mContext;
+
+    @Inject
+    public LocationHelp(Context context) {
+        mContext = context;
+    }
 
     /**
      * 启动定位
-     * @param context
      * @param mLocationListener
      */
-    public void startLocation(Context context, AMapLocationListener mLocationListener) {
+    public void startLocation(AMapLocationListener mLocationListener) {
         //初始化定位
-        mLocationClient = new AMapLocationClient(context);
+        mLocationClient = new AMapLocationClient(mContext);
         //设置定位回调监听
         mLocationClient.setLocationListener(mLocationListener);
 

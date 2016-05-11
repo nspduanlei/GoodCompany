@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
 import com.apec.android.R;
-import com.apec.android.domain.goods.Goods;
 import com.apec.android.ui.fragment.goods.GoodsFragment;
 import com.viewpagerindicator.IconPagerAdapter;
 

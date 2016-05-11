@@ -6,12 +6,12 @@ import com.android.volley.VolleyError;
 import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
-import com.apec.android.domain.goods.GetAllAttribute;
-import com.apec.android.domain.goods.Good;
-import com.apec.android.domain.goods.GoodsDetail;
-import com.apec.android.domain.goods.SkuAttribute;
-import com.apec.android.domain.goods.interator.GoodsInteract;
-import com.apec.android.domain.transport.ArrivalTime;
+import com.apec.android.domain.entities.goods.GetAllAttribute;
+import com.apec.android.domain.entities.goods.Good;
+import com.apec.android.domain.entities.goods.GoodsDetail;
+import com.apec.android.domain.entities.goods.SkuAttribute;
+import com.apec.android.domain.entities.goods.interator.GoodsInteract;
+import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 

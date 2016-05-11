@@ -5,6 +5,6 @@
     <version value="1" />
 
     <list>
-        <mapping class="com.apec.android.domain.user.User"/>
+        <mapping class="com.apec.android.domain.entities.user.User"/>
     </list>
 </litepal>
