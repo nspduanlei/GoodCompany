@@ -36,33 +36,37 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
 
         /** 设置是否对日志信息进行加密, 默认false(不加密). */
         AnalyticsConfig.enableEncrypt(true);
 
         //是否第一次登录
-        if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
-            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
-            //是第一次进入app，到引导页
-            Intent intent = new Intent(this, GuideActivity.class);
-            startActivity(intent);
-        } else {
-//            //不是第一次进入，判断是否登录
-//            if (StringUtils.isNullOrEmpty(
-//                    (String) SPUtils.get(this, SPUtils.SESSION_ID, ""))) {
-//                //session_id为空没有登录，进入登录页面
-//                Intent intent = new Intent(this, RegisterFActivity.class);
-//                startActivity(intent);
-//            } else {
-//                //session_id存在，进入商品展示页
-//                Intent intent = new Intent(this, GoodsActivity.class);
-//                startActivity(intent);
-//            }
-            Intent intent = new Intent(this, GoodsActivity.class);
-            startActivity(intent);
+//        if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
+//            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
+//            //是第一次进入app，到引导页
+//            Intent intent = new Intent(this, GuideActivity.class);
+//            startActivity(intent);
+//        } else {
+////            //不是第一次进入，判断是否登录
+////            if (StringUtils.isNullOrEmpty(
+////                    (String) SPUtils.get(this, SPUtils.SESSION_ID, ""))) {
+////                //session_id为空没有登录，进入登录页面
+////                Intent intent = new Intent(this, RegisterFActivity.class);
+////                startActivity(intent);
+////            } else {
+////                //session_id存在，进入商品展示页
+////                Intent intent = new Intent(this, GoodsActivity.class);
+////                startActivity(intent);
+////            }
+//            Intent intent = new Intent(this, GoodsActivity.class);
+//            startActivity(intent);
+//
+//        }
 
-        }
+        Intent intent = new Intent(this, GoodsActivity.class);
+        startActivity(intent);
+
         this.finish();
     }
 

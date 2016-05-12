@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.apec.android.R;
@@ -95,13 +96,15 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
 
     private FrameLayout loading;
 
+    private ScrollView svMain;
+
     private void initView(View view) {
         //标题
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
         title.setText("订单详情");
         view.findViewById(R.id.iv_back).setOnClickListener(this);
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
-
+        svMain = (ScrollView) view.findViewById(R.id.sv_main);
         //订单信息
         tvOrderNum = (TextView) view.findViewById(R.id.tv_order_num);
         btnCancelOrder = (Button) view.findViewById(R.id.btn_cancel_order);
@@ -167,6 +170,8 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
 
     @Override
     public void getOrderSuccess(final Order order) {
+        svMain.setVisibility(View.VISIBLE);
+
         //订单数据获取成功， 填充数据
         tvOrderNum.setText(String.format(getString(R.string.order_number), order.getOrderNo()));
         tvUserName.setText(String.format("  %s", order.getOrderAddress().getName()));
@@ -180,27 +185,14 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
                 R.layout.goods_item_order) {
             @Override
             public void convert(MyViewHolder holder, OrderItem orderItem) {
-
                 if (orderItem.getSku().getPics().size() > 0) {
                     holder.setImageUrl(R.id.iv_goods_pic,
                             orderItem.getSku().getPics().get(0).getUrl());
                 }
-
                 holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
                         .setText(R.id.tv_goods_price,
                                 String.format(getString(R.string.price_and_num),
                                         orderItem.getSku().getPrice(), orderItem.getNum()));
-
-                //净含量
-//                if (orderItem.getSku().getNonkeyAttr().size() > 0) {
-//                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-//                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
-//                            orderItem.getSku().getNonkeyAttr().get(0).getName(),
-//                            orderItem.getSku().getNonkeyAttr().get(0)
-//                                    .getAttributeValues().get(0).getName()));
-//                } else {
-//                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
-//                }
             }
         });
 

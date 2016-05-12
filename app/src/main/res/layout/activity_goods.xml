@@ -42,9 +42,9 @@
         android:id="@+id/menuFL"
         android:layout_width="218dp"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
         android:background="@color/color_white"
-        android:clickable="true"
-        android:layout_gravity="start">
+        android:clickable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,15 +81,17 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="22dp"
-                    android:layout_marginTop="-5dp">
+                    android:paddingLeft="22dp">
+
                     <TextView
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_text_4"
                         android:textSize="25sp"/>
+
                     <TextView
                         android:id="@+id/tv_user_c"
                         android:layout_width="wrap_content"
@@ -97,6 +99,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="客户,"
                         android:textColor="@color/color_text_4"/>
+
                     <Button
                         android:id="@+id/btn_login"
                         android:layout_width="80dp"
@@ -188,6 +191,26 @@
                 android:text="4001000747"
                 android:textColor="@color/color_text_2"
                 android:textSize="17sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/icon_left_menu_4"
+                android:gravity="center"
+                android:paddingLeft="22dp"
+                android:text="  版本号"
+                android:textColor="@color/color_black"/>
+
+            <TextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="22dp"
+                android:textColor="@color/color_text_2"/>
         </LinearLayout>
 
         <Button

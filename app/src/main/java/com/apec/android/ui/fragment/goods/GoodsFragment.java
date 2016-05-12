@@ -1,7 +1,6 @@
 package com.apec.android.ui.fragment.goods;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -152,7 +151,7 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
             empty.setVisibility(View.VISIBLE);
         } else {
             empty.setVisibility(View.GONE);
+            mPresenter.fetchGoods(mID, cityId);
         }
-        mPresenter.fetchGoods(mID, cityId);
     }
 }

@@ -1,7 +1,5 @@
 package com.apec.android.domain.goods;
-
 import com.apec.android.domain.H;
-
 import java.util.ArrayList;
 
 /**

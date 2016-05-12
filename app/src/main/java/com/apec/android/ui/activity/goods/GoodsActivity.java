@@ -69,6 +69,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     private FrameLayout loading;
     private Button loginOut, btnLogin;
     private TextView tvUserC, tvUserName;
+    private TextView version;
 
     private int mCityId;
 
@@ -98,6 +99,8 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         findViewById(R.id.tv_my_order).setOnClickListener(this);
         findViewById(R.id.tv_manage_address).setOnClickListener(this);
         findViewById(R.id.tv_my_shopping_cart).setOnClickListener(this);
+        version = (TextView) findViewById(R.id.tv_version);
+        version.setText(AppUtils.getVersionName(this));
 
         loginOut = (Button) findViewById(R.id.btn_login_out);
         btnLogin = (Button) findViewById(R.id.btn_login);
