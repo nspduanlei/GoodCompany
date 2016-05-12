@@ -35,6 +35,9 @@ public class SPUtils {
     //用户名
     public static final String USER_NAME = "user_name";
 
+    //购物车有新的商品
+    public static final String HAS_NEW_GOODS = "has_new_goods";
+
     /**
      * =================================================================
      **/

@@ -2,6 +2,7 @@ package com.apec.android.ui.presenter.goods;
 
 import android.content.Context;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.goods.Good;
@@ -36,7 +37,7 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
                         if (!isViewAttached()) {
                             return;
                         }
-
+                        getView().hideNoConnection();
                         getView().hideLoading();
                         if (response.getH().getCode() == 200) {
                             if (response.getB().getData().size() > 0) {
@@ -49,7 +50,13 @@ public class GoodsFPresenter extends BasePresenter<GoodsFPresenter.IView> {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getView().hideLoading();
+                        if (error instanceof NoConnectionError) {
+                            getView().showNoConnection();
+                        }
                     }
                 }, cid, cityId);
     }

@@ -72,6 +72,9 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
 
     private int mCityId;
 
+    //购物车未读
+    private View newCart;
+
     FragmentPagerAdapter mAdapter;
     /**
      * 初始化ui
@@ -150,6 +153,12 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         tvLocation.setText(cityName);
         tvLocation.setOnClickListener(this);
 
+        newCart = toolbar.findViewById(R.id.view_new_cart);
+        if ((Boolean) SPUtils.get(this, SPUtils.HAS_NEW_GOODS, false)) {
+            newCart.setVisibility(View.VISIBLE);
+        }
+
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
         setSupportActionBar(toolbar);
@@ -178,6 +187,16 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
 
     @Override
     public void showEmptyCase() {
+
+    }
+
+    @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
 
     }
 
@@ -391,7 +410,11 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         } else {
             mCityId = Constants.DEFAULT_CITY_ID;
             SPUtils.put(this, SPUtils.LOCATION_CITY_ID, Constants.DEFAULT_CITY_ID);
-            SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, Constants.DEFAULT_CITY_NAME);
+            if (StringUtils.isNullOrEmpty(cityName)) {
+                SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, Constants.DEFAULT_CITY_NAME);
+            } else {
+                SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
+            }
         }
     }
 
@@ -440,5 +463,18 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (newCart == null) {
+            return;
+        }
+        if ((Boolean) SPUtils.get(this, SPUtils.HAS_NEW_GOODS, false)) {
+            newCart.setVisibility(View.VISIBLE);
+        } else {
+            newCart.setVisibility(View.GONE);
+        }
     }
 }

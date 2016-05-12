@@ -110,6 +110,16 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter.IView,
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public boolean isReady() {
         return isAdded();
     }

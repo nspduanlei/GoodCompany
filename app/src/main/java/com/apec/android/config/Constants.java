@@ -36,6 +36,6 @@ public class Constants {
     /**
      * default
      */
-    public final static int DEFAULT_CITY_ID = 100;
-    public final static String DEFAULT_CITY_NAME = "深圳市";
+    public final static int DEFAULT_CITY_ID = 0;
+    public final static String DEFAULT_CITY_NAME = "请选择城市";
 }

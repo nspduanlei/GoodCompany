@@ -151,6 +151,16 @@ public class ManageAddrFragment extends BaseListFragment<ManageAddrPresenter.IVi
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public void deleteSuccess() {
         mPresenter.getAllAddress();
         getActivity().setResult(Constants.RESULT_CODE_ADDRESS_SUCCESS);

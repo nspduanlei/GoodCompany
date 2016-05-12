@@ -5,16 +5,21 @@ import android.content.Context;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.apec.android.domain.NoBody;
 import com.apec.android.support.http.Listener;
 import com.apec.android.support.http.RequestHelper;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.L;
+import com.apec.android.util.NetUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -43,8 +48,7 @@ public class GsonRequest<T> extends Request<T> {
         mClass = clazz;
         mListener = listener;
         mContext = context;
-
-        this.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
+        this.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 1, 1.0f));
     }
 
     @Override
@@ -54,12 +58,9 @@ public class GsonRequest<T> extends Request<T> {
             if (!StringUtils.isNullOrEmpty(token)) {
                 SPUtils.put(mContext, SPUtils.SESSION_ID, token);
             }
-
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
-
             L.e("test001", jsonString);
-
             return Response.success(mGson.fromJson(jsonString, mClass),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
@@ -87,8 +88,6 @@ public class GsonRequest<T> extends Request<T> {
         params.put("UA", mHelper.getHeaderUserAgent());
         params.put("x-auth-token", (String)
                 SPUtils.get(mContext, SPUtils.SESSION_ID, "0"));
-
-
         L.e("test002", "token-->" +
                 SPUtils.get(mContext, SPUtils.SESSION_ID, "0"));
 

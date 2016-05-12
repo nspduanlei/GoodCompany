@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.apec.android.R;
@@ -71,15 +72,10 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     ArrayList<Good> mData = new ArrayList<>();
     CommonAdapter<Good> commonAdapter;
     FrameLayout loading;
+    LinearLayout empty;
+    LinearLayout noConnection;
 
     private void initView(View view) {
-        //TODO test
-//        for (int i = 0; i < 3; i++) {
-//            Good good = new Good();
-//            good.setId(i);
-//            mData.add(good);
-//        }
-
         //商品列表初始化
         mListView = (ListView) view.findViewById(R.id.lv_goods);
         commonAdapter = new CommonAdapter<Good>(getActivity(),
@@ -90,22 +86,6 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
                 if (good.getPics().size() != 0) {
                     holder.setImageUrl(R.id.iv_pic, good.getPics().get(0).getUrl());
                 }
-
-//                //TODO test
-//                switch (good.getId()) {
-//                    case 0:
-//                        holder.setImageResource(R.id.iv_pic, R.drawable.test0010);
-//                        break;
-//
-//                    case 1:
-//                        holder.setImageResource(R.id.iv_pic, R.drawable.test002);
-//                        break;
-//
-//                    case 2:
-//                        holder.setImageResource(R.id.iv_pic, R.drawable.test003);
-//                        break;
-//                }
-
             }
         };
         mListView.setAdapter(commonAdapter);
@@ -123,6 +103,8 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
         });
 
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
+        empty= (LinearLayout) view.findViewById(R.id.ll_empty_goods);
+        noConnection = (LinearLayout) view.findViewById(R.id.ll_no_connection);
     }
 
     @Override
@@ -141,6 +123,16 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
     }
 
     @Override
+    public void showNoConnection() {
+        noConnection.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoConnection() {
+        noConnection.setVisibility(View.GONE);
+    }
+
+    @Override
     public void showGoods(ArrayList goods) {
         mData.clear();
         mData.addAll(goods);
@@ -156,6 +148,11 @@ public class GoodsFragment extends BaseFragment<GoodsFPresenter.IView, GoodsFPre
         Log.e("test002", "updateDate");
         int cityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
                 Constants.DEFAULT_CITY_ID);
+        if (cityId == 0) {
+            empty.setVisibility(View.VISIBLE);
+        } else {
+            empty.setVisibility(View.GONE);
+        }
         mPresenter.fetchGoods(mID, cityId);
     }
 }

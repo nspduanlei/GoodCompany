@@ -146,6 +146,16 @@ public class OrderFragment extends BaseFragment<OrderPresenter.IView,
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public void cancelOrderSuccess() {
         //取消订单成功
         tvCancelOrder.setVisibility(View.VISIBLE);

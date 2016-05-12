@@ -12,4 +12,8 @@
         android:divider="@null"/>
 
     <include layout="@layout/loading_layout" />
+
+    <include layout="@layout/empty_layout_goods" />
+
+    <include layout="@layout/no_connection" />
 </FrameLayout>

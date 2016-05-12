@@ -130,6 +130,16 @@ public class EditDataFragment extends BaseFragment<EditDataPresenter.IView,
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public void needLogin() {
 
     }

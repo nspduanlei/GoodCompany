@@ -63,6 +63,16 @@ public class SelectCityFragment extends BaseListFragment<SelectCityPresenter.IVi
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public boolean isReady() {
         return isAdded();
     }

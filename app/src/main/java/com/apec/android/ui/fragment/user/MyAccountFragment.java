@@ -106,6 +106,16 @@ public class MyAccountFragment extends BaseFragment<MyAccountPresenter.IView,
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public boolean isReady() {
         return isAdded();
     }

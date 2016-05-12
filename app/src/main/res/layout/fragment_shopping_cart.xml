@@ -38,9 +38,11 @@
             android:background="@color/color_line_2" />
 
         <FrameLayout
+            android:id="@+id/fl_bot"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="gone">
 
             <CheckBox
                 android:id="@+id/cb_all_select"

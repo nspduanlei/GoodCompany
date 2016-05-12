@@ -11,6 +11,24 @@ public class User extends DataSupport {
     private String shopName;
     private String name;
     private String phone;
+    private int cartNum;
+    private int orderNum;
+
+    public int getCartNum() {
+        return cartNum;
+    }
+
+    public void setCartNum(int cartNum) {
+        this.cartNum = cartNum;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
 
     public int getUserId() {
         return userId;

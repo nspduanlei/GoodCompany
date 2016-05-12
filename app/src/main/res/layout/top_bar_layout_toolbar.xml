@@ -31,13 +31,26 @@
             android:gravity="center"/>
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right">
 
-    <ImageView
-        android:id="@+id/iv_shopping_cart"
-        android:layout_width="51dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center_vertical|right"
-        android:scaleType="center"
-        android:src="@drawable/shopping_cart_icon"/>
+        <ImageView
+            android:id="@+id/iv_shopping_cart"
+            android:layout_width="51dp"
+            android:layout_height="48dp"
+            android:scaleType="center"
+            android:src="@drawable/shopping_cart_icon"/>
+
+        <View
+            android:id="@+id/view_new_cart"
+            android:layout_margin="5dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/shape_dot_red"
+            android:layout_gravity="right|top"
+            android:visibility="gone"/>
+    </FrameLayout>
 
 </android.support.v7.widget.Toolbar>

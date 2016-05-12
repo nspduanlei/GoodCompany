@@ -95,10 +95,14 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     private RelativeLayout addressShow;
     private View mView;
 
+    private View flBot;
+
     private void initView(View view) {
         mView = view;
         TextView title = (TextView) view.findViewById(R.id.tv_top_title);
         title.setText("购物车");
+
+        SPUtils.put(getActivity(), SPUtils.HAS_NEW_GOODS, false);
 
         view.findViewById(R.id.iv_back).setOnClickListener(this);
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
@@ -113,6 +117,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         allSelect.setChecked(true);
 
         addressShow = (RelativeLayout) view.findViewById(R.id.rl_address_show);
+        flBot = view.findViewById(R.id.fl_bot);
 
         totalPrices = (TextView) view.findViewById(R.id.tv_total_carts);
         gotoPay = (Button) view.findViewById(R.id.btn_goto_pay);
@@ -381,6 +386,13 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         empty.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void showNoConnection() {
+    }
+
+    @Override
+    public void hideNoConnection() {
+    }
 
     private int addressId;
 
@@ -421,10 +433,15 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
      * 更新收货信息
      */
     private void updateAddress(GoodsReceipt goodsReceipt) {
+
         addressId = goodsReceipt.getAddressId();
 
         if (addressShow.getVisibility() == View.GONE) {
             addressShow.setVisibility(View.VISIBLE);
+        }
+
+        if (flBot.getVisibility() == View.GONE) {
+            flBot.setVisibility(View.VISIBLE);
         }
 
         addressShow.findViewById(R.id.btn_update).setOnClickListener(this);

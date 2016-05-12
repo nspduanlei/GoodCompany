@@ -30,6 +30,7 @@ import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.goods.GoodsDetailPresenter;
 import com.apec.android.util.DensityUtils;
+import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
 
@@ -57,6 +58,10 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     private ArrayList<SkuAttribute> mData;
     private BaseAdapter mAdapter;
     private View footerView;
+    //未读消息
+    private View newCart;
+    //快速下单
+    private Button fastOrder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-
         mPresenter.fetchGoodsAttrs(goodsId);
     }
 
@@ -95,6 +99,11 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         title.setText("订单");
 
         loading = (FrameLayout) view.findViewById(R.id.fl_loading);
+
+        newCart = view.findViewById(R.id.view_new_cart);
+        if ((Boolean) SPUtils.get(getActivity(), SPUtils.HAS_NEW_GOODS, false)) {
+            newCart.setVisibility(View.VISIBLE);
+        }
 
         view.findViewById(R.id.iv_shopping_cart).setOnClickListener(this);
 
@@ -125,6 +134,9 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         flNetContent = (FrameLayout) footerView.findViewById(R.id.fl_net_content);
         tvNetTitle = (TextView) footerView.findViewById(R.id.tv_net_title);
 
+        fastOrder = (Button) footerView.findViewById(R.id.btn_fast_order);
+        fastOrder.setOnClickListener(this);
+
         arrivalTime = (TextView) footerView.findViewById(R.id.tv_arrival_time);
         totalPrice = (TextView) footerView.findViewById(R.id.tv_total_price);
         addButton = (ImageButton) footerView.findViewById(R.id.btn_add);
@@ -140,28 +152,18 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         goodsCount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 if (StringUtils.isNullOrEmpty(s.toString()) ||
                         Integer.valueOf(s.toString()) < 1) {
                     goodsCount.setText("1");
-//                    Toast.makeText(getActivity(),
-//                            "最小包数为1", Toast.LENGTH_SHORT).show();
                 } else if (Integer.valueOf(s.toString()) > Constants.MAX_GOODS_COUNT) {
                     goodsCount.setText(String.valueOf(Constants.MAX_GOODS_COUNT));
-
                     T.showShort(getActivity(),
                             "最多只能买" + Constants.MAX_GOODS_COUNT + "包");
-
-//                    Toast.makeText(getActivity(),
-//                            "最多只能买" + Constants.MAX_GOODS_COUNT + "包",
-//                            Toast.LENGTH_SHORT).show();
                 }
-
                 if (!StringUtils.isNullOrEmpty(s.toString()) && Integer.valueOf(s.toString()) > 0) {
                     int textCount = Integer.valueOf(s.toString());
                     Double textPrice = textCount * Double.parseDouble(mPrice);
@@ -248,9 +250,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                 radioButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         mSelectAttrs.put(position, view.getId());
-
                         List<Sku> skus = mGood.getSkus();
 
                         for (int j = 0; j < skus.size(); j++) {
@@ -258,7 +258,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
                             List<SkuAttribute> attrs = skus.get(j).getAttributeNames();
                             for (int k = 0; k < attrs.size(); k++) {
-
                                 if (mSelectAttrs.get(k) != null &&
                                         mSelectAttrs.get(k) != attrs.get(k).getAttributeValues()
                                         .get(0).getId()) {
@@ -270,15 +269,15 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                                 //找到了匹配的sku
                                 mSkuId = skus.get(j).getId();
                                 addShoppingCart.setEnabled(true);
+                                fastOrder.setEnabled(true);
                                 setSkuData(skus.get(j));
                                 break;
                             } else {
                                 mSkuId = 0;
                                 addShoppingCart.setEnabled(false);
+                                fastOrder.setEnabled(false);
                             }
-
                         }
-
                     }
                 });
                 radioGroup.addView(radioButton);
@@ -308,19 +307,11 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
 
             //如果要选择的项是隐藏的，则显示
             View itemView = getListView().getChildAt(i);
-//            if (itemView.getVisibility() == View.GONE) {
-//                itemView.setVisibility(View.VISIBLE);
-//            }
 
             int attrValue = list.get(i).getAttributeValues().get(0).getId();
             RadioButton rb = (RadioButton) itemView.findViewById(attrValue);
             rb.setChecked(true);
         }
-
-        //选择完了如果还有项没选择，则隐藏
-//        for (int i = list.size(); i < getListView().getCount() - 1; i++) {
-//            getListView().getChildAt(i).setVisibility(View.GONE);
-//        }
 
         //填充相关数据
         setSkuData(skuItem);
@@ -368,6 +359,16 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
     }
 
     @Override
+    public void showNoConnection() {
+
+    }
+
+    @Override
+    public void hideNoConnection() {
+
+    }
+
+    @Override
     public void getArrivalTimeSuccess(String time) {
         //到货时间获取成功，填充
         arrivalTime.setText(String.format(getString(R.string.arrival_time), time));
@@ -396,11 +397,6 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
         mGood = good;
 
         if (good.getSkus().size() > 0) {
-//            RadioButton rb = (RadioButton) getListView().getChildAt(0)
-//                    .findViewById(mData.get(0).getAttributeValues().get(0).getId());
-//            rb.setChecked(true);
-//            rb.performClick();
-
             //默认选择第一个sku
             mSkuId = good.getSkus().get(0).getId();
             selectSku(good.getSkus().get(0));
@@ -409,27 +405,38 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
             mPresenter.getArrivalTime();
         } else {
             addShoppingCart.setEnabled(false);
+            fastOrder.setEnabled(false);
         }
     }
 
     @Override
     public void needLogin() {
         T.showShort(getActivity(), R.string.please_login);
-        //Toast.makeText(getActivity(), R.string.please_login, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), RegisterFActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void addShoppingCartSuccess() {
-        T.showShort(getActivity(), "加入购物车成功");
-        //Toast.makeText(getActivity(), "加入购物车成功", Toast.LENGTH_SHORT).show();
+        if (isFast) {
+            //TODO  跳转到购物车
+            Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
+            startActivity(intent);
+        } else {
+            T.showShort(getActivity(), "加入购物车成功");
+            //购物车有新的商品
+            SPUtils.put(getActivity(), SPUtils.HAS_NEW_GOODS, true);
+            newCart.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public boolean isReady() {
         return isAdded();
     }
+
+    //是否快速下单
+    boolean isFast = false;
 
     @Override
     public void onClick(View v) {
@@ -439,6 +446,7 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                 break;
             case R.id.btn_add_shopping_cart: //加入购物车
                 if (mSkuId != 0) {
+                    isFast = false;
                     mPresenter.addShoppingCart(mSkuId, goodsCount.getText().toString());
                 }
                 break;
@@ -458,6 +466,28 @@ public class GoodsDetailFragment extends BaseListFragment<GoodsDetailPresenter.I
                 Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.btn_fast_order:
+                //快速下单
+                if (mSkuId != 0) {
+                    isFast = true;
+                    mPresenter.addShoppingCart(mSkuId, goodsCount.getText().toString());
+                }
+                break;
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (newCart == null) {
+            return;
+        }
+        if ((Boolean) SPUtils.get(getActivity(), SPUtils.HAS_NEW_GOODS, false)) {
+            newCart.setVisibility(View.VISIBLE);
+        } else {
+            newCart.setVisibility(View.GONE);
         }
     }
 }
