@@ -17,7 +17,7 @@ public class GuideActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        new Handler().postAtTime(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 start(null);

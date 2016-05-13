@@ -72,13 +72,15 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
                         } catch (JSONException e) {
                             //定位失败
                             getView().locationFail();
-                            e.printStackTrace();
+                            //e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        if (isViewAttached()) {
+                            getView().locationFail();
+                        }
                     }
                 });
     }

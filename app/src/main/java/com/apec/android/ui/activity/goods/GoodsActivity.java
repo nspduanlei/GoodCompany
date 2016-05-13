@@ -420,7 +420,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
             if (area.getId() == mCityId) {
                 area.setSelect(true);
             }
-
         }
         showSelectCityDialog();
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.apec.android.R;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
@@ -31,10 +32,13 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_launch);
+        setContentView(R.layout.activity_launch);
         /** 设置是否对日志信息进行加密, 默认false(不加密). */
         AnalyticsConfig.enableEncrypt(true);
+        start();
+    }
 
+    public void start() {
         //是否第一次登录
         if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
             SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
