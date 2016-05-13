@@ -77,6 +77,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     private View newCart;
 
     FragmentPagerAdapter mAdapter;
+
     /**
      * 初始化ui
      */
@@ -109,12 +110,6 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         tvUserName = (TextView) findViewById(R.id.tv_user_name);
 
         updateUser();
-
-        mCityId = (int)SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
-
-        if (mCityId == 0) {
-            mPresenter.startLocation();
-        }
     }
 
     private void updateUser() {
@@ -132,7 +127,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         loginOut.setOnClickListener(this);
         btnLogin.setVisibility(View.GONE);
         tvUserC.setVisibility(View.VISIBLE);
-        tvUserName.setText((String)SPUtils.get(this, SPUtils.USER_NAME, ""));
+        tvUserName.setText((String) SPUtils.get(this, SPUtils.USER_NAME, ""));
     }
 
     private void loginOut() {
@@ -151,16 +146,23 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.findViewById(R.id.iv_shopping_cart).setOnClickListener(this);
         tvLocation = (TextView) toolbar.findViewById(R.id.tv_location);
-        String cityName = (String) SPUtils.get(this, SPUtils.LOCATION_CITY_NAME,
-                Constants.DEFAULT_CITY_NAME);
-        tvLocation.setText(cityName);
+
+        mCityId = (int) SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
+        if (mCityId == Constants.DEFAULT_CITY_ID) {
+            mPresenter.startLocation();
+            tvLocation.setText("正在定位...");
+        } else {
+            String cityName = (String) SPUtils.get(this, SPUtils.LOCATION_CITY_NAME,
+                    Constants.DEFAULT_CITY_NAME);
+            tvLocation.setText(cityName);
+        }
+
         tvLocation.setOnClickListener(this);
 
         newCart = toolbar.findViewById(R.id.view_new_cart);
         if ((Boolean) SPUtils.get(this, SPUtils.HAS_NEW_GOODS, false)) {
             newCart.setVisibility(View.VISIBLE);
         }
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
@@ -289,6 +291,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     CommonAdapter mCityAdapter;
     int mSelectCityId;
     String mSelectCityName;
+
     /**
      * 显示城市选择弹窗
      */
@@ -311,23 +314,23 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
 
                 holder.setOnCheckChangeListerRadio(R.id.rb_city_name,
                         new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b) {
-                            for (Area area:mCityData) {
-                                mSelectCityId = mCityData.get(holder.getMPosition()).getId();
-                                mSelectCityName = mCityData.get(holder.getMPosition()).getAreaName();
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                if (b) {
+                                    for (Area area : mCityData) {
+                                        mSelectCityId = mCityData.get(holder.getMPosition()).getId();
+                                        mSelectCityName = mCityData.get(holder.getMPosition()).getAreaName();
 
-                                if (area.getId() == mSelectCityId) {
-                                    area.setSelect(true);
-                                } else {
-                                    area.setSelect(false);
+                                        if (area.getId() == mSelectCityId) {
+                                            area.setSelect(true);
+                                        } else {
+                                            area.setSelect(false);
+                                        }
+                                    }
+                                    mCityAdapter.notifyDataSetChanged();
                                 }
                             }
-                            mCityAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
+                        });
             }
         };
 
@@ -403,35 +406,29 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     @Override
     public void locationSuccess(int cityId, String cityName) {
         //城市id获取成功
-        if (cityId != 0) {
-            mCityId = cityId;
-            SPUtils.put(this, SPUtils.LOCATION_CITY_ID, cityId);
-            SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
-            if (cityId != Constants.DEFAULT_CITY_ID) {
-                updateGoods();
-            }
-        } else {
-            mCityId = Constants.DEFAULT_CITY_ID;
-            SPUtils.put(this, SPUtils.LOCATION_CITY_ID, Constants.DEFAULT_CITY_ID);
-            if (StringUtils.isNullOrEmpty(cityName)) {
-                SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, Constants.DEFAULT_CITY_NAME);
-            } else {
-                SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
-            }
-        }
+        mCityId = cityId;
+        SPUtils.put(this, SPUtils.LOCATION_CITY_ID, cityId);
+        SPUtils.put(this, SPUtils.LOCATION_CITY_NAME, cityName);
+        updateGoods();
     }
 
     @Override
     public void getCitySuccess(List<Area> areas) {
         mCityData.clear();
         mCityData.addAll(areas);
-        for (Area area:mCityData) {
+        for (Area area : mCityData) {
             if (area.getId() == mCityId) {
                 area.setSelect(true);
             }
 
         }
         showSelectCityDialog();
+    }
+
+    @Override
+    public void locationFail() {
+        T.showShort(this, "定位失败，请手动选择城市");
+        tvLocation.setText("选择城市");
     }
 
     private boolean isExit;

@@ -23,7 +23,6 @@ import com.apec.android.ui.presenter.BaseViewInterface;
  */
 public class ShoppingCartPresenter extends BasePresenter<ShoppingCartPresenter.IView> {
 
-
     public ShoppingCartPresenter(Context context) {
         super(context);
     }

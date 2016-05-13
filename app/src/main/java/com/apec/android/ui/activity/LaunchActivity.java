@@ -3,11 +3,8 @@ package com.apec.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.apec.android.R;
 import com.apec.android.domain.user.User;
 import com.apec.android.ui.activity.goods.GoodsActivity;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
@@ -19,7 +16,6 @@ import com.apec.android.ui.activity.user.RegisterFActivity;
 import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.ui.presenter.user.LaunchPresenter;
 import com.apec.android.util.SPUtils;
-import com.apec.android.util.StringUtils;
 import com.umeng.analytics.AnalyticsConfig;
 
 import org.litepal.crud.DataSupport;
@@ -35,38 +31,20 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        setContentView(R.layout.activity_main);
-
+        //setContentView(R.layout.activity_launch);
         /** 设置是否对日志信息进行加密, 默认false(不加密). */
         AnalyticsConfig.enableEncrypt(true);
 
         //是否第一次登录
-//        if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
-//            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
-//            //是第一次进入app，到引导页
-//            Intent intent = new Intent(this, GuideActivity.class);
-//            startActivity(intent);
-//        } else {
-////            //不是第一次进入，判断是否登录
-////            if (StringUtils.isNullOrEmpty(
-////                    (String) SPUtils.get(this, SPUtils.SESSION_ID, ""))) {
-////                //session_id为空没有登录，进入登录页面
-////                Intent intent = new Intent(this, RegisterFActivity.class);
-////                startActivity(intent);
-////            } else {
-////                //session_id存在，进入商品展示页
-////                Intent intent = new Intent(this, GoodsActivity.class);
-////                startActivity(intent);
-////            }
-//            Intent intent = new Intent(this, GoodsActivity.class);
-//            startActivity(intent);
-//
-//        }
-
-        Intent intent = new Intent(this, GoodsActivity.class);
-        startActivity(intent);
-
+        if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
+            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
+            //是第一次进入app，到引导页
+            Intent intent = new Intent(this, GuideActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, GoodsActivity.class);
+            startActivity(intent);
+        }
         this.finish();
     }
 

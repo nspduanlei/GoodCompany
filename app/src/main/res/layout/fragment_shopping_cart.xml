@@ -14,18 +14,6 @@
         <include
             layout="@layout/address_show"/>
 
-        <!--<ViewStub-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/stub_address"-->
-            <!--android:inflatedId="@+id/rl_address_show"-->
-            <!--android:layout="@layout/address_show"/>-->
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0.5dp"-->
-            <!--android:background="@color/color_line_1" />-->
-
         <ListView
             android:id="@id/android:list"
             android:layout_width="match_parent"

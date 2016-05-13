@@ -1,11 +1,9 @@
 package com.apec.android.ui.presenter.goods;
 
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.android.volley.VolleyError;
 import com.apec.android.domain.GetDataCallback;
@@ -16,6 +14,7 @@ import com.apec.android.domain.user.Areas;
 import com.apec.android.ui.presenter.BasePresenter;
 import com.apec.android.ui.presenter.BaseViewInterface;
 import com.apec.android.util.LocationHelp;
+import com.apec.android.util.StringUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +46,12 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
                     cityCode = aMapLocation.getCityCode();
                     Log.e("test001", "定位成功--->code: " + cityCode + ", name: " + cityName);
                     //城市编码获取成功，获取城市id
-                    getOpenCityList();
+                    if (StringUtils.isNullOrEmpty(cityCode)) {
+                        //定位失败
+                        getView().locationFail();
+                    } else {
+                        getOpenCityList();
+                    }
                     mLocationHelp.shopLocation();
                 }
             }
@@ -62,11 +66,12 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
                         if (!isViewAttached()) {
                             return;
                         }
-
                         try {
                             int cityId = response.getInt(cityCode);
                             getView().locationSuccess(cityId, cityName);
                         } catch (JSONException e) {
+                            //定位失败
+                            getView().locationFail();
                             e.printStackTrace();
                         }
                     }
@@ -143,5 +148,7 @@ public class GoodsPresenter extends BasePresenter<GoodsPresenter.IView> {
         void locationSuccess(int cityId, String cityName);
 
         void getCitySuccess(List<Area> areas);
+
+        void locationFail();
     }
 }

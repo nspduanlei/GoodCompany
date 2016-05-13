@@ -10,8 +10,7 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_below="@id/line_1"
-        android:layout_marginRight="12dp"
-        android:src="@drawable/test" />
+        android:layout_marginRight="12dp"/>
 
     <TextView
         android:id="@+id/tv_goods_name"

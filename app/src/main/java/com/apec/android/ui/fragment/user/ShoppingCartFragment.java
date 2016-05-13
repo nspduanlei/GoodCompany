@@ -28,6 +28,7 @@ import com.apec.android.ui.adapter.CommonAdapter;
 import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.ui.fragment.BaseListFragment;
 import com.apec.android.ui.presenter.user.ShoppingCartPresenter;
+import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.T;
@@ -71,7 +72,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        cityId = String.valueOf((int)SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
+        cityId = String.valueOf((int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
                 Constants.DEFAULT_CITY_ID));
         mPresenter.obtainShopCart(cityId);
     }
@@ -147,6 +148,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                         dialog.dismiss();
                                         // 删除商品
                                         mPresenter.deleteGoods(mData.get(i).getSku().getId());
+                                        mData.remove(i);
                                         break;
                                     default:
                                         break;
@@ -191,17 +193,6 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             @Override
             public void convert(final MyViewHolder holder, final Skus skus) {
 
-                //净含量
-//                if (skus.getSku().getNonkeyAttr().size() > 0) {
-//                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-//                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
-//                            skus.getSku().getNonkeyAttr().get(0).getName(),
-//                            skus.getSku().getNonkeyAttr().get(0)
-//                                    .getAttributeValues().get(0).getName()));
-//                } else {
-//                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
-//                }
-
                 if (skus.getSku().getPics().size() > 0) {
                     holder.setImageUrl(R.id.iv_goods,
                             skus.getSku().getPics().get(0).getUrl());
@@ -229,8 +220,7 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                     holder.setVisibility(R.id.fl_sold_out, View.GONE);
                 }
 
-                //商品数量编辑
-                holder.setOnClickLister(R.id.tv_add_count, new View.OnClickListener() {
+                View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         View dialogView = getActivity().getLayoutInflater()
@@ -252,8 +242,9 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                             case R.id.btn_add:
                                                 int count_add = Integer.valueOf(
                                                         etGoodsCount.getText().toString());
-                                                if (count_add == 100) {
-                                                    T.showShort(getActivity(), "最多只能购买100包");
+                                                if (count_add == Constants.MAX_GOODS_COUNT) {
+                                                    T.showShort(getActivity(),
+                                                            "最多只能购买"+ Constants.MAX_GOODS_COUNT +"包");
                                                 } else {
                                                     etGoodsCount.setText(String.valueOf(count_add + 1));
                                                 }
@@ -268,29 +259,41 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
 
                                             case R.id.tv_cancel:
                                                 dialog.dismiss();
+                                                KeyBoardUtils.closeKeybord(etGoodsCount, getActivity());
                                                 break;
                                             case R.id.btn_sure:
                                                 dialog.dismiss();
+                                                KeyBoardUtils.closeKeybord(etGoodsCount, getActivity());
 
-                                                int count = 0;
+                                                int count;
                                                 if (!etGoodsCount.getText().toString().equals("")) {
                                                     count = Integer.valueOf(
                                                             etGoodsCount.getText().toString());
+                                                } else {
+                                                    return;
                                                 }
 
-                                                if (count > 100) {
-                                                    count = 100;
-                                                    T.showShort(getActivity(), "最多只能购买100包");
+                                                if (count > Constants.MAX_GOODS_COUNT) {
+                                                    count = Constants.MAX_GOODS_COUNT;
+                                                    T.showShort(getActivity(),
+                                                            "最多只能购买" + Constants.MAX_GOODS_COUNT+ "包");
                                                 }
 
-                                                int addCount =
-                                                        count - mData.get(holder.getMPosition())
-                                                                .getCount();
+                                                if (count == 0) {
+                                                    mPresenter.deleteGoods(
+                                                            mData.get(holder.getMPosition())
+                                                                    .getSku().getId());
+                                                    mData.remove(holder.getMPosition());
+                                                } else {
+                                                    int addCount =
+                                                            count - mData.get(holder.getMPosition())
+                                                                    .getCount();
+                                                    mPresenter.updateCartItem(mData
+                                                                    .get(holder.getMPosition())
+                                                                    .getSku().getId(),
+                                                            addCount);
+                                                }
 
-                                                mPresenter.updateCartItem(mData
-                                                                .get(holder.getMPosition())
-                                                                .getSku().getId(),
-                                                        addCount);
 
                                                 break;
                                             default:
@@ -301,13 +304,22 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                                 .create();
                         dialogPlus.show();
                     }
-                });
+                };
+
+                //商品数量编辑
+                holder.setOnClickLister(R.id.tv_add_count, onClickListener);
+                holder.setOnClickLister(R.id.tv_total, onClickListener);
 
                 //商品数量加1
                 holder.setOnClickLister(R.id.btn_add, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int position = holder.getMPosition();
+                        if (!mData.get(position).isSelectCart()) {
+                            //如果商品没有选择，则选择
+                            addGood(position);
+                        }
+
                         L.e("test001", "------>" + position);
                         int count = mData.get(position).getCount() + 1;
                         mPresenter.updateCartItem(mData.get(position).getSku().getId(),
@@ -323,14 +335,24 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                     @Override
                     public void onClick(View v) {
                         int position = holder.getMPosition();
+                        if (!mData.get(holder.getMPosition()).isSelectCart()) {
+                            //如果商品没有选择，则选择
+                            addGood(position);
+                        }
+
                         L.e("test001", "------>" + position);
 
                         int count = mData.get(position).getCount() - 1;
-                        mPresenter.updateCartItem(mData.get(position).getSku().getId(),
-                                -1);
 
-                        mData.get(position).setCount(count);
-                        mAdapter.notifyDataSetChanged();
+                        if (count == 0) {
+                            mPresenter.deleteGoods(mData.get(position).getSku().getId());
+                            mData.remove(position);
+                        } else {
+                            mPresenter.updateCartItem(mData.get(position).getSku().getId(),
+                                    -1);
+                            mData.get(position).setCount(count);
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
 
@@ -338,38 +360,64 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                         new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (!buttonView.isPressed()) return;
+
+                                int position = holder.getMPosition();
+
                                 if (isChecked) {
-                                    mCount++;
-                                    mPrice = mPrice + Double.valueOf(
-                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
-                                            mData.get(holder.getMPosition()).getCount();
-
-                                    //如果商品被全部选择了，则将全选复选框设为选择状态，反正则异然
-                                    if (mCount == mData.size()) {
-                                        allSelect.setChecked(true);
-                                    }
+                                    addGood(position);
                                 } else {
-                                    mCount--;
-                                    mPrice = mPrice - Double.valueOf(
-                                            mData.get(holder.getMPosition()).getSku().getPrice()) *
-                                            mData.get(holder.getMPosition()).getCount();
-
-                                    allSelect.setChecked(false);
-                                }
-                                //填充购物车数量
-                                if (addressId != 0) {
-                                    gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+                                    cancelGood(position);
                                 }
 
-                                //填充总价
-                                totalPrices.setText(String.format(getString(R.string.total_price_cart),
-                                        mPrice));
                             }
                         });
             }
         };
         setListAdapter(mAdapter);
     }
+
+    //选择商品
+    private void addGood(int position) {
+        mCount++;
+        mPrice = mPrice + Double.valueOf(
+                mData.get(position).getSku().getPrice()) *
+                mData.get(position).getCount();
+
+        //如果商品被全部选择了，则将全选复选框设为选择状态，反正则异然
+        if (mCount == mData.size()) {
+            allSelect.setChecked(true);
+        }
+        mData.get(position).setIsSelectCart(true);
+
+        showAll();
+    }
+
+
+    //取消选择
+    private void cancelGood(int position) {
+        mCount--;
+        mPrice = mPrice - Double.valueOf(
+                mData.get(position).getSku().getPrice()) *
+                mData.get(position).getCount();
+        allSelect.setChecked(false);
+
+        mData.get(position).setIsSelectCart(false);
+
+        showAll();
+    }
+
+    public void showAll() {
+        //填充购物车数量
+        if (addressId != 0) {
+            gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+        }
+
+        //填充总价
+        totalPrices.setText(String.format(getString(R.string.total_price_cart),
+                mPrice));
+    }
+
 
     @Override
     public void hideLoading() {
@@ -460,6 +508,12 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
             mPresenter.obtainDefaultAddress();
         }
 
+        if (mData.size() > 0) {
+            for (int i = 0; i < mData.size(); i++) {
+                shopCart.getSkus().get(i).setIsSelectCart(mData.get(i).isSelectCart());
+            }
+        }
+
         mData.clear();
         mData.addAll(shopCart.getSkus());
         mAdapter.notifyDataSetChanged();
@@ -468,8 +522,10 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
         mCount = shopCart.getTotal();
         //总数量
         mPrice = Double.valueOf(shopCart.getTotalPrice());
+
         totalPrices.setText(String.format(getString(R.string.total_price_cart),
                 shopCart.getTotalPrice()));
+
         if (addressId != 0) {
             gotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
         }
@@ -604,21 +660,8 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                         skus.getSku().getSkuName()))
                         .setText(R.id.tv_goods_price, String.format("%d x ￥%s",
                                 skus.getCount(), skus.getSku().getPrice()));
-
-                //净含量
-//                if (skus.getSku().getNonkeyAttr().size() > 0) {
-//                    holder.setVisibility(R.id.tv_goods_net, View.VISIBLE);
-//                    holder.setText(R.id.tv_goods_net, String.format("%s : %s",
-//                            skus.getSku().getNonkeyAttr().get(0).getName(),
-//                            skus.getSku().getNonkeyAttr().get(0)
-//                                    .getAttributeValues().get(0).getName()));
-//                } else {
-//                    holder.setVisibility(R.id.tv_goods_net, View.GONE);
-//                }
-
             }
         });
-
         //获取到货时间
         mPresenter.getArrivalTime();
     }
@@ -632,21 +675,16 @@ public class ShoppingCartFragment extends BaseListFragment<ShoppingCartPresenter
                 } else {
                     getActivity().finish();
                 }
-
                 break;
             case Constants.REQUEST_CODE_ADDR: //重新获取默认收货地址
                 if (resultCode == Constants.RESULT_CODE_ADDRESS_SUCCESS) {
                     mPresenter.obtainDefaultAddress();
                 } else if (resultCode == Constants.RESULT_CODE_ADDRESS_CHANGE) {
                     //TODO 切换地址
-
                     GoodsReceipt addressInfo = data.getParcelableExtra("address");
                     updateAddress(addressInfo);
-
                 }
                 break;
-
-
             case Constants.REQUEST_CODE_LOGIN_PAY:
                 if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
                     mPresenter.createOrder(sbSkus.toString(), addressId);
