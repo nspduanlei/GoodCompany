@@ -14,7 +14,7 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GateGory;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Goods;
-import com.apec.android.domain.entities.goods.GoodsDetail;
+import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.support.http.Listener;
@@ -106,15 +106,15 @@ public class GoodsInteract {
      * @param id       商品id
      */
     public static void fetchGoodsDetail(Context context,
-                                        final GetDataCallback<GoodsDetail> callback,
+                                        final GetDataCallback<GoodDetail> callback,
                                         final int id) {
-        GsonRequest<GoodsDetail> request = new GsonRequest<>(
+        GsonRequest<GoodDetail> request = new GsonRequest<>(
                 context, Request.Method.GET,
                 UrlConstant.URL_GOODS_DETAIL + "?id=" + id,
-                GoodsDetail.class,
-                new Listener<GoodsDetail>() {
+                GoodDetail.class,
+                new Listener<GoodDetail>() {
                     @Override
-                    public void onResponse(GoodsDetail response) {
+                    public void onResponse(GoodDetail response) {
                         callback.onRepose(response);
                     }
 

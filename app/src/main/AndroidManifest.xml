@@ -69,6 +69,7 @@
         <!--重构-->
         <activity android:name=".views.activities.GoodsActivity" />
         <activity android:name=".views.activities.LoginActivity" />
+        <activity android:name=".views.activities.GoodDetailActivity" />
 
         <!--定位-->
         <service android:name="com.amap.api.location.APSService"/>

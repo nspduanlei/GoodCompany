@@ -8,7 +8,7 @@ import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Good;
-import com.apec.android.domain.entities.goods.GoodsDetail;
+import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.goods.SkuAttribute;
 import com.apec.android.domain.entities.goods.interator.GoodsInteract;
 import com.apec.android.domain.entities.transport.ArrivalTime;
@@ -101,9 +101,9 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailPresenter.IVi
             getView().showLoading();
         }
         GoodsInteract.fetchGoodsDetail(
-                mContext, new GetDataCallback<GoodsDetail>() {
+                mContext, new GetDataCallback<GoodDetail>() {
                     @Override
-                    public void onRepose(GoodsDetail response) {
+                    public void onRepose(GoodDetail response) {
                         if (isViewAttached()) {
                             getView().hideLoading();
                         }

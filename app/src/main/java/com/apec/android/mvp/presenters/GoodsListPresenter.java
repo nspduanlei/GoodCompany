@@ -1,14 +1,20 @@
 package com.apec.android.mvp.presenters;
 
 import com.apec.android.config.Constants;
+import com.apec.android.domain.entities.goods.Good;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.mvp.views.View;
+import com.apec.android.util.L;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by duanlei on 2016/5/10.
@@ -23,6 +29,8 @@ public class GoodsListPresenter implements Presenter {
 
     //观察者订阅返回类，用于取消订阅
     private Subscription mGoodsSubscription;
+
+    List<Good> mGoods = new ArrayList<>();
 
     @Inject
     public GoodsListPresenter(GetGoodsUseCase getGoodsUseCase) {
@@ -45,10 +53,11 @@ public class GoodsListPresenter implements Presenter {
     //getGoods 返回成功
     private void onGoodsReceived(Goods goods) {
         mGoodsListView.hideLoadingView();
-        if (goods.getH().getCode() == Constants.SUCCESS_CODE) {
-            mGoodsListView.bindGoods(goods.getB().getData());
-        } else {
-            mGoodsListView.showErrorView(goods.getH().getMsg());
+
+        int code = goods.getH().getCode();
+        if (code == Constants.SUCCESS_CODE) {
+            mGoods = goods.getB().getData();
+            mGoodsListView.bindGoods(mGoods);
         }
     }
 
@@ -82,11 +91,14 @@ public class GoodsListPresenter implements Presenter {
     }
 
     public void onElementClick(int position) {
-
+        int goodId = mGoods.get(position).getId();
+        mGoodsListView.showDetailScreen(goodId);
     }
 
     public void GetGoodsById(int cityId) {
+        //设置参数
         mGetGoodsUseCase.setCityId(cityId);
+        //发送请求
         getGoods();
     }
 }

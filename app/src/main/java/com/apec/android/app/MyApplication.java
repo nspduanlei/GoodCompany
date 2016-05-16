@@ -5,6 +5,7 @@ import com.android.volley.toolbox.Volley;
 import com.apec.android.injector.components.AppComponent;
 import com.apec.android.injector.components.DaggerAppComponent;
 import com.apec.android.injector.modules.AppModule;
+import com.facebook.stetho.Stetho;
 
 import org.litepal.LitePalApplication;
 
@@ -21,6 +22,12 @@ public class MyApplication extends LitePalApplication {
         super.onCreate();
         initializeVolley();
         initializeInjector();
+
+        initializeDebug();
+    }
+
+    private void initializeDebug() {
+        Stetho.initializeWithDefaults(this);
     }
 
     private void initializeInjector() {

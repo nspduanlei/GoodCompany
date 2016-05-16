@@ -34,8 +34,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    GoodsRepository provideGoodsRepository(RestDataSource restDataSource) {
-        return restDataSource;
+    GoodsRepository provideGoodsRepository() {
+        return new RestDataSource(mMyApplication);
     }
 
     @Provides @Named("executor_thread")

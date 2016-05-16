@@ -5,7 +5,7 @@ import com.apec.android.domain.H;
 /**
  * Created by duanlei on 2016/3/18.
  */
-public class GoodsDetail {
+public class GoodDetail {
     private H h;
     private Good b;
 

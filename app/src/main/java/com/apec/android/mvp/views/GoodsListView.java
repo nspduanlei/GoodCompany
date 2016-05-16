@@ -8,4 +8,5 @@ public interface GoodsListView extends View {
     void showErrorView(String msg);
     void hideErrorView();
     void bindGoods(List<Good> goods);
+    void showDetailScreen(int goodId);
 }

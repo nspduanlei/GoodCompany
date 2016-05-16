@@ -1,10 +1,10 @@
 package com.apec.android.views.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,10 +17,13 @@ import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodsListModule;
 import com.apec.android.mvp.presenters.GoodsListPresenter;
 import com.apec.android.mvp.views.GoodsListView;
+import com.apec.android.ui.activity.goods.GoodsDetailActivity;
 import com.apec.android.util.SPUtils;
+import com.apec.android.views.activities.GoodDetailActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
 import com.apec.android.views.fragments.base.BaseFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,6 +50,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     GoodsListPresenter mGoodsListPresenter;
 
     GoodsListAdapter mGoodsListAdapter;
+    List<Good> mGoods = new ArrayList<>();
 
     /**
      * 得到商品展示的fragment
@@ -69,19 +73,19 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        initDependencyInjector();
         initUi(view);
-        initToolbar();
         initRecyclerView();
+
+        initDependencyInjector();
         initPresenter();
     }
 
     private void initRecyclerView() {
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
+        mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(),
+                position -> mGoodsListPresenter.onElementClick(position));
 
-    private void initToolbar() {
-
+        mRvGoods.setAdapter(mGoodsListAdapter);
     }
 
     private void initPresenter() {
@@ -93,7 +97,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
         MyApplication myApplication = (MyApplication) getActivity().getApplication();
         mCid = getArguments().getInt(EXTRA_CATEGORY_ID, -1);
         mCityId = 100;
-        //mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, -1);
+
         DaggerGoodsListComponent.builder()
                 .activityModule(new ActivityModule(getActivity()))
                 .appComponent(myApplication.getAppComponent())
@@ -118,9 +122,17 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
 
     @Override
     public void bindGoods(List<Good> goods) {
-        mGoodsListAdapter = new GoodsListAdapter(goods, getActivity(),
-                position -> mGoodsListPresenter.onElementClick(position));
-        mRvGoods.setAdapter(mGoodsListAdapter);
+        mGoods.clear();
+        mGoods.addAll(goods);
+        mGoodsListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDetailScreen(int goodId) {
+        //跳转到商品详情
+        Intent intent = new Intent(getActivity(), GoodDetailActivity.class);
+        intent.putExtra(GoodDetailActivity.EXTRA_GOODS_ID, goodId);
+        startActivity(intent);
     }
 
     @Override
@@ -140,7 +152,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     }
 
     public void updateData() {
-        Log.e("test002", "updateDate");
         int cityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
                 Constants.DEFAULT_CITY_ID);
         mGoodsListPresenter.GetGoodsById(cityId);
