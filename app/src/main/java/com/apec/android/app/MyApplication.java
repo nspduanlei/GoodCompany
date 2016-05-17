@@ -22,7 +22,6 @@ public class MyApplication extends LitePalApplication {
         super.onCreate();
         initializeVolley();
         initializeInjector();
-
         initializeDebug();
     }
 

@@ -1,7 +1,5 @@
 package com.apec.android.injector.modules;
 
-import android.app.Application;
-
 import com.apec.android.app.MyApplication;
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.support.rest.RestDataSource;
@@ -40,7 +38,7 @@ public class AppModule {
 
     @Provides @Named("executor_thread")
     Scheduler provideExecutorThread() {
-        return Schedulers.newThread();
+        return Schedulers.io();
     }
 
     @Provides @Named("ui_thread")

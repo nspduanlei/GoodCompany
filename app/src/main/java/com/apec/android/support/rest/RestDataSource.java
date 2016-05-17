@@ -47,13 +47,12 @@ public class RestDataSource implements GoodsRepository {
         OkHttpClient client = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
                 .connectTimeout(15, TimeUnit.SECONDS)
-                .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(new LoggingInterceptor(context))
                 .addInterceptor(new CacheInterceptor(context))
                 .addNetworkInterceptor(new HeaderInterceptor(context))
                 .addNetworkInterceptor(new StethoInterceptor()) //debug
                 .cache(new Cache(cacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE))
                 .build();
-
 
         Retrofit goodsApiAdapter = new Retrofit.Builder()
                 .baseUrl(END_POINT)

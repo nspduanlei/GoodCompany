@@ -77,29 +77,28 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUi();
         initToolbar();
         initViewPager();
         initLocation();
         initUser();
-
-        initDependencyInjector();
-        initPresenter();
     }
 
-    private void initUser() {
-        mLoginUtil.updateUser();
-        //注册广播, 用于监听用户信息的变化
-        registerBroadcastReceiver();
-    }
-
-    private void initUi() {
+    @Override
+    protected void initUi() {
         setContentView(R.layout.activity_goods);
-        ButterKnife.bind(this);
         mLoginUtil = new LoginUtil(this, mMenu);
     }
 
-    private void initPresenter() {
+    @Override
+    protected void initDependencyInjector(MyApplication application) {
+        DaggerGoodsComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .appComponent(application.getAppComponent())
+                .build().inject(this);
+    }
+
+    @Override
+    protected void initPresenter() {
         mCityId = (int)SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
         if (mCityId == 0) {
             mGoodsPresenter.startLocation();
@@ -109,6 +108,13 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
         mGoodsPresenter.onCreate();
     }
 
+    private void initUser() {
+        mLoginUtil.updateUser();
+        //注册广播, 用于监听用户信息的变化
+        registerBroadcastReceiver();
+    }
+
+
     private void initLocation() {
         //开放城市显示
         String cityName = (String) SPUtils.get(this, SPUtils.LOCATION_CITY_NAME,
@@ -116,14 +122,6 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
         if (!StringUtils.isNullOrEmpty(cityName)) {
             mTvLocation.setText(cityName);
         }
-    }
-
-    private void initDependencyInjector() {
-        MyApplication myApplication = (MyApplication) getApplication();
-        DaggerGoodsComponent.builder()
-                .activityModule(new ActivityModule(this))
-                .appComponent(myApplication.getAppComponent())
-                .build().inject(this);
     }
 
     private void initToolbar() {
@@ -174,12 +172,6 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     public void bindCity(List<Area> areas) {
         mCityData.clear();
         mCityData.addAll(areas);
-
-//        for (Area area:mCityData) {
-//            if (area.getId() == mCityId) {
-//                area.setSelect(true);
-//            }
-//        }
 
         new CityDialog(this, mCityData, (selectCityId, selectCityName) -> {
             if (selectCityName != null || mCityId != selectCityId) {

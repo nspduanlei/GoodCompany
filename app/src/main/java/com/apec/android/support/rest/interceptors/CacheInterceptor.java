@@ -32,12 +32,14 @@ public class CacheInterceptor implements Interceptor {
                     .build();
             Log.w("test001", "no network");
         }
+
         Response originalResponse = chain.proceed(request);
         if(NetUtils.isConnected(mContext)){
             //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-            String cacheControl = request.cacheControl().toString();
+            //String cacheControl = request.cacheControl().toString();
+            int maxAge = 0 * 60; //有网络时设置缓存超时时间0小时
             return originalResponse.newBuilder()
-                    .header("Cache-Control", cacheControl)
+                    .header("Cache-Control", "public, max-age=" + maxAge)
                     .removeHeader("Pragma") // 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                     .build();
         }else{

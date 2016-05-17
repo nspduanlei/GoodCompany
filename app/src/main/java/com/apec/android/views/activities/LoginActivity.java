@@ -16,11 +16,11 @@ import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.LoginPresenter;
 import com.apec.android.mvp.views.LoginView;
-import com.apec.android.ui.activity.BaseActivity;
 import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
+import com.apec.android.views.activities.base.BaseActivity;
 import com.apec.android.views.utils.LoginHandler;
 
 import java.util.Timer;
@@ -29,7 +29,6 @@ import java.util.TimerTask;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -67,34 +66,32 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUi();
         initTimer();
-
-        initDependencyInjector();
-        initPresenter();
     }
 
-    private void initPresenter() {
+    @Override
+    protected void initUi() {
+        setContentView(R.layout.activity_login);
+    }
+
+    @Override
+    protected void initDependencyInjector(MyApplication application) {
+        DaggerGoodsComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .appComponent(application.getAppComponent())
+                .build().inject(this);
+    }
+
+    @Override
+    protected void initPresenter() {
         mLoginPresenter.attachView(this);
         mLoginPresenter.onCreate();
     }
 
-    private void initDependencyInjector() {
-        MyApplication myApplication = (MyApplication) getApplication();
-        DaggerGoodsComponent.builder()
-                .activityModule(new ActivityModule(this))
-                .appComponent(myApplication.getAppComponent())
-                .build().inject(this);
-    }
 
     private void initTimer() {
         myHandler = new LoginHandler(this);
         mTimer = new Timer(true);
-    }
-
-    private void initUi() {
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
     }
 
     @Override

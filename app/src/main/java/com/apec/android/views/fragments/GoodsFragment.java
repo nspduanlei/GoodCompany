@@ -17,7 +17,6 @@ import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodsListModule;
 import com.apec.android.mvp.presenters.GoodsListPresenter;
 import com.apec.android.mvp.views.GoodsListView;
-import com.apec.android.ui.activity.goods.GoodsDetailActivity;
 import com.apec.android.util.SPUtils;
 import com.apec.android.views.activities.GoodDetailActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;

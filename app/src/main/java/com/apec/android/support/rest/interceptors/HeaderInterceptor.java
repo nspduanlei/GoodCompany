@@ -25,22 +25,16 @@ public class HeaderInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Map<String, String> params = new HashMap<>();
-        params.put("_c", "android");
-        params.put("IMEI", AppUtils.getDeviceId(mContext));
-        params.put("UA", getHeaderUserAgent());
-
-        String token = (String) SPUtils.get(mContext, SPUtils.SESSION_ID, null);
-
-        if (token != null) {
-            params.put("x-auth-token", token);
-        }
 
         Request originalRequest = chain.request();
-        Request authorised = originalRequest.newBuilder()
-                .headers(Headers.of(params))
+        Request request = originalRequest.newBuilder()
+                .header("_c", "android")
+                .header("IMEI", AppUtils.getDeviceId(mContext))
+                //.header("UA", getHeaderUserAgent())
+                .header("x-auth-token", (String) SPUtils.get(mContext, SPUtils.SESSION_ID, "0"))
+                .method(originalRequest.method(), originalRequest.body())
                 .build();
-        return chain.proceed(authorised);
+        return chain.proceed(request);
     }
 
     public String getHeaderUserAgent() {

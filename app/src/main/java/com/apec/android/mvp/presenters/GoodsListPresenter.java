@@ -6,15 +6,10 @@ import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.mvp.views.View;
-import com.apec.android.util.L;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by duanlei on 2016/5/10.

@@ -1,12 +1,10 @@
 package com.apec.android.injector.modules;
 
-import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.DoAddCartUseCase;
 import com.apec.android.domain.usercase.GetAllGoodAttrsUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
 import com.apec.android.domain.usercase.GetGoodDetailUseCase;
-import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.injector.Activity;
 
 import javax.inject.Named;

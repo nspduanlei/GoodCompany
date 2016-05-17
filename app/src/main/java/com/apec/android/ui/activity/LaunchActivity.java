@@ -36,7 +36,7 @@ public class LaunchActivity extends MVPBaseActivity<LaunchPresenter.IView, Launc
         setContentView(R.layout.activity_main);
 
         /** 设置是否对日志信息进行加密, 默认false(不加密). */
-        AnalyticsConfig.enableEncrypt(true);
+        //AnalyticsConfig.enableEncrypt(true);
 
         //是否第一次登录
         if ((int)SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {

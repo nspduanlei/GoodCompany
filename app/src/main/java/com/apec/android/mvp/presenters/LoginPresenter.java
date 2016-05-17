@@ -12,6 +12,11 @@ import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by duanlei on 2016/5/11.
@@ -74,16 +79,18 @@ public class LoginPresenter implements Presenter {
         mLoginView.showLoadingView();
         mSubmitVerCodeUseCase.setData(phoneNumber, vCode);
         mSubmitVerCodeUseCase.execute()
+                .observeOn(Schedulers.io())
                 .doOnNext(userBack -> {
                     //将用户信息存储在数据库中
                     L.e("test00", "doOnNext工作的线程： " + Thread.currentThread().getName());
 
-                    if (userBack.getH().getCode() == Constants.SUCCESS_CODE)
+                    if (userBack.getH().getCode() == Constants.SUCCESS_CODE) {
                         processUser(userBack.getB());
+                    }
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSubmitCodeReceived, this::manageGetVerCodeError);
     }
-
 
     private void processUser(User b) {
         //数据库操作
