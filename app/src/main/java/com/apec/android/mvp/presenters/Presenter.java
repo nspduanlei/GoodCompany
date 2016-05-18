@@ -1,6 +1,7 @@
 package com.apec.android.mvp.presenters;
 
 
+import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.mvp.views.View;
 
 public interface Presenter {

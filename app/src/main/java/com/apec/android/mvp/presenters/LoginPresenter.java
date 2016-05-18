@@ -83,7 +83,6 @@ public class LoginPresenter implements Presenter {
                 .doOnNext(userBack -> {
                     //将用户信息存储在数据库中
                     L.e("test00", "doOnNext工作的线程： " + Thread.currentThread().getName());
-
                     if (userBack.getH().getCode() == Constants.SUCCESS_CODE) {
                         processUser(userBack.getB());
                     }
@@ -92,8 +91,9 @@ public class LoginPresenter implements Presenter {
                 .subscribe(this::onSubmitCodeReceived, this::manageGetVerCodeError);
     }
 
-    private void processUser(User b) {
+    private void processUser(User user) {
         //数据库操作
+        user.saveThrows();
     }
 
     private void onSubmitCodeReceived(UserBack userBack) {

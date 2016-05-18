@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.apec.android.R;
+import com.apec.android.domain.entities.user.User;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
 import com.apec.android.ui.activity.user.ManageAddrActivity;
 import com.apec.android.ui.activity.user.MyAccountActivity;
@@ -17,6 +18,8 @@ import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.LoginActivity;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+
+import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +48,8 @@ public class LoginUtil {
     @BindView(R.id.btn_login_out)
     Button mBtnLoginOut;
 
+    User mUser;
+
     public LoginUtil(Context context, View view) {
         mActivity = (Activity) context;
         ButterKnife.bind(this, view);
@@ -61,9 +66,13 @@ public class LoginUtil {
     }
 
     public void login() {
+        mUser = DataSupport.findFirst(User.class);
+
         mBtnLoginOut.setVisibility(View.VISIBLE);
         mBtnLogin.setVisibility(View.GONE);
         mTvUserC.setVisibility(View.VISIBLE);
+        mTvUserC.setText(mUser.getName());
+
         mTvUserName.setText((String) SPUtils.get(mActivity, SPUtils.USER_NAME, ""));
     }
 

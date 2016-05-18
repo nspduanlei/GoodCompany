@@ -1,10 +1,13 @@
 package com.apec.android.views.activities;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.databinding.ActivityGoodDetailBinding;
+import com.apec.android.domain.entities.goods.Good;
 import com.apec.android.injector.components.DaggerGoodDetailComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodDetailModule;
@@ -24,9 +27,16 @@ public class GoodDetailActivity extends BaseActivity implements GoodDetailView {
     @Inject
     GoodDetailPresenter mGoodDetailPresenter;
 
+    ActivityGoodDetailBinding mBinding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initBinding();
+    }
+
+    private void initBinding() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_good_detail);
     }
 
     @Override
@@ -66,4 +76,8 @@ public class GoodDetailActivity extends BaseActivity implements GoodDetailView {
         mGoodDetailPresenter.onStop();
     }
 
+    @Override
+    public void bindGood(Good good) {
+        mBinding.setGood(good);
+    }
 }

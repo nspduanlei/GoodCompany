@@ -86,7 +86,6 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_goods);
-        mLoginUtil = new LoginUtil(this, mMenu);
     }
 
     @Override
@@ -109,6 +108,7 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     }
 
     private void initUser() {
+        mLoginUtil = new LoginUtil(this, mMenu);
         mLoginUtil.updateUser();
         //注册广播, 用于监听用户信息的变化
         registerBroadcastReceiver();
