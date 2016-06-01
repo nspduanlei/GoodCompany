@@ -70,6 +70,8 @@
         <activity android:name=".views.activities.GoodsActivity" />
         <activity android:name=".views.activities.LoginActivity" />
         <activity android:name=".views.activities.GoodDetailActivity" />
+        <activity android:name=".views.activities.ManageAddressActivity" />
+        <activity android:name=".views.activities.EditAddressActivity" />
 
         <!--定位-->
         <service android:name="com.amap.api.location.APSService"/>

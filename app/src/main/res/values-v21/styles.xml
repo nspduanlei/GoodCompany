@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/color_white</item>
+        <item name="android:colorPrimary">@color/color_5</item>
         <item name="android:colorPrimaryDark">@color/color_5</item>
+        <item name="android:colorAccent">@color/color_5</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:windowBackground">@color/color_white</item>
     </style>
 
     <style name="StartAppTheme" parent="Theme.AppCompat.Light.NoActionBar">

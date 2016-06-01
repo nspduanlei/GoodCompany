@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.apec.android.R;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.user.User;
 import com.apec.android.ui.activity.order.MyOrdersActivity;
 import com.apec.android.ui.activity.user.ManageAddrActivity;
@@ -16,6 +17,7 @@ import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.LoginActivity;
+import com.apec.android.views.activities.ManageAddressActivity;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -138,7 +140,7 @@ public class LoginUtil {
 
     @OnClick(R.id.tv_manage_address)
     void onManageAddressClick(View view) {
-        Intent intent = new Intent(mActivity, ManageAddrActivity.class);
+        Intent intent = new Intent(mActivity, ManageAddressActivity.class);
         mActivity.startActivity(intent);
     }
 
@@ -152,4 +154,28 @@ public class LoginUtil {
         Intent intent = new Intent(mActivity, LoginActivity.class);
         mActivity.startActivity(intent);
     }
+
+    public static void isLogin(Activity activity) {
+        if (StringUtils.isNullOrEmpty(
+                (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
+            //没有登录
+            Intent intent = new Intent(activity, LoginActivity.class);
+            activity.startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
+        }
+    }
+
+    /**
+     * 登录页跳转后的回调
+     * @param requestCode
+     * @param resultCode
+     * @return  返回登录成功返回true
+     */
+    public static void onActivityResult(int requestCode, int resultCode, Activity activity) {
+        if (requestCode == Constants.REQUEST_CODE_LOGIN) {
+            if (resultCode != Constants.RESULT_CODE_LOGIN_SUCCESS) {
+                activity.finish();
+            }
+        }
+    }
+
 }

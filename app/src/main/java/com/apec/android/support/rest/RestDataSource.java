@@ -1,13 +1,15 @@
 package com.apec.android.support.rest;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.transport.ArrivalTime;
+import com.apec.android.domain.entities.transport.ReceiptDefault;
+import com.apec.android.domain.entities.transport.ReceiptInfo;
+import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.UserBack;
 import com.apec.android.domain.repository.GoodsRepository;
@@ -22,10 +24,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -102,5 +101,39 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<ArrivalTime> getArrivalTime() {
         return mGoodsApi.getArrivalTime();
+    }
+
+    @Override
+    public Observable<ReceiptList> getAllAddress() {
+        return mGoodsApi.getAllAddress();
+    }
+
+    @Override
+    public Observable<NoBody> setDefaultAddress(int addressId) {
+        return mGoodsApi.setDefaultAddress(addressId);
+    }
+
+    @Override
+    public Observable<NoBody> addReceiptInfo(ReceiptInfo receiptInfo) {
+        return mGoodsApi.addReceiptInfo(receiptInfo.getPhone(), receiptInfo.getUserName(),
+                receiptInfo.getAddressAreaCounty(), receiptInfo.getAddressCity(),
+                receiptInfo.getDetailAddress());
+    }
+
+    @Override
+    public Observable<NoBody> delAddress(int addressId) {
+        return mGoodsApi.delAddress(addressId);
+    }
+
+    @Override
+    public Observable<NoBody> updateReceiptInfo(ReceiptInfo receiptInfo) {
+        return mGoodsApi.updateReceiptInfo(receiptInfo.getAddressId(), receiptInfo.getPhone(),
+                receiptInfo.getUserName(), receiptInfo.getAddressAreaCounty(),
+                receiptInfo.getAddressCity(), receiptInfo.getDetailAddress());
+    }
+
+    @Override
+    public Observable<ReceiptDefault> getDefaultAddress() {
+        return mGoodsApi.getDefaultAddress();
     }
 }

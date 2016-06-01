@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +16,7 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.user.Area;
-import com.apec.android.injector.components.DaggerGoodsComponent;
+import com.apec.android.injector.components.DaggerLoginComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.GoodsPresenter;
 import com.apec.android.mvp.views.GoodsView;
@@ -27,7 +25,7 @@ import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
-import com.apec.android.views.activities.base.BaseActivity;
+import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.IconPageViewAdapter;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.view.CityDialog;
@@ -41,7 +39,6 @@ import java.util.TimerTask;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -58,8 +55,10 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
 
     @BindView(R.id.tv_location)
     TextView mTvLocation;
-    @BindView(R.id.toolBar)
+
+    @BindView(R.id.toolBarTop)
     Toolbar mToolBar;
+
     @BindView(R.id.drawer)
     DrawerLayout mDrawer;
 
@@ -74,9 +73,14 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     List<Area> mCityData = new ArrayList<>();
     int mCityId;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setUpContentView() {
+        setContentView(R.layout.activity_goods, -1, MODE_NONE);
+    }
+
+    @Override
+    protected void initUi() {
         initToolbar();
         initViewPager();
         initLocation();
@@ -84,13 +88,8 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     }
 
     @Override
-    protected void initUi() {
-        setContentView(R.layout.activity_goods);
-    }
-
-    @Override
     protected void initDependencyInjector(MyApplication application) {
-        DaggerGoodsComponent.builder()
+        DaggerLoginComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .appComponent(application.getAppComponent())
                 .build().inject(this);

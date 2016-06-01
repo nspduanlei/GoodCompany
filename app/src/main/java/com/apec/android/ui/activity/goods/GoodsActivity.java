@@ -141,7 +141,7 @@ public class GoodsActivity extends MVPBaseActivity<GoodsPresenter.IView,
     private TextView tvLocation;
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarTop);
         toolbar.findViewById(R.id.iv_shopping_cart).setOnClickListener(this);
         tvLocation = (TextView) toolbar.findViewById(R.id.tv_location);
         String cityName = (String) SPUtils.get(this, SPUtils.LOCATION_CITY_NAME,

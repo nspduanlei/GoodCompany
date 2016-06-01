@@ -50,4 +50,7 @@
     <color name="transparency">#00000000</color>
     <color name="color_test">#aa0000</color>
 
+
+    <color name="grey">#808080</color>
+    <color name="black">#000000</color>
 </resources>

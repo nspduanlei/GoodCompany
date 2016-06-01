@@ -5,6 +5,9 @@ import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.transport.ArrivalTime;
+import com.apec.android.domain.entities.transport.ReceiptDefault;
+import com.apec.android.domain.entities.transport.ReceiptInfo;
+import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.UserBack;
 
@@ -71,4 +74,44 @@ public interface GoodsRepository {
      * @return
      */
     Observable<ArrivalTime> getArrivalTime();
-}
+
+    /**
+     * 获取全部地址
+     * @return
+     */
+    Observable<ReceiptList> getAllAddress();
+
+    /**
+     * 设置默认地址
+     * @param addressId
+     * @return
+     */
+    Observable<NoBody> setDefaultAddress(final int addressId);
+
+    /**
+     * 添加收货信息
+     * @param receiptInfo
+     * @return
+     */
+    Observable<NoBody> addReceiptInfo(final ReceiptInfo receiptInfo);
+
+    /**
+     * 删除地址
+     * @param addressId
+     * @return
+     */
+    Observable<NoBody> delAddress(final int addressId);
+
+    /**
+     * 编辑收货信息
+     * @param receiptInfo
+     * @return
+     */
+    Observable<NoBody> updateReceiptInfo(final ReceiptInfo receiptInfo);
+
+    /**
+     * 获取默认收货信息
+     * @return
+     */
+    Observable<ReceiptDefault> getDefaultAddress();
+ }

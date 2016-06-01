@@ -1,4 +1,4 @@
-package com.apec.android.views.fragments.base;
+package com.apec.android.views.fragments.core;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

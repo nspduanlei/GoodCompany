@@ -15,5 +15,6 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = {GoodsListModule.class, ActivityModule.class})
 public interface GoodsListComponent extends ActivityComponent {
     void inject(GoodsFragment goodsFragment);
+
     GetGoodsUseCase getGoodsUserCase();
 }

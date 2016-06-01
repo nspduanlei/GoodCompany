@@ -93,7 +93,7 @@ public class StringUtils {
         if(isNullOrEmpty(str)) {
             return "手机号不能为空";
         }
-        Pattern pattern = Pattern.compile("1[0-9]{10}");
+        Pattern pattern = Pattern.compile("^1[0-9]{10}$");
         Matcher matcher = pattern.matcher(str);
         if(!matcher.matches()) {
             return "手机号格式不正确";

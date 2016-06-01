@@ -20,7 +20,7 @@ import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.util.SPUtils;
 import com.apec.android.views.activities.GoodDetailActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
-import com.apec.android.views.fragments.base.BaseFragment;
+import com.apec.android.views.fragments.core.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     GoodsListPresenter mGoodsListPresenter;
 
     GoodsListAdapter mGoodsListAdapter;
-    List<Good> mGoods = new ArrayList<>();
+    ArrayList<Good> mGoods = new ArrayList<>();
 
     /**
      * 得到商品展示的fragment

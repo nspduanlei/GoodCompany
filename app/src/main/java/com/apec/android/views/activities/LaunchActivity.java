@@ -2,39 +2,58 @@ package com.apec.android.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 
-import com.apec.android.ui.activity.GuideActivity;
-import com.apec.android.util.SPUtils;
+import com.apec.android.R;
+import com.apec.android.app.MyApplication;
+import com.apec.android.views.activities.core.BaseActivity;
 
 /**
  * Created by duanlei on 2016/5/11.
  */
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initSetting();
+    protected void setUpContentView() {
+        setContentView(R.layout.activity_launch, -1, MODE_NONE);
+    }
+
+    @Override
+    protected void initUi() {
         initIntent();
     }
 
-    private void initSetting() {
+    @Override
+    protected void initDependencyInjector(MyApplication application) {
+
+    }
+
+    @Override
+    protected void initPresenter() {
 
     }
 
     private void initIntent() {
         //是否第一次登录
-        if ((int) SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
-            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
-            //是第一次进入app，到引导页
-            Intent intent = new Intent(this, GuideActivity.class);
+//        if ((int) SPUtils.get(this, SPUtils.IS_FIRST_LAUNCH, 0) == 0) {
+//            SPUtils.put(this, SPUtils.IS_FIRST_LAUNCH, 1);
+//            //是第一次进入app，到引导页
+//            Intent intent = new Intent(this, GuideActivity.class);
+//            startActivity(intent);
+//        } else {
+//            new Handler().postDelayed(() -> {
+//                Intent intent = new Intent(LaunchActivity.this, GoodsActivity.class);
+//                startActivity(intent);
+//            }, 2000);
+//        }
+
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(LaunchActivity.this, GoodsActivity.class);
             startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, GoodsActivity.class);
-            startActivity(intent);
-        }
-        this.finish();
+
+            this.finish();
+        }, 2000);
+
+
     }
 }

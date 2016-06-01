@@ -5,6 +5,9 @@ import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.transport.ArrivalTime;
+import com.apec.android.domain.entities.transport.ReceiptDefault;
+import com.apec.android.domain.entities.transport.ReceiptInfo;
+import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.UserBack;
 
@@ -42,4 +45,34 @@ public interface GoodsApi {
 
     @GET("arrivaltime")
     Observable<ArrivalTime> getArrivalTime();
+
+    @GET("address/all/")
+    Observable<ReceiptList> getAllAddress();
+
+    @FormUrlEncoded
+    @POST("address/default/set")
+    Observable<NoBody> setDefaultAddress(@Field("id") int addressId);
+
+    @FormUrlEncoded
+    @POST("address/add/")
+    Observable<NoBody> addReceiptInfo(@Field("takeGoodsPhone") String phone,
+                                      @Field("takeGoodsUser") String userName,
+                                      @Field("addreAreacounty") int addressAreaCounty,
+                                      @Field("addreCity") int addressCity,
+                                      @Field("addreDetailAddress") String detailAddress);
+
+    @FormUrlEncoded
+    @POST("address/del")
+    Observable<NoBody> delAddress(@Field("id") int addressId);
+
+    @FormUrlEncoded
+    @POST("address/update")
+    Observable<NoBody> updateReceiptInfo(@Field("addressId") int addressId,
+                                         @Field("takeGoodsPhone") String phone,
+                                         @Field("takeGoodsUser") String userName,
+                                         @Field("addreAreacounty") int addressAreaCounty,
+                                         @Field("addreCity") int addressCity,
+                                         @Field("addreDetailAddress") String detailAddress);
+    @GET("address/default")
+    Observable<ReceiptDefault> getDefaultAddress();
 }

@@ -1,8 +1,6 @@
 package com.apec.android.views.activities;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +10,7 @@ import android.widget.TextView;
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
-import com.apec.android.injector.components.DaggerGoodsComponent;
+import com.apec.android.injector.components.DaggerLoginComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.LoginPresenter;
 import com.apec.android.mvp.views.LoginView;
@@ -20,7 +18,7 @@ import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
-import com.apec.android.views.activities.base.BaseActivity;
+import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.utils.LoginHandler;
 
 import java.util.Timer;
@@ -64,19 +62,18 @@ public class LoginActivity extends BaseActivity implements LoginView {
     TimerTask timerTask;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initTimer();
+    protected void setUpContentView() {
+        setContentView(R.layout.activity_login, R.string.title_login);
     }
 
     @Override
     protected void initUi() {
-        setContentView(R.layout.activity_login);
+        initTimer();
     }
 
     @Override
     protected void initDependencyInjector(MyApplication application) {
-        DaggerGoodsComponent.builder()
+        DaggerLoginComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .appComponent(application.getAppComponent())
                 .build().inject(this);

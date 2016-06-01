@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import com.apec.android.R;
 import com.apec.android.domain.entities.goods.Good;
 import com.apec.android.domain.entities.goods.Pic;
-import com.apec.android.views.RecyclerClickListener;
-import com.bumptech.glide.Glide;
+import com.apec.android.support.ImageHelp;
+import com.apec.android.views.view.RecyclerClickListener;
 
 import java.util.List;
 
@@ -66,10 +66,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
             Pic pic = good.getPics().get(0);
             if (pic != null) {
-                Glide.with(mContext)
-                        .load(pic.getUrl())
-                        .crossFade()
-                        .into(goodsImageView);
+                ImageHelp.display(mContext, pic.getUrl(), goodsImageView);
             }
         }
 

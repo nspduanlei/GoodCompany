@@ -172,7 +172,7 @@
                         android:background="@drawable/circle_order_state_d" />
                 </LinearLayout>
 
-                <com.apec.android.ui.widget.NoScrollListView
+                <com.apec.android.views.widget.NoScrollListView
                     android:id="@+id/lv_sku"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

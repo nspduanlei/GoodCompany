@@ -86,6 +86,9 @@ public class GoodsListPresenter implements Presenter {
     }
 
     public void onElementClick(int position) {
+        if (mGoods.size() == 0) {
+            return;
+        }
         int goodId = mGoods.get(position).getId();
         mGoodsListView.showDetailScreen(goodId);
     }

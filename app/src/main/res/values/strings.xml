@@ -21,5 +21,12 @@
     <string name="arrival_time">*您的货物预计在%s送达</string>
     <string name="net_content">￥%1$s (%2$s)</string>
 
+    <!-- activity title-->
+    <string name="title_good_detail">订单</string>
+    <string name="title_login">登录</string>
+    <string name="manage_address_title">地址管理</string>
+    <string name="edit_address_title">编辑地址</string>
+    <string name="add_address_title">添加地址</string>
+
 
 </resources>

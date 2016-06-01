@@ -19,7 +19,7 @@ public class GetVerCodeUseCase extends UseCase<NoBody> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
     private String mMobile;
-    private int mType = 3;
+    //private int mType = 3;
 
     @Inject
     public GetVerCodeUseCase(GoodsRepository repository,
@@ -36,7 +36,7 @@ public class GetVerCodeUseCase extends UseCase<NoBody> {
 
     @Override
     public Observable<NoBody> buildObservable() {
-        return mRepository.getVerCode(mMobile, mType)
+        return mRepository.getVerCode(mMobile, 3)
                 .observeOn(mUiThread)
                 .subscribeOn(mExecutorThread);
     }
