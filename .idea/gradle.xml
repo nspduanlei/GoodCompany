@@ -12,8 +12,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/dialogplusLibrary" />
-            <option value="$PROJECT_DIR$/pullToRefreshLibrary" />
-            <option value="$PROJECT_DIR$/viewPageIndicatorlibrary" />
           </set>
         </option>
         <option name="myModules">
@@ -21,8 +19,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/dialogplusLibrary" />
-            <option value="$PROJECT_DIR$/pullToRefreshLibrary" />
-            <option value="$PROJECT_DIR$/viewPageIndicatorlibrary" />
           </set>
         </option>
       </GradleProjectSettings>

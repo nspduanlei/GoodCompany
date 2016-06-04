@@ -9,5 +9,5 @@ public interface AddressListClickListener {
     void onCBDefaultClick(int addressId);
     void onDeleteClick(int addressId);
     void onEditClick(GoodsReceipt goodsReceipt);
-    void onElementClick(int addressId);
+    void onElementClick(int position);
 }

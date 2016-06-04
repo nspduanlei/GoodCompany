@@ -1,14 +1,13 @@
 package com.apec.android.views.activities;
 
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.injector.components.DaggerAddressComponent;
 import com.apec.android.injector.modules.ActivityModule;
@@ -104,15 +103,15 @@ public class AddAddressActivity extends BaseActivity implements
         String checkPhone = StringUtils.checkMobile(takeGoodsPhone);
 
         if (StringUtils.isNullOrEmpty(takeGoodsUser)) {
-
+            T.showShort(this, "请填写收货人");
         } else if (!checkPhone.equals("")) {
             T.showShort(this, checkPhone);
         } else if (StringUtils.isNullOrEmpty(addreDetailAddress)) {
-
+            T.showShort(this, "请填写详细地址");
         } else if (addreCity == 0) {
-
+            T.showShort(this, "请选择地区");
         } else if (addreAreacounty == 0) {
-
+            T.showShort(this, "请选择地区");
         } else {
             ReceiptInfo receiptInfo = new ReceiptInfo(takeGoodsPhone, takeGoodsUser,
                     addreCity, addreAreacounty, addreDetailAddress);
@@ -130,5 +129,17 @@ public class AddAddressActivity extends BaseActivity implements
     @Override
     public void hideLoadingView() {
         mPbLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onAddSuccess() {
+        setResult(Constants.RESULT_CODE_UPDATE_ADDRESS_SUCCESS);
+        this.finish();
+    }
+
+    @Override
+    protected void onStop() {
+        mPresenter.onStop();
+        super.onStop();
     }
 }

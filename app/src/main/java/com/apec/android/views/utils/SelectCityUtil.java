@@ -2,7 +2,6 @@ package com.apec.android.views.utils;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -12,10 +11,9 @@ import com.apec.android.R;
 import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.entities.user.Area;
 import com.apec.android.domain.entities.user.Areas;
-import com.apec.android.domain.entities.user.interator.UserInteract;
-import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.MyViewHolder;
 import com.apec.android.util.StringUtils;
+import com.apec.android.views.adapter.listView.CommonAdapter;
+import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -223,72 +221,72 @@ public class SelectCityUtil implements OnClickListener {
      * @param id
      */
     public void obtainArea(int id) {
-        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
-            @Override
-            public void onRepose(Areas response) {
-                if (response.getH().getCode() == 200) {
-                    //获取地区成功
-                    ArrayList<Area> areas = response.getB();
-
-                    if (areas.size() > 0) { //如果有地区数据
-                        switch (curIndex) {
-                            case 1:
-                                cityList = areas;
-                                break;
-                            case 2:
-                                areaList = areas;
-                                break;
-                            case 3:
-                                roadList = areas;
-                                break;
-                        }
-                        mData.clear();
-                        mData.addAll(areas);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }, String.valueOf(id));
+//        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
+//            @Override
+//            public void onRepose(Areas response) {
+//                if (response.getH().getCode() == 200) {
+//                    //获取地区成功
+//                    ArrayList<Area> areas = response.getB();
+//
+//                    if (areas.size() > 0) { //如果有地区数据
+//                        switch (curIndex) {
+//                            case 1:
+//                                cityList = areas;
+//                                break;
+//                            case 2:
+//                                areaList = areas;
+//                                break;
+//                            case 3:
+//                                roadList = areas;
+//                                break;
+//                        }
+//                        mData.clear();
+//                        mData.addAll(areas);
+//                        mAdapter.notifyDataSetChanged();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        }, String.valueOf(id));
     }
 
 
     public void obtainAreaForShow(int id) {
-        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
-            @Override
-            public void onRepose(Areas response) {
-                if (response.getH().getCode() == 200) {
-                    //获取地区成功
-                    ArrayList<Area> areas = response.getB();
-
-                    if (areas.size() > 0) { //如果有地区数据
-                        switch (curIndex) {
-                            case 1:
-                                cityList = areas;
-                                curIndex = 2;
-                                obtainAreaForShow(selArea);
-                                break;
-                            case 2:
-                                areaList = areas;
-                                rbCity.performClick();
-                                break;
-                            case 3:
-                                roadList = areas;
-                                break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }, String.valueOf(id));
+//        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
+//            @Override
+//            public void onRepose(Areas response) {
+//                if (response.getH().getCode() == 200) {
+//                    //获取地区成功
+//                    ArrayList<Area> areas = response.getB();
+//
+//                    if (areas.size() > 0) { //如果有地区数据
+//                        switch (curIndex) {
+//                            case 1:
+//                                cityList = areas;
+//                                curIndex = 2;
+//                                obtainAreaForShow(selArea);
+//                                break;
+//                            case 2:
+//                                areaList = areas;
+//                                rbCity.performClick();
+//                                break;
+//                            case 3:
+//                                roadList = areas;
+//                                break;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        }, String.valueOf(id));
     }
 
     @Override

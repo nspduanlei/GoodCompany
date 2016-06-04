@@ -10,14 +10,12 @@ import android.widget.TextView;
 import com.apec.android.R;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.user.User;
-import com.apec.android.ui.activity.order.MyOrdersActivity;
-import com.apec.android.ui.activity.user.ManageAddrActivity;
-import com.apec.android.ui.activity.user.MyAccountActivity;
-import com.apec.android.ui.activity.user.ShoppingCartActivity;
+
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
+import com.apec.android.views.activities.MyOrdersActivity;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -122,14 +120,14 @@ public class LoginUtil {
 
     @OnClick(R.id.tv_my_shopping_cart)
     void onMyShoppingCartClick(View view) {
-        Intent intent = new Intent(mActivity, ShoppingCartActivity.class);
-        mActivity.startActivity(intent);
+//        Intent intent = new Intent(mActivity, ShoppingCartActivity.class);
+//        mActivity.startActivity(intent);
     }
 
     @OnClick(R.id.tv_my_account)
     void onMyAccountClick(View view) {
-        Intent intent = new Intent(mActivity, MyAccountActivity.class);
-        mActivity.startActivity(intent);
+//        Intent intent = new Intent(mActivity, MyAccountActivity.class);
+//        mActivity.startActivity(intent);
     }
 
     @OnClick(R.id.tv_my_order)

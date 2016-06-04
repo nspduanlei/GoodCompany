@@ -6,11 +6,14 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.goods.Goods;
+import com.apec.android.domain.entities.order.OrderBack;
+import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.support.rest.interceptors.CacheInterceptor;
@@ -135,5 +138,36 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<ReceiptDefault> getDefaultAddress() {
         return mGoodsApi.getDefaultAddress();
+    }
+
+
+    @Override
+    public Observable<NoBody> createOrder(String skus, int addressId) {
+        return mGoodsApi.createOrder(skus, addressId);
+    }
+
+    @Override
+    public Observable<OrderListBack> getAllOrder() {
+        return mGoodsApi.getAllOrder();
+    }
+
+    @Override
+    public Observable<OrderBack> getOrderDetail(int orderId) {
+        return mGoodsApi.getOrderDetail(orderId);
+    }
+
+    @Override
+    public Observable<NoBody> cancelOrder(int orderId) {
+        return mGoodsApi.cancelOrder(orderId);
+    }
+
+    @Override
+    public Observable<ShopCartBack> getAllCart(int cityId) {
+        return mGoodsApi.getAllCart(cityId);
+    }
+
+    @Override
+    public Observable<NoBody> deleteCart(int skuId) {
+        return mGoodsApi.deleteCart(skuId);
     }
 }

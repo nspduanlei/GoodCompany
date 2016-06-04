@@ -1,6 +1,5 @@
 package com.apec.android.views.activities;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.MenuItem;
 
@@ -13,7 +12,6 @@ import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodDetailModule;
 import com.apec.android.mvp.presenters.GoodDetailPresenter;
 import com.apec.android.mvp.views.GoodDetailView;
-import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.views.activities.core.BaseActivity;
 
 import javax.inject.Inject;
@@ -91,8 +89,8 @@ public class GoodDetailActivity extends BaseActivity implements GoodDetailView {
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_cart:
-                Intent intent = new Intent(GoodDetailActivity.this, ShoppingCartActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(GoodDetailActivity.this, ShoppingCartActivity.class);
+//                startActivity(intent);
                 break;
         }
         return true;

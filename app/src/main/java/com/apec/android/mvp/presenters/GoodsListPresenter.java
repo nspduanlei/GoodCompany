@@ -69,8 +69,7 @@ public class GoodsListPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        //activity stop 取消订阅
-        if (!mGoodsSubscription.isUnsubscribed()) {
+        if (mGoodsSubscription.isUnsubscribed()) {
             mGoodsSubscription.unsubscribe();
         }
     }

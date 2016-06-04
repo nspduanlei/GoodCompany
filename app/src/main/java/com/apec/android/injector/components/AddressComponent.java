@@ -9,6 +9,7 @@ import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.AddressModule;
 import com.apec.android.views.activities.AddAddressActivity;
+import com.apec.android.views.activities.EditAddressActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 
 import dagger.Component;
@@ -22,6 +23,7 @@ public interface AddressComponent extends ActivityComponent {
 
     void inject(ManageAddressActivity manageAddressActivity);
     void inject(AddAddressActivity addAddressActivity);
+    void inject(EditAddressActivity editAddressActivity);
 
     GetAllAddressUseCase getAllAddressUseCase();
     SetDefaultAddressUseCase setDefaultAddressUseCase();

@@ -18,9 +18,12 @@ import com.apec.android.injector.modules.GoodsListModule;
 import com.apec.android.mvp.presenters.GoodsListPresenter;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.util.SPUtils;
+import com.apec.android.util.T;
 import com.apec.android.views.activities.GoodDetailActivity;
+import com.apec.android.views.activities.GoodsActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/2/26.
@@ -44,6 +48,9 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     RecyclerView mRvGoods;
     @BindView(R.id.view_error)
     View viewError;
+
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
 
     @Inject
     GoodsListPresenter mGoodsListPresenter;
@@ -106,6 +113,8 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
 
     private void initUi(View view) {
         ButterKnife.bind(this, view);
+
+        mFab.attachToRecyclerView(mRvGoods);
     }
 
 
@@ -154,5 +163,10 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
         int cityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID,
                 Constants.DEFAULT_CITY_ID);
         mGoodsListPresenter.GetGoodsById(cityId);
+    }
+
+    @OnClick(R.id.fab)
+    void onFabClicked(View view) {
+        T.showShort(getActivity(), "test");
     }
 }

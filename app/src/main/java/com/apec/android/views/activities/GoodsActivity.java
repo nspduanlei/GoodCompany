@@ -4,12 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apec.android.R;
@@ -20,16 +26,15 @@ import com.apec.android.injector.components.DaggerLoginComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.GoodsPresenter;
 import com.apec.android.mvp.views.GoodsView;
-import com.apec.android.ui.activity.user.ShoppingCartActivity;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
-import com.apec.android.views.adapter.IconPageViewAdapter;
+import com.apec.android.views.adapter.GoodsCAdapter;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.view.CityDialog;
-import com.viewpagerindicator.TabPageIndicator;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +44,7 @@ import java.util.TimerTask;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -46,12 +52,13 @@ import butterknife.OnClick;
  */
 public class GoodsActivity extends BaseActivity implements GoodsView {
 
-    IconPageViewAdapter mAdapter;
+    GoodsCAdapter mAdapter;
 
     @BindView(R.id.vp_goods)
     ViewPager mVpGoods;
-    @BindView(R.id.indicator)
-    TabPageIndicator mIndicator;
+
+//    @BindView(R.id.indicator)
+//    TabPageIndicator mIndicator;
 
     @BindView(R.id.tv_location)
     TextView mTvLocation;
@@ -59,11 +66,11 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     @BindView(R.id.toolBarTop)
     Toolbar mToolBar;
 
-    @BindView(R.id.drawer)
-    DrawerLayout mDrawer;
-
-    @BindView(R.id.view_menu)
-    View mMenu;
+//    @BindView(R.id.drawer)
+//    DrawerLayout mDrawer;
+//
+//    @BindView(R.id.view_menu)
+//    View mMenu;
 
     @Inject
     GoodsPresenter mGoodsPresenter;
@@ -73,18 +80,32 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     List<Area> mCityData = new ArrayList<>();
     int mCityId;
 
+    @BindView(R.id.drawer)
+    DrawerLayout mDrawer;
+    @BindView(R.id.appbar)
+    AppBarLayout mAppbar;
+
+    @BindView(R.id.nav_view)
+    NavigationView mNavView;
+    @BindView(R.id.tabs)
+    SlidingTabLayout mTabs;
+
 
     @Override
     protected void setUpContentView() {
-        setContentView(R.layout.activity_goods, -1, MODE_NONE);
+        setContentView(R.layout.activity_goods_new, -1, MODE_NONE);
     }
 
     @Override
     protected void initUi() {
         initToolbar();
-        initViewPager();
-        initLocation();
-        initUser();
+        //initViewPager();
+
+        //initLocation();
+
+        //initUser();
+
+        //TODO test
     }
 
     @Override
@@ -97,7 +118,7 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
 
     @Override
     protected void initPresenter() {
-        mCityId = (int)SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
+        mCityId = (int) SPUtils.get(this, SPUtils.LOCATION_CITY_ID, 0);
         if (mCityId == 0) {
             mGoodsPresenter.startLocation();
         }
@@ -107,7 +128,8 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     }
 
     private void initUser() {
-        mLoginUtil = new LoginUtil(this, mMenu);
+        //mLoginUtil = new LoginUtil(this, mMenu);
+
         mLoginUtil.updateUser();
         //注册广播, 用于监听用户信息的变化
         registerBroadcastReceiver();
@@ -124,27 +146,62 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     }
 
     private void initToolbar() {
+//        setSupportActionBar(mToolBar);
+//        if (getSupportActionBar() != null)
+//            getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawer,
+//                mToolBar, R.string.open_string, R.string.close_string);
+//        actionBarDrawerToggle.syncState();
+//        mToolBar.setNavigationIcon(R.drawable.menu_icon);
+
         setSupportActionBar(mToolBar);
-        if (getSupportActionBar()!= null)
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawer,
-                mToolBar, R.string.open_string, R.string.close_string);
-        actionBarDrawerToggle.syncState();
-        mToolBar.setNavigationIcon(R.drawable.menu_icon);
+
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.menu_icon);
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setDisplayShowTitleEnabled(false);
+        }
+
+
+        setupDrawerContent(mNavView);
+
+        setupViewPager(mVpGoods);
+
+        mTabs.setViewPager(mVpGoods);
     }
 
-    private void initViewPager() {
-        mAdapter = new IconPageViewAdapter(getSupportFragmentManager());
-        mVpGoods.setAdapter(mAdapter);
-        mIndicator.setViewPager(mVpGoods);
+    /**
+     * 设置抽屉布局
+     *
+     * @param navigationView
+     */
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        item.setChecked(true);
+                        mDrawer.closeDrawers();
+                        return true;
+                    }
+                }
+        );
     }
 
-    @OnClick(R.id.iv_shopping_cart)
-    void onShoppingCartClicked(View view) {
-        //跳转到购物车
-        Intent intent = new Intent(this, ShoppingCartActivity.class);
-        startActivity(intent);
-    }
+//    private void initViewPager() {
+//        mAdapter = new GoodsCAdapter(getSupportFragmentManager());
+//
+//        mVpGoods.setAdapter(mAdapter);
+//        mIndicator.setViewPager(mVpGoods);
+//    }
+
+//    @OnClick(R.id.iv_shopping_cart)
+//    void onShoppingCartClicked(View view) {
+//        //跳转到购物车
+//        Intent intent = new Intent(this, ShoppingCartActivity.class);
+//        startActivity(intent);
+//    }
 
     @OnClick(R.id.tv_location)
     void onSelectLocation(View view) {
@@ -214,6 +271,7 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     }
 
     private boolean isExit;
+
     //快速点击两下返回退出app
     private void exit() {
         if (!isExit) {
@@ -232,17 +290,13 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
 
     @Override
     public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(Gravity.LEFT)) {
-            mDrawer.closeDrawer(Gravity.LEFT);
-        } else {
-            exit();
-        }
+        exit();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mBroadcastReceiver);
+        //unregisterReceiver(mBroadcastReceiver);
     }
 
     @Override
@@ -253,5 +307,27 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     @Override
     public void hideLoadingView() {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 设置 viewPager 内容
+     *
+     * @param viewPager
+     */
+    private void setupViewPager(ViewPager viewPager) {
+        GoodsCAdapter adapter =
+                new GoodsCAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
     }
 }

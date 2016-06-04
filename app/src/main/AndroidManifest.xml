@@ -36,43 +36,18 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.activity.goods.GoodsActivity"
-            android:theme="@style/StyledIndicators"
-            android:launchMode="singleTask"/>
-
-        <activity android:name=".ui.activity.goods.GoodsDetailActivity" />
-
-        <activity
-            android:name=".ui.activity.user.RegisterActivity"
-            android:theme="@style/StyledIndicators" />
-
-        <activity android:name=".ui.activity.user.RegisterFActivity" />
-
-        <activity android:name=".ui.activity.user.SelectCityActivity" />
-
-        <activity android:name=".ui.activity.user.ShoppingCartActivity" />
-
-        <activity android:name=".ui.activity.order.OrderActivity" />
-
-        <activity android:name=".ui.activity.order.MyOrdersActivity" />
-
-        <activity android:name=".ui.activity.user.EditDataActivity" />
-
-        <activity android:name=".ui.activity.user.ManageAddrActivity" />
-
-        <activity android:name=".ui.activity.GuideActivity" />
-
-        <activity android:name=".ui.activity.user.MyAccountActivity" />
-
 
         <!--重构-->
-        <activity android:name=".views.activities.GoodsActivity" />
+        <activity
+            android:name=".views.activities.GoodsActivity"/>
+
         <activity android:name=".views.activities.LoginActivity" />
         <activity android:name=".views.activities.GoodDetailActivity" />
         <activity android:name=".views.activities.ManageAddressActivity" />
         <activity android:name=".views.activities.EditAddressActivity" />
-
+        <activity android:name=".views.activities.AddAddressActivity" />
+        <activity android:name=".views.activities.MyOrdersActivity" />
+        <activity android:name=".views.activities.OrderDetailActivity" />
         <!--定位-->
         <service android:name="com.amap.api.location.APSService"/>
         <meta-data android:name="com.amap.api.v2.apikey"

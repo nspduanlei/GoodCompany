@@ -6,8 +6,8 @@ import android.widget.GridView;
 
 import com.apec.android.R;
 import com.apec.android.domain.entities.user.Area;
-import com.apec.android.ui.adapter.CommonAdapter;
-import com.apec.android.ui.adapter.MyViewHolder;
+import com.apec.android.views.adapter.listView.CommonAdapter;
+import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 

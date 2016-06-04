@@ -50,7 +50,19 @@
     <color name="transparency">#00000000</color>
     <color name="color_test">#aa0000</color>
 
+    <!--重构-->
 
     <color name="grey">#808080</color>
     <color name="black">#000000</color>
+
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#512DA8</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorAccentPress">#FF40ff</color>
+    <color name="colorAccentRipple">#FFaa89</color>
+
+    <color name="text_1">#202021</color>
+    <color name="text_2">#8A8B8F</color>
+    <color name="text_3">#6C6C6C</color>
 </resources>

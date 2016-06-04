@@ -3,10 +3,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.apec.android.domain.entities.goods.Good"/>
+        <import type="com.apec.android.domain.entities.transport.GoodsReceipt"/>
+        <import type="com.apec.android.domain.entities.user.Address"/>
         <variable
-            name="good"
-            type="Good"/>
+            name="goodsReceipt"
+            type="GoodsReceipt"/>
     </data>
 
     <FrameLayout
@@ -45,7 +46,8 @@
                     android:layout_marginLeft="15dp"
                     android:background="@null"
                     android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"/>
+                    android:textSize="@dimen/common_text_size"
+                    android:text="@{goodsReceipt.name}"/>
             </LinearLayout>
 
             <View
@@ -75,7 +77,8 @@
                     android:background="@null"
                     android:inputType="number"
                     android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"/>
+                    android:textSize="@dimen/common_text_size"
+                    android:text="@{goodsReceipt.phone}"/>
             </LinearLayout>
 
             <View
@@ -107,7 +110,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"/>
+                    android:textSize="@dimen/common_text_size"
+                    android:text="@{goodsReceipt.addrRes.city+goodsReceipt.addrRes.area}"/>
 
             </LinearLayout>
 
@@ -138,7 +142,8 @@
                     android:layout_marginLeft="15dp"
                     android:background="@null"
                     android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"/>
+                    android:textSize="@dimen/common_text_size"
+                    android:text="@{goodsReceipt.addrRes.detail}"/>
             </LinearLayout>
 
             <View

@@ -1,11 +1,9 @@
 package com.apec.android.views.activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.apec.android.R;
@@ -16,8 +14,6 @@ import com.apec.android.injector.components.DaggerAddressComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.ManageAddressPresenter;
 import com.apec.android.mvp.views.ManageAddressView;
-import com.apec.android.ui.activity.user.EditDataActivity;
-import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.AddressListAdapter;
 import com.apec.android.views.utils.LoginUtil;
@@ -28,7 +24,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -46,7 +41,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     @BindView(R.id.pb_loading)
     ProgressBar mPbLoading;
 
-    AddressListAdapter mAapter;
+    AddressListAdapter mAdapter;
     ArrayList<GoodsReceipt> mGoodsReceipts= new ArrayList<>();
 
     public final static String EXTRA_EDIT_ADDRESS = "goodsReceipt";
@@ -61,8 +56,8 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     @Override
     protected void initUi() {
         mRvAddress.setLayoutManager(new LinearLayoutManager(this));
-        mAapter = new AddressListAdapter(mGoodsReceipts, this, this);
-        mRvAddress.setAdapter(mAapter);
+        mAdapter = new AddressListAdapter(mGoodsReceipts, this, this);
+        mRvAddress.setAdapter(mAdapter);
     }
 
     @Override
@@ -93,7 +88,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     public void bindAddress(ArrayList<GoodsReceipt> addressList) {
         mGoodsReceipts.clear();
         mGoodsReceipts.addAll(addressList);
-        mAapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -108,9 +103,9 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
 
     @Override
     public void onEditClick(GoodsReceipt goodsReceipt) {
-        Intent intent = new Intent(this, EditDataActivity.class);
+        Intent intent = new Intent(this, EditAddressActivity.class);
         intent.putExtra(EXTRA_EDIT_ADDRESS, goodsReceipt);
-        startActivityForResult(intent, Constants.REQUEST_CODE_EDIT);
+        startActivityForResult(intent, Constants.REQUEST_CODE_UPDATE_ADDRESS);
     }
 
     @Override
@@ -122,7 +117,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     void onAddAddressClicked(View v) {
         //TODO 添加地址
         Intent intent = new Intent(this, AddAddressActivity.class);
-        startActivityForResult(intent, Constants.ReQUEST_CODE_ADD_ADDR);
+        startActivityForResult(intent, Constants.REQUEST_CODE_UPDATE_ADDRESS);
     }
 
 
@@ -133,8 +128,8 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
             if (resultCode == Constants.RESULT_CODE_EDIT) {
                 mPresenter.getAllAddress();
             }
-        } else if (requestCode == Constants.ReQUEST_CODE_ADD_ADDR) {
-            if (resultCode == Constants.RESULT_CODE_ADD_ADDR_SUCCESS) {
+        } else if (requestCode == Constants.REQUEST_CODE_UPDATE_ADDRESS) {
+            if (resultCode == Constants.RESULT_CODE_UPDATE_ADDRESS_SUCCESS) {
                 mPresenter.getAllAddress();
             }
         }

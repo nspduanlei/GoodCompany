@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="已完成计划" />
+        <item
+            android:id="@+id/nav_messages"
+            android:title="废弃计划" />
+        <item
+            android:id="@+id/nav_friends"
+            android:title="正在进行计划" />
+    </group>
+
+
+    <item android:title="Sub items">
+        <menu>
+            <item
+                android:title="设置" />
+            <item
+                android:title="轻松小游戏" />
+        </menu>
+    </item>
+</menu>

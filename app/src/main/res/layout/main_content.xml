@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/cl_main_content"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <include layout="@layout/top_bar_layout_toolbar"/>
 
-        <com.viewpagerindicator.TabPageIndicator
-            android:id="@+id/indicator"
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="48dp"
+            android:background="@color/color_white"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            app:tl_textUnselectColor="@color/color_text_1"
+            app:tl_indicator_margin_left="2dp"
+            app:tl_indicator_margin_right="2dp"
+            app:tl_indicator_style="BLOCK"
+            app:tl_indicator_color="@color/colorAccent"/>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_goods"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
-    <include
-        layout="@layout/loading_layout"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_goods"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp"/>
-</FrameLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>

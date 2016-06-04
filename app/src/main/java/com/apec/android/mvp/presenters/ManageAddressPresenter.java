@@ -47,8 +47,10 @@ public class ManageAddressPresenter implements Presenter {
     @Override
     public void onStop() {
         mGetAllSubscription.unsubscribe();
-        mSetDefaultSubscription.unsubscribe();
-        mDelAddressSubscription.unsubscribe();
+        if (mSetDefaultSubscription != null)
+            mSetDefaultSubscription.unsubscribe();
+        if (mDelAddressSubscription != null)
+            mDelAddressSubscription.unsubscribe();
     }
 
     @Override

@@ -4,11 +4,14 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
+import com.apec.android.domain.entities.order.OrderBack;
+import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
 
 import rx.Observable;
@@ -19,20 +22,23 @@ import rx.Observable;
 public interface GoodsRepository {
     /**
      * 获取是商品列表
-     * @param cid 类型id
-     * @param cityId  开放城市id
+     *
+     * @param cid    类型id
+     * @param cityId 开放城市id
      * @return
      */
     Observable<Goods> getGoods(final int cid, final int cityId);
 
     /**
      * 获取开放城市
+     *
      * @return
      */
     Observable<Areas> getCity();
 
     /**
      * 获取验证码
+     *
      * @param mobile
      * @param type
      * @return
@@ -41,6 +47,7 @@ public interface GoodsRepository {
 
     /**
      * 提交验证码
+     *
      * @param phone
      * @param vCode
      * @return
@@ -49,6 +56,7 @@ public interface GoodsRepository {
 
     /**
      * 加入购物车
+     *
      * @param skuId
      * @param num
      * @return
@@ -57,6 +65,7 @@ public interface GoodsRepository {
 
     /**
      * 获取商品详情
+     *
      * @param goodsId
      * @return
      */
@@ -64,6 +73,7 @@ public interface GoodsRepository {
 
     /**
      * 获取商品全部规格属性
+     *
      * @param goodId
      * @return
      */
@@ -71,18 +81,21 @@ public interface GoodsRepository {
 
     /**
      * 获取到货时间
+     *
      * @return
      */
     Observable<ArrivalTime> getArrivalTime();
 
     /**
      * 获取全部地址
+     *
      * @return
      */
     Observable<ReceiptList> getAllAddress();
 
     /**
      * 设置默认地址
+     *
      * @param addressId
      * @return
      */
@@ -90,6 +103,7 @@ public interface GoodsRepository {
 
     /**
      * 添加收货信息
+     *
      * @param receiptInfo
      * @return
      */
@@ -97,6 +111,7 @@ public interface GoodsRepository {
 
     /**
      * 删除地址
+     *
      * @param addressId
      * @return
      */
@@ -104,6 +119,7 @@ public interface GoodsRepository {
 
     /**
      * 编辑收货信息
+     *
      * @param receiptInfo
      * @return
      */
@@ -111,7 +127,55 @@ public interface GoodsRepository {
 
     /**
      * 获取默认收货信息
+     *
      * @return
      */
     Observable<ReceiptDefault> getDefaultAddress();
- }
+
+
+    /************************************* 订单 **************************************/
+
+    /**
+     * 创建订单
+     * @param skus
+     * @param addressId
+     * @return
+     */
+    Observable<NoBody> createOrder(final String skus, final int addressId);
+
+    /**
+     * 获取我的订单列表
+     * @return
+     */
+    Observable<OrderListBack> getAllOrder();
+
+    /**
+     * 获取订单详情
+     * @param orderId
+     * @return
+     */
+    Observable<OrderBack> getOrderDetail(int orderId);
+
+    /**
+     * 取消订单
+     * @param orderId
+     * @return
+     */
+    Observable<NoBody> cancelOrder(int orderId);
+
+    /*********************************购物车*************************************/
+    /**
+     * 获取我的购物车
+     * @return
+     */
+    Observable<ShopCartBack> getAllCart(int cityId);
+
+    /**
+     * 删除购物车
+     * @param skuId
+     * @return
+     */
+    Observable<NoBody> deleteCart(int skuId);
+
+
+}

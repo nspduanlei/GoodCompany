@@ -4,11 +4,14 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
+import com.apec.android.domain.entities.order.OrderBack;
+import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
 
 import retrofit2.http.Field;
@@ -75,4 +78,25 @@ public interface GoodsApi {
                                          @Field("addreDetailAddress") String detailAddress);
     @GET("address/default")
     Observable<ReceiptDefault> getDefaultAddress();
+
+    @FormUrlEncoded
+    @POST("cart/create/order")
+    Observable<NoBody> createOrder(@Field("skuIds") String skus, @Field("addressId") int addressId);
+
+    @GET("orders")
+    Observable<OrderListBack> getAllOrder();
+
+    @GET("order")
+    Observable<OrderBack> getOrderDetail(@Query("id") int orderId);
+
+    @GET("order/cancel")
+    Observable<NoBody> cancelOrder(@Query("id") int orderId);
+
+    @GET("cart/items")
+    Observable<ShopCartBack> getAllCart(@Query("cityId") int cityId);
+
+    @FormUrlEncoded
+    @POST("cart/del")
+    Observable<NoBody> deleteCart(@Query("skuId") int skuId);
+
 }

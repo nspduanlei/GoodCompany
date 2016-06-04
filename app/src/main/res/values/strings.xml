@@ -27,6 +27,9 @@
     <string name="manage_address_title">地址管理</string>
     <string name="edit_address_title">编辑地址</string>
     <string name="add_address_title">添加地址</string>
+    <string name="my_orders_title">我的订单</string>
+    <string name="order_detail_title">订单详情</string>
+
 
 
 </resources>
