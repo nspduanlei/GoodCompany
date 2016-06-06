@@ -66,7 +66,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
             Pic pic = good.getPics().get(0);
             if (pic != null) {
-                ImageHelp.displayCircle(mContext, pic.getUrl(), goodsImageView);
+                ImageHelp.displayRound(mContext, 15, 0, pic.getUrl(), goodsImageView);
             }
         }
 

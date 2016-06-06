@@ -112,7 +112,7 @@ public class ManageAddressPresenter implements Presenter {
     }
 
     private void manageGetAddressError(Throwable throwable) {
-
+        mView.hideLoadingView();
     }
 }
 

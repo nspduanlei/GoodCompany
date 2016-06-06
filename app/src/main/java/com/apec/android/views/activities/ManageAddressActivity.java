@@ -44,7 +44,14 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     AddressListAdapter mAdapter;
     ArrayList<GoodsReceipt> mGoodsReceipts= new ArrayList<>();
 
+    boolean hasDefault = false;
+    boolean isSelect = false;
+
     public final static String EXTRA_EDIT_ADDRESS = "goodsReceipt";
+    public static final String HAS_DEFAULT = "hasDefault";
+    public static final String IS_SELECT = "hasDefault";
+
+    boolean mIsSetDefalt = false;
 
     @Override
     protected void setUpContentView() {
@@ -55,6 +62,9 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
 
     @Override
     protected void initUi() {
+        hasDefault = getIntent().getBooleanExtra(HAS_DEFAULT, false);
+        isSelect = getIntent().getBooleanExtra(IS_SELECT, false);
+
         mRvAddress.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new AddressListAdapter(mGoodsReceipts, this, this);
         mRvAddress.setAdapter(mAdapter);
@@ -89,6 +99,10 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         mGoodsReceipts.clear();
         mGoodsReceipts.addAll(addressList);
         mAdapter.notifyDataSetChanged();
+
+        if (mIsSetDefalt) {
+            this.finish();
+        }
     }
 
     @Override
@@ -110,7 +124,17 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
 
     @Override
     public void onElementClick(int position) {
-
+        if (isSelect) {
+            if (hasDefault) {
+                setResult(Constants.RESULT_CODE_SELECT_ADDRESS,
+                        getIntent().putExtra("data", mGoodsReceipts.get(position)));
+                this.finish();
+            } else {
+                //设置默认地址
+                mPresenter.setDefaultAddress(mGoodsReceipts.get(position).getAddressId());
+                mIsSetDefalt = true;
+            }
+        }
     }
 
     @OnClick(R.id.btn_add_address)
@@ -119,7 +143,6 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         Intent intent = new Intent(this, AddAddressActivity.class);
         startActivityForResult(intent, Constants.REQUEST_CODE_UPDATE_ADDRESS);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,7 +155,12 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
             if (resultCode == Constants.RESULT_CODE_UPDATE_ADDRESS_SUCCESS) {
                 mPresenter.getAllAddress();
             }
+        } else if (requestCode == Constants.REQUEST_CODE_LOGIN) {
+            if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
+                mPresenter.getAllAddress();
+            }
         }
+
 
         super.onActivityResult(requestCode, resultCode, data);
     }

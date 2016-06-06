@@ -3,18 +3,25 @@ package com.apec.android.views.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.apec.android.views.fragments.GoodsFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by duanlei on 2016/6/4.
  */
 public class GoodsCAdapter extends FragmentPagerAdapter {
 
-    protected static final String[] CONTENT = new String[]{"糖品", "米品", "油品", "面品", "调味品","糖品", "米品", "油品", "面品", "调味品"};
-    protected static final int[] IDS = new int[] {
-            12, 13, 11, 15, 46, 12, 13, 11, 15, 46
-    };
+    private final List<Fragment> mFragments = new ArrayList<>();
+    private final List<String> mFragmentTitles = new ArrayList<>();
+
+    public void addFragment(Fragment fragment, String title) {
+        mFragments.add(fragment);
+        mFragmentTitles.add(title);
+    }
 
     public GoodsCAdapter(FragmentManager fm) {
         super(fm);
@@ -22,16 +29,17 @@ public class GoodsCAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return GoodsFragment.newInstance(IDS[position]);
+        return mFragments.get(position);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return CONTENT[position % CONTENT.length].toUpperCase();
+        return mFragmentTitles.get(position);
     }
 
     @Override
     public int getCount() {
-        return CONTENT.length;
+        return mFragments.size();
     }
+
 }

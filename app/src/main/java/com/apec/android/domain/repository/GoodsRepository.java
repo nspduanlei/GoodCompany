@@ -2,8 +2,8 @@ package com.apec.android.domain.repository;
 
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
-import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
+import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.order.OrderBack;
 import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
@@ -11,8 +11,12 @@ import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 
@@ -178,4 +182,5 @@ public interface GoodsRepository {
     Observable<NoBody> deleteCart(int skuId);
 
 
+    Observable<ArrayList<OpenCity>> cityIsOpen();
 }

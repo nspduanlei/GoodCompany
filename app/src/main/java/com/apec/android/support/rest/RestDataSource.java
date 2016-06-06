@@ -13,6 +13,7 @@ import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
 import com.apec.android.domain.repository.GoodsRepository;
@@ -21,7 +22,11 @@ import com.apec.android.support.rest.interceptors.HeaderInterceptor;
 import com.apec.android.support.rest.interceptors.LoggingInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -38,7 +43,9 @@ public class RestDataSource implements GoodsRepository {
     private static final long HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 10 * 1024 * 1024;
 
     public static String END_POINT = "http://shoptest.ap-ec.cn/testapi/";
+    public static String END_POINT_CITY = "http://shoptest.ap-ec.cn/html/javascript/";
     private final GoodsApi mGoodsApi;
+    private final GoodsApi mJSONGoodsApi;
 
     @Inject
     public RestDataSource(Context context) {
@@ -63,7 +70,16 @@ public class RestDataSource implements GoodsRepository {
                 .client(client)
                 .build();
 
+        Retrofit goodsApiAdapterCity = new Retrofit.Builder()
+                .baseUrl(END_POINT_CITY)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+
         mGoodsApi = goodsApiAdapter.create(GoodsApi.class);
+        mJSONGoodsApi = goodsApiAdapterCity.create(GoodsApi.class);
     }
 
     @Override
@@ -169,5 +185,10 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<NoBody> deleteCart(int skuId) {
         return mGoodsApi.deleteCart(skuId);
+    }
+
+    @Override
+    public Observable<ArrayList<OpenCity>> cityIsOpen() {
+        return mJSONGoodsApi.cityIsOpen();
     }
 }

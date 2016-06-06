@@ -9,4 +9,5 @@
     <dimen name="parent_padding">20dp</dimen>
     <dimen name="button_margin_top">50dp</dimen>
     <dimen name="goods_item_height">170dp</dimen>
+    <dimen name="insets">14dp</dimen>
 </resources>

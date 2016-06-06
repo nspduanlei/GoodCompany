@@ -11,8 +11,14 @@ import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -99,4 +105,6 @@ public interface GoodsApi {
     @POST("cart/del")
     Observable<NoBody> deleteCart(@Query("skuId") int skuId);
 
+    @GET("citymaping.json")
+    Observable<ArrayList<OpenCity>> cityIsOpen();
 }

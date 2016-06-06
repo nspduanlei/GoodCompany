@@ -1,35 +1,38 @@
 package com.apec.android.domain.entities.user;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by duanlei on 2016/4/21.
  */
-public class OpenCity {
-    private int cityId;
-    private int cityCode;
-    private int cityName;
+public class OpenCity  extends DataSupport {
+
+    private String cityId;
+    private String cityCode;
+    private String cityName;
     private boolean isLocation;
 
-    public int getCityId() {
+    public String getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 
-    public int getCityCode() {
+    public String getCityCode() {
         return cityCode;
     }
 
-    public void setCityCode(int cityCode) {
+    public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
     }
 
-    public int getCityName() {
+    public String getCityName() {
         return cityName;
     }
 
-    public void setCityName(int cityName) {
+    public void setCityName(String cityName) {
         this.cityName = cityName;
     }
 

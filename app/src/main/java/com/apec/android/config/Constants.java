@@ -27,7 +27,7 @@ public class Constants {
     public final static int RESULT_CODE_ADDRESS_CHANGE = 103; //切换地址
     public final static int RESULT_CODE_UPDATE_ADDRESS_SUCCESS = 104; //添加或者修改地址成功
     public final static int RESULT_CODE_CANCEL_ORDER = 105; //取消订单
-
+    public static final int RESULT_CODE_SELECT_ADDRESS = 106; // 选择地址成功
     /**
      * request
      */
@@ -38,11 +38,13 @@ public class Constants {
     public final static int REQUEST_CODE_UPDATE_ADDRESS = 1005; //添加或者修改地址
     public static final int REQUEST_CODE_ORDER_DETAIL = 1006; //跳转到订单详情
 
-
     /**
      * default
      */
     public final static int DEFAULT_CITY_ID = 100;
     public final static String DEFAULT_CITY_NAME = "深圳市";
+
+
+
 
 }

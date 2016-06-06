@@ -27,6 +27,15 @@ public class ImageHelp {
                 .into(imageView);
     }
 
+
+    public static void displayRound(Context context, int radius, int margin, String url, ImageView imageView) {
+        Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Picasso.with(context)
+                .load(url)
+                .transform(transformation)
+                .into(imageView);
+    }
+
     static class CircleTransform implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {

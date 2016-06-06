@@ -15,12 +15,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="配送至:fasfagagagag333"
-        android:textColor="@color/color_text_1"
-        android:textSize="@dimen/title_text_size"
+        android:textColor="@color/text_3"
+        android:textSize="17sp"
         android:maxWidth="200dp"
         android:singleLine="true"
         android:ellipsize="end"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tv_location"

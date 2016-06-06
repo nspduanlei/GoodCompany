@@ -11,6 +11,9 @@ import com.apec.android.mvp.views.LoginView;
 import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 

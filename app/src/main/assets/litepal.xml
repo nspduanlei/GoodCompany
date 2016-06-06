@@ -2,9 +2,10 @@
 <litepal>
     <dbname value="demo" />
 
-    <version value="2" />
+    <version value="4" />
 
     <list>
         <mapping class="com.apec.android.domain.entities.user.User"/>
+        <mapping class="com.apec.android.domain.entities.user.OpenCity"/>
     </list>
 </litepal>
