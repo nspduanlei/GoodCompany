@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:fab="http://schemas.android.com/tools"
-                                                 android:id="@+id/cl_main_content"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/cl_main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -22,11 +23,13 @@
             android:background="@color/color_white"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            app:tl_textUnselectColor="@color/color_text_1"
+            app:tl_indicator_color="@color/color_white"
             app:tl_indicator_margin_left="2dp"
             app:tl_indicator_margin_right="2dp"
             app:tl_indicator_style="BLOCK"
-            app:tl_indicator_color="@color/colorAccent"/>
+            app:tl_textUnselectColor="@color/text_4"
+            app:tl_textSelectColor="@color/text_5"
+            app:tl_textBold="true"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -35,18 +38,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/shopping_cart_fab"
-        app:fab_colorNormal="@color/colorAccent"
-        app:fab_colorPressed="@color/colorAccentPress"
-        app:fab_colorRipple="@color/colorAccentRipple"
-        fab:ignore="RtlHardcoded"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -73,13 +73,15 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
     List<Area> mCityData = new ArrayList<>();
     int mCityId;
 
-    @BindView(R.id.drawer)
-    DrawerLayout mDrawer;
+//    @BindView(R.id.drawer)
+//    DrawerLayout mDrawer;
+
     @BindView(R.id.appbar)
     AppBarLayout mAppbar;
 
-    @BindView(R.id.nav_view)
-    NavigationView mNavView;
+//    @BindView(R.id.nav_view)
+//    NavigationView mNavView;
+
     @BindView(R.id.tabs)
     SlidingTabLayout mTabs;
 
@@ -110,11 +112,13 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
         setSupportActionBar(mToolBar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setHomeAsUpIndicator(R.drawable.menu_icon);
-            ab.setDisplayHomeAsUpEnabled(true);
+            //ab.setHomeAsUpIndicator(R.drawable.menu_icon);
+            ab.setDisplayHomeAsUpEnabled(false);
             ab.setDisplayShowTitleEnabled(false);
         }
-        setupDrawerContent(mNavView);
+
+        //setupDrawerContent(mNavView);
+
         setupViewPager(mVpGoods);
         mTabs.setViewPager(mVpGoods);
 
@@ -158,20 +162,20 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
         }
     }
 
-    /**
-     * 设置抽屉布局
-     *
-     * @param navigationView
-     */
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                item -> {
-                    item.setChecked(true);
-                    mDrawer.closeDrawers();
-                    return true;
-                }
-        );
-    }
+//    /**
+//     * 设置抽屉布局
+//     *
+//     * @param navigationView
+//     */
+//    private void setupDrawerContent(NavigationView navigationView) {
+//        navigationView.setNavigationItemSelectedListener(
+//                item -> {
+//                    item.setChecked(true);
+//                    mDrawer.closeDrawers();
+//                    return true;
+//                }
+//        );
+//    }
 
     @OnClick(R.id.tv_location)
     void onSelectLocation(View view) {
@@ -290,16 +294,16 @@ public class GoodsActivity extends BaseActivity implements GoodsView {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                mDrawer.openDrawer(GravityCompat.START);
+//                return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     /**
      * 设置 viewPager 内容

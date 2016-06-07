@@ -66,6 +66,12 @@
     <color name="text_2">#8A8B8F</color>
     <color name="text_3">#6C6C6C</color>
 
+    <!--滑动标题-->
+    <color name="text_4">#BBBBBB</color>
+    <color name="text_5">#555555</color>
+
+    <color name="text_stroke">#D6D6D6</color>
+
     <color name="bg_1">#E7E6E6</color>
 
 
