@@ -10,6 +10,7 @@ import com.apec.android.injector.modules.GoodsModule;
 import com.apec.android.injector.modules.LoginModule;
 import com.apec.android.views.activities.GoodsActivity;
 import com.apec.android.views.activities.LoginActivity;
+import com.apec.android.views.fragments.GoodsCFragment;
 
 import dagger.Component;
 
@@ -20,6 +21,8 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = {GoodsModule.class, ActivityModule.class})
 public interface GoodsComponent extends ActivityComponent {
     void inject(GoodsActivity goodsActivity);
+
+    void inject(GoodsCFragment goodsCFragment);
 
     GetAllCityUseCase getAllCityUseCase();
     CityIsOpenUseCase getCityIsOpenUseCase();

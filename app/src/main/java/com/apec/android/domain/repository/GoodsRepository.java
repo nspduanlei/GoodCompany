@@ -4,6 +4,7 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.goods.Goods;
+import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.entities.order.OrderBack;
 import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
@@ -31,7 +32,7 @@ public interface GoodsRepository {
      * @param cityId 开放城市id
      * @return
      */
-    Observable<Goods> getGoods(final int cid, final int cityId);
+    Observable<SkuList> getGoods(final int cid, final int cityId);
 
     /**
      * 获取开放城市

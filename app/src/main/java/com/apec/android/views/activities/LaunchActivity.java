@@ -48,7 +48,7 @@ public class LaunchActivity extends BaseActivity {
 //        }
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(LaunchActivity.this, GoodsActivity.class);
+            Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
             startActivity(intent);
 
             this.finish();

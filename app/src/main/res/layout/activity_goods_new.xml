@@ -9,6 +9,4 @@
     <include
         layout="@layout/main_content"/>
 
-
-    //底部tab
 </FrameLayout>

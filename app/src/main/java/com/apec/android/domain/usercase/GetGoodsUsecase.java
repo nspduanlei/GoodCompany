@@ -1,6 +1,7 @@
 package com.apec.android.domain.usercase;
 
 import com.apec.android.domain.entities.goods.Goods;
+import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.repository.GoodsRepository;
 
 import javax.inject.Inject;
@@ -12,7 +13,7 @@ import rx.Scheduler;
 /**
  * Created by duanlei on 2016/5/9.
  */
-public class GetGoodsUseCase extends UseCase<Goods> {
+public class GetGoodsUseCase extends UseCase<SkuList> {
     private final GoodsRepository mRepository;
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
@@ -36,7 +37,7 @@ public class GetGoodsUseCase extends UseCase<Goods> {
     }
 
     @Override
-    public Observable<Goods> buildObservable() {
+    public Observable<SkuList> buildObservable() {
         return mRepository.getGoods(mCid, mCityId)
                 .observeOn(mUiThread)
                 .subscribeOn(mExecutorThread);

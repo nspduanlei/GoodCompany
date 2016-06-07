@@ -4,6 +4,7 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
+import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.entities.order.OrderBack;
 import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
@@ -28,8 +29,10 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 public interface GoodsApi {
-    @GET("list/goods")
-    Observable<Goods> getCharacters(@Query("categoryId") int cid, @Query("cityId") int cityId);
+    //@GET("list/goods")
+
+    @GET("query/sku/by/categoryId")
+    Observable<SkuList> getGoods(@Query("categoryId") int cid, @Query("cityId") int cityId);
 
     @GET("citys")
     Observable<Areas> getCity();

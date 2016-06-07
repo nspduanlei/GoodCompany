@@ -11,6 +11,7 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.Good;
+import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.injector.components.DaggerGoodsListComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodsListModule;
@@ -20,6 +21,7 @@ import com.apec.android.util.SPUtils;
 import com.apec.android.views.activities.GoodDetailActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
+import com.apec.android.views.view.RecyclerClickListener;
 import com.apec.android.views.view.RecyclerInsetsDecoration;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/2/26.
  */
-public class GoodsFragment extends BaseFragment implements GoodsListView {
+public class GoodsFragment extends BaseFragment implements GoodsListView, RecyclerClickListener {
 
     public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
     private int mCid, mCityId;
@@ -49,7 +51,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     GoodsListPresenter mGoodsListPresenter;
 
     GoodsListAdapter mGoodsListAdapter;
-    ArrayList<Good> mGoods = new ArrayList<>();
+    ArrayList<Sku> mGoods = new ArrayList<>();
 
     /**
      * 得到商品展示的fragment
@@ -97,8 +99,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     private void initRecyclerView() {
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvGoods.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
-        mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(),
-                position -> mGoodsListPresenter.onElementClick(position));
+        mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this);
 
         mRvGoods.setAdapter(mGoodsListAdapter);
 
@@ -116,7 +117,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     }
 
     @Override
-    public void bindGoods(List<Good> goods) {
+    public void bindGoods(List<Sku> goods) {
         mGoods.clear();
         mGoods.addAll(goods);
         mGoodsListAdapter.notifyDataSetChanged();
@@ -153,5 +154,18 @@ public class GoodsFragment extends BaseFragment implements GoodsListView {
     }
 
 
+    @Override
+    public void onElementClick(int position) {
 
+    }
+
+    @Override
+    public void onAddCartClick(int skuId, int count) {
+
+    }
+
+    @Override
+    public void onOrderClick(int skuId, int count) {
+
+    }
 }

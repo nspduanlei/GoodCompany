@@ -20,6 +20,17 @@ public class Sku {
      * 3 删除
      */
     private int status;
+    //购物车数量
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
 
     public List<SkuAttribute> getNonkeyAttr() {
         return nonkeyAttr;

@@ -21,61 +21,80 @@
             android:id="@+id/tv_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goods_name"
+            android:layout_marginTop="5dp"
             android:text="正常颗粒"
             android:textColor="@color/text_2"
-            android:textSize="@dimen/common_text_size"
-            android:layout_below="@id/tv_goods_name"
-            android:layout_marginTop="5dp"/>
+            android:textSize="@dimen/common_text_size"/>
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥200/包"
-            android:textSize="30sp"
             android:layout_alignParentRight="true"
-            android:textColor="@color/text_3"/>
+            android:text="￥200/包"
+            android:textColor="@color/text_3"
+            android:textSize="30sp"/>
 
         <ImageView
             android:id="@+id/iv_goods"
             android:layout_width="match_parent"
             android:layout_height="173dp"
-            android:scaleType="fitXY"
             android:layout_below="@id/tv_size"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"/>
+            android:scaleType="fitXY"/>
 
-        <ImageView
-            android:id="@+id/iv_cut"
+        <LinearLayout
+            android:id="@+id/ll_update_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btn_cut"
-            android:layout_below="@id/iv_goods"/>
-
-        <TextView
-            android:id="@+id/tv_num"
-            android:layout_width="85dp"
-            android:layout_height="35dp"
-            android:text="6"
             android:layout_below="@id/iv_goods"
-            android:layout_toRightOf="@id/iv_cut"
-            android:gravity="center"/>
+            android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/iv_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_add"
-            android:layout_below="@id/iv_goods"
-            android:layout_toRightOf="@id/tv_num"/>
-        
+            <ImageView
+                android:id="@+id/iv_cut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_cut"/>
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:text="6"/>
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_add"/>
+        </LinearLayout>
+
         <Button
+            android:id="@+id/btn_add_cart"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="快速下单"
             android:layout_below="@id/iv_goods"
-            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/button_selector"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="加入购物车"
+            android:textColor="@color/color_white"/>
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/iv_goods"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_selector"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="快速下单"
             android:textColor="@color/color_white"/>
     </RelativeLayout>
 
