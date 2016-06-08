@@ -14,7 +14,10 @@ import com.apec.android.R;
 import com.apec.android.domain.entities.goods.Good;
 import com.apec.android.domain.entities.goods.Pic;
 import com.apec.android.domain.entities.goods.Sku;
+import com.apec.android.domain.entities.goods.SkuData;
+import com.apec.android.domain.entities.user.ShopCart;
 import com.apec.android.support.ImageHelp;
+import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.view.RecyclerClickListener;
 
 import java.util.List;
@@ -89,15 +92,16 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             mTvGoodsName.setText(sku.getSkuName());
             mTvPrice.setText(sku.getPrice());
 
-
+            //获取数据库里面的商品数量
             int count = sku.getCount();
 
             if (count == 0) {
                 mBtnAddCart.setVisibility(View.VISIBLE);
-                mBtnAddCart.setOnClickListener(view -> {
-                    addCart(sku.getId(), count);
-                });
+                mLlUpdateNum.setVisibility(View.GONE);
+                mBtnAddCart.setOnClickListener(view -> addCart(sku, count));
             } else {
+                mBtnAddCart.setVisibility(View.GONE);
+                mLlUpdateNum.setVisibility(View.VISIBLE);
                 mTvNum.setText(String.valueOf(count));
             }
 
@@ -112,15 +116,30 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
             mBtnOrder.setOnClickListener(view -> {
                 if (count == 0) {
-                    addCart(sku.getId(), count);
+                    addCart(sku, count);
                 }
                 mRecyclerListener.onOrderClick(sku.getId(), count);
             });
+
+            mIvAdd.setOnClickListener(view -> {
+                //购物车数量加1
+                sku.setCount(sku.getCount()+1);
+                mRecyclerListener.onAddCount(sku);
+
+            });
+
+            mIvCut.setOnClickListener(view -> {
+                //购物车数量减1
+
+                mRecyclerListener.onCutCount(sku);
+            });
         }
 
-        void addCart(int id, int count) {
-            mRecyclerListener.onAddCartClick(id, count);
+        void addCart(Sku sku, int count) {
+            count = count + 1;
+            sku.setCount(count);
 
+            mRecyclerListener.onAddCartClick(sku, getAdapterPosition());
             mBtnAddCart.setVisibility(View.GONE);
             mLlUpdateNum.setVisibility(View.VISIBLE);
 

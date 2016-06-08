@@ -9,16 +9,22 @@ import android.widget.ImageView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.domain.entities.goods.SkuData;
+import com.apec.android.domain.entities.user.OpenCity;
+import com.apec.android.util.L;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/2/26.
@@ -30,7 +36,6 @@ public class RecommendFragment extends BaseFragment {
     ConvenientBanner mConvenientBanner;
 
     List mLocalImages;
-
 
     @Override
     protected void initUI(View view) {
@@ -81,11 +86,21 @@ public class RecommendFragment extends BaseFragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
+    @OnClick(R.id.btn_test)
+    public void test(View view) {
+        try {
+            List<OpenCity> list1 = DataSupport.findAll(OpenCity.class);
+
+            List<SkuData> list3 = DataSupport.findAll(SkuData.class);
+
+            List<OpenCity> list = DataSupport.where("cityId = ?", String.valueOf(100)).find(OpenCity.class);
+
+            List<SkuData> list2 = DataSupport.where("skuId = ?", String.valueOf(85)).find(SkuData.class);
+        } catch (Exception e) {
+            L.e("");
+        }
+
+
+        L.e("");
     }
 }

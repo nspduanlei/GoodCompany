@@ -47,13 +47,17 @@ public class LaunchActivity extends BaseActivity {
 //            }, 2000);
 //        }
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
-            startActivity(intent);
+//        new Handler().postDelayed(() -> {
+//            Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+//            startActivity(intent);
+//
+//            this.finish();
+//        }, 2000);
 
-            this.finish();
-        }, 2000);
 
+        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+        startActivity(intent);
 
+        this.finish();
     }
 }

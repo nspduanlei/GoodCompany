@@ -10,8 +10,8 @@ import android.widget.ProgressBar;
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
-import com.apec.android.domain.entities.goods.Good;
 import com.apec.android.domain.entities.goods.Sku;
+import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.injector.components.DaggerGoodsListComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodsListModule;
@@ -21,6 +21,8 @@ import com.apec.android.util.SPUtils;
 import com.apec.android.views.activities.GoodDetailActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
+import com.apec.android.views.utils.LoginUtil;
+import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.view.RecyclerClickListener;
 import com.apec.android.views.view.RecyclerInsetsDecoration;
 
@@ -30,7 +32,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2016/2/26.
@@ -102,8 +103,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this);
 
         mRvGoods.setAdapter(mGoodsListAdapter);
-
-
     }
 
     @Override
@@ -160,7 +159,19 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     }
 
     @Override
-    public void onAddCartClick(int skuId, int count) {
+    public void onAddCartClick(Sku sku, int position) {
+
+        if (LoginUtil.isLogin(getActivity())) {
+            //如果用户登录了，记录 skuId和对应num， 等用户点击购物车图标后批量加入购物车
+
+        } else {
+            //如果用户没有登录将信息加入本地购物车
+            SkuData skuData = new SkuData(sku);
+            skuData.saveThrows();
+
+            GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.queryAllNum());
+            mGoodsListAdapter.notifyDataSetChanged();
+        }
 
     }
 

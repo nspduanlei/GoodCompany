@@ -56,7 +56,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     @Override
     protected void initUI(View view) {
         //是否登录
-        LoginUtil.isLogin(getActivity());
+        //LoginUtil.gotoLogin(getActivity());
 
         mRvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CartListAdapter(mData, getActivity(), this);

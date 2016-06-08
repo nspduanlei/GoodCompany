@@ -56,7 +56,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     @Override
     protected void setUpContentView() {
         //是否登录
-        LoginUtil.isLogin(this);
+        LoginUtil.gotoLogin(this);
         setContentView(R.layout.activity_manage_address, R.string.manage_address_title);
     }
 

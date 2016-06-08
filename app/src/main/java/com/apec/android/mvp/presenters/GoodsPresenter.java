@@ -14,11 +14,13 @@ import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
 import com.apec.android.util.LocationHelp;
+import com.apec.android.views.utils.CityUtil;
 
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -85,9 +87,10 @@ public class GoodsPresenter implements Presenter {
                             openCity.setLocation(true);
                         }
                     }
-                    DataSupport.saveAll(cityList);
-                })
 
+                    DataSupport.saveAll(cityList);
+
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::cityIsOpenReceived, this::manageIsOpenError);
 

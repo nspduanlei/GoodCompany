@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:hint="手机号码"
-                android:numeric="integer"
+                android:inputType="number"
                 android:background="@drawable/edit_shape_bg"
                 android:textColorHint="@color/color_hint"
                 android:textColor="@color/color_text_1"
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="验证码"
-            android:numeric="integer"
+            android:inputType="number"
             android:background="@drawable/edit_shape_bg"
             android:textColorHint="@color/color_hint"
             android:paddingLeft="20dp" />

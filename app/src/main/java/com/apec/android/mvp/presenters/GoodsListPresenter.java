@@ -2,10 +2,13 @@ package com.apec.android.mvp.presenters;
 
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.Sku;
+import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.mvp.views.View;
+import com.apec.android.util.L;
+import com.apec.android.views.utils.ShopCartUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by duanlei on 2016/5/10.
@@ -45,6 +50,19 @@ public class GoodsListPresenter implements Presenter {
         mGoodsListView.showLoadingView();
 
         mGoodsSubscription = mGetGoodsUseCase.execute()
+                .observeOn(Schedulers.io())
+                .doOnNext(skuList -> {
+                    if (skuList.getB() != null) {
+
+                        for (Sku sku : skuList.getB().getData()) {
+                            SkuData skuData = ShopCartUtil.querySkuById(String.valueOf(sku.getId()));
+                            if (skuData != null) {
+                                sku.setCount(skuData.getCount());
+                            }
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onGoodsReceived, this::manageGoodsError);
     }
 

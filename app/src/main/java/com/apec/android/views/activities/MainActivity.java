@@ -5,12 +5,15 @@ import android.support.v4.app.Fragment;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.fragments.GoodsCFragment;
 import com.apec.android.views.fragments.MeFragment;
 import com.apec.android.views.fragments.ShoppingCartFragment;
+import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.utils.TabEntity;
+import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 
@@ -21,18 +24,18 @@ import butterknife.BindView;
 /**
  * Created by duanlei on 2016/6/7.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements FragmentListener{
 
     @BindView(R.id.tl_main)
     CommonTabLayout mTlMain;
 
     private String[] mTitles = {"首页", "购物车", "我的"};
     private int[] mIconUnselectIds = {
-            R.mipmap.tab_home_unselect, R.mipmap.tab_speech_unselect,
-            R.mipmap.tab_contact_unselect};
+            R.mipmap.tab_home_unselect, R.mipmap.tab_cart_unselect,
+            R.mipmap.tab_me_unselect};
     private int[] mIconSelectIds = {
-            R.mipmap.tab_home_select, R.mipmap.tab_speech_select,
-            R.mipmap.tab_contact_select};
+            R.mipmap.tab_home_select, R.mipmap.tab_cart_select,
+            R.mipmap.tab_me_select};
 
 
     GoodsCFragment mGoodsCFragment;
@@ -50,6 +53,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initUi() {
         mGoodsCFragment = new GoodsCFragment();
+        mGoodsCFragment.setListener(this);
+
         mShoppingCartFragment = new ShoppingCartFragment();
         mMeFragment = new MeFragment();
 
@@ -62,6 +67,8 @@ public class MainActivity extends BaseActivity {
         }
 
         mTlMain.setTabData(mTabEntities, this, R.id.fl_change, mFragments);
+
+        mTlMain.showMsg(1, ShopCartUtil.queryAllNum());
     }
 
     @Override
@@ -79,5 +86,10 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         mGoodsCFragment.onActivityResult(requestCode, resultCode, data);
         mShoppingCartFragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void updateCartNum(int num) {
+        mTlMain.showMsg(1, num);
     }
 }

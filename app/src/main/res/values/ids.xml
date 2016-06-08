@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    //共用的layout id，避免多次add
+    //共用的layout skuId，避免多次add
     <item name="toolbar_title" type="id" />
     <item name="toolbar" type="id" />
 

@@ -25,12 +25,14 @@ import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
+import com.apec.android.views.activities.MainActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.GoodsCAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.view.CityDialog;
+import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -81,6 +83,8 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
     boolean hasDefault = false;
 
     int mAddressId;
+
+    public static FragmentListener mFragmentListener;
 
     @Override
     protected void initUI(View view) {
@@ -325,5 +329,9 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
                 //mTvTopTitle.setText(goodsReceipt.getAddrRes().getDetail());
             }
         }
+    }
+
+    public void setListener(FragmentListener fragmentListener) {
+        mFragmentListener = fragmentListener;
     }
 }

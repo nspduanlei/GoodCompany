@@ -153,13 +153,21 @@ public class LoginUtil {
         mActivity.startActivity(intent);
     }
 
-    public static void isLogin(Activity activity) {
+    public static void gotoLogin(Activity activity) {
         if (StringUtils.isNullOrEmpty(
                 (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
             //没有登录
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
         }
+    }
+
+    public static boolean isLogin(Activity activity) {
+        if (StringUtils.isNullOrEmpty(
+                (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
+            return false;
+        }
+        return true;
     }
 
     /**
