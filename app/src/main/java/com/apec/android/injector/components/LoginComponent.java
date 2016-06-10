@@ -6,6 +6,7 @@ import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.LoginModule;
+import com.apec.android.views.activities.CompleteActivity;
 import com.apec.android.views.activities.GoodsActivity;
 import com.apec.android.views.activities.LoginActivity;
 

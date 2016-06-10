@@ -192,4 +192,14 @@ public class RestDataSource implements GoodsRepository {
     public Observable<ArrayList<OpenCity>> cityIsOpen() {
         return mJSONGoodsApi.cityIsOpen();
     }
+
+    @Override
+    public Observable<UserBack> getUser(int skuId) {
+        return null;
+    }
+
+    @Override
+    public Observable<NoBody> updateUser(int skuId) {
+        return null;
+    }
 }

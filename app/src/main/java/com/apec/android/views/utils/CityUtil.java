@@ -34,10 +34,9 @@ public class CityUtil {
 
     //更具id查询
     public static OpenCity queryCityByCityId(String cityId) {
-        List<OpenCity> list1 = DataSupport.findAll(OpenCity.class);
 
         List<OpenCity> list =
-                DataSupport.where("cityid > ?", "0").find(OpenCity.class);
+                DataSupport.where("cityid = ?", cityId).find(OpenCity.class);
 
         return list.get(0);
     }

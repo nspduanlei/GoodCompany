@@ -42,11 +42,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @BindView(R.id.et_verify_code)
     EditText mEtVerifyCode;
-    @BindView(R.id.tv_hint)
-    TextView mTvHint;
+//    @BindView(R.id.tv_hint)
+//    TextView mTvHint;
 
-    @BindView(R.id.tv_hint_down)
-    public TextView mTvHintDown;
+//    @BindView(R.id.tv_hint_down)
+//    public TextView mTvHintDown;
 
     @BindView(R.id.btn_start)
     Button mBtnStart;
@@ -159,12 +159,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void getVerCodeReceived() {
         //验证码发送成功
-        String str_1 = String.format(getString(R.string.hint_register_1),
-                phoneNumberStr);
-        showHint(str_1);
+//        String str_1 = String.format(getString(R.string.hint_register_1),
+//                phoneNumberStr);
+//        showHint(str_1);
         //启动倒计时
         L.d("test00", "启动计时器");
-        mTvHintDown.setVisibility(View.VISIBLE);
+        //mTvHintDown.setVisibility(View.VISIBLE);
+
         startTimer();
     }
 
@@ -181,6 +182,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void completeData() {
         //未完善资料
+        Intent intent = new Intent(this, CompleteActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -192,12 +195,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     /**
      * 显示提示
      */
-    public void showHint(String msg) {
-        if (mTvHint.getVisibility() == View.GONE) {
-            mTvHint.setVisibility(View.VISIBLE);
-            mTvHint.setText(msg);
-        }
-    }
+//    public void showHint(String msg) {
+//        if (mTvHint.getVisibility() == View.GONE) {
+//            mTvHint.setVisibility(View.VISIBLE);
+//            mTvHint.setText(msg);
+//        }
+//    }
 
     @Override
     protected void onStop() {

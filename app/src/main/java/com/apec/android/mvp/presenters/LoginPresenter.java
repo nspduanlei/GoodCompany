@@ -103,7 +103,8 @@ public class LoginPresenter implements Presenter {
         mLoginView.hideLoadingView();
         switch (userBack.getH().getCode()) {
             case Constants.SUCCESS_CODE:
-                mLoginView.bindUser();
+                //mLoginView.bindUser();
+                mLoginView.completeData();
                 break;
             case ErrorCode.COMPLETE_DATA:
                 mLoginView.completeData();

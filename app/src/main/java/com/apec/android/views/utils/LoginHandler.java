@@ -29,16 +29,24 @@ public class LoginHandler extends Handler {
         switch (msg.what) {
             case HANDLER_TIMER: //倒计时
                 if (theActivity.mDown > 0) {
-                    String downStr_other = String.format(
-                            theActivity.getString(R.string.hint_register_2), theActivity.mDown--);
+//                    String downStr_other = String.format(
+//                            theActivity.getString(R.string.hint_register_2), theActivity.mDown--);
+//
+//                    CharSequence chars = ColorPhrase.from(downStr_other).withSeparator("{}")
+//                            .innerColor(0xFFE6454A).outerColor(0xFF666666).format();
+//
+//                    theActivity.mTvHintDown.setText(chars);
 
-                    CharSequence chars = ColorPhrase.from(downStr_other).withSeparator("{}")
-                            .innerColor(0xFFE6454A).outerColor(0xFF666666).format();
 
-                    theActivity.mTvHintDown.setText(chars);
+                    String downStr = String.format(
+                            theActivity.getString(R.string.hint_login), theActivity.mDown--);
+                    theActivity.mBtnGetCode.setText(downStr);
+
                 } else {
                     theActivity.mBtnGetCode.setEnabled(true);
-                    theActivity.mTvHintDown.setText("如果您还没收到短信，请尝试重新获取");
+
+
+                    //theActivity.mTvHintDown.setText("如果您还没收到短信，请尝试重新获取");
                 }
                 break;
         }

@@ -48,6 +48,12 @@
         <activity android:name=".views.activities.AddAddressActivity" />
         <activity android:name=".views.activities.MyOrdersActivity" />
         <activity android:name=".views.activities.OrderDetailActivity" />
+        <activity android:name=".views.activities.CompleteActivity" />
+        <activity android:name=".views.activities.GuideActivity" />
+        <activity android:name=".views.activities.OrdersActivity" />
+        <activity android:name=".views.activities.SettingActivity" />
+        <activity android:name=".views.activities.ServiceActivity" />
+
         <!--定位-->
         <service android:name="com.amap.api.location.APSService"/>
         <meta-data android:name="com.amap.api.v2.apikey"

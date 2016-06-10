@@ -55,17 +55,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
 
     public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_order_pro)
-        TextView mTvOrderPro;
-
-        @BindView(R.id.tv_order_num)
-        TextView mTvOrderNum;
-        @BindView(R.id.lv_sku)
-        NoScrollListView mLvSku;
-        @BindView(R.id.tv_total_price)
-        TextView mTvTotalPrice;
-        @BindView(R.id.tv_detail)
-        TextView mTvDetail;
+//        @BindView(R.id.tv_order_pro)
+//        TextView mTvOrderPro;
+//
+//        @BindView(R.id.tv_order_num)
+//        TextView mTvOrderNum;
+//        @BindView(R.id.lv_sku)
+//        NoScrollListView mLvSku;
+//        @BindView(R.id.tv_total_price)
+//        TextView mTvTotalPrice;
+//        @BindView(R.id.tv_detail)
+//        TextView mTvDetail;
 
         public GoodsViewHolder(View itemView, final OrderListClickListener recyclerClickListener) {
             super(itemView);
@@ -76,65 +76,65 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
         public void bindData(Order order) {
 
             //订单中的购买的商品列表
-            final BaseAdapter itemAdapter = new CommonAdapter<OrderItem>(mContext,
-                    order.getOrderItems(), R.layout.order_goods_item) {
-                @Override
-                public void convert(MyViewHolder holder, OrderItem orderItem) {
-                    if (orderItem.getSku().getPics().size() > 0) {
-                        holder.setImageUrl(R.id.iv_goods_pic,
-                                orderItem.getSku().getPics().get(0).getUrl());
-                    }
-                    holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
-                            .setText(R.id.tv_price, String.format("￥%s",
-                                    orderItem.getSku().getPrice()))
-                            .setText(R.id.tv_num, String.format("x %d", orderItem.getNum()));
-                }
-            };
-
-            mLvSku.setAdapter(itemAdapter);
-            mLvSku.setOnItemClickListener((adapterView, view, i, l) -> {
-                mClickListener.onGoodsItemClick(order.getOrderItems().get(i).getId());
-            });
-
-            //订单号
-            mTvOrderNum.setText(String.format(mContext.getString(R.string.order_number),
-                    order.getOrderNo()));
-
-            //订单总价
-            String total = String.format(
-                    mContext.getString(R.string.total_price_order), order.getOrderAmount());
-
-            CharSequence chars = ColorPhrase.from(total).withSeparator("{}")
-                    .innerColor(mContext.getResources().getColor(R.color.color_5))
-                    .outerColor(mContext.getResources().getColor(R.color.color_text_1)).format();
-
-            mTvTotalPrice.setText(chars);
-
-            mTvDetail.setOnClickListener(view -> mClickListener.onDetailClick(order.getId()));
-
-
-            //订单状态
-            switch (order.getOrderType()) {
-                case 1://待处理
-                    mTvOrderPro.setText(String.format("   %s ", "订单待确认"));
-                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_1);
-                    break;
-
-                case 2://处理中
-                    mTvOrderPro.setText(String.format("   %s ", "订单处理中"));
-                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_2);
-                    break;
-
-                case 3://已完成
-                    mTvOrderPro.setText(String.format("   %s ", "订单已完成"));
-                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_3);
-                    break;
-
-                case 4://订单取消
-                    mTvOrderPro.setText(String.format("   %s ", "订单取消"));
-                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_1);
-                    break;
-            }
+//            final BaseAdapter itemAdapter = new CommonAdapter<OrderItem>(mContext,
+//                    order.getOrderItems(), R.layout.order_goods_item) {
+//                @Override
+//                public void convert(MyViewHolder holder, OrderItem orderItem) {
+//                    if (orderItem.getSku().getPics().size() > 0) {
+//                        holder.setImageUrl(R.id.iv_goods_pic,
+//                                orderItem.getSku().getPics().get(0).getUrl());
+//                    }
+//                    holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
+//                            .setText(R.id.tv_price, String.format("￥%s",
+//                                    orderItem.getSku().getPrice()))
+//                            .setText(R.id.tv_num, String.format("x %d", orderItem.getNum()));
+//                }
+//            };
+//
+//            mLvSku.setAdapter(itemAdapter);
+//            mLvSku.setOnItemClickListener((adapterView, view, i, l) -> {
+//                mClickListener.onGoodsItemClick(order.getOrderItems().get(i).getId());
+//            });
+//
+//            //订单号
+//            mTvOrderNum.setText(String.format(mContext.getString(R.string.order_number),
+//                    order.getOrderNo()));
+//
+//            //订单总价
+//            String total = String.format(
+//                    mContext.getString(R.string.total_price_order), order.getOrderAmount());
+//
+//            CharSequence chars = ColorPhrase.from(total).withSeparator("{}")
+//                    .innerColor(mContext.getResources().getColor(R.color.color_5))
+//                    .outerColor(mContext.getResources().getColor(R.color.color_text_1)).format();
+//
+//            mTvTotalPrice.setText(chars);
+//
+//            mTvDetail.setOnClickListener(view -> mClickListener.onDetailClick(order.getId()));
+//
+//
+//            //订单状态
+//            switch (order.getOrderType()) {
+//                case 1://待处理
+//                    mTvOrderPro.setText(String.format("   %s ", "订单待确认"));
+//                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_1);
+//                    break;
+//
+//                case 2://处理中
+//                    mTvOrderPro.setText(String.format("   %s ", "订单处理中"));
+//                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_2);
+//                    break;
+//
+//                case 3://已完成
+//                    mTvOrderPro.setText(String.format("   %s ", "订单已完成"));
+//                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_3);
+//                    break;
+//
+//                case 4://订单取消
+//                    mTvOrderPro.setText(String.format("   %s ", "订单取消"));
+//                    mTvOrderPro.setBackgroundResource(R.drawable.order_pro_bg_1);
+//                    break;
+//            }
         }
 
 

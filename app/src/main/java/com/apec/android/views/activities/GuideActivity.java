@@ -1,36 +1,25 @@
-package com.apec.android.views.fragments;
+package com.apec.android.views.activities;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
-import com.apec.android.domain.entities.goods.SkuData;
-import com.apec.android.domain.entities.user.OpenCity;
-import com.apec.android.util.L;
-import com.apec.android.views.fragments.core.BaseFragment;
+import com.apec.android.views.activities.core.BaseActivity;
 import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
- * Created by Administrator on 2016/2/26.
+ * Created by duanlei on 2016/6/10.
  */
-public class RecommendFragment extends BaseFragment {
-
+public class GuideActivity extends BaseActivity {
 
     @BindView(R.id.convenientBanner)
     ConvenientBanner mConvenientBanner;
@@ -38,13 +27,19 @@ public class RecommendFragment extends BaseFragment {
     List mLocalImages;
 
     @Override
-    protected void initUI(View view) {
+    protected void setUpContentView() {
+        setContentView(R.layout.activity_guide, -1, 2);
+    }
+
+    @Override
+    protected void initUi() {
         mLocalImages = new ArrayList<>();
         mLocalImages.add(R.drawable.test0010);
         mLocalImages.add(R.drawable.test002);
         mLocalImages.add(R.drawable.test003);
         initBanner();
     }
+
 
     private void initBanner() {
         mConvenientBanner.setPages(
@@ -54,7 +49,8 @@ public class RecommendFragment extends BaseFragment {
                         R.drawable.shape_page_indicator_focused})
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-                .setScrollDuration(1000);
+                .setcurrentitem(0);
+
 
     }
 
@@ -73,35 +69,12 @@ public class RecommendFragment extends BaseFragment {
     }
 
     @Override
-    protected int getFragmentLayout() {
-        return R.layout.fragment_recommend;
-    }
-
-    @Override
-    protected void initDependencyInjector(MyApplication myApplication) {
+    protected void initDependencyInjector(MyApplication application) {
 
     }
 
     @Override
     protected void initPresenter() {
 
-    }
-
-    @OnClick(R.id.btn_test)
-    public void test(View view) {
-        try {
-            List<OpenCity> list1 = DataSupport.findAll(OpenCity.class);
-
-            List<SkuData> list3 = DataSupport.findAll(SkuData.class);
-
-            List<OpenCity> list = DataSupport.where("cityId = ?", String.valueOf(100)).find(OpenCity.class);
-
-            List<SkuData> list2 = DataSupport.where("skuId = ?", String.valueOf(85)).find(SkuData.class);
-        } catch (Exception e) {
-            L.e("");
-        }
-
-
-        L.e("");
     }
 }

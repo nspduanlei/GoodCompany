@@ -179,4 +179,32 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     public void onOrderClick(int skuId, int count) {
 
     }
+
+    @Override
+    public void onAddCount(Sku sku) {
+        if (LoginUtil.isLogin(getActivity())) {
+            //如果用户登录了，记录 skuId和对应num， 等用户点击购物车图标后批量加入购物车
+
+        } else {
+            //如果用户没有登录将信息加入本地购物车
+            SkuData skuData = new SkuData(sku);
+            skuData.saveThrows();
+
+            GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.queryAllNum());
+
+
+            //mGoodsListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onCutCount(Sku sku) {
+
+        SkuData skuData = new SkuData(sku);
+        //如果减到0，从购物车中删除
+        if (sku.getCount() == 0) {
+            ShopCartUtil.deleteSku(skuData);
+        }
+
+    }
 }

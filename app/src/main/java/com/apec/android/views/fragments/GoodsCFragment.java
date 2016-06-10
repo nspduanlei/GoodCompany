@@ -25,6 +25,7 @@ import com.apec.android.util.AppUtils;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
+import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.activities.MainActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.activities.core.BaseActivity;
@@ -333,5 +334,11 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
 
     public void setListener(FragmentListener fragmentListener) {
         mFragmentListener = fragmentListener;
+    }
+
+    @OnClick(R.id.tv_test)
+    void onTestClicked(View view) {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 }

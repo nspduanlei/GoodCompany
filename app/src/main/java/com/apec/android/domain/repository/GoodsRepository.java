@@ -184,4 +184,10 @@ public interface GoodsRepository {
 
 
     Observable<ArrayList<OpenCity>> cityIsOpen();
+
+    //获取用户信息
+    Observable<UserBack> getUser(int skuId);
+
+    //修改用户信息
+    Observable<NoBody> updateUser(int skuId);
 }

@@ -86,9 +86,12 @@ public class GoodsPresenter implements Presenter {
                         if (mCityCode.equals(openCity.getCityCode())) {
                             openCity.setLocation(true);
                         }
+
+                        CityUtil.addData(openCity);
+
                     }
 
-                    DataSupport.saveAll(cityList);
+                    //DataSupport.saveAll(cityList);
 
                 })
                 .observeOn(AndroidSchedulers.mainThread())
