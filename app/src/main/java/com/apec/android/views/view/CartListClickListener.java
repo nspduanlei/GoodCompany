@@ -5,4 +5,8 @@ package com.apec.android.views.view;
  */
 public interface CartListClickListener {
     void onElementClick(int position);
+
+    void onAddClick(String skuId);
+    void onCutClick(String skuId);
+    void onCheckChange(String skuId, boolean isCheck);
 }

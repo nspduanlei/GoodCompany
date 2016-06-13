@@ -1,9 +1,12 @@
 package com.apec.android.mvp.presenters;
 
 import com.apec.android.config.Constants;
+import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.goods.SkuList;
+import com.apec.android.domain.usercase.CreateOneOrderUseCase;
+import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.mvp.views.View;
@@ -28,7 +31,8 @@ public class GoodsListPresenter implements Presenter {
     private GoodsListView mGoodsListView;
 
     //get Observable
-    private final GetGoodsUseCase mGetGoodsUseCase;
+    private GetGoodsUseCase mGetGoodsUseCase;
+    private CreateOneOrderUseCase mCreateOrderUseCase;
 
     //观察者订阅返回类，用于取消订阅
     private Subscription mGoodsSubscription;
@@ -36,8 +40,10 @@ public class GoodsListPresenter implements Presenter {
     List<Sku> mSkus = new ArrayList<>();
 
     @Inject
-    public GoodsListPresenter(GetGoodsUseCase getGoodsUseCase) {
+    public GoodsListPresenter(GetGoodsUseCase getGoodsUseCase,
+                              CreateOneOrderUseCase createOneOrderUseCase) {
         mGetGoodsUseCase = getGoodsUseCase;
+        mCreateOrderUseCase = createOneOrderUseCase;
     }
 
     @Override
@@ -118,5 +124,19 @@ public class GoodsListPresenter implements Presenter {
         mGetGoodsUseCase.setCityId(cityId);
         //发送请求
         getGoods();
+    }
+
+    public void createOrder(int skuId, int addressId, int num) {
+        mCreateOrderUseCase.setData(skuId, addressId, num);
+        mCreateOrderUseCase.execute()
+                .subscribe(this::onCreateOrderReceived, this::manageCreateOrderError);
+    }
+
+    private void manageCreateOrderError(Throwable throwable) {
+
+    }
+
+    private void onCreateOrderReceived(NoBody noBody) {
+
     }
 }

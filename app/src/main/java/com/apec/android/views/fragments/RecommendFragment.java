@@ -90,13 +90,19 @@ public class RecommendFragment extends BaseFragment {
     @OnClick(R.id.btn_test)
     public void test(View view) {
         try {
-            List<OpenCity> list1 = DataSupport.findAll(OpenCity.class);
+            //List<OpenCity> list1 = DataSupport.findAll(OpenCity.class);
 
-            List<SkuData> list3 = DataSupport.findAll(SkuData.class);
+            //List<SkuData> list3 = DataSupport.findAll(SkuData.class);
 
-            List<OpenCity> list = DataSupport.where("cityId = ?", String.valueOf(100)).find(OpenCity.class);
+            //List<OpenCity> list = DataSupport.where("cityId = ?", String.valueOf(100)).find(OpenCity.class);
 
-            List<SkuData> list2 = DataSupport.where("skuId = ?", String.valueOf(85)).find(SkuData.class);
+            //List<SkuData> list2 = DataSupport.where("skuId = ?", String.valueOf(85)).find(SkuData.class);
+
+
+            List<SkuData> list2 = DataSupport.select("price").find(SkuData.class);
+
+            L.e("");
+
         } catch (Exception e) {
             L.e("");
         }

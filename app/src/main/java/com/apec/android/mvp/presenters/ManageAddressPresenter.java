@@ -1,7 +1,5 @@
 package com.apec.android.mvp.presenters;
 
-import com.apec.android.domain.NoBody;
-import com.apec.android.domain.entities.transport.GoodsReceipt;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.usercase.DelAddressUseCase;
 import com.apec.android.domain.usercase.GetAllAddressUseCase;
@@ -11,9 +9,7 @@ import com.apec.android.mvp.views.View;
 
 import javax.inject.Inject;
 
-import rx.Observable;
 import rx.Subscription;
-import rx.functions.Func1;
 
 /**
  * Created by duanlei on 2016/6/1.
@@ -71,8 +67,7 @@ public class ManageAddressPresenter implements Presenter {
 
     public void getAllAddress() {
         mView.showLoadingView();
-        mGetAllSubscription =
-                mGetAllUseCase.execute()
+        mGetAllSubscription = mGetAllUseCase.execute()
                         .subscribe(this::onGetAddressReceived, this::manageGetAddressError);
     }
 

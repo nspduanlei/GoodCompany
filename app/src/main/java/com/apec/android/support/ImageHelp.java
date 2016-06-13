@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.widget.ImageView;
 
+import com.apec.android.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 /**
@@ -17,6 +18,8 @@ public class ImageHelp {
     public static void display(Context context, String url, ImageView imageView) {
         Picasso.with(context)
                 .load(url)
+                .placeholder(R.drawable.test)
+                .error(R.drawable.test)
                 .into(imageView);
     }
 

@@ -1,5 +1,6 @@
 package com.apec.android.injector.components;
 
+import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.DeleteCartUseCase;
 import com.apec.android.domain.usercase.DoAddCartUseCase;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
@@ -22,5 +23,6 @@ public interface ShopCartComponent extends ActivityComponent {
     GetAllCartUseCase getAllCartUseCase();
     DeleteCartUseCase deleteCartUseCase();
     DoAddCartUseCase doAddCartUseCase();
+    CreateOrderUseCase createOrderUseCase();
 
 }

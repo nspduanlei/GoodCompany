@@ -202,4 +202,14 @@ public class RestDataSource implements GoodsRepository {
     public Observable<NoBody> updateUser(int skuId) {
         return null;
     }
+
+    @Override
+    public Observable<NoBody> createOneOrder(int skuId, int addressId, int num) {
+        return mGoodsApi.createOneOrder(skuId, addressId, num);
+    }
+
+    @Override
+    public Observable<Areas> getArea(int id) {
+        return mGoodsApi.getArea(id);
+    }
 }

@@ -2,9 +2,11 @@ package com.apec.android.injector.modules;
 
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.CancelOrderUseCase;
+import com.apec.android.domain.usercase.CreateOneOrderUseCase;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetAllAddressUseCase;
 import com.apec.android.domain.usercase.GetAllOrderUseCase;
+import com.apec.android.domain.usercase.GetArriveTimeUseCase;
 import com.apec.android.domain.usercase.GetOrderDetailUseCase;
 import com.apec.android.injector.Activity;
 
@@ -19,6 +21,7 @@ import rx.Scheduler;
  */
 @Module
 public class OrderModule {
+
     @Provides
     @Activity
     CreateOrderUseCase provideCreateOrderUseCase(
@@ -26,6 +29,24 @@ public class OrderModule {
             @Named("ui_thread") Scheduler uiThread,
             @Named("executor_thread") Scheduler executorThread) {
         return new CreateOrderUseCase(repository, uiThread, executorThread);
+    }
+
+    @Provides
+    @Activity
+    GetArriveTimeUseCase provideGetArriveTimeUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetArriveTimeUseCase(repository, uiThread, executorThread);
+    }
+
+    @Provides
+    @Activity
+    CreateOneOrderUseCase provideCreateOneOrderUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new CreateOneOrderUseCase(repository, uiThread, executorThread);
     }
 
     @Provides

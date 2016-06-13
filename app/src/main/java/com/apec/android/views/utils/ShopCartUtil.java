@@ -4,6 +4,7 @@ import com.apec.android.domain.entities.goods.SkuData;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +26,26 @@ public class ShopCartUtil {
         return DataSupport.count(SkuData.class);
     }
 
+    public static int querySkuNum() {
+        List<SkuData> list = queryAll();
+        int count = 0;
+        for (SkuData skuData:list) {
+            count = count + skuData.getCount();
+        }
+        return count;
+    }
+
     //删除购物车
     public static void deleteSku(SkuData skuData) {
         skuData.delete();
     }
 
+    //批量删除
+    public static void deleteSkuList(ArrayList<SkuData> data) {
+        for (SkuData skuData:data) {
+            skuData.delete();
+        }
+    }
 
     //查询全部数据
     public static List<SkuData> queryAll() {
@@ -53,4 +69,31 @@ public class ShopCartUtil {
         return list.get(0);
     }
 
+    /**
+     * 修改购物车数量
+     *
+     * @param i 增量
+     */
+    public static void updateCount(String skuId, int i) {
+        SkuData skuData = querySkuById(skuId);
+        if (skuData != null) {
+            int count = skuData.getCount();
+            skuData.setCount(count + i);
+            skuData.update(skuData.getId());
+        }
+    }
+
+    /**
+     * 修改选择状态
+     * @param skuId
+     * @param isCheck
+     */
+    public static void updateCheck(String skuId, boolean isCheck) {
+        SkuData skuData = querySkuById(skuId);
+        if (skuData != null) {
+            skuData.setSelect(isCheck);
+            skuData.update(skuData.getId());
+        }
+
+    }
 }

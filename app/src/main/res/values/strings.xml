@@ -30,9 +30,18 @@
     <string name="my_orders_title">我的订单</string>
     <string name="order_detail_title">订单详情</string>
 
-    <string name="hint_login">%d s</string>
+    <string name="hint_login">%d秒</string>
     <string name="title_complete">完善资料</string>
     <string name="setting_title">设置</string>
 
+    <string name="send_address">配送至:%s</string>
+    <string name="true_order_title">确认订单</string>
+
+    <string name="true_order_1">%s前送达</string>
+    <string name="true_order_2">￥%s/包</string>
+    <string name="true_order_3">(%s)</string>
+    <string name="true_order_4">订单金额\u3000￥%s</string>
+    <string name="true_order_5">付款金额\u3000￥%s</string>
+    <string name="true_order_6">x %d</string>
 
 </resources>

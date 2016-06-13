@@ -65,6 +65,7 @@
     <color name="text_1">#202021</color>
     <color name="text_2">#8A8B8F</color>
     <color name="text_3">#6C6C6C</color>
+    <color name="text_6">#404040</color>
 
     <!--滑动标题-->
     <color name="text_4">#BBBBBB</color>
@@ -73,6 +74,6 @@
     <color name="text_stroke">#D6D6D6</color>
 
     <color name="bg_1">#E7E6E6</color>
-
+    <color name="bg_button">#3D4898</color>
 
 </resources>

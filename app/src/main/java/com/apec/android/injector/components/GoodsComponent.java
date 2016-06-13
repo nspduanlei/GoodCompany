@@ -2,14 +2,10 @@ package com.apec.android.injector.components;
 
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
-import com.apec.android.domain.usercase.GetVerCodeUseCase;
-import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
+import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodsModule;
-import com.apec.android.injector.modules.LoginModule;
-import com.apec.android.views.activities.GoodsActivity;
-import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.fragments.GoodsCFragment;
 
 import dagger.Component;
@@ -20,10 +16,11 @@ import dagger.Component;
 @Activity
 @Component(dependencies = AppComponent.class, modules = {GoodsModule.class, ActivityModule.class})
 public interface GoodsComponent extends ActivityComponent {
-    void inject(GoodsActivity goodsActivity);
 
     void inject(GoodsCFragment goodsCFragment);
 
     GetAllCityUseCase getAllCityUseCase();
     CityIsOpenUseCase getCityIsOpenUseCase();
+    GetDefaultAddressUseCase GetDefaultAddressUseCase();
+
 }

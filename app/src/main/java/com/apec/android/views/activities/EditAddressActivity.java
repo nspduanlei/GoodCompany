@@ -33,7 +33,7 @@ import butterknife.OnClick;
  * 编辑地址
  */
 public class EditAddressActivity extends BaseActivity implements EditAddressView,
-        SelectCityUtil.SelectArea{
+        SelectCityUtil.SelectArea {
 
 
     @BindView(R.id.pb_loading)
@@ -49,6 +49,9 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
 
     @Inject
     EditAddressPresenter mPresenter;
+
+    @Inject
+    SelectCityUtil mSelectCityUtil;
 
     ActivityEditAddressBinding mBinding;
 
@@ -72,10 +75,11 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
         mSelAreaId = Integer.valueOf(goodsReceipt.getAddrRes().getAreaId());
         mAddressId = goodsReceipt.getAddressId();
 
-        dialog = new SelectCityUtil(this, this,
+        mSelectCityUtil.setData(this,
                 goodsReceipt.getAddrRes().getCity(),
                 goodsReceipt.getAddrRes().getArea(),
-                null, mSelCityId, mSelAreaId, 0).dialog;
+                null, mSelCityId, mSelAreaId, 0);
+        dialog = mSelectCityUtil.dialog;
     }
 
     @Override
@@ -110,7 +114,7 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
 
     @OnClick(R.id.btn_save)
     void onSubmitClicked(View view) {
-//手机号
+        //手机号
         String takeGoodsPhone = mEtPhoneNumber.getText().toString();
         //收货人姓名
         String takeGoodsUser = mEtPerson.getText().toString();

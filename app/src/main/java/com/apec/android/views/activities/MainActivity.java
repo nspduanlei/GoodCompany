@@ -7,6 +7,7 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
+import com.apec.android.util.L;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.fragments.GoodsCFragment;
 import com.apec.android.views.fragments.MeFragment;
@@ -16,6 +17,7 @@ import com.apec.android.views.utils.TabEntity;
 import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
 
@@ -68,7 +70,22 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
         mTlMain.setTabData(mTabEntities, this, R.id.fl_change, mFragments);
 
-        mTlMain.showMsg(1, ShopCartUtil.queryAllNum());
+        int cartCount = ShopCartUtil.querySkuNum();
+        updateCartNum(cartCount);
+
+        mTlMain.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                if (position == 1) {
+                    mShoppingCartFragment.getData();
+                }
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
     @Override
@@ -90,6 +107,8 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
     @Override
     public void updateCartNum(int num) {
-        mTlMain.showMsg(1, num);
+        if (num > 0) {
+            mTlMain.showMsg(1, num);
+        }
     }
 }

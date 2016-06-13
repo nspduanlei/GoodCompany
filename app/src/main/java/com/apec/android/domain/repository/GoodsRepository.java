@@ -190,4 +190,10 @@ public interface GoodsRepository {
 
     //修改用户信息
     Observable<NoBody> updateUser(int skuId);
+
+    //快速创建订单
+    Observable<NoBody> createOneOrder(int skuId, int addressId, int num);
+
+    //地区选择
+    Observable<Areas> getArea(int id);
 }

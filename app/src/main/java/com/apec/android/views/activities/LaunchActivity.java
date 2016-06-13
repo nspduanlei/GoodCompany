@@ -55,11 +55,11 @@ public class LaunchActivity extends BaseActivity {
 //        }, 2000);
 
 
-//        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
-//        startActivity(intent);
-
-        Intent intent = new Intent(LaunchActivity.this, GuideActivity.class);
+        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
         startActivity(intent);
+
+//        Intent intent = new Intent(LaunchActivity.this, GuideActivity.class);
+//        startActivity(intent);
 
         this.finish();
     }

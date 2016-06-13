@@ -6,6 +6,8 @@ import android.widget.GridView;
 
 import com.apec.android.R;
 import com.apec.android.domain.entities.user.Area;
+import com.apec.android.domain.entities.user.OpenCity;
+import com.apec.android.util.SPUtils;
 import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -20,7 +22,7 @@ import java.util.List;
 public class CityDialog {
 
     Activity mActivity;
-    List<Area> mCityData = new ArrayList<>();
+    List<OpenCity> mCityData = new ArrayList<>();
     CommonAdapter mCityAdapter;
 
     int mSelectCityId;
@@ -28,7 +30,7 @@ public class CityDialog {
 
     CityChangeInterface mCityChangeInterface;
 
-    public CityDialog(Activity activity, List<Area> areas,
+    public CityDialog(Activity activity, List<OpenCity> areas,
                       CityChangeInterface cityChangeInterface) {
         mActivity = activity;
         mCityData = areas;
@@ -41,26 +43,32 @@ public class CityDialog {
 
         GridView gridView = (GridView) dialogView.findViewById(R.id.gv_open_city);
 
-        mCityAdapter = new CommonAdapter<Area>(mActivity,
+        mCityAdapter = new CommonAdapter<OpenCity>(mActivity,
                 mCityData, R.layout.item_open_city) {
 
             @Override
-            public void convert(final MyViewHolder holder, final Area city) {
-                holder.setText(R.id.rb_city_name, city.getAreaName());
-                if (city.isSelect()) {
+            public void convert(final MyViewHolder holder, final OpenCity city) {
+
+                final int cityId = (int) SPUtils.get(mContext,
+                        SPUtils.LOCATION_CITY_ID, 0);
+
+                holder.setText(R.id.rb_city_name, city.getCityName());
+
+                if (city.getCityId() == cityId) {
                     holder.setSelected(R.id.rb_city_name, true);
                 } else {
                     holder.setSelected(R.id.rb_city_name, false);
                 }
+
                 holder.setOnCheckChangeListerRadio(R.id.rb_city_name,
                         (compoundButton, b) -> {
                             if (b) {
-                                for (Area area:mCityData) {
-                                    mSelectCityId = mCityData.get(holder.getMPosition()).getId();
-                                    mSelectCityName = mCityData.get(holder.getMPosition())
-                                            .getAreaName();
+                                mSelectCityId = mCityData.get(holder.getMPosition()).getCityId();
+                                mSelectCityName = mCityData.get(holder.getMPosition())
+                                        .getCityName();
 
-                                    if (area.getId() == mSelectCityId) {
+                                for (OpenCity area : mCityData) {
+                                    if (area.getCityId() == mSelectCityId) {
                                         area.setSelect(true);
                                     } else {
                                         area.setSelect(false);

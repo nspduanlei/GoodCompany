@@ -12,6 +12,7 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuData;
+import com.apec.android.domain.entities.user.ShopCart;
 import com.apec.android.injector.components.DaggerGoodsListComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.GoodsListModule;
@@ -19,6 +20,7 @@ import com.apec.android.mvp.presenters.GoodsListPresenter;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.util.SPUtils;
 import com.apec.android.views.activities.GoodDetailActivity;
+import com.apec.android.views.activities.TrueOrderActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
@@ -54,6 +56,11 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     GoodsListAdapter mGoodsListAdapter;
     ArrayList<Sku> mGoods = new ArrayList<>();
 
+    //快速下单id
+    int mOrderSkuId;
+    //快速下单数量
+    int mOrderCount;
+
     /**
      * 得到商品展示的fragment
      *
@@ -68,7 +75,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         return fragment;
     }
 
-
     @Override
     protected void initUI(View view) {
         initRecyclerView();
@@ -82,7 +88,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     @Override
     protected void initDependencyInjector(MyApplication myApplication) {
         mCid = getArguments().getInt(EXTRA_CATEGORY_ID, -1);
-        mCityId = 100;
+        mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, "0");
         DaggerGoodsListComponent.builder()
                 .activityModule(new ActivityModule(getActivity()))
                 .appComponent(myApplication.getAppComponent())
@@ -152,59 +158,75 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         mGoodsListPresenter.GetGoodsById(cityId);
     }
 
-
     @Override
     public void onElementClick(int position) {
 
     }
 
     @Override
-    public void onAddCartClick(Sku sku, int position) {
+    public void onAddCount(Sku sku, int position) {
+        //如果用户没有登录将信息加入本地购物车
+        ShopCartUtil.updateCount(String.valueOf(sku.getId()), 1);
 
-        if (LoginUtil.isLogin(getActivity())) {
-            //如果用户登录了，记录 skuId和对应num， 等用户点击购物车图标后批量加入购物车
+        //修改tab显示的购物车数量
+        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
 
-        } else {
-            //如果用户没有登录将信息加入本地购物车
-            SkuData skuData = new SkuData(sku);
-            skuData.saveThrows();
+        sku.setCount(sku.getCount() + 1);
+        mGoods.set(position, sku);
 
-            GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.queryAllNum());
-            mGoodsListAdapter.notifyDataSetChanged();
-        }
-
+        mGoodsListAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onOrderClick(int skuId, int count) {
-
-    }
-
-    @Override
-    public void onAddCount(Sku sku) {
-        if (LoginUtil.isLogin(getActivity())) {
-            //如果用户登录了，记录 skuId和对应num， 等用户点击购物车图标后批量加入购物车
-
-        } else {
-            //如果用户没有登录将信息加入本地购物车
-            SkuData skuData = new SkuData(sku);
-            skuData.saveThrows();
-
-            GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.queryAllNum());
-
-
-            //mGoodsListAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void onCutCount(Sku sku) {
-
+    public void onCutCount(Sku sku, int position) {
         SkuData skuData = new SkuData(sku);
         //如果减到0，从购物车中删除
         if (sku.getCount() == 0) {
             ShopCartUtil.deleteSku(skuData);
         }
+        ShopCartUtil.updateCount(String.valueOf(sku.getId()), -1);
 
+        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
+
+        sku.setCount(sku.getCount() - 1);
+        mGoods.set(position, sku);
+
+        mGoodsListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onOrderClick(int skuId, int count) {
+        mOrderSkuId = skuId;
+        mOrderCount = count;
+
+        //立即下单， 如果用户没有登录则去登录
+        if (LoginUtil.gotoLoginNew(getActivity())) {
+            doOrder();
+        }
+    }
+
+    @Override
+    public void onSaveCartClick(Sku sku, int position) {
+        SkuData skuData = new SkuData(sku);
+        skuData.saveThrows();
+        ShopCartUtil.updateCount(String.valueOf(sku.getId()), 1);
+
+        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
+
+        sku.setCount(sku.getCount() + 1);
+        mGoods.set(position, sku);
+
+        mGoodsListAdapter.notifyDataSetChanged();
+    }
+
+    //下单
+    public void doOrder() {
+        ArrayList<Integer> skus = new ArrayList<>();
+        skus.add(mOrderSkuId);
+
+        Intent intent = new Intent(getActivity(), TrueOrderActivity.class);
+        intent.putIntegerArrayListExtra("sku_ids", skus);
+        intent.putExtra("count", mOrderCount);
+        startActivity(intent);
     }
 }

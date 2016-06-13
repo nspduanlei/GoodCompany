@@ -1,6 +1,5 @@
 package com.apec.android.domain.usercase;
 
-import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.repository.GoodsRepository;
 

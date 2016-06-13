@@ -3,6 +3,7 @@ package com.apec.android.domain.entities.transport;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.user.Address;
 
 /**

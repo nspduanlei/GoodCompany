@@ -1,16 +1,16 @@
 package com.apec.android.views.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
-import com.android.volley.VolleyError;
 import com.apec.android.R;
-import com.apec.android.domain.GetDataCallback;
 import com.apec.android.domain.entities.user.Area;
 import com.apec.android.domain.entities.user.Areas;
+import com.apec.android.domain.usercase.GetAreaUseCase;
 import com.apec.android.util.StringUtils;
 import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
@@ -20,23 +20,45 @@ import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 /**
  * Created by duanlei on 2016/3/16.
  */
 public class SelectCityUtil implements OnClickListener {
 
     public DialogPlus dialog;
-    Activity mActivity;
+    //Activity mActivity;
     SelectArea mSelectArea;
 
     //forShow
     boolean isShowArea;
-    int maxArea = 2;
+    //int maxArea = 2;
 
-    public SelectCityUtil(Activity activity, SelectArea selectArea,
-                          String selCity, String selArea, String selRoad,
-                          int selCityId, int selAreaId, int selRoadId) {
-        this(activity, selectArea);
+    GetAreaUseCase mGetAreaUseCase;
+    Context mContext;
+
+    @Inject
+    public SelectCityUtil(Context context, GetAreaUseCase getAreaUseCase) {
+        mContext = context;
+        mGetAreaUseCase = getAreaUseCase;
+    }
+
+    /**
+     * 编辑地址
+     * @param selectArea
+     * @param selCity
+     * @param selArea
+     * @param selRoad
+     * @param selCityId
+     * @param selAreaId
+     * @param selRoadId
+     */
+    public void setData(SelectArea selectArea,
+                        String selCity, String selArea, String selRoad,
+                        int selCityId, int selAreaId, int selRoadId) {
+        setData(selectArea);
+
         if (!StringUtils.isNullOrEmpty(selCity)) {
             rbCity.setVisibility(View.VISIBLE);
             rbCity.setText(selCity);
@@ -67,31 +89,29 @@ public class SelectCityUtil implements OnClickListener {
         rbPlease.setVisibility(View.GONE);
     }
 
-    public interface SelectArea{
-        void selectCityFinish(String areaStr, int selCityId, int selAreaId, int selRoadId);
-    }
-
-    public SelectCityUtil(Activity activity, SelectArea selectArea) {
-        mActivity = activity;
+    /**
+     * 添加地址
+     * @param selectArea
+     */
+    public void setData(SelectArea selectArea) {
         mSelectArea = selectArea;
-
-        View dialogView = activity.getLayoutInflater()
+        View dialogView = ((Activity) mContext).getLayoutInflater()
                 .inflate(R.layout.fragment_select_city, null);
-
         initView(dialogView);
-
         ViewHolder viewHolder = new ViewHolder(dialogView);
-
-        dialog = new DialogPlus.Builder(activity)
+        dialog = new DialogPlus.Builder(mContext)
                 .setContentHolder(viewHolder)
                 .setCancelable(true)
                 .setGravity(DialogPlus.Gravity.BOTTOM)
                 .setOnClickListener(this)
                 .create();
-
         if (!isShowArea) {
             obtainArea(1);
         }
+    }
+
+    public interface SelectArea {
+        void selectCityFinish(String areaStr, int selCityId, int selAreaId, int selRoadId);
     }
 
     ArrayList<Area> mData;
@@ -104,7 +124,7 @@ public class SelectCityUtil implements OnClickListener {
 
     private void initView(View view) {
         mData = new ArrayList<>();
-        mAdapter = new CommonAdapter<Area>(mActivity, mData, R.layout.select_city_item) {
+        mAdapter = new CommonAdapter<Area>(mContext, mData, R.layout.select_city_item) {
             @Override
             public void convert(MyViewHolder holder, Area area) {
                 holder.setText(R.id.tv_area_name, area.getAreaName());
@@ -218,75 +238,70 @@ public class SelectCityUtil implements OnClickListener {
 
     /**
      * 获取地区数据
+     *
      * @param id
      */
     public void obtainArea(int id) {
-//        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
-//            @Override
-//            public void onRepose(Areas response) {
-//                if (response.getH().getCode() == 200) {
-//                    //获取地区成功
-//                    ArrayList<Area> areas = response.getB();
-//
-//                    if (areas.size() > 0) { //如果有地区数据
-//                        switch (curIndex) {
-//                            case 1:
-//                                cityList = areas;
-//                                break;
-//                            case 2:
-//                                areaList = areas;
-//                                break;
-//                            case 3:
-//                                roadList = areas;
-//                                break;
-//                        }
-//                        mData.clear();
-//                        mData.addAll(areas);
-//                        mAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        }, String.valueOf(id));
+        mGetAreaUseCase.setData(id);
+        mGetAreaUseCase.execute().subscribe(this::onAreaReceived, this::managerError);
+    }
+
+    private void managerError(Throwable throwable) {
+
+    }
+
+    private void onAreaReceived(Areas response) {
+        if (response.getH().getCode() == 200) {
+            //获取地区成功
+            ArrayList<Area> areas = response.getB();
+
+            if (areas.size() > 0) { //如果有地区数据
+                switch (curIndex) {
+                    case 1:
+                        cityList = areas;
+                        break;
+                    case 2:
+                        areaList = areas;
+                        break;
+                    case 3:
+                        roadList = areas;
+                        break;
+                }
+                mData.clear();
+                mData.addAll(areas);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
 
     public void obtainAreaForShow(int id) {
-//        UserInteract.obtainArea(mActivity, new GetDataCallback<Areas>() {
-//            @Override
-//            public void onRepose(Areas response) {
-//                if (response.getH().getCode() == 200) {
-//                    //获取地区成功
-//                    ArrayList<Area> areas = response.getB();
-//
-//                    if (areas.size() > 0) { //如果有地区数据
-//                        switch (curIndex) {
-//                            case 1:
-//                                cityList = areas;
-//                                curIndex = 2;
-//                                obtainAreaForShow(selArea);
-//                                break;
-//                            case 2:
-//                                areaList = areas;
-//                                rbCity.performClick();
-//                                break;
-//                            case 3:
-//                                roadList = areas;
-//                                break;
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        }, String.valueOf(id));
+        mGetAreaUseCase.setData(id);
+        mGetAreaUseCase.execute().subscribe(this::onAreaShowReceived, this::managerError);
+    }
+
+    private void onAreaShowReceived(Areas response) {
+        if (response.getH().getCode() == 200) {
+            //获取地区成功
+            ArrayList<Area> areas = response.getB();
+
+            if (areas.size() > 0) { //如果有地区数据
+                switch (curIndex) {
+                    case 1:
+                        cityList = areas;
+                        curIndex = 2;
+                        obtainAreaForShow(selArea);
+                        break;
+                    case 2:
+                        areaList = areas;
+                        rbCity.performClick();
+                        break;
+                    case 3:
+                        roadList = areas;
+                        break;
+                }
+            }
+        }
     }
 
     @Override

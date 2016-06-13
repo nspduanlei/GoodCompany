@@ -110,4 +110,12 @@ public interface GoodsApi {
 
     @GET("citymaping.json")
     Observable<ArrayList<OpenCity>> cityIsOpen();
+
+    @FormUrlEncoded
+    @POST("order/add")
+    Observable<NoBody> createOneOrder(@Field("skuId") int skuId,
+                                      @Field("addressId") int addressId,
+                                      @Field("num") int num);
+    @GET("area")
+    Observable<Areas> getArea(@Query("id") int id);
 }

@@ -3,6 +3,7 @@ package com.apec.android.injector.components;
 import com.apec.android.domain.usercase.AddDeliveryUseCase;
 import com.apec.android.domain.usercase.DelAddressUseCase;
 import com.apec.android.domain.usercase.GetAllAddressUseCase;
+import com.apec.android.domain.usercase.GetAreaUseCase;
 import com.apec.android.domain.usercase.SetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.UpdateDeliveryUseCase;
 import com.apec.android.injector.Activity;
@@ -30,4 +31,5 @@ public interface AddressComponent extends ActivityComponent {
     DelAddressUseCase delAddressUseCase();
     UpdateDeliveryUseCase updateDeliveryUseCase();
     AddDeliveryUseCase addDeliveryUseCase();
+    GetAreaUseCase getAreaUseCase();
 }

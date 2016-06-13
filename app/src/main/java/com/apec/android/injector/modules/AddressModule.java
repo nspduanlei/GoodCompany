@@ -4,6 +4,7 @@ import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.AddDeliveryUseCase;
 import com.apec.android.domain.usercase.DelAddressUseCase;
 import com.apec.android.domain.usercase.GetAllAddressUseCase;
+import com.apec.android.domain.usercase.GetAreaUseCase;
 import com.apec.android.domain.usercase.SetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.UpdateDeliveryUseCase;
 import com.apec.android.injector.Activity;
@@ -19,6 +20,15 @@ import rx.Scheduler;
  */
 @Module
 public class AddressModule {
+
+    @Provides
+    @Activity
+    GetAreaUseCase provideGetAreaUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetAreaUseCase(repository, uiThread, executorThread);
+    }
 
     @Provides
     @Activity

@@ -8,24 +8,43 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/top_bar_height">
+        android:layout_height="@dimen/top_bar_height"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
-        <TextView
+        <ImageView
+            android:id="@+id/tv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="配送至：fasfagagagag"
-            android:textColor="@color/text_3"
-            android:textStyle="bold"/>
-
+            android:src="@drawable/menu_logo"
+            android:layout_centerVertical="true"/>
 
         <TextView
-            android:id="@+id/tv_test"
+            android:id="@+id/tv_location"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="登录"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableRight="@drawable/arrow_down"
+            android:gravity="center"
+            android:text="深圳"
+            android:textColor="@color/text_3"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/tv_icon"
+            android:layout_marginLeft="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_send_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:gravity="center_vertical"/>
+            android:layout_centerVertical="true"
+            android:drawableRight="@drawable/arrow_down"
+            android:ellipsize="end"
+            android:maxWidth="200dp"
+            android:singleLine="true"
+            android:textColor="@color/text_3"
+            android:textStyle="bold"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <com.flyco.tablayout.SlidingTabLayout
@@ -42,7 +61,6 @@
         app:tl_textBold="true"
         app:tl_textSelectColor="@color/text_5"
         app:tl_textUnselectColor="@color/text_4"/>
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_goods"

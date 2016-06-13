@@ -1,19 +1,15 @@
 package com.apec.android.views.activities;
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.GoodsCAdapter;
-import com.apec.android.views.fragments.GoodsFragment;
 import com.apec.android.views.fragments.OrderFragment;
-import com.apec.android.views.fragments.RecommendFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by duanlei on 2016/6/10.

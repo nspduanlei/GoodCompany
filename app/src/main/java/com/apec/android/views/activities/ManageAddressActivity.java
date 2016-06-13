@@ -51,7 +51,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     public static final String HAS_DEFAULT = "hasDefault";
     public static final String IS_SELECT = "hasDefault";
 
-    boolean mIsSetDefalt = false;
+    boolean mIsSetDefault = false;
 
     @Override
     protected void setUpContentView() {
@@ -100,7 +100,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         mGoodsReceipts.addAll(addressList);
         mAdapter.notifyDataSetChanged();
 
-        if (mIsSetDefalt) {
+        if (mIsSetDefault) {
             this.finish();
         }
     }
@@ -132,7 +132,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
             } else {
                 //设置默认地址
                 mPresenter.setDefaultAddress(mGoodsReceipts.get(position).getAddressId());
-                mIsSetDefalt = true;
+                mIsSetDefault = true;
             }
         }
     }
@@ -160,7 +160,6 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
                 mPresenter.getAllAddress();
             }
         }
-
 
         super.onActivityResult(requestCode, resultCode, data);
     }

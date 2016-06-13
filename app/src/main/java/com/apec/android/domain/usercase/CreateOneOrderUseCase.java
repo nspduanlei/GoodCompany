@@ -11,35 +11,36 @@ import rx.Scheduler;
 
 /**
  * Created by duanlei on 2016/5/16.
- * 购物车创建订单
+ * 快速创建订单
  */
-public class CreateOrderUseCase extends UseCase<NoBody> {
+public class CreateOneOrderUseCase extends UseCase<NoBody> {
 
     private final GoodsRepository mRepository;
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
 
-    //skus：skuId拼接的字符串
-    String mSkus;
+    int mSkuId;
     int mAddressId;
+    int mNum;
 
     @Inject
-    public CreateOrderUseCase(GoodsRepository repository,
-                              @Named("ui_thread") Scheduler uiThread,
-                              @Named("executor_thread") Scheduler executorThread) {
+    public CreateOneOrderUseCase(GoodsRepository repository,
+                                 @Named("ui_thread") Scheduler uiThread,
+                                 @Named("executor_thread") Scheduler executorThread) {
         mRepository = repository;
         mUiThread = uiThread;
         mExecutorThread = executorThread;
     }
 
-    public void setData(String skus, int addressId) {
-        mSkus = skus;
+    public void setData(int skuId, int addressId, int num) {
+        mSkuId = skuId;
         mAddressId = addressId;
+        mNum = num;
     }
 
     @Override
     public Observable<NoBody> buildObservable() {
-        return mRepository.createOrder(mSkus, mAddressId)
+        return mRepository.createOneOrder(mSkuId, mAddressId, mNum)
                 .observeOn(mUiThread)
                 .subscribeOn(mExecutorThread);
     }

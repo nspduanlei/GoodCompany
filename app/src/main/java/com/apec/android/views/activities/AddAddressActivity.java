@@ -13,6 +13,7 @@ import com.apec.android.injector.components.DaggerAddressComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.AddAddressPresenter;
 import com.apec.android.mvp.views.AddAddressView;
+import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
@@ -46,6 +47,8 @@ public class AddAddressActivity extends BaseActivity implements
     @Inject
     AddAddressPresenter mPresenter;
 
+    @Inject
+    SelectCityUtil mSelectCityUtil;
 
     private DialogPlus dialog;
     private int mSelCityId, mSelAreaId, mSelRoadId;
@@ -57,7 +60,8 @@ public class AddAddressActivity extends BaseActivity implements
 
     @Override
     protected void initUi() {
-        dialog = new SelectCityUtil(this, this).dialog;
+        mSelectCityUtil.setData(this);
+        dialog = mSelectCityUtil.dialog;
     }
 
     @Override
@@ -85,6 +89,10 @@ public class AddAddressActivity extends BaseActivity implements
     @OnClick(R.id.tv_select_area)
     void onSelectAreaClicked(View view) {
         dialog.show();
+        //关闭键盘
+        KeyBoardUtils.closeKeybord(mEtPerson, this);
+        KeyBoardUtils.closeKeybord(mEtPhoneNumber, this);
+        KeyBoardUtils.closeKeybord(mEtAreaDetail, this);
     }
 
     @OnClick(R.id.btn_save)
@@ -115,7 +123,6 @@ public class AddAddressActivity extends BaseActivity implements
         } else {
             ReceiptInfo receiptInfo = new ReceiptInfo(takeGoodsPhone, takeGoodsUser,
                     addreCity, addreAreacounty, addreDetailAddress);
-
             //添加地址
             mPresenter.saveAddress(receiptInfo);
         }

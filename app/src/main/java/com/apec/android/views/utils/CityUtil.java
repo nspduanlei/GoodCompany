@@ -14,7 +14,7 @@ public class CityUtil {
 
     //添加数据库
     public static void addData(OpenCity openCity) {
-        if (queryCityByCityId(openCity.getCityId()) != null) {
+        if (queryCityByCityId(String.valueOf(openCity.getCityId())) != null) {
             update(openCity);
         } else {
             openCity.saveThrows();
@@ -27,17 +27,18 @@ public class CityUtil {
     }
 
     //查询全部数据
-    public static List<SkuData> queryAll() {
-        return null;
+    public static List<OpenCity> queryAll() {
+        return DataSupport.findAll(OpenCity.class);
     }
-
 
     //更具id查询
     public static OpenCity queryCityByCityId(String cityId) {
 
         List<OpenCity> list =
                 DataSupport.where("cityid = ?", cityId).find(OpenCity.class);
-
+        if (list.size() == 0) {
+            return null;
+        }
         return list.get(0);
     }
 }

@@ -2,19 +2,24 @@ package com.apec.android.views.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
+import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.user.ShopCart;
-import com.apec.android.domain.entities.user.Skus;
+import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.injector.components.DaggerShopCartComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
@@ -22,6 +27,7 @@ import com.apec.android.mvp.views.ShoppingCartView;
 import com.apec.android.views.adapter.CartListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
+import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.view.CartListClickListener;
 
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by duanlei on 2016/6/7.
@@ -47,23 +54,22 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     TextView mTvTotalPrice;
     @BindView(R.id.rv_cart)
     RecyclerView mRvCart;
-    @BindView(R.id.srl_refresh)
-    SwipeRefreshLayout mSrlRefresh;
+
+    @BindView(R.id.pb_loading)
+    ProgressBar mPbLoading;
 
     CartListAdapter mAdapter;
-    ArrayList<Skus> mData = new ArrayList<>();
+    ArrayList<SkuData> mData = new ArrayList<>();
 
     @Override
     protected void initUI(View view) {
         //是否登录
         //LoginUtil.gotoLogin(getActivity());
-
         mRvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CartListAdapter(mData, getActivity(), this);
         mRvCart.setAdapter(mAdapter);
 
-        mSrlRefresh.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW);
-        mSrlRefresh.setEnabled(false);
+        //TODO  将本地没有计入购物车的商品，加入购物车
     }
 
     @Override
@@ -87,11 +93,16 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
     @Override
     public void showLoadingView() {
-
+        mPbLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadingView() {
+        mPbLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDataEmpty() {
 
     }
 
@@ -102,7 +113,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
                 mPresenter.getData();
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -112,8 +122,36 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     }
 
     @Override
-    public void bindCart(ShopCart shopCart) {
+    public void onAddClick(String skuId) {
+        //购物车数量加1
+        ShopCartUtil.updateCount(skuId, 1);
+        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
+        mPresenter.getData();
+    }
+
+    @Override
+    public void onCutClick(String skuId) {
+        //购物车数量减1
+        ShopCartUtil.updateCount(skuId, -1);
+        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
+        mPresenter.getData();
+    }
+
+    @Override
+    public void onCheckChange(String skuId, boolean isCheck) {
+        if (isCheck) {
+            ShopCartUtil.updateCheck(skuId, isCheck);
+        }
+    }
+
+    @Override
+    public void bindCart(ShopCartData shopCart) {
+        mData.clear();
         mData.addAll(shopCart.getSkus());
         mAdapter.notifyDataSetChanged();
+    }
+
+    public void getData() {
+        mPresenter.getData();
     }
 }

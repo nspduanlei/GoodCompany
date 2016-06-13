@@ -117,10 +117,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 myHandler.obtainMessage(LoginHandler.HANDLER_TIMER).sendToTarget();
             }
         };
-
         mTimer.schedule(timerTask, 1000, 1000);
     }
-
 
     @OnClick(R.id.btn_start)
     void onStartClick(View view) {
@@ -155,35 +153,28 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
-
     @Override
     public void getVerCodeReceived() {
         //验证码发送成功
-//        String str_1 = String.format(getString(R.string.hint_register_1),
-//                phoneNumberStr);
-//        showHint(str_1);
         //启动倒计时
         L.d("test00", "启动计时器");
-        //mTvHintDown.setVisibility(View.VISIBLE);
-
         startTimer();
     }
 
     @Override
     public void bindUser() {
         //登录成功
-        Intent mIntent = new Intent(GoodsActivity.ACTION_USER_UPDATE);
-        sendBroadcast(mIntent);
-
-        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
-        finish();
+//        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+//        sendBroadcast(mIntent);
+//        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
+//        finish();
     }
 
     @Override
     public void completeData() {
         //未完善资料
         Intent intent = new Intent(this, CompleteActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, Constants.REQUEST_CODE_COMPLETE);
     }
 
     @Override
@@ -192,19 +183,21 @@ public class LoginActivity extends BaseActivity implements LoginView {
         T.showShort(this, "验证码输入错误");
     }
 
-    /**
-     * 显示提示
-     */
-//    public void showHint(String msg) {
-//        if (mTvHint.getVisibility() == View.GONE) {
-//            mTvHint.setVisibility(View.VISIBLE);
-//            mTvHint.setText(msg);
-//        }
-//    }
 
     @Override
     protected void onStop() {
         super.onStop();
         mLoginPresenter.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_CODE_COMPLETE) {
+            if (resultCode == Constants.RESULT_CODE_COMPLETE_SUCCESS) {
+                //完善资料成功
+                setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
+                finish();
+            }
+        }
     }
 }

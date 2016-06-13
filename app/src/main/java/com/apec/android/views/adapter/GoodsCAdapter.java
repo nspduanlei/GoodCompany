@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GoodsCAdapter extends FragmentPagerAdapter {
 
-    private final List<Fragment> mFragments = new ArrayList<>();
+    public final List<Fragment> mFragments = new ArrayList<>();
     private final List<String> mFragmentTitles = new ArrayList<>();
 
     public void addFragment(Fragment fragment, String title) {
@@ -25,6 +25,14 @@ public class GoodsCAdapter extends FragmentPagerAdapter {
 
     public GoodsCAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        if (object instanceof GoodsFragment) {
+            ((GoodsFragment) object).updateData();
+        }
+        return super.getItemPosition(object);
     }
 
     @Override

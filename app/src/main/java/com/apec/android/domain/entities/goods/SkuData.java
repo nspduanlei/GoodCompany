@@ -28,9 +28,11 @@ public class SkuData extends DataSupport {
     private int status;
     //购物车数量
     private int count;
-    private int isSelect;
+    private boolean isSelect;
     private String pic;
 
+    //是否添加到远程数据库
+    private boolean isSave;
 
     public int getId() {
         return id;
@@ -48,12 +50,20 @@ public class SkuData extends DataSupport {
         this.pic = pic;
     }
 
-    public int getIsSelect() {
+    public boolean isSelect() {
         return isSelect;
     }
 
-    public void setIsSelect(int isSelect) {
-        this.isSelect = isSelect;
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    public boolean isSave() {
+        return isSave;
+    }
+
+    public void setSave(boolean save) {
+        isSave = save;
     }
 
     public String getSkuId() {

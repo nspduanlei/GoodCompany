@@ -36,11 +36,8 @@
             </intent-filter>
         </activity>
 
-
         <!--重构-->
         <activity android:name=".views.activities.MainActivity" />
-        <activity android:name=".views.activities.GoodsActivity"/>
-
         <activity android:name=".views.activities.LoginActivity" />
         <activity android:name=".views.activities.GoodDetailActivity" />
         <activity android:name=".views.activities.ManageAddressActivity" />
@@ -49,7 +46,11 @@
         <activity android:name=".views.activities.MyOrdersActivity" />
         <activity android:name=".views.activities.OrderDetailActivity" />
         <activity android:name=".views.activities.CompleteActivity" />
-        <activity android:name=".views.activities.GuideActivity" />
+        <activity android:name=".views.activities.TrueOrderActivity" />
+        <activity
+            android:name=".views.activities.GuideActivity"
+            android:theme="@style/GuideAppTheme"/>
+
         <activity android:name=".views.activities.OrdersActivity" />
         <activity android:name=".views.activities.SettingActivity" />
         <activity android:name=".views.activities.ServiceActivity" />

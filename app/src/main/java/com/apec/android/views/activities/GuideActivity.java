@@ -48,8 +48,25 @@ public class GuideActivity extends BaseActivity {
                 .setPageIndicator(new int[]{R.drawable.shape_page_indicator,
                         R.drawable.shape_page_indicator_focused})
                 //设置指示器的方向
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-                .setcurrentitem(0);
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+
+        mConvenientBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
 
     }

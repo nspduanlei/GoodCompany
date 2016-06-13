@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="34.5dp"
+    android:layout_margin="20dp">
+
+    <Button
+        android:id="@+id/btn_cut"
+        android:layout_width="34.5dp"
+        android:layout_height="34.5dp"
+        android:background="@drawable/btn_cut" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="34.5dp"
+        android:layout_height="34.5dp"
+        android:background="@drawable/btn_add"
+        android:layout_alignParentRight="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_line"
+        android:layout_toRightOf="@id/btn_cut"
+        android:layout_toLeftOf="@id/btn_add"/>
+
+    <TextView
+        android:id="@+id/tv_add_count"
+        android:layout_width="46dp"
+        android:layout_height="33.5dp"
+        android:layout_centerHorizontal="true"
+        android:text="5"
+        android:textSize="18sp"
+        android:textColor="@color/text_3"
+        android:gravity="center"
+        android:layout_centerInParent="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_line"
+        android:layout_toRightOf="@id/btn_cut"
+        android:layout_toLeftOf="@id/btn_add"
+        android:layout_below="@id/tv_add_count"/>
+</RelativeLayout>

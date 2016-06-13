@@ -37,7 +37,8 @@
                 android:layout_marginLeft="15dp"
                 android:background="@null"
                 android:textColor="@color/color_text_6"
-                android:textSize="@dimen/common_text_size"/>
+                android:textSize="@dimen/common_text_size"
+                android:lines="1"/>
         </LinearLayout>
 
         <View
@@ -67,7 +68,8 @@
                 android:background="@null"
                 android:inputType="number"
                 android:textColor="@color/color_text_6"
-                android:textSize="@dimen/common_text_size"/>
+                android:textSize="@dimen/common_text_size"
+                android:lines="1"/>
         </LinearLayout>
 
         <View

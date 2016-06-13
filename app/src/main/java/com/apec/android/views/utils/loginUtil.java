@@ -170,11 +170,22 @@ public class LoginUtil {
         return true;
     }
 
+    public static boolean gotoLoginNew(Activity activity) {
+        if (StringUtils.isNullOrEmpty(
+                (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
+            //没有登录
+            Intent intent = new Intent(activity, LoginActivity.class);
+            activity.startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * 登录页跳转后的回调
      * @param requestCode
      * @param resultCode
-     * @return  返回登录成功返回true
      */
     public static void onActivityResult(int requestCode, int resultCode, Activity activity) {
         if (requestCode == Constants.REQUEST_CODE_LOGIN) {

@@ -37,11 +37,9 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
 
     @Override
     protected void initUI(View view) {
-
         for (int i = 0; i < 10; i++) {
             mOrders.add(new Order());
         }
-
 
         mRvOrder.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvOrder.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));

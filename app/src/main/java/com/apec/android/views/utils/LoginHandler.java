@@ -44,7 +44,7 @@ public class LoginHandler extends Handler {
 
                 } else {
                     theActivity.mBtnGetCode.setEnabled(true);
-
+                    theActivity.mBtnGetCode.setText("验证");
 
                     //theActivity.mTvHintDown.setText("如果您还没收到短信，请尝试重新获取");
                 }

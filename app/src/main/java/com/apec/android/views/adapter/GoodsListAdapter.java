@@ -90,7 +90,8 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
         public void bindGood(Sku sku) {
             mTvGoodsName.setText(sku.getSkuName());
-            mTvPrice.setText(sku.getPrice());
+            mTvPrice.setText(String.format(mContext.getString(R.string.add_order_total),
+                    sku.getPrice()));
 
             //获取数据库里面的商品数量
             int count = sku.getCount();
@@ -98,7 +99,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             if (count == 0) {
                 mBtnAddCart.setVisibility(View.VISIBLE);
                 mLlUpdateNum.setVisibility(View.GONE);
-                mBtnAddCart.setOnClickListener(view -> addCart(sku, count));
+                mBtnAddCart.setOnClickListener(view -> addCart(sku));
             } else {
                 mBtnAddCart.setVisibility(View.GONE);
                 mLlUpdateNum.setVisibility(View.VISIBLE);
@@ -116,33 +117,28 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
             mBtnOrder.setOnClickListener(view -> {
                 if (count == 0) {
-                    addCart(sku, count);
+                    addCart(sku);
+                } else {
+                    mRecyclerListener.onOrderClick(sku.getId(), count);
                 }
-                mRecyclerListener.onOrderClick(sku.getId(), count);
             });
 
             mIvAdd.setOnClickListener(view -> {
                 //购物车数量加1
-                sku.setCount(sku.getCount()+1);
-                mRecyclerListener.onAddCount(sku);
+                mRecyclerListener.onAddCount(sku, getAdapterPosition());
 
             });
 
             mIvCut.setOnClickListener(view -> {
                 //购物车数量减1
-
-                mRecyclerListener.onCutCount(sku);
+                mRecyclerListener.onCutCount(sku, getAdapterPosition());
             });
         }
 
-        void addCart(Sku sku, int count) {
-            count = count + 1;
-            sku.setCount(count);
-
-            mRecyclerListener.onAddCartClick(sku, getAdapterPosition());
+        void addCart(Sku sku) {
+            mRecyclerListener.onSaveCartClick(sku, getAdapterPosition());
             mBtnAddCart.setVisibility(View.GONE);
             mLlUpdateNum.setVisibility(View.VISIBLE);
-
         }
 
         private void bindListener(View itemView, final RecyclerClickListener recyclerClickListener) {

@@ -5,11 +5,13 @@ import android.util.Log;
 
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.Goods;
+import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.user.Area;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
+import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
@@ -34,32 +36,33 @@ import rx.schedulers.Schedulers;
  */
 public class GoodsPresenter implements Presenter {
 
-    GetAllCityUseCase mGetAllCityUseCase;
     LocationHelp mLocationHelp;
     CityIsOpenUseCase mCityIsOpenUseCase;
+    GetDefaultAddressUseCase mGetDefaultAddressUseCase;
 
     String mCityName, mCityCode;
-    int mCityId;
+
+    int mCityId = 0;
 
     GoodsView mGoodsView;
 
     @Inject
-    public GoodsPresenter(GetAllCityUseCase getAllCityUseCase,
-                          LocationHelp locationHelp,
-                          CityIsOpenUseCase cityIsOpenUseCase) {
+    public GoodsPresenter(LocationHelp locationHelp,
+                          CityIsOpenUseCase cityIsOpenUseCase,
+                          GetDefaultAddressUseCase getDefaultAddressUseCase) {
         mLocationHelp = locationHelp;
-        mGetAllCityUseCase = getAllCityUseCase;
         mCityIsOpenUseCase = cityIsOpenUseCase;
+        mGetDefaultAddressUseCase = getDefaultAddressUseCase;
     }
 
-    public void initPresenter(int cityId) {
-        mCityId = cityId;
-    }
+//    public void initPresenter(int cityId) {
+//        mCityId = cityId;
+//    }
 
     /**
      * 启动定位
      */
-    private void startLocation() {
+    public void startLocation() {
         mGoodsView.startLocation();
 
         mLocationHelp.startLocation(aMapLocation -> {
@@ -85,14 +88,11 @@ public class GoodsPresenter implements Presenter {
                     for (OpenCity openCity : cityList) {
                         if (mCityCode.equals(openCity.getCityCode())) {
                             openCity.setLocation(true);
+//                            openCity.setSelect(true);
+                            mCityId = openCity.getCityId();
                         }
-
                         CityUtil.addData(openCity);
-
                     }
-
-                    //DataSupport.saveAll(cityList);
-
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::cityIsOpenReceived, this::manageIsOpenError);
@@ -100,10 +100,11 @@ public class GoodsPresenter implements Presenter {
     }
 
     private void manageIsOpenError(Throwable throwable) {
+        L.e("error");
     }
 
     private void cityIsOpenReceived(ArrayList<OpenCity> data) {
-        mGoodsView.locationSuccess(data, mCityName);
+        mGoodsView.locationSuccess(mCityId, mCityName);
     }
 
     @Override
@@ -128,34 +129,22 @@ public class GoodsPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        startLocation();
     }
 
-    public void getOpenCityList() {
-        mGetAllCityUseCase.execute()
-                .map(areas -> {
-                    if (mCityId != 0) {
-                        for (Area area : areas.getB()) {
-                            if (area.getId() == mCityId) {
-                                area.setSelect(true);
-                            }
-                        }
-                    }
-                    return areas;
-                })
-                .subscribe(this::onGoodsReceived, this::manageGoodsError);
+    //获取默认地址
+    public void getDefaultAddress() {
+        mGetDefaultAddressUseCase.execute()
+                .subscribe(this::onDefaultAddressReceived, this::manageDefaultAddressError);
     }
 
-    private void onGoodsReceived(Areas areas) {
-        if (areas.getH().getCode() == Constants.SUCCESS_CODE) {
-            mGoodsView.bindCity(areas.getB());
-        } else {
-            mGoodsView.showErrorView(areas.getH().getMsg());
+    private void manageDefaultAddressError(Throwable throwable) {
+
+    }
+
+    private void onDefaultAddressReceived(ReceiptDefault receiptDefault) {
+        if (receiptDefault.getH().getCode() == 200) {
+            mGoodsView.bindDefaultAddress(receiptDefault.getB());
         }
     }
 
-    //发生错误
-    private void manageGoodsError(Throwable error) {
-        mGoodsView.showErrorView(error.toString());
-    }
 }

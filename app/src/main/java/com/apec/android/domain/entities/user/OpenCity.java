@@ -11,10 +11,19 @@ public class OpenCity extends DataSupport {
     private int id;
 
     @Column(unique = true, defaultValue = "unknown")
-    private String cityId;
+    private int cityId;
     private String cityCode;
     private String cityName;
     private boolean isLocation;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public int getId() {
         return id;
@@ -24,11 +33,11 @@ public class OpenCity extends DataSupport {
         this.id = id;
     }
 
-    public String getCityId() {
+    public int getCityId() {
         return cityId;
     }
 
-    public void setCityId(String cityId) {
+    public void setCityId(int cityId) {
         this.cityId = cityId;
     }
 
