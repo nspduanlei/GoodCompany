@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:background="@drawable/bg_me_head"
+                android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"/>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="请登录"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_msg"
+        android:layout_width="22dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/iv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_msg"/>
+
+        <View
+            android:id="@+id/v_msg_new"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_gravity="right"
+            android:background="@drawable/shape_dot"/>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@id/fl_msg"
+        android:src="@drawable/icon_setting"/>
+
+</RelativeLayout>

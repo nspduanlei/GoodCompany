@@ -5,6 +5,7 @@ import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.UserModule;
 import com.apec.android.views.activities.CompleteActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
+import com.apec.android.views.fragments.MeFragment;
 
 import dagger.Component;
 
@@ -15,6 +16,10 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = {UserModule.class, ActivityModule.class})
 public interface UserComponent extends ActivityComponent {
 
-    void inject(CompleteActivity CompleteActivity);
+    void inject(MeFragment meFragment);
+
+
+    //检测版本更新
+
 
 }

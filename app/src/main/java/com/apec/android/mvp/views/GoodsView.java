@@ -13,4 +13,6 @@ public interface GoodsView extends View {
 
     void startLocation();
     void locationSuccess(int cityId, String cityName);
+
+    void locationFail();
 }

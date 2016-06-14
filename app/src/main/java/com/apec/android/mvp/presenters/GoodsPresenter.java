@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.Goods;
+import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.user.Area;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
+import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
 import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
@@ -17,6 +19,7 @@ import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
 import com.apec.android.util.LocationHelp;
 import com.apec.android.views.utils.CityUtil;
+import com.apec.android.views.utils.ShopCartUtil;
 
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
@@ -24,9 +27,11 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -55,16 +60,12 @@ public class GoodsPresenter implements Presenter {
         mGetDefaultAddressUseCase = getDefaultAddressUseCase;
     }
 
-//    public void initPresenter(int cityId) {
-//        mCityId = cityId;
-//    }
 
     /**
      * 启动定位
      */
     public void startLocation() {
         mGoodsView.startLocation();
-
         mLocationHelp.startLocation(aMapLocation -> {
             mCityName = aMapLocation.getCity();
             mCityCode = aMapLocation.getCityCode();
@@ -88,7 +89,6 @@ public class GoodsPresenter implements Presenter {
                     for (OpenCity openCity : cityList) {
                         if (mCityCode.equals(openCity.getCityCode())) {
                             openCity.setLocation(true);
-//                            openCity.setSelect(true);
                             mCityId = openCity.getCityId();
                         }
                         CityUtil.addData(openCity);
@@ -104,7 +104,12 @@ public class GoodsPresenter implements Presenter {
     }
 
     private void cityIsOpenReceived(ArrayList<OpenCity> data) {
-        mGoodsView.locationSuccess(mCityId, mCityName);
+        if (mCityId == 0) {
+            mGoodsView.locationFail();
+        } else {
+            mGoodsView.locationSuccess(mCityId, mCityName);
+        }
+
     }
 
     @Override
@@ -147,4 +152,9 @@ public class GoodsPresenter implements Presenter {
         }
     }
 
+    public void updateSelectCity(int cityId) {
+        new Thread(() -> {
+            CityUtil.updateSelect(cityId);
+        }).start();
+    }
 }

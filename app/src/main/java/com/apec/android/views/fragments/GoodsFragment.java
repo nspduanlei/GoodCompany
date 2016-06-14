@@ -88,7 +88,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     @Override
     protected void initDependencyInjector(MyApplication myApplication) {
         mCid = getArguments().getInt(EXTRA_CATEGORY_ID, -1);
-        mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, "0");
+        mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, 0);
         DaggerGoodsListComponent.builder()
                 .activityModule(new ActivityModule(getActivity()))
                 .appComponent(myApplication.getAppComponent())

@@ -1,9 +1,7 @@
 package com.apec.android.views.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,12 +17,12 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.SkuData;
-import com.apec.android.domain.entities.user.ShopCart;
 import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.injector.components.DaggerShopCartComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
 import com.apec.android.mvp.views.ShoppingCartView;
+import com.apec.android.views.activities.MainActivity;
 import com.apec.android.views.adapter.CartListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
@@ -36,6 +35,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by duanlei on 2016/6/7.
@@ -61,15 +61,14 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     CartListAdapter mAdapter;
     ArrayList<SkuData> mData = new ArrayList<>();
 
+    @BindView(R.id.ll_empty)
+    LinearLayout mLlEmpty;
+
     @Override
     protected void initUI(View view) {
-        //是否登录
-        //LoginUtil.gotoLogin(getActivity());
         mRvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CartListAdapter(mData, getActivity(), this);
         mRvCart.setAdapter(mAdapter);
-
-        //TODO  将本地没有计入购物车的商品，加入购物车
     }
 
     @Override
@@ -89,6 +88,14 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     protected void initPresenter() {
         mPresenter.attachView(this);
         mPresenter.onCreate();
+
+        if (LoginUtil.isLogin(getActivity())) {
+            //TODO 如果用户登录了 将本地没有加入购物车的商品，加入购物车
+
+            //TODO 登录成功将远程 购物车的数据加入到本地
+
+            //TODO 退出登录时 清空购物车数据 用户数据 和 session_id
+        }
     }
 
     @Override
@@ -103,7 +110,12 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
     @Override
     public void onDataEmpty() {
+        mLlEmpty.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideEmpty() {
+        mLlEmpty.setVisibility(View.GONE);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -140,7 +152,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     @Override
     public void onCheckChange(String skuId, boolean isCheck) {
         if (isCheck) {
-            ShopCartUtil.updateCheck(skuId, isCheck);
+            ShopCartUtil.updateCheck(skuId, true);
         }
     }
 

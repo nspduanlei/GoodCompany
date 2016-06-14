@@ -69,7 +69,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
         TextView mTvAddCount;
 
         @BindView(R.id.iv_lose)
-        TextView mIvLose;
+        ImageView mIvLose;
 
         public GoodsViewHolder(View itemView, final CartListClickListener listener) {
             super(itemView);

@@ -103,6 +103,7 @@ public class ShoppingCartPresenter implements Presenter {
 
     private void onSaveSkuReceived(ShopCartData shopCartData) {
         mView.hideLoadingView();
+        mView.hideEmpty();
         if (shopCartData.getTotal() == 0) {
             mView.onDataEmpty();
         } else {
@@ -111,14 +112,14 @@ public class ShoppingCartPresenter implements Presenter {
 
     }
 
-    private void manageGetAllError(Throwable throwable) {
-        mView.hideLoadingView();
-    }
-
-    private void onGetAllReceived(ShopCartBack shopCartBack) {
-        mView.hideLoadingView();
-        if (shopCartBack.getH().getCode() == 200) {
-            //mView.bindCart(shopCartBack.getB());
-        }
-    }
+//    private void manageGetAllError(Throwable throwable) {
+//        mView.hideLoadingView();
+//    }
+//
+//    private void onGetAllReceived(ShopCartBack shopCartBack) {
+//        mView.hideLoadingView();
+//        if (shopCartBack.getH().getCode() == 200) {
+//            //mView.bindCart(shopCartBack.getB());
+//        }
+//    }
 }

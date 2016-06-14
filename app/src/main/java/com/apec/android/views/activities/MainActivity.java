@@ -111,4 +111,5 @@ public class MainActivity extends BaseActivity implements FragmentListener{
             mTlMain.showMsg(1, num);
         }
     }
+
 }

@@ -1,9 +1,6 @@
 package com.apec.android.views.fragments;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
@@ -23,13 +20,20 @@ import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.adapter.GoodsCAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.CityUtil;
+import com.apec.android.views.utils.LocationDialog;
 import com.apec.android.views.utils.LoginUtil;
+import com.apec.android.views.view.CityChangeInterface;
 import com.apec.android.views.view.CityDialog;
 import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.inject.Inject;
 
@@ -39,7 +43,7 @@ import butterknife.OnClick;
 /**
  * Created by duanlei on 2016/5/9.
  */
-public class GoodsCFragment extends BaseFragment implements GoodsView {
+public class GoodsCFragment extends BaseFragment implements GoodsView, CityChangeInterface {
 
     GoodsCAdapter mAdapter;
 
@@ -51,10 +55,10 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
     @Inject
     GoodsPresenter mGoodsPresenter;
 
-    List<OpenCity> mCityData = new ArrayList<>();
-    int mCityId;
+    @Inject
+    LocationDialog mLocationDialog;
 
-    //ArrayList<OpenCity> mOpenCities;
+    int mCityId;
 
     protected static final int[] IDS = new int[]{
             12, 13, 11, 15, 46
@@ -78,6 +82,8 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
     @BindView(R.id.tv_send_address)
     TextView mTvSendAddress;
 
+    //选择城市，城市选择后的通知
+
     @Override
     protected void initUI(View view) {
         setupViewPager(mVpGoods);
@@ -99,16 +105,18 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
 
     @Override
     protected void initPresenter() {
-        mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, 0);
-        if (mCityId == 0) {
-            mGoodsPresenter.startLocation();
-        }
-        //mGoodsPresenter.initPresenter(mCityId);
-
         mGoodsPresenter.attachView(this);
         mGoodsPresenter.onCreate();
         updateUser();
-        initLocation();
+
+        mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, 0);
+        if (mCityId == 0) {
+            mGoodsPresenter.startLocation();
+        } else {
+            initLocation();
+            mLocationDialog.setCityId(mCityId);
+        }
+        mLocationDialog.setCityChangeInterface(this);
     }
 
     private void initLocation() {
@@ -121,9 +129,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
 
     @OnClick(R.id.tv_location)
     void onSelectLocation(View view) {
-        if(CityUtil.queryAll().size() > 0) {
-            bindCity(CityUtil.queryAll());
-        }
+        mLocationDialog.selectLocation();
     }
 
     @Override
@@ -146,47 +152,28 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
 
         if (mIsOrderLoginSuccess) {
             GoodsFragment fragment =
-                    (GoodsFragment)mAdapter.mFragments.get(mVpGoods.getCurrentItem());
+                    (GoodsFragment) mAdapter.mFragments.get(mVpGoods.getCurrentItem());
             fragment.doOrder();
         }
     }
 
-    public void bindCity(List<OpenCity> areas) {
-        mCityData.clear();
-        mCityData.addAll(areas);
-
-        new CityDialog(getActivity(), mCityData, (selectCityId, selectCityName) -> {
-            if (selectCityName != null || mCityId != selectCityId) {
-                mCityId = selectCityId;
-                SPUtils.put(getActivity(), SPUtils.LOCATION_CITY_ID,
-                        selectCityId);
-                SPUtils.put(getActivity(), SPUtils.LOCATION_CITY_NAME,
-                        selectCityName);
-                updateGoods();
-            }
-        }).showSelectCityDialog();
-    }
-
     @Override
     public void startLocation() {
+        mLocationDialog.showLocationDialog();
         mTvLocation.setText("正在定位");
     }
 
     @Override
     public void locationSuccess(int cityId, String cityName) {
-        mCityId = cityId;
-        mTvLocation.setText(cityName);
+        updateCity(cityId, cityName);
+        mLocationDialog.locationSuccess();
+        mLocationDialog.setCityId(mCityId);
     }
 
-    /**
-     * 选择了城市
-     */
-    private void updateGoods() {
-        mAdapter.notifyDataSetChanged();
-        String cityName = (String) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_NAME,
-                Constants.DEFAULT_CITY_NAME);
-
-        mTvLocation.setText(cityName);
+    //定位失败
+    @Override
+    public void locationFail() {
+        mLocationDialog.locationFail();
     }
 
     @Override
@@ -201,6 +188,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
 
     /**
      * 设置 viewPager 内容
+     *
      * @param viewPager
      */
     private void setupViewPager(ViewPager viewPager) {
@@ -258,5 +246,21 @@ public class GoodsCFragment extends BaseFragment implements GoodsView {
     public void onDestroy() {
         super.onDestroy();
         mGoodsReceipt = null;
+    }
+
+    @Override
+    public void cityChange(int selectCityId, String selectCityName) {
+        //TODO 当前城市改变
+        updateCity(selectCityId, selectCityName);
+    }
+
+
+    private void updateCity(int cityId, String cityName) {
+        SPUtils.put(getActivity(), SPUtils.LOCATION_CITY_ID, cityId);
+        SPUtils.put(getActivity(), SPUtils.LOCATION_CITY_NAME, cityName);
+        mGoodsPresenter.updateSelectCity(cityId);
+        mCityId = cityId;
+        mTvLocation.setText(cityName);
+        mAdapter.notifyDataSetChanged();
     }
 }

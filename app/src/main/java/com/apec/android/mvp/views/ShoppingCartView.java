@@ -9,4 +9,5 @@ public interface ShoppingCartView extends View {
     void bindCart(ShopCartData shopCart);
 
     void onDataEmpty();
+    void hideEmpty();
 }

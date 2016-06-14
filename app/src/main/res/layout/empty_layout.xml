@@ -21,11 +21,11 @@
         android:textColor="@color/color_black"
         android:text="购物车怎么是空的"/>
 
-    <Button
-        android:id="@+id/btn_goto"
-        style="@style/button_style_6"
-        android:layout_marginTop="30dp"
-        android:text="去下单"
-        android:textColor="@color/color_9"/>
+    <!--<Button-->
+        <!--android:id="@+id/btn_goto"-->
+        <!--style="@style/button_style_6"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:text="去下单"-->
+        <!--android:textColor="@color/color_9"/>-->
 
 </LinearLayout>

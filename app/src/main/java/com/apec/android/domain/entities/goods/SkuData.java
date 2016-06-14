@@ -28,6 +28,8 @@ public class SkuData extends DataSupport {
     private int status;
     //购物车数量
     private int count;
+
+    @Column(defaultValue = "true")
     private boolean isSelect;
     private String pic;
 

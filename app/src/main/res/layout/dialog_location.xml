@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dialog_header"
+            android:layout_gravity="center_horizontal"/>
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_shape_bg_dialog"
+            android:padding="20dp">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/pl_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/loading_location"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="正在定位。。。"
+                android:textColor="@color/text_1"
+                android:textSize="20sp"
+                android:visibility="gone"
+                android:layout_below="@id/pl_loading"/>
+
+            <TextView
+                android:id="@+id/tv_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location_hint_1"
+                android:layout_below="@id/tv_title"
+                android:textColor="@color/text_2"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"/>
+
+            <GridView
+                android:id="@+id/gv_open_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="auto_fit"
+                android:layout_below="@id/tv_hint"
+                android:stretchMode="columnWidth"
+                android:columnWidth="70dp"
+                android:gravity="center"
+                android:verticalSpacing="10dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_hint_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location_hint_2"
+                android:layout_below="@id/tv_title"
+                android:textColor="@color/text_2"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/tv_sure"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/gv_open_city"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/color_5"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/gv_open_city"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/tv_sure"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/color_text_1"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>

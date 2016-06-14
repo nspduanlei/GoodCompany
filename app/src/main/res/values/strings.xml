@@ -43,5 +43,7 @@
     <string name="true_order_4">订单金额\u3000￥%s</string>
     <string name="true_order_5">付款金额\u3000￥%s</string>
     <string name="true_order_6">x %d</string>
+    <string name="location_hint_1">您所在的城市尚未开通，可以访问以下城市</string>
+    <string name="location_hint_2">更多城市即将开通，敬请期待</string>
 
 </resources>
