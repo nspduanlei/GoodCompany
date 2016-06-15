@@ -39,6 +39,9 @@ public class OrdersActivity extends BaseActivity {
     protected void initUi() {
         setupViewPager(mVpOrders);
         mTabs.setViewPager(mVpOrders);
+
+        //TODO Test
+        mTabs.showMsg(1, 8);
     }
 
     @Override

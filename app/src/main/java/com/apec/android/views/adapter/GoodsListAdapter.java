@@ -125,13 +125,12 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
             mIvAdd.setOnClickListener(view -> {
                 //购物车数量加1
-                mRecyclerListener.onAddCount(sku, getAdapterPosition());
-
+                mRecyclerListener.onUpdateCount(sku, getAdapterPosition(), 1);
             });
 
             mIvCut.setOnClickListener(view -> {
                 //购物车数量减1
-                mRecyclerListener.onCutCount(sku, getAdapterPosition());
+                mRecyclerListener.onUpdateCount(sku, getAdapterPosition(), -1);
             });
         }
 

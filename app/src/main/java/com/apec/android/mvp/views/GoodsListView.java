@@ -9,4 +9,6 @@ public interface GoodsListView extends View {
     void hideErrorView();
     void bindGoods(List<Sku> goods);
     void showDetailScreen(int goodId);
+
+    void updateCountSuccess(int allCount);
 }

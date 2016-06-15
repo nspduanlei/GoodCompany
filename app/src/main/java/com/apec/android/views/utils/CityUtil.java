@@ -16,7 +16,9 @@ public class CityUtil {
 
     //添加数据库
     public static void addData(OpenCity openCity) {
-        if (queryCityByCityId(String.valueOf(openCity.getCityId())) != null) {
+        OpenCity openCityData = queryCityByCityId(String.valueOf(openCity.getCityId()));
+        if (openCityData != null) {
+            openCity.setId(openCityData.getId());
             update(openCity);
         } else {
             openCity.saveThrows();
@@ -27,6 +29,7 @@ public class CityUtil {
     public static void update(OpenCity openCity) {
         openCity.update(openCity.getId());
     }
+
 
     //查询全部数据
     public static List<OpenCity> queryAll() {
@@ -48,12 +51,16 @@ public class CityUtil {
         values.put("isSelect", "0");
         DataSupport.updateAll(OpenCity.class, values, "isSelect = ?", "1");
 
-        queryAll();
-
         OpenCity openCitySel = queryCityByCityId(String.valueOf(cityId));
         if (openCitySel != null) {
             openCitySel.setSelect(true);
             openCitySel.update(openCitySel.getId());
         }
+    }
+
+    public static OpenCity updateSelectDefault() {
+        OpenCity openCity = queryAll().get(0);
+        updateSelect(openCity.getCityId());
+        return openCity;
     }
 }

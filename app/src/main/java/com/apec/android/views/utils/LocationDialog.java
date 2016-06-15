@@ -72,7 +72,7 @@ public class LocationDialog {
         mDialog = new DialogPlus.Builder(mActivity)
                 .setContentHolder(viewHolder)
                 .setCancelable(false)
-                .setOnBackPressListener(dialogPlus -> mDialog.dismiss())
+                //.setOnBackPressListener(dialogPlus -> mDialog.dismiss())
                 .setGravity(DialogPlus.Gravity.CENTER)
                 .setBackgroundColorResourceId(R.color.transparency)
                 .setOnClickListener((dialog1, view) -> {
@@ -81,12 +81,10 @@ public class LocationDialog {
                             mDialog.dismiss();
                             break;
                         case R.id.tv_sure:
-
                             if (mSelectCityId != mCityId) {
                                 mCityId = mSelectCityId;
                                 mCityChangeInterface.cityChange(mSelectCityId, mSelectCityName);
                             }
-
                             mDialog.dismiss();
                             break;
                         default:
@@ -101,8 +99,15 @@ public class LocationDialog {
      */
     public void showLocationDialog() {
         mDialog.show();
+
+        mTvSure.setVisibility(View.GONE);
+        mTvCancel.setVisibility(View.GONE);
+        mTvTitle.setVisibility(View.GONE);
+        mGvOpenCity.setVisibility(View.GONE);
+
         mPlLoading.setVisibility(View.VISIBLE);
         mTvHint1.setVisibility(View.VISIBLE);
+        mTvHint.setVisibility(View.GONE);
         mTvHint1.setText("正在定位城市。。。");
     }
 
@@ -120,48 +125,61 @@ public class LocationDialog {
         mTvHint1.setVisibility(View.VISIBLE);
         mTvHint1.setText(mActivity.getString(R.string.location_hint_2));
 
+        //设置默认选择
+        if (mCityId == 0) {
+            OpenCity openCity = CityUtil.updateSelectDefault();
+            mSelectCityId = openCity.getCityId();
+            mSelectCityName = openCity.getCityName();
+        }
+
         initGridView();
 
+        mTvSure.setVisibility(View.VISIBLE);
+        if (mCityId != 0) {
+            mTvCancel.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initGridView() {
         mGvOpenCity.setVisibility(View.VISIBLE);
 
-        if (mData == null) {
-            mData = CityUtil.queryAll();
-        }
-        if (mAdapter == null) {
-            mAdapter = new CommonAdapter<OpenCity>(mActivity, mData, R.layout.item_open_city) {
-                @Override
-                public void convert(MyViewHolder holder, OpenCity openCity) {
-                    holder.setText(R.id.rb_city_name, openCity.getCityName());
+        mData = CityUtil.queryAll();
 
-                    holder.setSelected(R.id.rb_city_name, openCity.isSelect());
+        mAdapter = new CommonAdapter<OpenCity>(mActivity, mData, R.layout.item_open_city) {
+            @Override
+            public void convert(MyViewHolder holder, OpenCity openCity) {
+                holder.setText(R.id.rb_city_name, openCity.getCityName());
 
-                    holder.setOnCheckChangeListerRadio(R.id.rb_city_name, (compoundButton, b) -> {
-                        if (b) {
-                            //当选中一个城市其它城市都设置城未选中
-                            mSelectCityId = mData.get(holder.getMPosition()).getCityId();
-                            mSelectCityName = mData.get(holder.getMPosition()).getCityName();
+                holder.setSelected(R.id.rb_city_name, openCity.isSelect());
 
-                            for (OpenCity area : mData) {
-                                if (area.getCityId() == mSelectCityId) {
-                                    area.setSelect(true);
-                                } else {
-                                    area.setSelect(false);
-                                }
-                            }
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    });
+                if (openCity.isLocation()) {
+                    holder.setVisibility(R.id.iv_location, View.VISIBLE);
+                } else {
+                    holder.setVisibility(R.id.iv_location, View.GONE);
                 }
-            };
-        }
+
+                holder.setOnCheckChangeListerRadio(R.id.rb_city_name, (compoundButton, b) -> {
+                    if (b) {
+                        //当选中一个城市其它城市都设置城未选中
+                        mSelectCityId = mData.get(holder.getMPosition()).getCityId();
+                        mSelectCityName = mData.get(holder.getMPosition()).getCityName();
+
+                        for (OpenCity area : mData) {
+                            if (area.getCityId() == mSelectCityId) {
+                                area.setSelect(true);
+                            } else {
+                                area.setSelect(false);
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
         mGvOpenCity.setAdapter(mAdapter);
     }
 
-
-    public void locationSuccess() {
+    public void closeDialog() {
         mDialog.dismiss();
     }
 
@@ -186,6 +204,6 @@ public class LocationDialog {
         mTvSure.setVisibility(View.VISIBLE);
         mTvCancel.setVisibility(View.VISIBLE);
 
-        mDialog.show();
+        //mDialog.show();
     }
 }

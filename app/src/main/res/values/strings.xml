@@ -22,7 +22,7 @@
     <string name="net_content">￥%1$s (%2$s)</string>
 
     <!-- activity title-->
-    <string name="title_good_detail">订单</string>
+    <string name="title_good_detail">商品详情</string>
     <string name="title_login">登录</string>
     <string name="manage_address_title">地址管理</string>
     <string name="edit_address_title">编辑地址</string>
@@ -45,5 +45,8 @@
     <string name="true_order_6">x %d</string>
     <string name="location_hint_1">您所在的城市尚未开通，可以访问以下城市</string>
     <string name="location_hint_2">更多城市即将开通，敬请期待</string>
+    <string name="service_title">客服中心</string>
+    <string name="message_title">消息</string>
+    <string name="user_data_title">用户信息</string>
 
 </resources>

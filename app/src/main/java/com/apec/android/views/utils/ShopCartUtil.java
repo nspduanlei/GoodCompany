@@ -1,6 +1,7 @@
 package com.apec.android.views.utils;
 
 import com.apec.android.domain.entities.goods.SkuData;
+import com.apec.android.util.L;
 
 import org.litepal.crud.DataSupport;
 
@@ -14,11 +15,16 @@ public class ShopCartUtil {
 
     //添加数据库
     public static void addData(SkuData skuData) {
-        if (querySkuById(skuData.getSkuId()) != null) {
-            update(skuData);
-        } else {
-            skuData.saveThrows();
-        }
+//        if (querySkuById(skuData.getSkuId()) != null) {
+//            update(skuData);
+//        } else {
+            try {
+                skuData.saveThrows();
+            } catch (Exception e) {
+                L.e(e.toString());
+            }
+
+//        }
     }
 
     //查询购物车数量
@@ -78,9 +84,18 @@ public class ShopCartUtil {
         SkuData skuData = querySkuById(skuId);
         if (skuData != null) {
             int count = skuData.getCount();
-            skuData.setCount(count + i);
-            skuData.update(skuData.getId());
+            int newCount = count + i;
+            if (newCount == 0) {
+                deleteSkuById(skuData.getSkuId());
+            } else {
+                skuData.setCount(count + i);
+                skuData.update(skuData.getId());
+            }
         }
+    }
+
+    private static void deleteSkuById(String skuId) {
+        DataSupport.deleteAll(SkuData.class, "skuId = ?", skuId);
     }
 
     /**

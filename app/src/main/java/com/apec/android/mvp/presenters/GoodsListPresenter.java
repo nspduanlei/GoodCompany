@@ -5,6 +5,7 @@ import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.goods.SkuList;
+import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.domain.usercase.CreateOneOrderUseCase;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -138,5 +140,32 @@ public class GoodsListPresenter implements Presenter {
 
     private void onCreateOrderReceived(NoBody noBody) {
 
+    }
+
+    /**
+     * 修改商品数量
+     * @param sku
+     */
+    public void updateCount(Sku sku, int num) {
+        Observable.create((Observable.OnSubscribe<Integer>) subscriber -> {
+
+            //操作数据库，数量+1
+            ShopCartUtil.updateCount(String.valueOf(sku.getId()), num);
+
+            //获取购物车数量
+            int allCount = ShopCartUtil.querySkuNum();
+
+            subscriber.onNext(allCount);
+
+        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                .subscribe(this::onAddCountReceived, this::manageError);
+    }
+
+    private void manageError(Throwable throwable) {
+
+    }
+
+    private void onAddCountReceived(int allCount) {
+        mGoodsListView.updateCountSuccess(allCount);
     }
 }

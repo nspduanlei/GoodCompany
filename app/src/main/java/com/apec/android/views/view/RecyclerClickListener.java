@@ -8,8 +8,13 @@ import com.apec.android.domain.entities.goods.Sku;
 public interface RecyclerClickListener {
     void onElementClick(int position);
 
-    void onAddCount(Sku sku, int position);
-    void onCutCount(Sku sku, int position);
+    /**
+     * 修改商品数量 ， -1数量减1， 1数量加1
+     * @param sku
+     * @param position
+     * @param num
+     */
+    void onUpdateCount(Sku sku, int position, int num);
 
     void onOrderClick(int skuId, int count);
 

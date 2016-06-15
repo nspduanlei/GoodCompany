@@ -76,6 +76,9 @@
     <color name="bg_1">#E7E6E6</color>
     <color name="bg_button">#3D4898</color>
 
+
+    <color name="text_7">#8184F7</color>
+
     <color name="bg_bot">#FC5A58</color>
 
     <color name="city_select">#FF9A40</color>

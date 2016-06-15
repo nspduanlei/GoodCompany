@@ -109,6 +109,8 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     public void updateCartNum(int num) {
         if (num > 0) {
             mTlMain.showMsg(1, num);
+        } else {
+            mTlMain.hideMsg(1);
         }
     }
 

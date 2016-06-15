@@ -1,51 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="10dp"
+                                    app:cardCornerRadius="10dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/order_item_icon"/>
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="下单时间 2016-05-20 15:00"/>
-
+            android:text="下单时间   2016-05-20 15:00"
+            android:layout_toRightOf="@id/iv_icon"
+            android:textColor="@color/text_6"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
 
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_time"
             android:text="备货中"
-            android:layout_toRightOf="@id/tv_time"/>
+            android:textColor="@color/text_7"
+            android:layout_alignTop="@id/tv_time"
+            android:layout_marginLeft="20dp"/>
 
         <TextView
             android:id="@+id/tv_goods_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="共计一件商品"
-            android:layout_below="@id/tv_time"/>
+            android:layout_below="@id/tv_time"
+            android:text="共计1件商品"
+            android:layout_toRightOf="@id/iv_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/text_6"/>
 
         <TextView
             android:id="@+id/tv_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="付款金额"
             android:layout_below="@id/tv_time"
-            android:layout_toRightOf="@id/tv_goods_num"/>
+            android:layout_toRightOf="@id/tv_goods_num"
+            android:text="付款金额  ￥50000"
+            android:layout_alignTop="@id/tv_goods_num"
+            android:textColor="@color/text_6"
+            android:layout_marginLeft="20dp"/>
 
 
         <TextView
             android:id="@+id/tv_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我们正在努力协调货源，尽快为您安排发货"
-            android:layout_below="@id/tv_goods_num"/>
+            android:layout_below="@id/tv_goods_num"
+            android:text="*我们正在努力协调货源，尽快为您安排发货"
+            android:layout_toRightOf="@id/iv_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/text_2"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:layout_width="92dp"
+            android:layout_height="34dp"
+            android:text="提醒发货"
+            android:background="@drawable/button_selector"
+            android:textColor="@color/color_white"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_goods_num"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"/>
     </RelativeLayout>
 
 

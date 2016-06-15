@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:drawableRight="@drawable/arrow_down"
             android:gravity="center"
-            android:text="深圳"
+            android:text="正在定位"
             android:textColor="@color/text_3"
             android:textStyle="bold"
             android:layout_toRightOf="@id/tv_icon"

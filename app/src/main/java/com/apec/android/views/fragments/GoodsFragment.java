@@ -30,6 +30,7 @@ import com.apec.android.views.view.RecyclerInsetsDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 import javax.inject.Inject;
 
@@ -137,6 +138,11 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     }
 
     @Override
+    public void updateCountSuccess(int allCount) {
+        GoodsCFragment.mFragmentListener.updateCartNum(allCount);
+    }
+
+    @Override
     public void showLoadingView() {
         mPbLoading.setVisibility(View.VISIBLE);
     }
@@ -164,35 +170,15 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     }
 
     @Override
-    public void onAddCount(Sku sku, int position) {
-        //如果用户没有登录将信息加入本地购物车
-        ShopCartUtil.updateCount(String.valueOf(sku.getId()), 1);
+    public void onUpdateCount(Sku sku, int position, int num) {
 
-        //修改tab显示的购物车数量
-        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
+        mGoodsListPresenter.updateCount(sku, num);
 
-        sku.setCount(sku.getCount() + 1);
+        sku.setCount(sku.getCount() + num);
         mGoods.set(position, sku);
-
         mGoodsListAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onCutCount(Sku sku, int position) {
-        SkuData skuData = new SkuData(sku);
-        //如果减到0，从购物车中删除
-        if (sku.getCount() == 0) {
-            ShopCartUtil.deleteSku(skuData);
-        }
-        ShopCartUtil.updateCount(String.valueOf(sku.getId()), -1);
-
-        GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
-
-        sku.setCount(sku.getCount() - 1);
-        mGoods.set(position, sku);
-
-        mGoodsListAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onOrderClick(int skuId, int count) {
@@ -208,8 +194,9 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     @Override
     public void onSaveCartClick(Sku sku, int position) {
         SkuData skuData = new SkuData(sku);
-        skuData.saveThrows();
-        ShopCartUtil.updateCount(String.valueOf(sku.getId()), 1);
+
+        skuData.setCount(1);
+        ShopCartUtil.addData(skuData);
 
         GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
 
@@ -229,4 +216,5 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         intent.putExtra("count", mOrderCount);
         startActivity(intent);
     }
+
 }

@@ -47,6 +47,10 @@
         <activity android:name=".views.activities.OrderDetailActivity" />
         <activity android:name=".views.activities.CompleteActivity" />
         <activity android:name=".views.activities.TrueOrderActivity" />
+        <activity android:name=".views.activities.MessageActivity" />
+
+        <activity android:name=".views.activities.EditUserDataActivity"/>
+
         <activity
             android:name=".views.activities.GuideActivity"
             android:theme="@style/GuideAppTheme"/>

@@ -10,17 +10,23 @@ import android.widget.TextView;
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.domain.entities.user.MyMenu;
+import com.apec.android.domain.entities.user.User;
 import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.components.DaggerUserComponent;
 import com.apec.android.injector.modules.ActivityModule;
+import com.apec.android.mvp.presenters.EditAddressPresenter;
 import com.apec.android.util.AppUtils;
+import com.apec.android.views.activities.EditUserDataActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
+import com.apec.android.views.activities.MessageActivity;
 import com.apec.android.views.activities.OrdersActivity;
 import com.apec.android.views.activities.ServiceActivity;
 import com.apec.android.views.activities.SettingActivity;
 import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.apec.android.views.fragments.core.BaseFragment;
+import com.apec.android.views.utils.LoginUtil;
+import com.apec.android.views.utils.UserUtil;
 import com.apec.android.views.widget.NoScrollListView;
 
 import java.util.ArrayList;
@@ -39,8 +45,6 @@ public class MeFragment extends BaseFragment {
 
     ArrayList<MyMenu> mData = new ArrayList<>();
 
-    //HeadViewHolder mHeadViewHolder;
-
     @BindView(R.id.iv_header)
     ImageView mIvHeader;
     @BindView(R.id.tv_user_name)
@@ -48,19 +52,32 @@ public class MeFragment extends BaseFragment {
     @BindView(R.id.v_msg_new)
     View mVMsgNew;
 
+    boolean isLogin = false;
+    User mUser;
+
     @Override
     protected void initUI(View view) {
         fillData();
-        //initHeader();
+        initUser();
+    }
+
+    private void initUser() {
+        isLogin = LoginUtil.isLogin(getActivity());
+        if (isLogin) {
+            mUser = UserUtil.getUser();
+            mTvUserName.setText(mUser.getName());
+        } else {
+            mTvUserName.setText("请登录");
+        }
     }
 
     private void fillData() {
         mData.add(new MyMenu(R.drawable.icon_order, "我的订单", true, null, null));
-        mData.add(new MyMenu(R.drawable.icon_address, "收货地址", true, null, null));
-        mData.add(new MyMenu(R.drawable.icon_quan, "优惠券", true, "(敬请期待)", null));
-        mData.add(new MyMenu(R.drawable.icon_point, "积分兑换", true, "(敬请期待)", null));
-        mData.add(new MyMenu(R.drawable.icon_server, "客服中心", true, null, null));
-        mData.add(new MyMenu(R.drawable.icon_version, "检查更新", true, null,
+        mData.add(new MyMenu(R.drawable.icon_address, "收货地址", false, null, null));
+        mData.add(new MyMenu(R.drawable.icon_quan, "优惠券", false, "(敬请期待)", null));
+        mData.add(new MyMenu(R.drawable.icon_point, "积分兑换", false, "(敬请期待)", null));
+        mData.add(new MyMenu(R.drawable.icon_server, "客服中心", false, null, null));
+        mData.add(new MyMenu(R.drawable.icon_version, "检查更新", false, null,
                 "当前版本v" + AppUtils.getVersionName(getActivity())));
 
         BaseAdapter adapter = new CommonAdapter<MyMenu>(getActivity(), mData, R.layout.item_me_menu) {
@@ -98,16 +115,22 @@ public class MeFragment extends BaseFragment {
             Intent intent = null;
             switch (i) {
                 case 0: //我的订单
-                    intent = new Intent(getActivity(), OrdersActivity.class);
+                    if (LoginUtil.gotoLoginNew(getActivity())) {
+                        intent = new Intent(getActivity(), OrdersActivity.class);
+                    }
                     break;
                 case 1: //收货地址
-                    intent = new Intent(getActivity(), ManageAddressActivity.class);
+                    if (LoginUtil.gotoLoginNew(getActivity())) {
+                        intent = new Intent(getActivity(), ManageAddressActivity.class);
+                    }
                     break;
                 case 4: //客服中心
                     intent = new Intent(getActivity(), ServiceActivity.class);
                     break;
                 case 5: //系统设置
-                    intent = new Intent(getActivity(), SettingActivity.class);
+
+                    //TODO 检测版本
+
                     break;
             }
             if (intent != null) {
@@ -116,11 +139,6 @@ public class MeFragment extends BaseFragment {
         });
     }
 
-//    private void initHeader() {
-//        View headView = getActivity().getLayoutInflater().inflate(R.layout.layout_me_head, null);
-//        mHeadViewHolder = new HeadViewHolder(headView);
-//        mLvMenu.addHeaderView(headView);
-//    }
 
     @Override
     protected int getFragmentLayout() {
@@ -142,11 +160,22 @@ public class MeFragment extends BaseFragment {
 
     @OnClick(R.id.iv_msg)
     void onMsgClicked(View view) {
-
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.iv_setting)
     void onSettingClicked(View view) {
-
+        Intent intent = new Intent(getActivity(), SettingActivity.class);
+        startActivity(intent);
     }
+
+    @OnClick(R.id.ll_user)
+    void onUserClicked() {
+        if (LoginUtil.gotoLoginNew(getActivity())) {
+            Intent intent = new Intent(getActivity(), EditUserDataActivity.class);
+            startActivity(intent);
+        }
+    }
+
 }

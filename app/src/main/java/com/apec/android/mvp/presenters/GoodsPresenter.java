@@ -18,6 +18,7 @@ import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
 import com.apec.android.util.LocationHelp;
+import com.apec.android.util.StringUtils;
 import com.apec.android.views.utils.CityUtil;
 import com.apec.android.views.utils.ShopCartUtil;
 
@@ -51,6 +52,8 @@ public class GoodsPresenter implements Presenter {
 
     GoodsView mGoodsView;
 
+    boolean isReLocation = false;
+
     @Inject
     public GoodsPresenter(LocationHelp locationHelp,
                           CityIsOpenUseCase cityIsOpenUseCase,
@@ -60,7 +63,6 @@ public class GoodsPresenter implements Presenter {
         mGetDefaultAddressUseCase = getDefaultAddressUseCase;
     }
 
-
     /**
      * 启动定位
      */
@@ -69,14 +71,9 @@ public class GoodsPresenter implements Presenter {
         mLocationHelp.startLocation(aMapLocation -> {
             mCityName = aMapLocation.getCity();
             mCityCode = aMapLocation.getCityCode();
-            Log.e("test001", "定位成功--->code: " + mCityCode + ", name: " + mCityName);
-            //城市编码获取成功，获取城市id
+
             mLocationHelp.shopLocation();
 
-            //TODO  test
-
-            mCityName = "深圳";
-            mCityCode = "0755";
             getOpenCityFile();
         });
     }
@@ -96,7 +93,6 @@ public class GoodsPresenter implements Presenter {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::cityIsOpenReceived, this::manageIsOpenError);
-
     }
 
     private void manageIsOpenError(Throwable throwable) {
@@ -107,7 +103,11 @@ public class GoodsPresenter implements Presenter {
         if (mCityId == 0) {
             mGoodsView.locationFail();
         } else {
-            mGoodsView.locationSuccess(mCityId, mCityName);
+            if (isReLocation) {
+                mGoodsView.reLocationSuccess(mCityId, mCityName);
+            } else {
+                mGoodsView.locationSuccess(mCityId, mCityName);
+            }
         }
 
     }
@@ -156,5 +156,25 @@ public class GoodsPresenter implements Presenter {
         new Thread(() -> {
             CityUtil.updateSelect(cityId);
         }).start();
+    }
+
+    /**
+     * 重新定位
+     */
+    public void reLocation() {
+        mCityId = 0;
+        isReLocation = true;
+        mGoodsView.startLocation();
+        mLocationHelp.startLocation(aMapLocation -> {
+            mCityName = aMapLocation.getCity();
+            mCityCode = aMapLocation.getCityCode();
+
+            //mCityCode = "0755";
+            //mCityName = "深圳";
+
+            mLocationHelp.shopLocation();
+
+            getOpenCityFile();
+        });
     }
 }

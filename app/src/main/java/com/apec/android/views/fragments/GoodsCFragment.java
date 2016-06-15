@@ -129,7 +129,8 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     @OnClick(R.id.tv_location)
     void onSelectLocation(View view) {
-        mLocationDialog.selectLocation();
+        //mLocationDialog.selectLocation();
+        mGoodsPresenter.reLocation();
     }
 
     @Override
@@ -160,20 +161,27 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     @Override
     public void startLocation() {
         mLocationDialog.showLocationDialog();
-        mTvLocation.setText("正在定位");
+//        mTvLocation.setText("正在定位");
     }
 
     @Override
     public void locationSuccess(int cityId, String cityName) {
         updateCity(cityId, cityName);
-        mLocationDialog.locationSuccess();
+        mLocationDialog.closeDialog();
         mLocationDialog.setCityId(mCityId);
     }
 
     //定位失败
     @Override
     public void locationFail() {
+        mLocationDialog.setCityId(mCityId);
         mLocationDialog.locationFail();
+    }
+
+    @Override
+    public void reLocationSuccess(int cityId, String cityName) {
+        mLocationDialog.setCityId(mCityId);
+        mLocationDialog.selectLocation();
     }
 
     @Override
@@ -203,7 +211,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     @OnClick(R.id.tv_send_address)
     void onAddressClicked(View view) {
-        //TODO test
         hasDefault = true;
         Intent intent = new Intent(getActivity(), ManageAddressActivity.class);
         intent.putExtra(ManageAddressActivity.HAS_DEFAULT, hasDefault);
@@ -253,7 +260,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         //TODO 当前城市改变
         updateCity(selectCityId, selectCityName);
     }
-
 
     private void updateCity(int cityId, String cityName) {
         SPUtils.put(getActivity(), SPUtils.LOCATION_CITY_ID, cityId);

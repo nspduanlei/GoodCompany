@@ -72,8 +72,7 @@ public class ShoppingCartPresenter implements Presenter {
 
     public void getData() {
         mView.showLoadingView();
-//        mGetAllSubscription = mGetAllCartUseCase.execute()
-//                .subscribe(this::onGetAllReceived, this::manageGetAllError);
+
         Observable.create((Observable.OnSubscribe<ShopCartData>) subscriber -> {
 
             List<SkuData> list = ShopCartUtil.queryAll();
@@ -111,15 +110,4 @@ public class ShoppingCartPresenter implements Presenter {
         }
 
     }
-
-//    private void manageGetAllError(Throwable throwable) {
-//        mView.hideLoadingView();
-//    }
-//
-//    private void onGetAllReceived(ShopCartBack shopCartBack) {
-//        mView.hideLoadingView();
-//        if (shopCartBack.getH().getCode() == 200) {
-//            //mView.bindCart(shopCartBack.getB());
-//        }
-//    }
 }
