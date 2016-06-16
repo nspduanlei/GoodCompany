@@ -1,5 +1,6 @@
 package com.apec.android.domain.entities.user;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 /**
@@ -11,6 +12,17 @@ public class User extends DataSupport {
     private String shopName;
     private String name;
     private String phone;
+
+    @Column(ignore = true)
+    private Address addrRes;
+
+    public Address getAddrRes() {
+        return addrRes;
+    }
+
+    public void setAddrRes(Address addrRes) {
+        this.addrRes = addrRes;
+    }
 
     public int getUserId() {
         return userId;

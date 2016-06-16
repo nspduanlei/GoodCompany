@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/ll_complete"
+    android:visibility="gone"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        style="@style/FormItemStyle">
+
+        <TextView
+            style="@style/FormTitleStyle"
+            android:text="@string/shop_name"/>
+
+        <EditText
+            android:id="@+id/et_shop"
+            style="@style/FormEditStyle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/FormItemStyle">
+
+        <TextView
+            style="@style/FormTitleStyle"
+            android:text="城市地区"/>
+
+        <TextView
+            android:id="@+id/tv_area"
+            style="@style/FormEditStyle"
+            android:drawableRight="@drawable/arrow_down"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/FormItemStyle">
+
+        <TextView
+            style="@style/FormTitleStyle"
+            android:id="@+id/tv_area_detail"
+            android:text="收货地址"/>
+
+        <EditText
+            style="@style/FormEditStyle"
+            android:id="@+id/et_area_detail"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/FormItemStyle">
+
+        <TextView
+            style="@style/FormTitleStyle"
+            android:text="联系人"/>
+
+        <EditText
+            style="@style/FormEditStyle"
+            android:id="@+id/et_user_name"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_finish"
+        style="@style/button_style_1"
+        android:layout_marginTop="30dp"
+        android:text="去下单"/>
+</LinearLayout>

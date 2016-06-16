@@ -1,5 +1,6 @@
 package com.apec.android.injector.components;
 
+import com.apec.android.domain.usercase.CompleteUserUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
@@ -24,4 +25,6 @@ public interface LoginComponent extends ActivityComponent {
     GetAllCityUseCase getAllCityUseCase();
     GetVerCodeUseCase getVerCodeUseCase();
     SubmitVerCodeUseCase submitVerCodeUseCase();
+    CompleteUserUseCase completeUserUseCase();
+
 }

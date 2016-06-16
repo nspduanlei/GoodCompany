@@ -85,7 +85,6 @@ public class LoginPresenter implements Presenter {
                 .observeOn(Schedulers.io())
                 .doOnNext(userBack -> {
                     //将用户信息存储在数据库中
-                    L.e("test00", "doOnNext工作的线程： " + Thread.currentThread().getName());
                     if (userBack.getH().getCode() == Constants.SUCCESS_CODE) {
                         processUser(userBack.getB());
                     }
@@ -103,8 +102,7 @@ public class LoginPresenter implements Presenter {
         mLoginView.hideLoadingView();
         switch (userBack.getH().getCode()) {
             case Constants.SUCCESS_CODE:
-                //mLoginView.bindUser();
-                mLoginView.completeData();
+                mLoginView.bindUser(userBack.getB());
                 break;
             case ErrorCode.COMPLETE_DATA:
                 mLoginView.completeData();

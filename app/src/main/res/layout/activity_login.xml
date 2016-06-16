@@ -4,99 +4,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            layout="@layout/widget_toolbar"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/register_top"
-            android:scaleType="fitXY"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_phone_number"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="手机号码"
-                android:inputType="number"
-                android:background="@drawable/edit_shape_bg"
-                android:textColorHint="@color/color_hint"
-                android:textColor="@color/color_text_1"
-                android:padding="20dp" />
+            <include
+                layout="@layout/widget_toolbar"/>
 
-            <Button
-                android:id="@+id/btn_get_code"
-                android:layout_width="60dp"
-                android:layout_height="34dp"
-                android:text="验证"
-                android:background="@drawable/button_selector_1"
-                android:textColor="@color/color_white"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"/>
+            <LinearLayout
+                style="@style/FormItemStyle">
+
+                <TextView
+                    style="@style/FormTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:text="手机号"/>
+
+                <EditText
+                    android:id="@+id/et_phone_number"
+                    style="@style/FormEditStyle"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/btn_get_code"
+                    android:layout_width="60dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/button_shape_bg_8"
+                    android:text="验证"
+                    android:textColor="@color/bg_button"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/FormItemStyle">
+
+                <TextView
+                    style="@style/FormTitleStyle"
+                    android:text="验证码"
+                    android:layout_width="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/et_verify_code"
+                    style="@style/FormEditStyle"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/btn_start"
+                    android:layout_width="60dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/button_shape_bg_8"
+                    android:text="确定"
+                    android:textColor="@color/bg_button"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_hint_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_hint_complete"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/text_2"
+                android:visibility="gone"/>
+
+            <include
+                layout="@layout/layout_complete"/>
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_line"/>
-
-        <EditText
-            android:id="@+id/et_verify_code"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="验证码"
-            android:inputType="number"
-            android:background="@drawable/edit_shape_bg"
-            android:textColorHint="@color/color_hint"
-            android:paddingLeft="20dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_line"/>
-
-        <!--提示-->
-        <TextView
-            android:id="@+id/tv_hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="我们已发送验证码短信到这个号码"
-            android:visibility="gone" />
-
-        <!--倒计时-->
-        <TextView
-            android:id="@+id/tv_hint_down"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:visibility="gone" />
-
-        <Button
-            android:layout_width="161dp"
-            android:layout_height="39dp"
-            android:id="@+id/btn_start"
-            android:layout_marginTop="20dp"
-            android:text="验证身份"
-            android:textColor="@color/color_5"
-            android:background="@drawable/button_shape_bg_7"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+    </ScrollView>
 
     <include
         layout="@layout/loading_layout_new"/>

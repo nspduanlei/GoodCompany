@@ -51,7 +51,7 @@ public class AddAddressActivity extends BaseActivity implements
     SelectCityUtil mSelectCityUtil;
 
     private DialogPlus dialog;
-    private int mSelCityId, mSelAreaId, mSelRoadId;
+    private int mSelCityId, mSelAreaId;
 
     @Override
     protected void setUpContentView() {
@@ -79,11 +79,10 @@ public class AddAddressActivity extends BaseActivity implements
     }
 
     @Override
-    public void selectCityFinish(String areaStr, int selCityId, int selAreaId, int selRoadId) {
+    public void selectCityFinish(String areaStr, int selCityId, int selAreaId) {
         mTvSelectArea.setText(areaStr);
         mSelCityId = selCityId;
         mSelAreaId = selAreaId;
-        mSelRoadId = selRoadId;
     }
 
     @OnClick(R.id.tv_select_area)

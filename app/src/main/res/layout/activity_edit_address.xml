@@ -27,130 +27,61 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                style="@style/FormItemStyle">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="收货人:    "
-                    android:textColor="@color/color_text_5"/>
+                    style="@style/FormTitleStyle"
+                    android:text="收货人"/>
 
                 <EditText
+                    style="@style/FormEditStyle"
                     android:id="@+id/et_person"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:background="@null"
-                    android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"
                     android:text="@{goodsReceipt.name}"/>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/color_line"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                style="@style/FormItemStyle">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机号码:"
-                    android:textColor="@color/color_text_5"/>
+                    style="@style/FormTitleStyle"
+                    android:text="手机"/>
 
                 <EditText
+                    style="@style/FormEditStyle"
                     android:id="@+id/et_phone_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:background="@null"
                     android:inputType="number"
-                    android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"
                     android:text="@{goodsReceipt.phone}"/>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/color_line"/>
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                style="@style/FormItemStyle">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="所在地区:"
-                    android:textColor="@color/color_text_5"/>
+                    style="@style/FormTitleStyle"
+                    android:text="所在地区"/>
 
                 <TextView
+                    style="@style/FormEditStyle"
+                    android:drawableRight="@drawable/arrow_down"
                     android:id="@+id/tv_select_area"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"
                     android:text="@{goodsReceipt.addrRes.city+goodsReceipt.addrRes.area}"/>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/color_line"/>
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                style="@style/FormItemStyle">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="详细地址:"
-                    android:textColor="@color/color_text_5"/>
+                    style="@style/FormTitleStyle"
+                    android:text="详细地址"/>
 
                 <EditText
+                    style="@style/FormEditStyle"
                     android:id="@+id/et_area_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:background="@null"
-                    android:textColor="@color/color_text_6"
-                    android:textSize="@dimen/common_text_size"
                     android:text="@{goodsReceipt.addrRes.detail}"/>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/color_line"/>
 
             <Button
                 android:id="@+id/btn_save"
@@ -158,6 +89,5 @@
                 android:layout_marginTop="30dp"
                 android:text="保存"/>
         </LinearLayout>
-
     </FrameLayout>
 </layout>

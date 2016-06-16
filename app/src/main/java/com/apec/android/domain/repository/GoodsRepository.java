@@ -196,4 +196,6 @@ public interface GoodsRepository {
 
     //地区选择
     Observable<Areas> getArea(int id);
+
+    Observable<NoBody> completeUser(String shopName, String name, String cityId, String areaId, String detail);
 }

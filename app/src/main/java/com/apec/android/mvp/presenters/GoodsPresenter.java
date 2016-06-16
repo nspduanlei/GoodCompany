@@ -72,6 +72,10 @@ public class GoodsPresenter implements Presenter {
             mCityName = aMapLocation.getCity();
             mCityCode = aMapLocation.getCityCode();
 
+            if (StringUtils.isNullOrEmpty(mCityName)) {
+                mCityName.replace("市", "");
+            }
+
             mLocationHelp.shopLocation();
 
             getOpenCityFile();
@@ -101,15 +105,10 @@ public class GoodsPresenter implements Presenter {
 
     private void cityIsOpenReceived(ArrayList<OpenCity> data) {
         if (mCityId == 0) {
-            mGoodsView.locationFail();
+            mGoodsView.locationFail(isReLocation);
         } else {
-            if (isReLocation) {
-                mGoodsView.reLocationSuccess(mCityId, mCityName);
-            } else {
-                mGoodsView.locationSuccess(mCityId, mCityName);
-            }
+            mGoodsView.locationSuccess(mCityId, mCityName, isReLocation);
         }
-
     }
 
     @Override
@@ -168,6 +167,10 @@ public class GoodsPresenter implements Presenter {
         mLocationHelp.startLocation(aMapLocation -> {
             mCityName = aMapLocation.getCity();
             mCityCode = aMapLocation.getCityCode();
+
+            if (StringUtils.isNullOrEmpty(mCityName)) {
+                mCityName.replace("市", "");
+            }
 
             //mCityCode = "0755";
             //mCityName = "深圳";

@@ -4,6 +4,8 @@ import com.apec.android.domain.entities.user.User;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.List;
+
 /**
  * Created by duanlei on 2016/6/15.
  */
@@ -11,7 +13,16 @@ public class UserUtil {
 
     //获取用户信息
     public static User getUser() {
-        return DataSupport.findAll(User.class).get(0);
+        List<User> users = DataSupport.findAll(User.class);
+
+        if (users.size() > 0) {
+            return DataSupport.findAll(User.class).get(0);
+        }
+
+        return null;
     }
 
+    public static void clear() {
+        DataSupport.deleteAll(User.class);
+    }
 }

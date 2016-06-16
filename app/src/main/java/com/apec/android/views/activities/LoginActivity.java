@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
+import com.apec.android.domain.entities.user.User;
 import com.apec.android.injector.components.DaggerLoginComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.LoginPresenter;
@@ -42,11 +44,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @BindView(R.id.et_verify_code)
     EditText mEtVerifyCode;
-//    @BindView(R.id.tv_hint)
-//    TextView mTvHint;
-
-//    @BindView(R.id.tv_hint_down)
-//    public TextView mTvHintDown;
 
     @BindView(R.id.btn_start)
     Button mBtnStart;
@@ -60,6 +57,23 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public int mDown = 60;
     Timer mTimer;
     TimerTask timerTask;
+
+    @BindView(R.id.tv_hint_complete)
+    TextView mTvHintComplete;
+    @BindView(R.id.et_shop)
+    EditText mEtShop;
+    @BindView(R.id.tv_area)
+    TextView mTvArea;
+    @BindView(R.id.tv_area_detail)
+    TextView mTvAreaDetail;
+    @BindView(R.id.et_area_detail)
+    EditText mEtAreaDetail;
+    @BindView(R.id.et_user_name)
+    EditText mEtUserName;
+    @BindView(R.id.btn_finish)
+    Button mBtnFinish;
+    @BindView(R.id.ll_complete)
+    LinearLayout mLlComplete;
 
     @Override
     protected void setUpContentView() {
@@ -126,7 +140,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         //验证手机号验证码是否输入
         if (StringUtils.isNullOrEmpty(mEtPhoneNumber.getText().toString())) {
             T.showShort(this, "请填写您的手机号");
-        } else if (StringUtils.isNullOrEmpty(mEtVerifyCode.getText().toString())){
+        } else if (StringUtils.isNullOrEmpty(mEtVerifyCode.getText().toString())) {
             T.showShort(this, "请填写短信验证码");
         } else {
             KeyBoardUtils.closeKeybord(mEtPhoneNumber, this);
@@ -162,19 +176,27 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    public void bindUser() {
-        //登录成功
-//        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
-//        sendBroadcast(mIntent);
-//        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
-//        finish();
+    public void bindUser(User user) {
+        //登录成功，显示信息验证
+        showComplete();
+
     }
 
     @Override
     public void completeData() {
-        //未完善资料
-        Intent intent = new Intent(this, CompleteActivity.class);
-        startActivityForResult(intent, Constants.REQUEST_CODE_COMPLETE);
+        //未完善资料, 显示表单填写
+        showComplete();
+    }
+
+    private void showComplete() {
+        mTvHintComplete.setVisibility(View.VISIBLE);
+        mLlComplete.setVisibility(View.VISIBLE);
+
+        //成功获取到session_id
+        //发送广播
+        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+        sendBroadcast(mIntent);
+        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
     }
 
     @Override
@@ -183,21 +205,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
         T.showShort(this, "验证码输入错误");
     }
 
-
     @Override
     protected void onStop() {
         super.onStop();
         mLoginPresenter.onStop();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.REQUEST_CODE_COMPLETE) {
-            if (resultCode == Constants.RESULT_CODE_COMPLETE_SUCCESS) {
-                //完善资料成功
-                setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
-                finish();
-            }
-        }
-    }
 }

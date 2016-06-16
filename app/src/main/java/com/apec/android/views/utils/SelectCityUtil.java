@@ -28,12 +28,11 @@ import javax.inject.Inject;
 public class SelectCityUtil implements OnClickListener {
 
     public DialogPlus dialog;
-    //Activity mActivity;
+
     SelectArea mSelectArea;
 
     //forShow
     boolean isShowArea;
-    //int maxArea = 2;
 
     GetAreaUseCase mGetAreaUseCase;
     Context mContext;
@@ -49,14 +48,12 @@ public class SelectCityUtil implements OnClickListener {
      * @param selectArea
      * @param selCity
      * @param selArea
-     * @param selRoad
      * @param selCityId
      * @param selAreaId
-     * @param selRoadId
      */
     public void setData(SelectArea selectArea,
-                        String selCity, String selArea, String selRoad,
-                        int selCityId, int selAreaId, int selRoadId) {
+                        String selCity, String selArea,
+                        int selCityId, int selAreaId) {
         setData(selectArea);
 
         if (!StringUtils.isNullOrEmpty(selCity)) {
@@ -68,10 +65,6 @@ public class SelectCityUtil implements OnClickListener {
             rbArea.setVisibility(View.VISIBLE);
             rbArea.setText(selArea);
         }
-        if (!StringUtils.isNullOrEmpty(selRoad)) {
-            rbRoad.setVisibility(View.VISIBLE);
-            rbRoad.setText(selRoad);
-        }
 
         if (selCityId != 0) {
             curIndex = 1;
@@ -81,18 +74,11 @@ public class SelectCityUtil implements OnClickListener {
         if (selAreaId != 0) {
             this.selArea = selAreaId;
         }
-        if (selRoadId != 0) {
-            this.selRoad = selRoadId;
-        }
 
         isShowArea = true;
         rbPlease.setVisibility(View.GONE);
     }
 
-    /**
-     * 添加地址
-     * @param selectArea
-     */
     public void setData(SelectArea selectArea) {
         mSelectArea = selectArea;
         View dialogView = ((Activity) mContext).getLayoutInflater()
@@ -111,16 +97,20 @@ public class SelectCityUtil implements OnClickListener {
     }
 
     public interface SelectArea {
-        void selectCityFinish(String areaStr, int selCityId, int selAreaId, int selRoadId);
+        void selectCityFinish(String areaStr, int selCityId, int selAreaId);
     }
 
     ArrayList<Area> mData;
     BaseAdapter mAdapter;
     Area curArea;
-    RadioButton rbCity, rbArea, rbRoad, rbPlease;
-    ArrayList<Area> cityList, areaList, roadList;
+
+    RadioButton rbCity, rbArea, rbPlease;
+
+    ArrayList<Area> cityList, areaList;
+
     int curIndex = 1;
-    int selCity, selArea, selRoad;
+
+    int selCity, selArea;
 
     private void initView(View view) {
         mData = new ArrayList<>();
@@ -131,23 +121,16 @@ public class SelectCityUtil implements OnClickListener {
                 switch (curIndex) {
                     case 1:
                         if (area.getId() == selCity) {
-                            holder.setTextColor(R.id.tv_area_name, R.color.color_test);
+                            holder.setTextColor(R.id.tv_area_name, R.color.select_city);
                         } else {
-                            holder.setTextColor(R.id.tv_area_name, R.color.color_text_1);
+                            holder.setTextColor(R.id.tv_area_name, R.color.text_6);
                         }
                         break;
                     case 2:
                         if (area.getId() == selArea) {
-                            holder.setTextColor(R.id.tv_area_name, R.color.color_test);
+                            holder.setTextColor(R.id.tv_area_name, R.color.select_city);
                         } else {
-                            holder.setTextColor(R.id.tv_area_name, R.color.color_text_1);
-                        }
-                        break;
-                    case 3:
-                        if (area.getId() == selRoad) {
-                            holder.setTextColor(R.id.tv_area_name, R.color.color_test);
-                        } else {
-                            holder.setTextColor(R.id.tv_area_name, R.color.color_text_1);
+                            holder.setTextColor(R.id.tv_area_name, R.color.text_6);
                         }
                         break;
                 }
@@ -177,9 +160,7 @@ public class SelectCityUtil implements OnClickListener {
 
                     //清除掉与上一次选择关联的区或街道
                     selArea = 0;
-                    selRoad = 0;
                     rbArea.setVisibility(View.GONE);
-                    rbRoad.setVisibility(View.GONE);
                     rbPlease.setVisibility(View.VISIBLE);
                     rbPlease.setChecked(true);
 
@@ -193,35 +174,7 @@ public class SelectCityUtil implements OnClickListener {
                     rbArea.setText(curArea.getAreaName());
                     selArea = curArea.getId();
 
-                    //地区选择完，切换到选择街道
-//                        curIndex = 3;
-//                        if (rbRoad.getVisibility() == View.GONE) {
-//                            rbPlease.setChecked(true);
-//                        } else {
-//                            rbRoad.setChecked(true);
-//                        }
-
-                    //清除掉与上一次选择关联的区或街道
-                    //selRoad = 0;
-                    //rbRoad.setVisibility(View.GONE);
-                    //rbPlease.setVisibility(View.VISIBLE);
-                    //rbPlease.setChecked(true);
-
-                    //TODO 不选择街道
                     rbArea.setChecked(true);
-                    rbPlease.setVisibility(View.GONE);
-
-                    //街道选择完成关闭弹窗
-                    dismiss();
-
-                    break;
-                case 3: //街道选择
-                    if (rbRoad.getVisibility() == View.GONE) {
-                        rbRoad.setVisibility(View.VISIBLE);
-                    }
-                    rbRoad.setText(curArea.getAreaName());
-                    selRoad = curArea.getId();
-                    rbRoad.setChecked(true);
                     rbPlease.setVisibility(View.GONE);
 
                     //街道选择完成关闭弹窗
@@ -232,7 +185,6 @@ public class SelectCityUtil implements OnClickListener {
 
         rbCity = (RadioButton) view.findViewById(R.id.rb_city);
         rbArea = (RadioButton) view.findViewById(R.id.rb_area);
-        rbRoad = (RadioButton) view.findViewById(R.id.rb_road);
         rbPlease = (RadioButton) view.findViewById(R.id.rb_please_select);
     }
 
@@ -263,9 +215,6 @@ public class SelectCityUtil implements OnClickListener {
                     case 2:
                         areaList = areas;
                         break;
-                    case 3:
-                        roadList = areas;
-                        break;
                 }
                 mData.clear();
                 mData.addAll(areas);
@@ -290,14 +239,11 @@ public class SelectCityUtil implements OnClickListener {
                     case 1:
                         cityList = areas;
                         curIndex = 2;
-                        obtainAreaForShow(selArea);
+                        obtainAreaForShow(selCity);
                         break;
                     case 2:
                         areaList = areas;
-                        rbCity.performClick();
-                        break;
-                    case 3:
-                        roadList = areas;
+                        rbArea.performClick();
                         break;
                 }
             }
@@ -325,40 +271,25 @@ public class SelectCityUtil implements OnClickListener {
                 mAdapter.notifyDataSetChanged();
                 break;
 
-            case R.id.rb_road: //重新选择街道
-                curIndex = 3;
-                rbRoad.setChecked(true);
-
-                mData.clear();
-                mData.addAll(roadList);
-                mAdapter.notifyDataSetChanged();
-                break;
-
             case R.id.rb_please_select: //切换到当前的选择
                 rbPlease.setChecked(true);
-                if (roadList != null) {
-                    curIndex = 3;
-                    mData.clear();
-                    mData.addAll(roadList);
-                    mAdapter.notifyDataSetChanged();
-                } else if (areaList != null) {
-                    curIndex = 2;
-                    mData.clear();
-                    mData.addAll(areaList);
-                    mAdapter.notifyDataSetChanged();
-                }
+
+                curIndex = 2;
+                mData.clear();
+                mData.addAll(areaList);
+                mAdapter.notifyDataSetChanged();
+
                 break;
 
             case R.id.btn_cancel:
-                dismiss();
+                dialog.dismiss();
                 break;
         }
     }
 
     public void dismiss() {
-        String areaStr = rbCity.getText().toString() + rbArea.getText().toString() +
-                rbRoad.getText().toString();
+        String areaStr = rbCity.getText().toString() + rbArea.getText().toString();
         dialog.dismiss();
-        mSelectArea.selectCityFinish(areaStr, selCity, selArea, selRoad);
+        mSelectArea.selectCityFinish(areaStr, selCity, selArea);
     }
 }

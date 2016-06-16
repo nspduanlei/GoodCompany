@@ -16,6 +16,7 @@ import com.apec.android.injector.components.DaggerAddressComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.EditAddressPresenter;
 import com.apec.android.mvp.views.EditAddressView;
+import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
@@ -34,7 +35,6 @@ import butterknife.OnClick;
  */
 public class EditAddressActivity extends BaseActivity implements EditAddressView,
         SelectCityUtil.SelectArea {
-
 
     @BindView(R.id.pb_loading)
     ProgressBar mPbLoading;
@@ -56,7 +56,7 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
     ActivityEditAddressBinding mBinding;
 
     private DialogPlus dialog;
-    private int mSelCityId, mSelAreaId, mSelRoadId, mAddressId;
+    private int mSelCityId, mSelAreaId, mAddressId;
 
     @Override
     protected void setUpContentView() {
@@ -78,7 +78,8 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
         mSelectCityUtil.setData(this,
                 goodsReceipt.getAddrRes().getCity(),
                 goodsReceipt.getAddrRes().getArea(),
-                null, mSelCityId, mSelAreaId, 0);
+                mSelCityId, mSelAreaId);
+
         dialog = mSelectCityUtil.dialog;
     }
 
@@ -150,14 +151,16 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
     @OnClick(R.id.tv_select_area)
     void onSelectAreaClicked(View view) {
         dialog.show();
+        KeyBoardUtils.closeKeybord(mEtPerson, this);
+        KeyBoardUtils.closeKeybord(mEtPhoneNumber, this);
+        KeyBoardUtils.closeKeybord(mEtAreaDetail, this);
     }
 
     @Override
-    public void selectCityFinish(String areaStr, int selCityId, int selAreaId, int selRoadId) {
+    public void selectCityFinish(String areaStr, int selCityId, int selAreaId) {
         mTvSelectArea.setText(areaStr);
         mSelCityId = selCityId;
         mSelAreaId = selAreaId;
-        mSelRoadId = selRoadId;
     }
 
     @Override

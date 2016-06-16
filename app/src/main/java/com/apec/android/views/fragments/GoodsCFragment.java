@@ -114,7 +114,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
             mGoodsPresenter.startLocation();
         } else {
             initLocation();
-            mLocationDialog.setCityId(mCityId);
+            //mLocationDialog.setCityId(mCityId);
         }
         mLocationDialog.setCityChangeInterface(this);
     }
@@ -161,27 +161,22 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     @Override
     public void startLocation() {
         mLocationDialog.showLocationDialog();
-//        mTvLocation.setText("正在定位");
     }
 
     @Override
-    public void locationSuccess(int cityId, String cityName) {
-        updateCity(cityId, cityName);
-        mLocationDialog.closeDialog();
-        mLocationDialog.setCityId(mCityId);
+    public void locationSuccess(int cityId, String cityName, boolean isReSelect) {
+        if (isReSelect) {
+            mLocationDialog.selectLocation();
+        } else {
+            updateCity(cityId, cityName);
+            mLocationDialog.closeDialog();
+        }
     }
 
     //定位失败
     @Override
-    public void locationFail() {
-        mLocationDialog.setCityId(mCityId);
+    public void locationFail(boolean isReSelect) {
         mLocationDialog.locationFail();
-    }
-
-    @Override
-    public void reLocationSuccess(int cityId, String cityName) {
-        mLocationDialog.setCityId(mCityId);
-        mLocationDialog.selectLocation();
     }
 
     @Override

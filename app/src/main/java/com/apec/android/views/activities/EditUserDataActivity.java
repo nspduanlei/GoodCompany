@@ -11,7 +11,7 @@ import com.apec.android.views.activities.core.BaseActivity;
 public class EditUserDataActivity extends BaseActivity {
     @Override
     protected void setUpContentView() {
-        setContentView(R.layout.activity_setting, R.string.user_data_title);
+        setContentView(R.layout.activity_user_info, R.string.user_data_title);
     }
 
     @Override

@@ -58,21 +58,11 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void initUI(View view) {
         fillData();
-        initUser();
-    }
-
-    private void initUser() {
-        isLogin = LoginUtil.isLogin(getActivity());
-        if (isLogin) {
-            mUser = UserUtil.getUser();
-            mTvUserName.setText(mUser.getName());
-        } else {
-            mTvUserName.setText("请登录");
-        }
+        updateUser();
     }
 
     private void fillData() {
-        mData.add(new MyMenu(R.drawable.icon_order, "我的订单", true, null, null));
+        mData.add(new MyMenu(R.drawable.icon_order, "我的订单", false, null, null));
         mData.add(new MyMenu(R.drawable.icon_address, "收货地址", false, null, null));
         mData.add(new MyMenu(R.drawable.icon_quan, "优惠券", false, "(敬请期待)", null));
         mData.add(new MyMenu(R.drawable.icon_point, "积分兑换", false, "(敬请期待)", null));
@@ -178,4 +168,13 @@ public class MeFragment extends BaseFragment {
         }
     }
 
+    public void updateUser() {
+        isLogin = LoginUtil.isLogin(getActivity());
+        if (isLogin) {
+            mUser = UserUtil.getUser();
+            mTvUserName.setText(mUser.getName());
+        } else {
+            mTvUserName.setText("请登录");
+        }
+    }
 }

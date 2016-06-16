@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.domain.entities.user.OpenCity;
+import com.apec.android.util.SPUtils;
 import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.apec.android.views.view.CityChangeInterface;
@@ -37,10 +38,11 @@ public class LocationDialog {
     TextView mTvTitle;
     @BindView(R.id.tv_sure)
     TextView mTvSure;
-    @BindView(R.id.tv_cancel)
-    TextView mTvCancel;
-    @BindView(R.id.tv_hint)
 
+//    @BindView(R.id.tv_cancel)
+//    TextView mTvCancel;
+
+    @BindView(R.id.tv_hint)
     TextView mTvHint;
     @BindView(R.id.gv_open_city)
     GridView mGvOpenCity;
@@ -77,11 +79,11 @@ public class LocationDialog {
                 .setBackgroundColorResourceId(R.color.transparency)
                 .setOnClickListener((dialog1, view) -> {
                     switch (view.getId()) {
-                        case R.id.tv_cancel:
-                            mDialog.dismiss();
-                            break;
+//                        case R.id.tv_cancel:
+//                            mDialog.dismiss();
+//                            break;
                         case R.id.tv_sure:
-                            if (mSelectCityId != mCityId) {
+                            if (mSelectCityId != 0 && mSelectCityId != mCityId) {
                                 mCityId = mSelectCityId;
                                 mCityChangeInterface.cityChange(mSelectCityId, mSelectCityName);
                             }
@@ -92,6 +94,8 @@ public class LocationDialog {
                     }
                 })
                 .create();
+
+        mCityId = (int) SPUtils.get(mActivity, SPUtils.LOCATION_CITY_ID, 0);
     }
 
     /**
@@ -101,7 +105,7 @@ public class LocationDialog {
         mDialog.show();
 
         mTvSure.setVisibility(View.GONE);
-        mTvCancel.setVisibility(View.GONE);
+        //mTvCancel.setVisibility(View.GONE);
         mTvTitle.setVisibility(View.GONE);
         mGvOpenCity.setVisibility(View.GONE);
 
@@ -125,6 +129,7 @@ public class LocationDialog {
         mTvHint1.setVisibility(View.VISIBLE);
         mTvHint1.setText(mActivity.getString(R.string.location_hint_2));
 
+
         //设置默认选择
         if (mCityId == 0) {
             OpenCity openCity = CityUtil.updateSelectDefault();
@@ -135,12 +140,15 @@ public class LocationDialog {
         initGridView();
 
         mTvSure.setVisibility(View.VISIBLE);
-        if (mCityId != 0) {
-            mTvCancel.setVisibility(View.VISIBLE);
-        }
+
     }
 
     private void initGridView() {
+
+        if (mCityId != 0) {
+            mSelectCityId = 0;
+        }
+
         mGvOpenCity.setVisibility(View.VISIBLE);
 
         mData = CityUtil.queryAll();
@@ -183,9 +191,9 @@ public class LocationDialog {
         mDialog.dismiss();
     }
 
-    public void setCityId(int cityId) {
-        mCityId = cityId;
-    }
+//    public void setCityId(int cityId) {
+//        mCityId = cityId;
+//    }
 
     public void setCityChangeInterface(CityChangeInterface cityChangeInterface) {
         mCityChangeInterface = cityChangeInterface;
@@ -202,8 +210,7 @@ public class LocationDialog {
         initGridView();
 
         mTvSure.setVisibility(View.VISIBLE);
-        mTvCancel.setVisibility(View.VISIBLE);
-
+        //mTvCancel.setVisibility(View.VISIBLE);
         //mDialog.show();
     }
 }

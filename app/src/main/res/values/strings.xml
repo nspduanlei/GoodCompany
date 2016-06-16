@@ -48,5 +48,6 @@
     <string name="service_title">客服中心</string>
     <string name="message_title">消息</string>
     <string name="user_data_title">用户信息</string>
+    <string name="login_hint_complete">系统检测到您是第一次使用好伙计\n为了方便您的采购，请补充以下信息</string>
 
 </resources>

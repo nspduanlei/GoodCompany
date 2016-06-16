@@ -7,9 +7,32 @@
     <include
         layout="@layout/widget_toolbar"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rl_cache"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="setting"/>
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除本地缓存"
+            android:textColor="@color/text_1"/>
+
+        <TextView
+            android:id="@+id/tv_cache_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.25M"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/text_3"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_login_out"
+        style="@style/button_style_1"
+        android:text="退出登录"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>

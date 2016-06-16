@@ -82,4 +82,8 @@
     <color name="bg_bot">#FC5A58</color>
 
     <color name="city_select">#FF9A40</color>
+
+    <color name="text_bg">#EBEBEB</color>
+
+    <color name="select_city">#0ECBC0</color>
 </resources>

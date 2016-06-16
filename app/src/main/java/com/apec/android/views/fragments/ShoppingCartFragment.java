@@ -119,7 +119,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LoginUtil.onActivityResult(requestCode, resultCode, getActivity());
+        //LoginUtil.onActivityResult(requestCode, resultCode, getActivity());
         if (requestCode == Constants.REQUEST_CODE_LOGIN) {
             if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
                 mPresenter.getData();

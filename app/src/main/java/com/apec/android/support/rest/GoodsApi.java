@@ -118,4 +118,14 @@ public interface GoodsApi {
                                       @Field("num") int num);
     @GET("area")
     Observable<Areas> getArea(@Query("id") int id);
+
+    @FormUrlEncoded
+    @POST("user/complete")
+    Observable<NoBody> completeUser(@Field("userShop") String shopName,
+                                    @Field("userName") String name,
+                                    @Field("userCity") String cityId,
+                                    @Field("userAreacounty") String areaId,
+                                    @Field("userAddress") String detail);
+
+
 }

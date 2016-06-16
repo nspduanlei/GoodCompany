@@ -50,10 +50,10 @@ public class GoodsListPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        getGoods();
+        //getGoods();
     }
 
-    private void getGoods() {
+    public void getGoods() {
         mGoodsListView.hideErrorView();
         mGoodsListView.showLoadingView();
 
@@ -98,7 +98,7 @@ public class GoodsListPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        if (mGoodsSubscription.isUnsubscribed()) {
+        if (mGoodsListView != null) {
             mGoodsSubscription.unsubscribe();
         }
     }

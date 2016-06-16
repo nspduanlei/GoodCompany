@@ -109,6 +109,9 @@ public class ShopCartUtil {
             skuData.setSelect(isCheck);
             skuData.update(skuData.getId());
         }
+    }
 
+    public static void clear() {
+        DataSupport.deleteAll(SkuData.class);
     }
 }

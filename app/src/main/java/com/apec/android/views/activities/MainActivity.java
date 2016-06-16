@@ -1,6 +1,9 @@
 package com.apec.android.views.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 
 import com.apec.android.R;
@@ -44,6 +47,8 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     ShoppingCartFragment mShoppingCartFragment;
     MeFragment mMeFragment;
 
+    public static final String ACTION_USER_UPDATE = "用户修改";
+
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
@@ -86,6 +91,9 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
             }
         });
+
+
+        registerBroadcastReceiver();
     }
 
     @Override
@@ -114,4 +122,39 @@ public class MainActivity extends BaseActivity implements FragmentListener{
         }
     }
 
+    //定义广播
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action) {
+                case ACTION_USER_UPDATE:
+                    updateUser();
+                    break;
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBroadcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction( ACTION_USER_UPDATE);
+        // 注册广播
+        registerReceiver( mBroadcastReceiver, myIntentFilter) ;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super .onDestroy();
+        unregisterReceiver( mBroadcastReceiver);
+    }
+
+    /**
+     * 更新用户信息
+     */
+    private void updateUser() {
+        mGoodsCFragment.updateUser();
+        mMeFragment.updateUser();
+
+    }
 }

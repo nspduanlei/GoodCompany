@@ -101,6 +101,10 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     protected void initPresenter() {
         mGoodsListPresenter.attachView(this);
         mGoodsListPresenter.onCreate();
+
+        if (mCityId != 0) {
+            mGoodsListPresenter.getGoods();
+        }
     }
 
 

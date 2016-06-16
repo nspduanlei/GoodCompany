@@ -212,4 +212,11 @@ public class RestDataSource implements GoodsRepository {
     public Observable<Areas> getArea(int id) {
         return mGoodsApi.getArea(id);
     }
+
+    @Override
+    public Observable<NoBody> completeUser(String shopName, String name, String cityId,
+                                           String areaId, String detail) {
+        return mGoodsApi.completeUser(shopName, name, cityId,
+                areaId, detail);
+    }
 }
