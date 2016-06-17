@@ -1,10 +1,10 @@
 package com.apec.android.injector.components;
 
+import com.apec.android.domain.usercase.UpdateUserInfoUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.UserModule;
-import com.apec.android.views.activities.CompleteActivity;
-import com.apec.android.views.activities.ManageAddressActivity;
+import com.apec.android.views.activities.EditUserDataActivity;
 import com.apec.android.views.fragments.MeFragment;
 
 import dagger.Component;
@@ -17,9 +17,12 @@ import dagger.Component;
 public interface UserComponent extends ActivityComponent {
 
     void inject(MeFragment meFragment);
+    void inject(EditUserDataActivity editUserDataActivity);
 
 
     //检测版本更新
 
+    //修该用户信息
+    UpdateUserInfoUseCase updateUserInfoUseCase();
 
 }

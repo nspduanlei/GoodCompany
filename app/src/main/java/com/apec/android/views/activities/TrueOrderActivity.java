@@ -154,6 +154,12 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
         T.showShort(this, "下单成功");
         //删除购物车数据
         ShopCartUtil.deleteSkuList(mData);
+
+        //发送广播刷新数据
+        Intent mIntent = new Intent(MainActivity.ACTION_GOOD_UPDATE);
+        sendBroadcast(mIntent);
+
+        finish();
     }
 
     @Override

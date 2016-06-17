@@ -2,6 +2,7 @@ package com.apec.android.injector.components;
 
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.DeleteCartUseCase;
+import com.apec.android.domain.usercase.DoAddBatchCartUseCase;
 import com.apec.android.domain.usercase.DoAddCartUseCase;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.injector.Activity;
@@ -20,6 +21,7 @@ public interface ShopCartComponent extends ActivityComponent {
 
     void inject(ShoppingCartFragment shoppingCartFragment);
 
+    DoAddBatchCartUseCase doAddBatchCartUseCase();
     GetAllCartUseCase getAllCartUseCase();
     DeleteCartUseCase deleteCartUseCase();
     DoAddCartUseCase doAddCartUseCase();

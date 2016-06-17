@@ -219,4 +219,9 @@ public class RestDataSource implements GoodsRepository {
         return mGoodsApi.completeUser(shopName, name, cityId,
                 areaId, detail);
     }
+
+    @Override
+    public Observable<NoBody> addBatchShoppingCart(String json) {
+        return mGoodsApi.addBatchShoppingCart(json);
+    }
 }

@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     MeFragment mMeFragment;
 
     public static final String ACTION_USER_UPDATE = "用户修改";
+    public static final String ACTION_GOOD_UPDATE = "数据更新";
 
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -131,6 +132,10 @@ public class MainActivity extends BaseActivity implements FragmentListener{
                 case ACTION_USER_UPDATE:
                     updateUser();
                     break;
+                case ACTION_GOOD_UPDATE:
+                    updateCartNum(ShopCartUtil.querySkuNum());
+                    mGoodsCFragment.updateGoods();
+                    break;
             }
         }
     };
@@ -138,7 +143,8 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     //注册广播
     public void registerBroadcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
-        myIntentFilter.addAction( ACTION_USER_UPDATE);
+        myIntentFilter.addAction(ACTION_USER_UPDATE);
+        myIntentFilter.addAction(ACTION_GOOD_UPDATE);
         // 注册广播
         registerReceiver( mBroadcastReceiver, myIntentFilter) ;
     }

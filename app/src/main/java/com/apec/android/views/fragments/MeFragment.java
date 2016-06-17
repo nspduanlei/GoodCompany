@@ -105,14 +105,10 @@ public class MeFragment extends BaseFragment {
             Intent intent = null;
             switch (i) {
                 case 0: //我的订单
-                    if (LoginUtil.gotoLoginNew(getActivity())) {
-                        intent = new Intent(getActivity(), OrdersActivity.class);
-                    }
+                    intent = new Intent(getActivity(), OrdersActivity.class);
                     break;
                 case 1: //收货地址
-                    if (LoginUtil.gotoLoginNew(getActivity())) {
-                        intent = new Intent(getActivity(), ManageAddressActivity.class);
-                    }
+                    intent = new Intent(getActivity(), ManageAddressActivity.class);
                     break;
                 case 4: //客服中心
                     intent = new Intent(getActivity(), ServiceActivity.class);
@@ -172,7 +168,9 @@ public class MeFragment extends BaseFragment {
         isLogin = LoginUtil.isLogin(getActivity());
         if (isLogin) {
             mUser = UserUtil.getUser();
-            mTvUserName.setText(mUser.getName());
+            if (mUser != null) {
+                mTvUserName.setText(mUser.getShopName());
+            }
         } else {
             mTvUserName.setText("请登录");
         }

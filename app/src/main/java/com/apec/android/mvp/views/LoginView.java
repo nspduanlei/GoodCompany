@@ -10,4 +10,6 @@ public interface LoginView extends View {
     void bindUser(User user);
     void completeData();
     void verCodeError();
+
+    void completeSuccess();
 }

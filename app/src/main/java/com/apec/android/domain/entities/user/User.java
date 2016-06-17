@@ -16,6 +16,16 @@ public class User extends DataSupport {
     @Column(ignore = true)
     private Address addrRes;
 
+    private String shopPic;
+
+    public String getShopPic() {
+        return shopPic;
+    }
+
+    public void setShopPic(String shopPic) {
+        this.shopPic = shopPic;
+    }
+
     public Address getAddrRes() {
         return addrRes;
     }

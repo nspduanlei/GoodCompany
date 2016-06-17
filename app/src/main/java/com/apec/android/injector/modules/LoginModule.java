@@ -2,6 +2,7 @@ package com.apec.android.injector.modules;
 
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.CompleteUserUseCase;
+import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
@@ -19,6 +20,15 @@ import rx.Scheduler;
  */
 @Module
 public class LoginModule {
+
+    @Provides
+    @Activity
+    GetAllCartUseCase provideGetAllCartUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetAllCartUseCase(repository, uiThread, executorThread);
+    }
 
     @Provides
     @Activity

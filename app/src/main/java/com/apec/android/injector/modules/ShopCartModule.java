@@ -3,6 +3,7 @@ package com.apec.android.injector.modules;
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.DeleteCartUseCase;
+import com.apec.android.domain.usercase.DoAddBatchCartUseCase;
 import com.apec.android.domain.usercase.DoAddCartUseCase;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.injector.Activity;
@@ -18,6 +19,15 @@ import rx.Scheduler;
  */
 @Module
 public class ShopCartModule {
+
+    @Provides
+    @Activity
+    DoAddBatchCartUseCase provideDoAddBatchCartUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new DoAddBatchCartUseCase(repository, uiThread, executorThread);
+    }
 
     @Provides
     @Activity

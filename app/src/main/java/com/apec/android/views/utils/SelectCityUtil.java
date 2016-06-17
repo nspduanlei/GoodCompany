@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 
 import com.apec.android.R;
@@ -36,6 +37,8 @@ public class SelectCityUtil implements OnClickListener {
 
     GetAreaUseCase mGetAreaUseCase;
     Context mContext;
+
+    ProgressBar mProgressBar;
 
     @Inject
     public SelectCityUtil(Context context, GetAreaUseCase getAreaUseCase) {
@@ -79,10 +82,14 @@ public class SelectCityUtil implements OnClickListener {
         rbPlease.setVisibility(View.GONE);
     }
 
+
     public void setData(SelectArea selectArea) {
         mSelectArea = selectArea;
         View dialogView = ((Activity) mContext).getLayoutInflater()
                 .inflate(R.layout.fragment_select_city, null);
+
+        mProgressBar = (ProgressBar) dialogView.findViewById(R.id.pb_loading);
+
         initView(dialogView);
         ViewHolder viewHolder = new ViewHolder(dialogView);
         dialog = new DialogPlus.Builder(mContext)
@@ -194,15 +201,17 @@ public class SelectCityUtil implements OnClickListener {
      * @param id
      */
     public void obtainArea(int id) {
+        mProgressBar.setVisibility(View.VISIBLE);
         mGetAreaUseCase.setData(id);
         mGetAreaUseCase.execute().subscribe(this::onAreaReceived, this::managerError);
     }
 
     private void managerError(Throwable throwable) {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     private void onAreaReceived(Areas response) {
+        mProgressBar.setVisibility(View.GONE);
         if (response.getH().getCode() == 200) {
             //获取地区成功
             ArrayList<Area> areas = response.getB();
@@ -225,11 +234,13 @@ public class SelectCityUtil implements OnClickListener {
 
 
     public void obtainAreaForShow(int id) {
+        mProgressBar.setVisibility(View.VISIBLE);
         mGetAreaUseCase.setData(id);
         mGetAreaUseCase.execute().subscribe(this::onAreaShowReceived, this::managerError);
     }
 
     private void onAreaShowReceived(Areas response) {
+        mProgressBar.setVisibility(View.GONE);
         if (response.getH().getCode() == 200) {
             //获取地区成功
             ArrayList<Area> areas = response.getB();

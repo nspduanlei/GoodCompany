@@ -30,7 +30,9 @@ public class MyOrdersPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        mSubscription.unsubscribe();
+        if (mSubscription != null) {
+            mSubscription.unsubscribe();
+        }
     }
 
     @Override
@@ -45,6 +47,10 @@ public class MyOrdersPresenter implements Presenter {
 
     @Override
     public void onCreate() {
+
+    }
+
+    public void getOrderList(int status) {
         mView.showLoadingView();
         mSubscription = mGetAllOrderUseCase.execute()
                 .subscribe(this::onGetAllReceived, this::managerGetAllError);
@@ -58,7 +64,7 @@ public class MyOrdersPresenter implements Presenter {
         mView.hideLoadingView();
 
         if (orderListBack.getH().getCode() == 200) {
-            mView.onGetAllSuccess(orderListBack.getB());
+            mView.bindOrders(orderListBack.getB());
         }
     }
 

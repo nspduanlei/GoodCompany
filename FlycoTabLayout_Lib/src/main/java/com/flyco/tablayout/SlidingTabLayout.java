@@ -483,7 +483,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                         (int) (mIndicatorMarginTop + mIndicatorHeight));
                 mIndicatorDrawable.setCornerRadius(mIndicatorCornerRadius);
 
-                //设置边框
+                //duanlei 设置边框
                 mIndicatorDrawable.setStroke(4, 0xffD6D6D6);
 
                 mIndicatorDrawable.draw(canvas);

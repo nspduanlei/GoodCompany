@@ -5,16 +5,13 @@ import com.apec.android.domain.usercase.CreateOneOrderUseCase;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetAllOrderUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
-import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.domain.usercase.GetOrderDetailUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.OrderModule;
-import com.apec.android.injector.modules.UserModule;
-import com.apec.android.views.activities.ManageAddressActivity;
-import com.apec.android.views.activities.MyOrdersActivity;
 import com.apec.android.views.activities.OrderDetailActivity;
 import com.apec.android.views.activities.TrueOrderActivity;
+import com.apec.android.views.fragments.OrderFragment;
 
 import dagger.Component;
 
@@ -25,9 +22,9 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = {OrderModule.class, ActivityModule.class})
 public interface OrderComponent extends ActivityComponent {
 
-    void inject(MyOrdersActivity myOrdersActivity);
     void inject(OrderDetailActivity orderDetailActivity);
     void inject(TrueOrderActivity trueOrderActivity);
+    void inject(OrderFragment orderFragment);
 
     CreateOrderUseCase createOrderUseCase();
     GetArriveTimeUseCase getArriveTimeUseCase();

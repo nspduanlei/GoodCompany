@@ -264,4 +264,8 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         mTvLocation.setText(cityName);
         mAdapter.notifyDataSetChanged();
     }
+
+    public void updateGoods() {
+        mAdapter.notifyDataSetChanged();
+    }
 }

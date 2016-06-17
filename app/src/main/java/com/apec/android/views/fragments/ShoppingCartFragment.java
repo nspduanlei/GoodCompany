@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -64,6 +66,8 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     @BindView(R.id.ll_empty)
     LinearLayout mLlEmpty;
 
+    boolean isCheckAll = false;
+
     @Override
     protected void initUI(View view) {
         mRvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,14 +92,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     protected void initPresenter() {
         mPresenter.attachView(this);
         mPresenter.onCreate();
-
-        if (LoginUtil.isLogin(getActivity())) {
-            //TODO 如果用户登录了 将本地没有加入购物车的商品，加入购物车
-
-            //TODO 登录成功将远程 购物车的数据加入到本地
-
-            //TODO 退出登录时 清空购物车数据 用户数据 和 session_id
-        }
     }
 
     @Override
@@ -119,7 +115,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //LoginUtil.onActivityResult(requestCode, resultCode, getActivity());
         if (requestCode == Constants.REQUEST_CODE_LOGIN) {
             if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
                 mPresenter.getData();
@@ -151,6 +146,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
     @Override
     public void onCheckChange(String skuId, boolean isCheck) {
+        //item check
         if (isCheck) {
             ShopCartUtil.updateCheck(skuId, true);
         }
@@ -166,4 +162,24 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     public void getData() {
         mPresenter.getData();
     }
+
+    //全选
+    @OnCheckedChanged(R.id.cb_select_all)
+    void onSelectAllCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (b) {
+            for (SkuData skuData:mData) {
+                if (!skuData.isSelect()) {
+                    skuData.setSelect(true);
+                }
+            }
+        } else {
+            for (SkuData skuData:mData) {
+                if (skuData.isSelect()) {
+                    skuData.setSelect(false);
+                }
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
 }

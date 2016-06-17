@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_time"
-            android:text="共计1件商品"
+            android:text="@string/order_goods_num"
             android:layout_toRightOf="@id/iv_icon"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="12dp"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_time"
             android:layout_toRightOf="@id/tv_goods_num"
-            android:text="付款金额  ￥50000"
+            android:text="@string/order_goods_price"
             android:layout_alignTop="@id/tv_goods_num"
             android:textColor="@color/text_6"
             android:layout_marginLeft="20dp"/>
@@ -82,6 +82,7 @@
             android:layout_centerVertical="true"/>
 
         <Button
+            android:id="@+id/btn_func"
             android:layout_width="92dp"
             android:layout_height="34dp"
             android:text="提醒发货"

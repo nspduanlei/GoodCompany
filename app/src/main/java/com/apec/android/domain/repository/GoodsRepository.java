@@ -198,4 +198,7 @@ public interface GoodsRepository {
     Observable<Areas> getArea(int id);
 
     Observable<NoBody> completeUser(String shopName, String name, String cityId, String areaId, String detail);
+
+    //批量加入购物车
+    Observable<NoBody> addBatchShoppingCart(String json);
 }

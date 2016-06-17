@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
+import com.apec.android.domain.entities.user.Address;
 import com.apec.android.domain.entities.user.User;
 import com.apec.android.injector.components.DaggerLoginComponent;
 import com.apec.android.injector.modules.ActivityModule;
@@ -22,6 +23,7 @@ import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.utils.LoginHandler;
+import com.apec.android.views.utils.SelectCityUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,7 +36,7 @@ import butterknife.OnClick;
 /**
  * Created by duanlei on 2016/5/11.
  */
-public class LoginActivity extends BaseActivity implements LoginView {
+public class LoginActivity extends BaseActivity implements LoginView, SelectCityUtil.SelectArea {
 
     @BindView(R.id.et_phone_number)
     EditText mEtPhoneNumber;
@@ -49,14 +51,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     Button mBtnStart;
     @BindView(R.id.pb_loading)
     ProgressBar mPbLoading;
-
-    @Inject
-    LoginPresenter mLoginPresenter;
-
-    LoginHandler myHandler;
-    public int mDown = 60;
-    Timer mTimer;
-    TimerTask timerTask;
 
     @BindView(R.id.tv_hint_complete)
     TextView mTvHintComplete;
@@ -74,6 +68,23 @@ public class LoginActivity extends BaseActivity implements LoginView {
     Button mBtnFinish;
     @BindView(R.id.ll_complete)
     LinearLayout mLlComplete;
+
+    @Inject
+    LoginPresenter mLoginPresenter;
+
+    LoginHandler myHandler;
+    public int mDown = 60;
+    Timer mTimer;
+    TimerTask timerTask;
+
+    int mCityId, mAreaId;
+    String mCity, mArea;
+
+    @Inject
+    SelectCityUtil mSelectCityUtil;
+
+    //完善资料信息
+    User mUser;
 
     @Override
     protected void setUpContentView() {
@@ -177,19 +188,33 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void bindUser(User user) {
+        mUser = user;
+
         //登录成功，显示信息验证
         showComplete();
 
+        //显示信息
+        mEtShop.setText(user.getShopName());
+        mTvArea.setText(String.format("%s%s",
+                user.getAddrRes().getCity(), user.getAddrRes().getArea()));
+        mEtAreaDetail.setText(user.getAddrRes().getDetail());
+        mEtPhoneNumber.setText(user.getPhone());
+        mEtUserName.setText(user.getName());
+
+        mCityId = Integer.valueOf(user.getAddrRes().getCityId());
+        mAreaId = Integer.valueOf(user.getAddrRes().getAreaId());
+        mCity = user.getAddrRes().getCity();
+        mArea = user.getAddrRes().getArea();
     }
 
     @Override
     public void completeData() {
         //未完善资料, 显示表单填写
         showComplete();
+        mTvHintComplete.setVisibility(View.VISIBLE);
     }
 
     private void showComplete() {
-        mTvHintComplete.setVisibility(View.VISIBLE);
         mLlComplete.setVisibility(View.VISIBLE);
 
         //成功获取到session_id
@@ -206,9 +231,83 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
+    public void completeSuccess() {
+        //信息提交成功
+        finishExit();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         mLoginPresenter.onStop();
     }
 
+    @Override
+    public void selectCityFinish(String areaStr, int selCityId, int selAreaId) {
+        //选择城市和地区的回调
+        mTvArea.setText(areaStr);
+        mCityId = selCityId;
+        mAreaId = selAreaId;
+    }
+
+    @OnClick(R.id.btn_finish)
+    void onSubmitCompleteClicked(View view) {
+        String userShop = mEtShop.getText().toString();
+        String userName = mEtUserName.getText().toString();
+        int userCity = mCityId;
+        int userArea = mAreaId;
+        String userAddress = mEtAreaDetail.getText().toString();
+
+        if (StringUtils.isNullOrEmpty(userShop) ||
+                StringUtils.isNullOrEmpty(userName) ||
+                userCity == 0 ||
+                userArea == 0 ||
+                StringUtils.isNullOrEmpty(userAddress)) {
+
+            T.showShort(this, "请填写完所用表单数据。。");
+
+        } else {
+            boolean isEdit = false;
+            if (!mUser.getName().equals(userName)) {
+                mUser.setName(userName);
+            } else if (!mUser.getShopName().equals(userShop)) {
+                mUser.setShopName(userShop);
+            } else if (!mUser.getAddrRes().getCityId().equals(String.valueOf(userCity))) {
+                Address address = mUser.getAddrRes();
+                address.setCityId(String.valueOf(userCity));
+                mUser.setAddrRes(address);
+            } else if (!mUser.getAddrRes().getAreaId().equals(String.valueOf(userArea))) {
+                Address address = mUser.getAddrRes();
+                address.setAreaId(String.valueOf(userArea));
+                mUser.setAddrRes(address);
+            } else if (!mUser.getAddrRes().getDetail().equals(userAddress)) {
+                Address address = mUser.getAddrRes();
+                address.setDetail(userAddress);
+                mUser.setAddrRes(address);
+            }
+
+            if (isEdit) {
+                //提交数据
+                mLoginPresenter.completeUser(mUser);
+            } else {
+                finishExit();
+            }
+        }
+    }
+
+    @OnClick(R.id.ll_select_area)
+    void onSelectAddressClicked(View view) {
+        if (mUser == null) {
+            mSelectCityUtil.setData(this);
+            mSelectCityUtil.dialog.show();
+        } else {
+            mSelectCityUtil.setData(this, mCity, mArea, mCityId, mAreaId);
+            mSelectCityUtil.dialog.show();
+        }
+    }
+
+    private void finishExit() {
+        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
+        finish();
+    }
 }

@@ -1,6 +1,9 @@
 package com.apec.android.views.utils;
 
+import android.content.ContentValues;
+
 import com.apec.android.domain.entities.goods.SkuData;
+import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.util.L;
 
 import org.litepal.crud.DataSupport;
@@ -15,16 +18,11 @@ public class ShopCartUtil {
 
     //添加数据库
     public static void addData(SkuData skuData) {
-//        if (querySkuById(skuData.getSkuId()) != null) {
-//            update(skuData);
-//        } else {
-            try {
-                skuData.saveThrows();
-            } catch (Exception e) {
-                L.e(e.toString());
-            }
-
-//        }
+        try {
+            skuData.saveThrows();
+        } catch (Exception e) {
+            L.e(e.toString());
+        }
     }
 
     //查询购物车数量
@@ -35,7 +33,7 @@ public class ShopCartUtil {
     public static int querySkuNum() {
         List<SkuData> list = queryAll();
         int count = 0;
-        for (SkuData skuData:list) {
+        for (SkuData skuData : list) {
             count = count + skuData.getCount();
         }
         return count;
@@ -48,7 +46,7 @@ public class ShopCartUtil {
 
     //批量删除
     public static void deleteSkuList(ArrayList<SkuData> data) {
-        for (SkuData skuData:data) {
+        for (SkuData skuData : data) {
             skuData.delete();
         }
     }
@@ -65,13 +63,10 @@ public class ShopCartUtil {
 
     //更具id查询sku
     public static SkuData querySkuById(String skuId) {
-
         List<SkuData> list = DataSupport.where("skuId = ?", skuId).find(SkuData.class);
-
         if (list.size() == 0) {
             return null;
         }
-
         return list.get(0);
     }
 
@@ -100,6 +95,7 @@ public class ShopCartUtil {
 
     /**
      * 修改选择状态
+     *
      * @param skuId
      * @param isCheck
      */
@@ -113,5 +109,37 @@ public class ShopCartUtil {
 
     public static void clear() {
         DataSupport.deleteAll(SkuData.class);
+    }
+
+    //获取没有添加到远程的商品列表
+    public static List<SkuData> getNotSaveList() {
+        List<SkuData> list =
+                DataSupport.where("isSave = ?", "0").find(SkuData.class);
+        return list;
+    }
+
+    //商品添加到远程后修改商品状态
+    public static void updateIsSave() {
+        ContentValues values = new ContentValues();
+        values.put("isSave", "1");
+        DataSupport.updateAll(SkuData.class, values, "isSave = ?", "0");
+    }
+
+    /**
+     * 全选
+     */
+    public static void selectAll() {
+        ContentValues values = new ContentValues();
+        values.put("isSelect", "1");
+        DataSupport.updateAll(SkuData.class, values, "isSelect = ?", "0");
+    }
+
+    /**
+     * 取消全选
+     */
+    public static void cancelSelectAll() {
+        ContentValues values = new ContentValues();
+        values.put("isSelect", "0");
+        DataSupport.updateAll(SkuData.class, values, "isSelect = ?", "1");
     }
 }

@@ -1,13 +1,13 @@
 package com.apec.android.injector.components;
 
 import com.apec.android.domain.usercase.CompleteUserUseCase;
+import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.LoginModule;
-import com.apec.android.views.activities.CompleteActivity;
 import com.apec.android.views.activities.LoginActivity;
 
 import dagger.Component;
@@ -20,8 +20,8 @@ import dagger.Component;
 public interface LoginComponent extends ActivityComponent {
 
     void inject(LoginActivity loginActivity);
-    void inject(CompleteActivity completeActivity);
 
+    GetAllCartUseCase getAllCartUseCase();
     GetAllCityUseCase getAllCityUseCase();
     GetVerCodeUseCase getVerCodeUseCase();
     SubmitVerCodeUseCase submitVerCodeUseCase();

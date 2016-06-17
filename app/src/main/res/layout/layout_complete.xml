@@ -21,6 +21,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_select_area"
         style="@style/FormItemStyle">
 
         <TextView

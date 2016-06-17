@@ -3,8 +3,13 @@ package com.apec.android.mvp.presenters;
 import com.apec.android.config.Constants;
 import com.apec.android.config.ErrorCode;
 import com.apec.android.domain.NoBody;
+import com.apec.android.domain.entities.user.ShopCart;
+import com.apec.android.domain.entities.user.ShopCartBack;
+import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.domain.entities.user.User;
 import com.apec.android.domain.entities.user.UserBack;
+import com.apec.android.domain.usercase.CompleteUserUseCase;
+import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
 import com.apec.android.mvp.views.LoginView;
@@ -29,12 +34,18 @@ public class LoginPresenter implements Presenter {
     LoginView mLoginView;
     GetVerCodeUseCase mGetVerCodeUseCase;
     SubmitVerCodeUseCase mSubmitVerCodeUseCase;
+    CompleteUserUseCase mCompleteUserUseCase;
+    GetAllCartUseCase mGetAllCartUseCase;
 
     @Inject
     public LoginPresenter(GetVerCodeUseCase getVerCodeUseCase,
-                          SubmitVerCodeUseCase submitVerCodeUseCase) {
+                          SubmitVerCodeUseCase submitVerCodeUseCase,
+                          CompleteUserUseCase completeUserUseCase,
+                          GetAllCartUseCase getAllCartUseCase) {
         mGetVerCodeUseCase = getVerCodeUseCase;
         mSubmitVerCodeUseCase = submitVerCodeUseCase;
+        mCompleteUserUseCase = completeUserUseCase;
+        mGetAllCartUseCase = getAllCartUseCase;
     }
 
     @Override
@@ -99,6 +110,20 @@ public class LoginPresenter implements Presenter {
     }
 
     private void onSubmitCodeReceived(UserBack userBack) {
+        //登录成功获取购物车数据填充
+        mGetAllCartUseCase.execute()
+                .observeOn(Schedulers.io())
+                .doOnNext(shopCartBack -> {
+                    //将用户信息存储在数据库中
+                    if (shopCartBack.getH().getCode() == Constants.SUCCESS_CODE) {
+                        if (shopCartBack.getB().getSkus().size() > 0) {
+                            ShopCartData.addCarts(shopCartBack.getB().getSkus());
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onAllCartReceived, this::ManagerError);
+
         mLoginView.hideLoadingView();
         switch (userBack.getH().getCode()) {
             case Constants.SUCCESS_CODE:
@@ -113,7 +138,32 @@ public class LoginPresenter implements Presenter {
         }
     }
 
+    private void ManagerError(Throwable throwable) {
+
+    }
+
+    private void onAllCartReceived(ShopCartBack shopCartBack) {
+
+    }
+
     private void manageGetVerCodeError(Throwable error) {
         mLoginView.hideLoadingView();
+    }
+
+    public void completeUser(User user) {
+        mLoginView.showLoadingView();
+        mCompleteUserUseCase.setData(user);
+        mCompleteUserUseCase.execute().subscribe(this::onCompleteReceived, this::manageError);
+    }
+
+    private void manageError(Throwable throwable) {
+        mLoginView.hideLoadingView();
+    }
+
+    private void onCompleteReceived(NoBody noBody) {
+        mLoginView.hideLoadingView();
+        if (noBody.getH().getCode() == 200) {
+            mLoginView.completeSuccess();
+        }
     }
 }

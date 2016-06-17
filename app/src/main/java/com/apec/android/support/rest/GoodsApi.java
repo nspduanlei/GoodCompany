@@ -2,24 +2,19 @@ package com.apec.android.support.rest;
 
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
-import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.entities.order.OrderBack;
 import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
-import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -127,5 +122,7 @@ public interface GoodsApi {
                                     @Field("userAreacounty") String areaId,
                                     @Field("userAddress") String detail);
 
-
+    @FormUrlEncoded
+    @POST("cart/addBatch")
+    Observable<NoBody> addBatchShoppingCart(@Field("skuJson") String json);
 }

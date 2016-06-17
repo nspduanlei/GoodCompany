@@ -46,7 +46,8 @@
             android:singleLine="true"
             android:textColor="@color/text_3"
             android:textStyle="bold"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:text="配送至:正在获取配送地址"/>
     </RelativeLayout>
 
     <com.flyco.tablayout.SlidingTabLayout

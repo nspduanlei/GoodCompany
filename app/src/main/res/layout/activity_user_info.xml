@@ -1,15 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <include
         layout="@layout/widget_toolbar"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="用户信息"/>
+
+    <RelativeLayout
+        style="@style/UserInfoItemStyle">
+
+        <TextView
+            style="@style/UserInfoTitleStyle"
+            android:layout_centerVertical="true"
+            android:text="商家头像"/>
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right"/>
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@id/iv_arrow"
+            android:src="@drawable/test"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/lineStyle"/>
+
+    <RelativeLayout
+        style="@style/UserInfoItemStyle">
+
+        <TextView
+            style="@style/UserInfoTitleStyle"
+            android:text="商家名称"/>
+
+        <EditText
+            android:id="@+id/et_shop_name"
+            style="@style/UserInfoEditStyle"
+            android:text="商家头像"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/lineStyle"/>
+
+    <RelativeLayout
+        style="@style/UserInfoItemStyle">
+
+        <TextView
+            style="@style/UserInfoTitleStyle"
+            android:text="联系人"/>
+
+        <EditText
+            android:id="@+id/et_user"
+            style="@style/UserInfoEditStyle"
+            android:text="商家头像"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/lineStyle"/>
+
+    <RelativeLayout
+        style="@style/UserInfoItemStyle">
+
+        <TextView
+            style="@style/UserInfoTitleStyle"
+            android:text="手机号码"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            style="@style/UserInfoEditStyle"
+            android:inputType="phone"
+            android:text="手机号码"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

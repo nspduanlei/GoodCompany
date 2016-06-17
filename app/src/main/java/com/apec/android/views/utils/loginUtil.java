@@ -11,6 +11,7 @@ import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.activities.MainActivity;
+import com.apec.android.views.activities.ManageAddressActivity;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -99,4 +100,12 @@ public class LoginUtil {
         }
     }
 
+    public static void onActivityResult(int requestCode, int resultCode,
+                                        Activity activity) {
+        if (requestCode == Constants.REQUEST_CODE_LOGIN) {
+            if (resultCode != Constants.RESULT_CODE_LOGIN_SUCCESS) {
+                activity.finish();
+            }
+        }
+    }
 }

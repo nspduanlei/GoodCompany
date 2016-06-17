@@ -146,7 +146,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //LoginUtil.onActivityResult(requestCode, resultCode, this);
+        LoginUtil.onActivityResult(requestCode, resultCode, this);
         if (requestCode == Constants.REQUEST_CODE_EDIT) {
             if (resultCode == Constants.RESULT_CODE_EDIT) {
                 mPresenter.getAllAddress();

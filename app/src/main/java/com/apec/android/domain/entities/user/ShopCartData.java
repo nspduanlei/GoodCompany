@@ -1,6 +1,9 @@
 package com.apec.android.domain.entities.user;
 
+import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuData;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +39,17 @@ public class ShopCartData {
 
     public void setSkus(List<SkuData> skus) {
         this.skus = skus;
+    }
+
+    /**
+     * 批量加入购物车
+     * @param skus
+     */
+    public static void addCarts(ArrayList<Skus> skus) {
+        ArrayList<SkuData> skuDatas = new ArrayList<>();
+        for (Skus item:skus) {
+            skuDatas.add(new SkuData(item));
+        }
+        DataSupport.saveAll(skuDatas);
     }
 }

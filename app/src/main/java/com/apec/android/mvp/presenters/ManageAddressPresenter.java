@@ -63,6 +63,7 @@ public class ManageAddressPresenter implements Presenter {
     public void onCreate() {
         getAllAddress();
     }
+
     /********************************请求数据********************************/
 
     public void getAllAddress() {

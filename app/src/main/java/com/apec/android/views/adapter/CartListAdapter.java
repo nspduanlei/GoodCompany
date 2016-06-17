@@ -93,11 +93,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
                 mCbSelect.setVisibility(View.VISIBLE);
             }
 
-            if (data.isSelect()) {
-                mCbSelect.setChecked(true);
-            } else {
-                mCbSelect.setChecked(false);
-            }
+            mCbSelect.setChecked(data.isSelect());
 
             mBtnAdd.setOnClickListener(view -> mListener.onAddClick(data.getSkuId()));
 

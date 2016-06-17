@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/cl_main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include
-        layout="@layout/widget_toolbar"/>
-
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/tabs"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/color_white"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        app:tl_indicator_color="@color/color_white"
-        app:tl_indicator_margin_left="2dp"
-        app:tl_indicator_margin_right="2dp"
-        app:tl_indicator_style="BLOCK"
-        app:tl_textBold="true"
-        app:tl_textSelectColor="@color/text_5"
-        app:tl_textUnselectColor="@color/text_4"/>
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <include
+            layout="@layout/widget_toolbar"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/color_white"
+            app:tl_indicator_color="@color/color_white"
+            app:tl_indicator_style="BLOCK"
+            app:tl_iconVisible="false"
+            app:tl_textBold="true"
+            app:tl_textSelectColor="@color/text_5"
+            app:tl_textUnselectColor="@color/text_4"
+            app:tl_indicator_margin_left="5dp"
+            app:tl_indicator_margin_right="5dp"
+            />
+    </android.support.design.widget.AppBarLayout>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_orders"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,5 +1,7 @@
 package com.apec.android.domain.entities.goods;
 
+import com.apec.android.domain.entities.user.Skus;
+
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
@@ -29,8 +31,8 @@ public class SkuData extends DataSupport {
     //购物车数量
     private int count;
 
-    @Column(defaultValue = "true")
     private boolean isSelect;
+
     private String pic;
 
     //是否添加到远程数据库
@@ -153,4 +155,25 @@ public class SkuData extends DataSupport {
         this.status = sku.getStatus();
         this.pic = sku.getPics().get(0).getUrl();
     }
+
+    public SkuData(Skus item) {
+        Sku sku = item.getSku();
+
+        this.skuId = String.valueOf(sku.getId());
+        this.goodsId = sku.getGoodsId();
+        this.skuName = sku.getSkuName();
+        this.price = sku.getPrice();
+        this.count = item.getCount();
+
+        for (SkuAttribute skuAttribute:sku.getNonkeyAttr()) {
+            if (skuAttribute.getType().equals("2")) {
+                //净含量属性
+                this.attrName = skuAttribute.getName();
+                this.attrValue = skuAttribute.getAttributeValues().get(0).getName();
+            }
+        }
+        this.status = sku.getStatus();
+        this.pic = sku.getPics().get(0).getUrl();
+    }
+
 }

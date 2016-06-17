@@ -43,9 +43,7 @@
         <activity android:name=".views.activities.ManageAddressActivity" />
         <activity android:name=".views.activities.EditAddressActivity" />
         <activity android:name=".views.activities.AddAddressActivity" />
-        <activity android:name=".views.activities.MyOrdersActivity" />
         <activity android:name=".views.activities.OrderDetailActivity" />
-        <activity android:name=".views.activities.CompleteActivity" />
         <activity android:name=".views.activities.TrueOrderActivity" />
         <activity android:name=".views.activities.MessageActivity" />
 

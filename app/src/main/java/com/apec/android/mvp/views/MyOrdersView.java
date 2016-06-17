@@ -6,5 +6,5 @@ import com.apec.android.domain.entities.order.OrderList;
  * Created by duanlei on 2016/6/2.
  */
 public interface MyOrdersView extends View {
-    void onGetAllSuccess(OrderList orderList);
+    void bindOrders(OrderList orderList);
 }

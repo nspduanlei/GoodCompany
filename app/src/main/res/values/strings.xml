@@ -14,7 +14,7 @@
     <string name="total_price_cart">合计:￥%s</string>
     <string name="open_string">test</string>
     <string name="close_string">test</string>
-    <string name="order_number">订单号：%s</string>
+    <string name="order_number">订单号\u3000%s</string>
     <string name="total_price_order">总价：{￥%s}</string>
     <string name="price_and_num">￥%1$s x %2$d</string>
     <string name="goods_type">50kg/袋</string>
@@ -49,5 +49,7 @@
     <string name="message_title">消息</string>
     <string name="user_data_title">用户信息</string>
     <string name="login_hint_complete">系统检测到您是第一次使用好伙计\n为了方便您的采购，请补充以下信息</string>
+    <string name="order_goods_num">共计%d件商品</string>
+    <string name="order_goods_price">付款金额 ￥%s</string>
 
 </resources>
