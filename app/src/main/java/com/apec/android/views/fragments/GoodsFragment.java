@@ -158,8 +158,8 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
     @Override
     public void onStop() {
-        super.onStop();
         mGoodsListPresenter.onStop();
+        super.onStop();
     }
 
     public void updateData() {
@@ -217,7 +217,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
         Intent intent = new Intent(getActivity(), TrueOrderActivity.class);
         intent.putIntegerArrayListExtra("sku_ids", skus);
-        intent.putExtra("count", mOrderCount);
+        //intent.putExtra("count", mOrderCount);
         startActivity(intent);
     }
 

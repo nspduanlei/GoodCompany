@@ -44,10 +44,20 @@
             style="@style/UserInfoTitleStyle"
             android:text="商家名称"/>
 
+        <ImageView
+            android:id="@+id/iv_arrow_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right"/>
+
         <EditText
             android:id="@+id/et_shop_name"
             style="@style/UserInfoEditStyle"
-            android:text="商家头像"/>
+            android:text="商家头像"
+            android:layout_toLeftOf="@id/iv_arrow_1"
+            android:layout_marginRight="10dp"/>
 
     </RelativeLayout>
 
@@ -61,11 +71,20 @@
             style="@style/UserInfoTitleStyle"
             android:text="联系人"/>
 
+        <ImageView
+            android:id="@+id/iv_arrow_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right"/>
+
         <EditText
             android:id="@+id/et_user"
             style="@style/UserInfoEditStyle"
-            android:text="商家头像"/>
-
+            android:text="商家头像"
+            android:layout_toLeftOf="@id/iv_arrow_2"
+            android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
     <View
@@ -78,12 +97,20 @@
             style="@style/UserInfoTitleStyle"
             android:text="手机号码"/>
 
+        <ImageView
+            android:id="@+id/iv_arrow_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right"/>
+
         <EditText
             android:id="@+id/et_phone"
             style="@style/UserInfoEditStyle"
-            android:inputType="phone"
-            android:text="手机号码"/>
-
+            android:text="商家头像"
+            android:layout_toLeftOf="@id/iv_arrow_3"
+            android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
 </LinearLayout>

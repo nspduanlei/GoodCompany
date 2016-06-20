@@ -164,4 +164,9 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    protected void onStop() {
+        mPresenter.onStop();
+        super.onStop();
+    }
 }

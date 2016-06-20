@@ -238,8 +238,8 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
 
     @Override
     protected void onStop() {
-        super.onStop();
         mLoginPresenter.onStop();
+        super.onStop();
     }
 
     @Override
@@ -310,4 +310,5 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
         setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
         finish();
     }
+
 }

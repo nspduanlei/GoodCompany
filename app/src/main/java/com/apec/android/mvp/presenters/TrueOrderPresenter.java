@@ -21,10 +21,13 @@ public class TrueOrderPresenter implements Presenter {
     TrueOrderView mView;
 
     GetArriveTimeUseCase mGetArriveTimeUseCase;
+    //批量下单
     CreateOrderUseCase mCreateOrderUseCase;
     CreateOneOrderUseCase mCreateOneOrderUseCase;
 
-    Subscription mSubscription;
+    Subscription mSubscriptionArriveTime;
+    Subscription mSubscriptionCreateOrder;
+    Subscription mSubscriptionCreateOrderOne;
 
     @Inject
     public TrueOrderPresenter(GetArriveTimeUseCase getArriveTimeUseCase,
@@ -42,8 +45,11 @@ public class TrueOrderPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        if (mSubscription != null) {
-            mSubscription.unsubscribe();
+        if (mSubscriptionArriveTime != null) {
+            mSubscriptionArriveTime.unsubscribe();
+        }
+        if (mSubscriptionCreateOrderOne != null) {
+            mSubscriptionCreateOrderOne.unsubscribe();
         }
     }
 
@@ -64,7 +70,7 @@ public class TrueOrderPresenter implements Presenter {
 
     public void getArriveTime() {
         mView.showLoadingView();
-        mSubscription = mGetArriveTimeUseCase.execute()
+        mSubscriptionArriveTime = mGetArriveTimeUseCase.execute()
                 .subscribe(this::onArriveTimeReceived, this::managerError);
     }
 
@@ -83,7 +89,7 @@ public class TrueOrderPresenter implements Presenter {
     public void fastOrder(int skuId, int addressId, int num) {
         mView.showLoadingView();
         mCreateOneOrderUseCase.setData(skuId, addressId, num);
-        mCreateOneOrderUseCase.execute()
+        mSubscriptionCreateOrderOne = mCreateOneOrderUseCase.execute()
                 .subscribe(this::onOrderReceived, this::managerError);
     }
 
@@ -95,9 +101,9 @@ public class TrueOrderPresenter implements Presenter {
     }
 
     //购物车下单
-    public void cartOrder(String skus, int addressId) {
+    public void cartOrder(String json) {
         mView.showLoadingView();
-        mCreateOrderUseCase.setData(skus, addressId);
+        mCreateOrderUseCase.setData(json);
         mCreateOrderUseCase.execute()
                 .subscribe(this::onOrderReceived, this::managerError);
     }

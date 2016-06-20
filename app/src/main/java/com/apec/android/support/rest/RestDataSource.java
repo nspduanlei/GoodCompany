@@ -159,8 +159,8 @@ public class RestDataSource implements GoodsRepository {
 
 
     @Override
-    public Observable<NoBody> createOrder(String skus, int addressId) {
-        return mGoodsApi.createOrder(skus, addressId);
+    public Observable<NoBody> createOrder(String json) {
+        return mGoodsApi.createOrder(json);
     }
 
     @Override

@@ -4,7 +4,9 @@ import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.user.ShopCart;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.ShopCartData;
+import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.DeleteCartUseCase;
+import com.apec.android.domain.usercase.DoAddBatchCartUseCase;
 import com.apec.android.domain.usercase.DoAddCartUseCase;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.mvp.views.ShoppingCartView;
@@ -29,20 +31,10 @@ public class ShoppingCartPresenter implements Presenter {
 
     ShoppingCartView mView;
 
-    GetAllCartUseCase mGetAllCartUseCase;
-    DeleteCartUseCase mDeleteCartUseCase;
-    DoAddCartUseCase mDoAddCartUseCase;
-
     Subscription mGetAllSubscription;
 
     @Inject
-    public ShoppingCartPresenter(GetAllCartUseCase getAllCartUseCase,
-                                 DeleteCartUseCase deleteCartUseCase,
-                                 DoAddCartUseCase doAddCartUseCase) {
-        mGetAllCartUseCase = getAllCartUseCase;
-        mDeleteCartUseCase = deleteCartUseCase;
-        mDoAddCartUseCase = doAddCartUseCase;
-
+    public ShoppingCartPresenter() {
     }
 
     @Override
@@ -52,7 +44,9 @@ public class ShoppingCartPresenter implements Presenter {
 
     @Override
     public void onStop() {
-
+        if (mGetAllSubscription != null) {
+            mGetAllSubscription.unsubscribe();
+        }
     }
 
     @Override
@@ -73,7 +67,7 @@ public class ShoppingCartPresenter implements Presenter {
     public void getData() {
         mView.showLoadingView();
 
-        Observable.create((Observable.OnSubscribe<ShopCartData>) subscriber -> {
+        mGetAllSubscription = Observable.create((Observable.OnSubscribe<ShopCartData>) subscriber -> {
 
             List<SkuData> list = ShopCartUtil.queryAll();
             //获取购物车数据
@@ -108,6 +102,10 @@ public class ShoppingCartPresenter implements Presenter {
         } else {
             mView.bindCart(shopCartData);
         }
+
+    }
+
+    public void createOrders() {
 
     }
 }

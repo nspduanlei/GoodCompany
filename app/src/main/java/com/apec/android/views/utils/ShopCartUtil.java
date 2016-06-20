@@ -142,4 +142,36 @@ public class ShopCartUtil {
         values.put("isSelect", "0");
         DataSupport.updateAll(SkuData.class, values, "isSelect = ?", "1");
     }
+
+    /**
+     * 获取选择的所以商品总价
+     * @return
+     */
+    public static Double getSelectPrice() {
+        List<SkuData> list = getSelectList();
+
+        Double totalPrice = 0.0;
+
+        for (SkuData skuData:list) {
+            totalPrice = totalPrice + Double.valueOf(skuData.getPrice()) * skuData.getCount();
+        }
+
+        return totalPrice;
+    }
+
+    /**
+     * 获取选择的所以商品总数量
+     * @return
+     */
+    public static int getSelectCount() {
+        List<SkuData> list = getSelectList();
+
+        return list.size();
+    }
+
+    public static List<SkuData> getSelectList() {
+        List<SkuData> list =
+                DataSupport.where("isSelect = ?", "1").find(SkuData.class);
+        return list;
+    }
 }

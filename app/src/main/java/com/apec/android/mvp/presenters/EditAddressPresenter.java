@@ -31,8 +31,9 @@ public class EditAddressPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        if (mSubscription != null)
+        if (mSubscription != null) {
             mSubscription.unsubscribe();
+        }
     }
 
     @Override

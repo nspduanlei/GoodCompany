@@ -32,8 +32,9 @@ public class AddAddressPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        if (mAddSubscription != null)
+        if (mAddSubscription != null) {
             mAddSubscription.unsubscribe();
+        }
     }
 
     @Override

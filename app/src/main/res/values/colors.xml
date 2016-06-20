@@ -86,4 +86,6 @@
     <color name="text_bg">#EBEBEB</color>
 
     <color name="select_city">#0ECBC0</color>
+
+    <color name="setting_bg">#4cffffff</color>
 </resources>

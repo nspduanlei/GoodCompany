@@ -133,12 +133,16 @@ public class MainActivity extends BaseActivity implements FragmentListener{
                     updateUser();
                     break;
                 case ACTION_GOOD_UPDATE:
-                    updateCartNum(ShopCartUtil.querySkuNum());
-                    mGoodsCFragment.updateGoods();
+                    updateGoods();
                     break;
             }
         }
     };
+
+    public void updateGoods() {
+        updateCartNum(ShopCartUtil.querySkuNum());
+        mGoodsCFragment.updateGoods();
+    }
 
     //注册广播
     public void registerBroadcastReceiver() {
@@ -152,7 +156,7 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     @Override
     protected void onDestroy() {
         super .onDestroy();
-        unregisterReceiver( mBroadcastReceiver);
+        unregisterReceiver(mBroadcastReceiver);
     }
 
     /**
@@ -161,6 +165,5 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     private void updateUser() {
         mGoodsCFragment.updateUser();
         mMeFragment.updateUser();
-
     }
 }

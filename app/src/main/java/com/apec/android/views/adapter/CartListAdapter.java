@@ -100,7 +100,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
             mBtnCut.setOnClickListener(view -> mListener.onCutClick(data.getSkuId()));
 
             mCbSelect.setOnCheckedChangeListener((compoundButton, b) ->
-                    mListener.onCheckChange(data.getSkuId(), b));
+                    mListener.onCheckChange(data, b));
+
         }
 
         private void bindListener(View itemView,

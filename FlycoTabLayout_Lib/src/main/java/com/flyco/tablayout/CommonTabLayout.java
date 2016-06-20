@@ -451,6 +451,8 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
                 //duanlei 设置边框
                 mIndicatorDrawable.setStroke(4, 0xffD6D6D6);
 
+
+
                 mIndicatorDrawable.draw(canvas);
             }
         } else {

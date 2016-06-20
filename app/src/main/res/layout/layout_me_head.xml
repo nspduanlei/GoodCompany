@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:background="@drawable/bg_me_head"
-                android:padding="15dp">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_me_head"/>
 
     <LinearLayout
         android:id="@+id/ll_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="41dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/head_default"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/head_default"
+            android:background="@drawable/circle_head"
+            android:padding="3dp"/>
 
         <TextView
             android:id="@+id/tv_user_name"
@@ -25,21 +32,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="请登录"
-            android:textColor="@color/color_white"
+            android:textColor="@color/color_5"
             android:textStyle="bold"/>
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fl_msg"
-        android:layout_width="22dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:background="@drawable/circle_setting"
+        android:layout_margin="10dp">
 
         <ImageView
             android:id="@+id/iv_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_msg"/>
+            android:src="@drawable/icon_msg"
+            android:layout_gravity="center"/>
 
         <View
             android:id="@+id/v_msg_new"
@@ -49,12 +59,22 @@
             android:background="@drawable/shape_dot"/>
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/iv_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@id/fl_msg"
-        android:src="@drawable/icon_setting"/>
+    <FrameLayout
+        android:id="@+id/fl_setting"
+        android:layout_gravity="right"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/circle_setting"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_setting"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+</FrameLayout>

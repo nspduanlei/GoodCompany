@@ -19,8 +19,13 @@ import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.apec.android.views.fragments.GoodsCFragment;
+import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.widget.NoScrollListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -57,20 +62,23 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     @BindView(R.id.lv_goods)
     NoScrollListView mLvGoods;
 
-    private int mCount;
+    //private int mCount;
     private ArrayList<Integer> mSkuIds;
     private ArrayList<SkuData> mData;
 
     @Inject
     TrueOrderPresenter mPresenter;
 
-    boolean isCart;
+    //boolean isCart;
 
     GoodsReceipt mGoodsReceipt;
 
 
     @Override
     protected void setUpContentView() {
+        //如果没有登录去登录
+        LoginUtil.gotoLogin(this);
+
         setContentView(R.layout.activity_true_order, R.string.true_order_title);
     }
 
@@ -78,13 +86,12 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     protected void initUi() {
         //获取skuId和count
         mSkuIds = getIntent().getIntegerArrayListExtra("sku_ids");
-        mCount = getIntent().getIntExtra("count", 0);
-
-        if (mCount == 0) {
-            isCart = true;
-        }
 
         mData = new ArrayList<>();
+
+//        if (mSkuIds.size() > 0) {
+//            isCart = true;
+//        }
 
         //订单金额
         Double amount = 0.0;
@@ -116,7 +123,9 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
         });
 
         mGoodsReceipt = GoodsCFragment.mGoodsReceipt;
-        bindGoodReceipt();
+        if (mGoodsReceipt != null) {
+            bindGoodReceipt();
+        }
 
         mTvTitlePrice.setText(String.format(getString(R.string.true_order_4), String.valueOf(amount)));
         mTvTitleTotal.setText(String.format(getString(R.string.true_order_5), String.valueOf(amount)));
@@ -174,27 +183,34 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
     @Override
     protected void onStop() {
-        super.onStop();
         mPresenter.onStop();
+        super.onStop();
     }
 
     @OnClick(R.id.btn_order)
     void onOrderClicked(View view) {
-        if (isCart) {
-            StringBuffer sb = new StringBuffer();
-            for (Integer id:mSkuIds) {
-                sb.append(String.valueOf(id));
-                sb.append(",");
+//        if (isCart) {
+
+        JSONArray jsonArray = new JSONArray();
+        try {
+            for (SkuData skuData : mData) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("skuId", skuData.getSkuId());
+                jsonObject.put("num", skuData.getCount());
+                jsonObject.put("addressId", mGoodsReceipt.getAddressId());
+                jsonArray.put(0, jsonObject);
             }
-
-            sb.deleteCharAt(sb.lastIndexOf(","));
-
-            //购物车下单
-            mPresenter.cartOrder(sb.toString(), mGoodsReceipt.getAddressId());
-        } else {
-            //快速下单
-            mPresenter.fastOrder(mSkuIds.get(0), mGoodsReceipt.getAddressId(), mCount);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        //购物车下单
+        mPresenter.cartOrder(jsonArray.toString());
+//        } else {
+//            //快速下单
+//            mPresenter.fastOrder(mSkuIds.get(0), mGoodsReceipt.getAddressId(),
+//                    mData.get(0).getCount());
+//        }
     }
 
     @OnClick(R.id.rl_address)
@@ -207,6 +223,7 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LoginUtil.onActivityResult(requestCode, resultCode, this);
         if (requestCode == Constants.REQUEST_CODE_ADDR) {
             if (resultCode == Constants.RESULT_CODE_SELECT_ADDRESS) {
                 GoodsReceipt goodsReceipt = data.getParcelableExtra("data");

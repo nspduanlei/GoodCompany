@@ -268,4 +268,10 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     public void updateGoods() {
         mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onStop() {
+        mGoodsPresenter.onStop();
+        super.onStop();
+    }
 }

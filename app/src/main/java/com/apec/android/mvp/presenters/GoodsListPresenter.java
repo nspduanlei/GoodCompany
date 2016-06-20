@@ -98,7 +98,7 @@ public class GoodsListPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        if (mGoodsListView != null) {
+        if (mGoodsSubscription != null) {
             mGoodsSubscription.unsubscribe();
         }
     }

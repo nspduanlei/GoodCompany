@@ -144,13 +144,13 @@ public class MeFragment extends BaseFragment {
 
     }
 
-    @OnClick(R.id.iv_msg)
+    @OnClick(R.id.fl_msg)
     void onMsgClicked(View view) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.iv_setting)
+    @OnClick(R.id.fl_setting)
     void onSettingClicked(View view) {
         Intent intent = new Intent(getActivity(), SettingActivity.class);
         startActivity(intent);

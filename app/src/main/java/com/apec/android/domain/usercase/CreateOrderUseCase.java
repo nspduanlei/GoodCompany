@@ -19,9 +19,9 @@ public class CreateOrderUseCase extends UseCase<NoBody> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
 
-    //skus：skuId拼接的字符串
-    String mSkus;
-    int mAddressId;
+    //[{“skuId”:1,”num”:3, “addressId”:”1111” }]
+
+    String mJson;
 
     @Inject
     public CreateOrderUseCase(GoodsRepository repository,
@@ -32,14 +32,13 @@ public class CreateOrderUseCase extends UseCase<NoBody> {
         mExecutorThread = executorThread;
     }
 
-    public void setData(String skus, int addressId) {
-        mSkus = skus;
-        mAddressId = addressId;
+    public void setData(String json) {
+        mJson = json;
     }
 
     @Override
     public Observable<NoBody> buildObservable() {
-        return mRepository.createOrder(mSkus, mAddressId)
+        return mRepository.createOrder(mJson)
                 .observeOn(mUiThread)
                 .subscribeOn(mExecutorThread);
     }

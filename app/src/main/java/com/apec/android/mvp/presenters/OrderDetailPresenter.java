@@ -39,9 +39,12 @@ public class OrderDetailPresenter implements Presenter {
 
     @Override
     public void onStop() {
-        mGetOrderSubscription.unsubscribe();
-        if (mCancelSubscription != null)
+        if (mGetOrderSubscription != null) {
+            mGetOrderSubscription.unsubscribe();
+        }
+        if (mCancelSubscription != null) {
             mCancelSubscription.unsubscribe();
+        }
     }
 
     @Override

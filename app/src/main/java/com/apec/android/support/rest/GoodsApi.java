@@ -84,8 +84,8 @@ public interface GoodsApi {
     Observable<ReceiptDefault> getDefaultAddress();
 
     @FormUrlEncoded
-    @POST("cart/create/order")
-    Observable<NoBody> createOrder(@Field("skuIds") String skus, @Field("addressId") int addressId);
+    @POST("order/addBatch")
+    Observable<NoBody> createOrder(@Field("orderJson") String json);
 
     @GET("orders")
     Observable<OrderListBack> getAllOrder();

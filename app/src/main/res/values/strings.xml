@@ -10,7 +10,7 @@
     <string name="hint_register_3">以下号码为诚信号码，无需验证短信：%s</string>
     <string name="add_order_total">￥%s</string>
     <string name="please_login">请先登录</string>
-    <string name="goto_pay_btn">去结算 (%d)</string>
+    <string name="goto_pay_btn">去结算(%d)</string>
     <string name="total_price_cart">合计:￥%s</string>
     <string name="open_string">test</string>
     <string name="close_string">test</string>

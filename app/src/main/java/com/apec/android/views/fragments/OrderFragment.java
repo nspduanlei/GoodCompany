@@ -85,8 +85,8 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
 
     @Override
     public void onStop() {
-        super.onStop();
         mPresenter.onStop();
+        super.onStop();
     }
 
     /**

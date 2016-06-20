@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import rx.Scheduler;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -36,6 +37,11 @@ public class LoginPresenter implements Presenter {
     SubmitVerCodeUseCase mSubmitVerCodeUseCase;
     CompleteUserUseCase mCompleteUserUseCase;
     GetAllCartUseCase mGetAllCartUseCase;
+
+    Subscription mSubscriptionGetVer;
+    Subscription mSubscriptionSubmit;
+    Subscription mSubscriptionComplete;
+    Subscription mSubscriptionAllCart;
 
     @Inject
     public LoginPresenter(GetVerCodeUseCase getVerCodeUseCase,
@@ -55,7 +61,18 @@ public class LoginPresenter implements Presenter {
 
     @Override
     public void onStop() {
-
+        if (mSubscriptionGetVer != null) {
+            mSubscriptionGetVer.unsubscribe();
+        }
+        if (mSubscriptionSubmit != null) {
+            mSubscriptionSubmit.unsubscribe();
+        }
+        if (mSubscriptionComplete != null) {
+            mSubscriptionComplete.unsubscribe();
+        }
+        if (mSubscriptionAllCart != null) {
+            mSubscriptionAllCart.unsubscribe();
+        }
     }
 
     @Override
@@ -77,7 +94,7 @@ public class LoginPresenter implements Presenter {
         mLoginView.showLoadingView();
 
         mGetVerCodeUseCase.setMobile(phoneNumberStr);
-        mGetVerCodeUseCase.execute()
+        mSubscriptionGetVer = mGetVerCodeUseCase.execute()
                 .subscribe(this::onVerCodeReceived, this::manageGetVerCodeError);
     }
 
@@ -92,7 +109,8 @@ public class LoginPresenter implements Presenter {
     public void submitVerCode(String phoneNumber, String vCode) {
         mLoginView.showLoadingView();
         mSubmitVerCodeUseCase.setData(phoneNumber, vCode);
-        mSubmitVerCodeUseCase.execute()
+
+        mSubscriptionSubmit = mSubmitVerCodeUseCase.execute()
                 .observeOn(Schedulers.io())
                 .doOnNext(userBack -> {
                     //将用户信息存储在数据库中
@@ -110,19 +128,21 @@ public class LoginPresenter implements Presenter {
     }
 
     private void onSubmitCodeReceived(UserBack userBack) {
-        //登录成功获取购物车数据填充
-        mGetAllCartUseCase.execute()
-                .observeOn(Schedulers.io())
-                .doOnNext(shopCartBack -> {
-                    //将用户信息存储在数据库中
-                    if (shopCartBack.getH().getCode() == Constants.SUCCESS_CODE) {
-                        if (shopCartBack.getB().getSkus().size() > 0) {
-                            ShopCartData.addCarts(shopCartBack.getB().getSkus());
-                        }
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onAllCartReceived, this::ManagerError);
+//        if (userBack.getH().getCode() == 200) {
+//            //登录成功获取购物车数据填充
+//            mSubscriptionAllCart = mGetAllCartUseCase.execute()
+//                    .observeOn(Schedulers.io())
+//                    .doOnNext(shopCartBack -> {
+//                        //将用户信息存储在数据库中
+//                        if (shopCartBack.getH().getCode() == Constants.SUCCESS_CODE) {
+//                            if (shopCartBack.getB().getSkus().size() > 0) {
+//                                ShopCartData.addCarts(shopCartBack.getB().getSkus());
+//                            }
+//                        }
+//                    })
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(this::onAllCartReceived, this::ManagerError);
+//        }
 
         mLoginView.hideLoadingView();
         switch (userBack.getH().getCode()) {

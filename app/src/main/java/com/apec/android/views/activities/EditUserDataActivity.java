@@ -9,6 +9,7 @@ import com.apec.android.domain.entities.user.User;
 import com.apec.android.injector.components.DaggerUserComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.EditAddressPresenter;
+import com.apec.android.mvp.presenters.EditUserDataPresenter;
 import com.apec.android.mvp.views.EditUserDataView;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.utils.UserUtil;
@@ -33,7 +34,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
     EditText mEtPhone;
 
     @Inject
-    EditAddressPresenter mPresenter;
+    EditUserDataPresenter mPresenter;
 
     @Override
     protected void setUpContentView() {
@@ -66,8 +67,8 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 
     @Override
     protected void onStop() {
-        super.onStop();
         mPresenter.onStop();
+        super.onStop();
     }
 
     @Override

@@ -142,11 +142,10 @@ public interface GoodsRepository {
 
     /**
      * 创建订单
-     * @param skus
-     * @param addressId
+     * @param json
      * @return
      */
-    Observable<NoBody> createOrder(final String skus, final int addressId);
+    Observable<NoBody> createOrder(final String json);
 
     /**
      * 获取我的订单列表

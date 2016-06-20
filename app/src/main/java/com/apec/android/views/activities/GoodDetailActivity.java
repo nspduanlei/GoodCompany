@@ -76,8 +76,8 @@ public class GoodDetailActivity extends BaseActivity implements GoodDetailView {
 
     @Override
     protected void onStop() {
-        super.onStop();
         mGoodDetailPresenter.onStop();
+        super.onStop();
     }
 
     @Override
