@@ -18,6 +18,8 @@ import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.AddressListAdapter;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.view.AddressListClickListener;
+import com.apec.android.views.view.DividerItemDecoration;
+import com.apec.android.views.view.RecyclerInsetsDecoration;
 
 import java.util.ArrayList;
 
@@ -65,6 +67,8 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         hasDefault = getIntent().getBooleanExtra(HAS_DEFAULT, false);
         isSelect = getIntent().getBooleanExtra(IS_SELECT, false);
 
+
+        mRvAddress.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
         mRvAddress.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new AddressListAdapter(mGoodsReceipts, this, this);
         mRvAddress.setAdapter(mAdapter);
@@ -106,7 +110,16 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
     }
 
     @Override
+    public void setDefaultSuccess() {
+        //设置默认地址成功
+        //setResult(Constants.RESULT_CODE_SET_DEFAULT_ADDR);
+        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+        sendBroadcast(mIntent);
+    }
+
+    @Override
     public void onCBDefaultClick(int addressId) {
+        mPresenter.setDefaultAddress(addressId);
         mPresenter.setDefaultAddress(addressId);
     }
 
@@ -127,7 +140,7 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         if (isSelect) {
             if (hasDefault) {
                 setResult(Constants.RESULT_CODE_SELECT_ADDRESS,
-                        getIntent().putExtra("data", mGoodsReceipts.get(position)));
+                        getIntent().putExtra("address", mGoodsReceipts.get(position)));
                 this.finish();
             } else {
                 //设置默认地址

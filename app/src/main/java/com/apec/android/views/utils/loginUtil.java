@@ -67,8 +67,7 @@ public class LoginUtil {
     }
 
     public static void gotoLogin(Activity activity) {
-        if (StringUtils.isNullOrEmpty(
-                (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
+        if (!isLogin()) {
             //没有登录
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
@@ -77,20 +76,17 @@ public class LoginUtil {
 
     /**
      * 是否登录
-     * @param activity
      * @return
      */
-    public static boolean isLogin(Activity activity) {
-        if (StringUtils.isNullOrEmpty(
-                (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
+    public static boolean isLogin() {
+        if (UserUtil.getUser() == null) {
             return false;
         }
         return true;
     }
 
     public static boolean gotoLoginNew(Activity activity) {
-        if (StringUtils.isNullOrEmpty(
-                (String) SPUtils.get(activity, SPUtils.SESSION_ID, ""))) {
+        if (!isLogin()) {
             //没有登录
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);

@@ -46,7 +46,7 @@
         <activity android:name=".views.activities.OrderDetailActivity" />
         <activity android:name=".views.activities.TrueOrderActivity" />
         <activity android:name=".views.activities.MessageActivity" />
-
+        <activity android:name=".views.activities.ShowUserDataActivity" />
         <activity android:name=".views.activities.EditUserDataActivity"/>
 
         <activity

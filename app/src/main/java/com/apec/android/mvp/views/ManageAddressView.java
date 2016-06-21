@@ -9,4 +9,6 @@ import java.util.ArrayList;
  */
 public interface ManageAddressView extends View {
     void bindAddress(ArrayList<GoodsReceipt> addressList);
+
+    void setDefaultSuccess();
 }

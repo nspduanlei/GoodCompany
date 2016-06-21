@@ -15,24 +15,6 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <!--<style name="StyledIndicators" parent="AppTheme">-->
-        <!--<item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>-->
-    <!--</style>-->
-
-    <!--<style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">-->
-        <!--<item name="android:background">@drawable/custom_tab_indicator</item>-->
-        <!--<item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>-->
-        <!--&lt;!&ndash;<item name="android:textColor">@color/color_text_1</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:textSize">14sp</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:divider">@drawable/custom_tab_indicator_divider</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:dividerPadding">10dp</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:showDividers">middle</item>&ndash;&gt;-->
-        <!--<item name="android:paddingLeft">10dp</item>-->
-        <!--<item name="android:paddingRight">10dp</item>-->
-        <!--<item name="android:fadingEdge">horizontal</item>-->
-        <!--<item name="android:fadingEdgeLength">10dp</item>-->
-    <!--</style>-->
-
     <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
         <item name="android:typeface">monospace</item>
     </style>
@@ -132,7 +114,8 @@
     //重构
     <style name="PopWindowStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:colorBackground">@color/color_white</item>
-        <item name="android:textColorPrimary">@color/color_text_2</item>
+        <item name="android:textColorPrimary">@color/text_6</item>
+        <item name="actionMenuTextColor">@color/text_6</item>
     </style>
 
     <style name="ToolBarStyle">

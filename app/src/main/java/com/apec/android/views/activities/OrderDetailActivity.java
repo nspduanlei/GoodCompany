@@ -43,9 +43,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
 
     int mOrderId;
 
-
     public final static String EXTRA_ORDER_ID = "order_id";
-
 
     @Override
     protected void setUpContentView() {
@@ -109,22 +107,6 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
             }
         });
 
-        //商品列表
-//        mLvSku.setAdapter(new CommonAdapter<OrderItem>(this, order.getOrderItems(),
-//                R.layout.item_goods_test) {
-//            @Override
-//            public void convert(MyViewHolder holder, OrderItem orderItem) {
-//                if (orderItem.getSku().getPics().size() > 0) {
-//                    holder.setImageUrl(R.id.iv_goods_pic,
-//                            orderItem.getSku().getPics().get(0).getUrl());
-//                }
-//                holder.setText(R.id.tv_goods_name, orderItem.getSku().getSkuName())
-//                        .setText(R.id.tv_goods_price,
-//                                String.format(getString(R.string.price_and_num),
-//                                        orderItem.getSku().getPrice(), orderItem.getNum()));
-//            }
-//        });
-
         //订单状态
         switch (order.getOrderType()) {
             case 1: //待处理
@@ -148,7 +130,6 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
     @Override
     public void cancelSuccess() {
         //取消订单成功
-
     }
 
     @Override

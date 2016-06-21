@@ -1,6 +1,7 @@
 package com.apec.android.domain.usercase;
 
 import com.apec.android.domain.NoBody;
+import com.apec.android.domain.entities.user.User;
 import com.apec.android.domain.repository.GoodsRepository;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ public class UpdateUserInfoUseCase extends UseCase<NoBody> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
 
-    int mSkuId, mNum;
+    User mUser;
 
     @Inject
     public UpdateUserInfoUseCase(GoodsRepository repository,
@@ -30,14 +31,13 @@ public class UpdateUserInfoUseCase extends UseCase<NoBody> {
         mExecutorThread = executorThread;
     }
 
-    public void setData(int skuId, int num) {
-        mSkuId = skuId;
-        mNum = num;
+    public void setData(User user) {
+        mUser = user;
     }
 
     @Override
     public Observable<NoBody> buildObservable() {
-        return mRepository.addShoppingCart(mSkuId, mNum)
+        return mRepository.updateUser(mUser.getPhone(), mUser.getShopName(), mUser.getName())
                 .observeOn(mUiThread)
                 .subscribeOn(mExecutorThread);
     }

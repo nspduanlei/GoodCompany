@@ -15,12 +15,10 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.SkuData;
-import com.apec.android.domain.entities.user.ShopCart;
 import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.injector.components.DaggerShopCartComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
-import com.apec.android.mvp.presenters.TrueOrderPresenter;
 import com.apec.android.mvp.views.ShoppingCartView;
 import com.apec.android.views.activities.MainActivity;
 import com.apec.android.views.activities.TrueOrderActivity;
@@ -70,6 +68,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     //总数量
     private int mCount;
 
+
     @Override
     protected void initUI(View view) {
         mRvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -116,13 +115,18 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         mLlEmpty.setVisibility(View.GONE);
     }
 
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_LOGIN) {
             if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
-                mPresenter.getData();
+                getData();
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE_TRUE_ORDER) {
+            if (resultCode == Constants.RESULT_CODE_ORDER_SUCCESS) {
+                getData();
+            }
+        }
     }
 
     @Override
@@ -153,7 +157,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
     @Override
     public void onCheckChange(SkuData skuData, boolean isCheck) {
-        //item check
         if (isCheck) {
             mTotalPrice = mTotalPrice + Double.valueOf(skuData.getPrice()) * skuData.getCount();
             mCount = mCount + 1;
@@ -172,17 +175,13 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     public void bindCart(ShopCartData shopCart) {
         mData.clear();
         mData.addAll(shopCart.getSkus());
-        mAdapter.notifyDataSetChanged();
-
-        mTotalPrice = ShopCartUtil.getSelectPrice();
-        mCount = ShopCartUtil.getSelectCount();
-
-        mTvTotalPrice.setText(String.format(getString(R.string.total_price_cart), String.valueOf(mTotalPrice)));
-        mBtnGotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-
+        updateAllCountAndPrice();
     }
 
     public void getData() {
+        //isSelectAll = -1;
+        mTotalPrice = 0.0;
+        mCount = 0;
         mPresenter.getData();
     }
 
@@ -195,14 +194,18 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
                     skuData.setSelect(true);
                 }
             }
+            ShopCartUtil.selectAll();
         } else {
             for (SkuData skuData:mData) {
                 if (skuData.isSelect()) {
                     skuData.setSelect(false);
                 }
             }
+
+            ShopCartUtil.cancelSelectAll();
         }
-        mAdapter.notifyDataSetChanged();
+
+        updateAllCountAndPrice();
     }
 
     @Override
@@ -228,7 +231,15 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         Intent intent = new Intent(getActivity(), TrueOrderActivity.class);
         intent.putIntegerArrayListExtra("sku_ids", skuIds);
         intent.putExtra("count", list.size());
-        startActivity(intent);
+        startActivityForResult(intent, Constants.REQUEST_CODE_TRUE_ORDER);
+    }
 
+
+    public void updateAllCountAndPrice() {
+        mTotalPrice = ShopCartUtil.getSelectPrice();
+        mCount = ShopCartUtil.getSelectCount();
+        mTvTotalPrice.setText(String.format(getString(R.string.total_price_cart), String.valueOf(mTotalPrice)));
+        mBtnGotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+        mAdapter.notifyDataSetChanged();
     }
 }

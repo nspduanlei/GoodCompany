@@ -9,6 +9,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_shop_pic"
         style="@style/UserInfoItemStyle">
 
         <TextView
@@ -38,6 +39,7 @@
         style="@style/lineStyle"/>
 
     <RelativeLayout
+        android:id="@+id/rl_shop_name"
         style="@style/UserInfoItemStyle">
 
         <TextView
@@ -52,8 +54,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_right"/>
 
-        <EditText
-            android:id="@+id/et_shop_name"
+        <TextView
+            android:id="@+id/tv_shop_name"
             style="@style/UserInfoEditStyle"
             android:text="商家头像"
             android:layout_toLeftOf="@id/iv_arrow_1"
@@ -65,6 +67,7 @@
         style="@style/lineStyle"/>
 
     <RelativeLayout
+        android:id="@+id/rl_user_name"
         style="@style/UserInfoItemStyle">
 
         <TextView
@@ -79,8 +82,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_right"/>
 
-        <EditText
-            android:id="@+id/et_user"
+        <TextView
+            android:id="@+id/tv_user"
             style="@style/UserInfoEditStyle"
             android:text="商家头像"
             android:layout_toLeftOf="@id/iv_arrow_2"
@@ -91,6 +94,7 @@
         style="@style/lineStyle"/>
 
     <RelativeLayout
+        android:id="@+id/rl_phone"
         style="@style/UserInfoItemStyle">
 
         <TextView
@@ -105,8 +109,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_right"/>
 
-        <EditText
-            android:id="@+id/et_phone"
+        <TextView
+            android:id="@+id/tv_phone"
             style="@style/UserInfoEditStyle"
             android:text="商家头像"
             android:layout_toLeftOf="@id/iv_arrow_3"

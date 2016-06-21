@@ -65,8 +65,7 @@ public class ShoppingCartPresenter implements Presenter {
     }
 
     public void getData() {
-        mView.showLoadingView();
-
+        //mView.showLoadingView();
         mGetAllSubscription = Observable.create((Observable.OnSubscribe<ShopCartData>) subscriber -> {
 
             List<SkuData> list = ShopCartUtil.queryAll();
@@ -95,7 +94,7 @@ public class ShoppingCartPresenter implements Presenter {
     }
 
     private void onSaveSkuReceived(ShopCartData shopCartData) {
-        mView.hideLoadingView();
+        //mView.hideLoadingView();
         mView.hideEmpty();
         if (shopCartData.getTotal() == 0) {
             mView.onDataEmpty();

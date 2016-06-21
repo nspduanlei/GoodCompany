@@ -7,4 +7,6 @@ import com.apec.android.domain.entities.order.OrderList;
  */
 public interface MyOrdersView extends View {
     void bindOrders(OrderList orderList);
+
+    void cancelSuccess();
 }

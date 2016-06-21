@@ -25,4 +25,12 @@ public class UserUtil {
     public static void clear() {
         DataSupport.deleteAll(User.class);
     }
+
+    /**
+     * 更新用户信息
+     * @param user
+     */
+    public static void updateUser(User user) {
+        user.update(user.getId());
+    }
 }

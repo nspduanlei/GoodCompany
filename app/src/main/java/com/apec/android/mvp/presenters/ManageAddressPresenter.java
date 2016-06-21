@@ -82,8 +82,8 @@ public class ManageAddressPresenter implements Presenter {
         mSetDefaultUseCase.setData(addressId);
         mSetDefaultSubscription = mSetDefaultUseCase.execute()
                 .flatMap(noBody -> {
-                    if (noBody.getH().getCode() != 200) {
-                        //TODO 设置不成功
+                    if (noBody.getH().getCode() == 200) {
+                        mView.setDefaultSuccess();
                     }
                     return mGetAllUseCase.execute();
                 })

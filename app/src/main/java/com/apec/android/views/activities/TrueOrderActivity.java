@@ -10,6 +10,7 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.transport.GoodsReceipt;
+import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.injector.components.DaggerOrderComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.TrueOrderPresenter;
@@ -168,7 +169,15 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
         Intent mIntent = new Intent(MainActivity.ACTION_GOOD_UPDATE);
         sendBroadcast(mIntent);
 
+        setResult(Constants.RESULT_CODE_ORDER_SUCCESS);
         finish();
+    }
+
+    @Override
+    public void onGetDefaultAddress(ReceiptDefault receiptDefault) {
+        mGoodsReceipt = receiptDefault.getB();
+        //默认地址设置成功
+        bindGoodReceipt();
     }
 
     @Override
@@ -189,8 +198,6 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
     @OnClick(R.id.btn_order)
     void onOrderClicked(View view) {
-//        if (isCart) {
-
         JSONArray jsonArray = new JSONArray();
         try {
             for (SkuData skuData : mData) {
@@ -206,11 +213,6 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
         //购物车下单
         mPresenter.cartOrder(jsonArray.toString());
-//        } else {
-//            //快速下单
-//            mPresenter.fastOrder(mSkuIds.get(0), mGoodsReceipt.getAddressId(),
-//                    mData.get(0).getCount());
-//        }
     }
 
     @OnClick(R.id.rl_address)
@@ -225,11 +227,25 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         LoginUtil.onActivityResult(requestCode, resultCode, this);
         if (requestCode == Constants.REQUEST_CODE_ADDR) {
+            //选择地址
             if (resultCode == Constants.RESULT_CODE_SELECT_ADDRESS) {
-                GoodsReceipt goodsReceipt = data.getParcelableExtra("data");
-
+                GoodsReceipt goodsReceipt = data.getParcelableExtra("address");
                 mGoodsReceipt = goodsReceipt;
                 bindGoodReceipt();
+            }
+            //设置了默认地址
+            if (resultCode == Constants.RESULT_CODE_SET_DEFAULT_ADDR) {
+                //TODO 获取默认地址
+                mPresenter.getDefaultAddress();
+
+            }
+
+        }
+
+        if (requestCode == Constants.REQUEST_CODE_LOGIN) {
+            if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
+                //TODO 登录成功 获取默认地址
+                mPresenter.getDefaultAddress();
             }
         }
     }

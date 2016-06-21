@@ -5,4 +5,5 @@ package com.apec.android.mvp.views;
  */
 public interface EditUserDataView extends View {
 
+    void updateUserSuccess();
 }

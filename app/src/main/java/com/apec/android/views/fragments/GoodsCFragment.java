@@ -217,12 +217,18 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_ADDR) {
             if (resultCode == Constants.RESULT_CODE_SELECT_ADDRESS) {
-                GoodsReceipt goodsReceipt = data.getParcelableExtra("data");
+                GoodsReceipt goodsReceipt = data.getParcelableExtra("address");
 
                 mGoodsReceipt = goodsReceipt;
                 mTvSendAddress.setText(String.format(getString(R.string.send_address),
                         mGoodsReceipt.getAddrRes().getDetail()));
             }
+
+            //设置默认收货地址
+//            if (resultCode == Constants.RESULT_CODE_SET_DEFAULT_ADDR) {
+//                mGoodsPresenter.getDefaultAddress();
+//            }
+
         } else if (requestCode == Constants.REQUEST_CODE_LOGIN_ORDER) {
             if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
 
@@ -237,7 +243,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     }
 
     public void updateUser() {
-        if (LoginUtil.isLogin(getActivity())) {
+        if (LoginUtil.isLogin()) {
             mGoodsPresenter.getDefaultAddress();
         } else {
             mTvSendAddress.setVisibility(View.GONE);

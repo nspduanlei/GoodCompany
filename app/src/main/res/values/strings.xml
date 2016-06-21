@@ -51,5 +51,6 @@
     <string name="login_hint_complete">系统检测到您是第一次使用好伙计\n为了方便您的采购，请补充以下信息</string>
     <string name="order_goods_num">共计%d件商品</string>
     <string name="order_goods_price">付款金额 ￥%s</string>
+    <string name="edit_data_title">修改资料</string>
 
 </resources>

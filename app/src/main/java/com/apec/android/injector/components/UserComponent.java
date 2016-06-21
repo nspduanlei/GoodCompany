@@ -5,6 +5,7 @@ import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.UserModule;
 import com.apec.android.views.activities.EditUserDataActivity;
+import com.apec.android.views.activities.ShowUserDataActivity;
 import com.apec.android.views.fragments.MeFragment;
 
 import dagger.Component;
@@ -18,7 +19,7 @@ public interface UserComponent extends ActivityComponent {
 
     void inject(MeFragment meFragment);
     void inject(EditUserDataActivity editUserDataActivity);
-
+    void inject(ShowUserDataActivity showUserDataActivity);
 
     //检测版本更新
 

@@ -7,6 +7,7 @@ import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetAllAddressUseCase;
 import com.apec.android.domain.usercase.GetAllOrderUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
+import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.GetOrderDetailUseCase;
 import com.apec.android.injector.Activity;
 
@@ -21,6 +22,15 @@ import rx.Scheduler;
  */
 @Module
 public class OrderModule {
+
+    @Provides
+    @Activity
+    GetDefaultAddressUseCase provideGetDefaultAddressUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetDefaultAddressUseCase(repository, uiThread, executorThread);
+    }
 
     @Provides
     @Activity

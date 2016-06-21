@@ -88,7 +88,7 @@ public interface GoodsApi {
     Observable<NoBody> createOrder(@Field("orderJson") String json);
 
     @GET("orders")
-    Observable<OrderListBack> getAllOrder();
+    Observable<OrderListBack> getAllOrder(@Query("state") int state);
 
     @GET("order")
     Observable<OrderBack> getOrderDetail(@Query("id") int orderId);
@@ -125,4 +125,10 @@ public interface GoodsApi {
     @FormUrlEncoded
     @POST("cart/addBatch")
     Observable<NoBody> addBatchShoppingCart(@Field("skuJson") String json);
+
+    @FormUrlEncoded
+    @POST("user/update")
+    Observable<NoBody> updateUser(@Field("userPhone") String phone,
+                                  @Field("userShop") String shop,
+                                  @Field("userName") String userName);
 }

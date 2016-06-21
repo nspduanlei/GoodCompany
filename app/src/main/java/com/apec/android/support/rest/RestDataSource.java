@@ -164,8 +164,8 @@ public class RestDataSource implements GoodsRepository {
     }
 
     @Override
-    public Observable<OrderListBack> getAllOrder() {
-        return mGoodsApi.getAllOrder();
+    public Observable<OrderListBack> getAllOrder(int state) {
+        return mGoodsApi.getAllOrder(state);
     }
 
     @Override
@@ -194,13 +194,8 @@ public class RestDataSource implements GoodsRepository {
     }
 
     @Override
-    public Observable<UserBack> getUser(int skuId) {
-        return null;
-    }
-
-    @Override
-    public Observable<NoBody> updateUser(int skuId) {
-        return null;
+    public Observable<NoBody> updateUser(String phone, String shop, String userName) {
+        return mGoodsApi.updateUser(phone, shop, userName);
     }
 
     @Override

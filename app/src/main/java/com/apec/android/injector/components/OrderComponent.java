@@ -5,6 +5,7 @@ import com.apec.android.domain.usercase.CreateOneOrderUseCase;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetAllOrderUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
+import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.GetOrderDetailUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
@@ -32,4 +33,5 @@ public interface OrderComponent extends ActivityComponent {
     GetAllOrderUseCase getAllOrderUseCase();
     GetOrderDetailUseCase getOrderDetailUseCase();
     CancelOrderUseCase cancelOrderUseCase();
+    GetDefaultAddressUseCase getDefaultAddressUseCase();
 }

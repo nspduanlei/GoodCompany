@@ -19,6 +19,9 @@ public class GetAllOrderUseCase extends UseCase<OrderListBack> {
     private final GoodsRepository mRepository;
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
+
+    private int mState;
+
     @Inject
     public GetAllOrderUseCase(GoodsRepository repository,
                               @Named("ui_thread") Scheduler uiThread,
@@ -28,9 +31,13 @@ public class GetAllOrderUseCase extends UseCase<OrderListBack> {
         mExecutorThread = executorThread;
     }
 
+    public void setState(int state) {
+        mState = state;
+    }
+
     @Override
     public Observable<OrderListBack> buildObservable() {
-        return mRepository.getAllOrder()
+        return mRepository.getAllOrder(mState)
                 .observeOn(mUiThread)
                 .subscribeOn(mExecutorThread);
     }

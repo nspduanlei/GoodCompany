@@ -22,6 +22,7 @@ import com.apec.android.views.activities.MessageActivity;
 import com.apec.android.views.activities.OrdersActivity;
 import com.apec.android.views.activities.ServiceActivity;
 import com.apec.android.views.activities.SettingActivity;
+import com.apec.android.views.activities.ShowUserDataActivity;
 import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.apec.android.views.fragments.core.BaseFragment;
@@ -159,13 +160,13 @@ public class MeFragment extends BaseFragment {
     @OnClick(R.id.ll_user)
     void onUserClicked() {
         if (LoginUtil.gotoLoginNew(getActivity())) {
-            Intent intent = new Intent(getActivity(), EditUserDataActivity.class);
+            Intent intent = new Intent(getActivity(), ShowUserDataActivity.class);
             startActivity(intent);
         }
     }
 
     public void updateUser() {
-        isLogin = LoginUtil.isLogin(getActivity());
+        isLogin = LoginUtil.isLogin();
         if (isLogin) {
             mUser = UserUtil.getUser();
             if (mUser != null) {

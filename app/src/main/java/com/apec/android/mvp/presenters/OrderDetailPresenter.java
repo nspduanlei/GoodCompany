@@ -17,19 +17,16 @@ import rx.Subscription;
 public class OrderDetailPresenter implements Presenter {
 
     GetOrderDetailUseCase mGetOrderDetailUseCase;
-    CancelOrderUseCase mCancelOrderUseCase;
+
 
     OrderDetailView mView;
     Subscription mGetOrderSubscription;
-    Subscription mCancelSubscription;
 
     public int mOrderId;
 
     @Inject
-    public OrderDetailPresenter(GetOrderDetailUseCase getOrderDetailUseCase,
-                                CancelOrderUseCase cancelOrderUseCase) {
+    public OrderDetailPresenter(GetOrderDetailUseCase getOrderDetailUseCase) {
         mGetOrderDetailUseCase = getOrderDetailUseCase;
-        mCancelOrderUseCase = cancelOrderUseCase;
     }
 
     @Override
@@ -41,9 +38,6 @@ public class OrderDetailPresenter implements Presenter {
     public void onStop() {
         if (mGetOrderSubscription != null) {
             mGetOrderSubscription.unsubscribe();
-        }
-        if (mCancelSubscription != null) {
-            mCancelSubscription.unsubscribe();
         }
     }
 
@@ -59,9 +53,7 @@ public class OrderDetailPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-
         mView.showLoadingView();
-
         mGetOrderDetailUseCase.setData(mOrderId);
         mGetOrderSubscription = mGetOrderDetailUseCase.execute()
                 .subscribe(this::onGetOrderReceived, this::manageGetOrderError);
@@ -69,7 +61,6 @@ public class OrderDetailPresenter implements Presenter {
 
     private void onGetOrderReceived(OrderBack orderBack) {
         mView.hideLoadingView();
-
         if (orderBack.getH().getCode() == 200) {
             mView.bindOrder(orderBack.getB());
         }
@@ -79,23 +70,7 @@ public class OrderDetailPresenter implements Presenter {
         mView.hideLoadingView();
     }
 
-    public void cancelOrder(int orderId) {
-        mView.showLoadingView();
 
-        mCancelOrderUseCase.setData(orderId);
-        mCancelSubscription = mCancelOrderUseCase.execute()
-                .subscribe(this::onCancelReceived, this::manageCancelError);
-    }
 
-    private void manageCancelError(Throwable throwable) {
-        mView.hideLoadingView();
-    }
 
-    private void onCancelReceived(NoBody noBody) {
-        mView.hideLoadingView();
-
-        if (noBody.getH().getCode() == 200) {
-            mView.cancelSuccess();
-        }
-    }
 }

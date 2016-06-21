@@ -10,7 +10,7 @@ import com.apec.android.views.activities.core.BaseActivity;
 public class MessageActivity extends BaseActivity {
     @Override
     protected void setUpContentView() {
-        setContentView(R.layout.activity_setting, R.string.message_title);
+        setContentView(R.layout.activity_message, R.string.message_title);
     }
 
     @Override

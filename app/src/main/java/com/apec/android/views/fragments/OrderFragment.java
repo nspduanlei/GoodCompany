@@ -76,11 +76,7 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         mStatus = getArguments().getInt(EXTRA_STATUS_ID, 0);
         mPresenter.attachView(this);
         mPresenter.onCreate();
-
-        //TODO test
-        if (mStatus == 12) {
-            mPresenter.getOrderList(mStatus);
-        }
+        mPresenter.getOrderList(mStatus);
     }
 
     @Override
@@ -135,5 +131,10 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         mOrders.clear();
         mOrders.addAll(orderList.getData());
         mOrderListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void cancelSuccess() {
+        //TODO 取消订单
     }
 }

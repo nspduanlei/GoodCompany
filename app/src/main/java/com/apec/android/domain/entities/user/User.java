@@ -8,6 +8,7 @@ import org.litepal.crud.DataSupport;
  */
 public class User extends DataSupport {
 
+    private int id;
     private int userId;
     private String shopName;
     private String name;
@@ -17,6 +18,14 @@ public class User extends DataSupport {
     private Address addrRes;
 
     private String shopPic;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getShopPic() {
         return shopPic;

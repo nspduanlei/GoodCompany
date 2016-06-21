@@ -2,9 +2,11 @@ package com.apec.android.mvp.presenters;
 
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.transport.ArrivalTime;
+import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.usercase.CreateOneOrderUseCase;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
+import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.mvp.views.TrueOrderView;
 import com.apec.android.mvp.views.View;
 import com.apec.android.views.activities.TrueOrderActivity;
@@ -24,18 +26,20 @@ public class TrueOrderPresenter implements Presenter {
     //批量下单
     CreateOrderUseCase mCreateOrderUseCase;
     CreateOneOrderUseCase mCreateOneOrderUseCase;
+    GetDefaultAddressUseCase mGetDefaultAddressUseCase;
 
     Subscription mSubscriptionArriveTime;
     Subscription mSubscriptionCreateOrder;
-    Subscription mSubscriptionCreateOrderOne;
 
     @Inject
     public TrueOrderPresenter(GetArriveTimeUseCase getArriveTimeUseCase,
                               CreateOrderUseCase createOrderUseCase,
-                              CreateOneOrderUseCase createOneOrderUseCase) {
+                              CreateOneOrderUseCase createOneOrderUseCase,
+                              GetDefaultAddressUseCase getDefaultAddressUseCase) {
         mGetArriveTimeUseCase = getArriveTimeUseCase;
         mCreateOrderUseCase = createOrderUseCase;
         mCreateOneOrderUseCase = createOneOrderUseCase;
+        mGetDefaultAddressUseCase = getDefaultAddressUseCase;
     }
 
     @Override
@@ -48,8 +52,8 @@ public class TrueOrderPresenter implements Presenter {
         if (mSubscriptionArriveTime != null) {
             mSubscriptionArriveTime.unsubscribe();
         }
-        if (mSubscriptionCreateOrderOne != null) {
-            mSubscriptionCreateOrderOne.unsubscribe();
+        if (mSubscriptionCreateOrder != null) {
+            mSubscriptionCreateOrder.unsubscribe();
         }
     }
 
@@ -89,7 +93,7 @@ public class TrueOrderPresenter implements Presenter {
     public void fastOrder(int skuId, int addressId, int num) {
         mView.showLoadingView();
         mCreateOneOrderUseCase.setData(skuId, addressId, num);
-        mSubscriptionCreateOrderOne = mCreateOneOrderUseCase.execute()
+        mSubscriptionCreateOrder = mCreateOneOrderUseCase.execute()
                 .subscribe(this::onOrderReceived, this::managerError);
     }
 
@@ -106,5 +110,14 @@ public class TrueOrderPresenter implements Presenter {
         mCreateOrderUseCase.setData(json);
         mCreateOrderUseCase.execute()
                 .subscribe(this::onOrderReceived, this::managerError);
+    }
+
+    public void getDefaultAddress() {
+        mGetDefaultAddressUseCase.execute()
+                .subscribe(this::onGetDefaultAddress, this::managerError);
+    }
+
+    private void onGetDefaultAddress(ReceiptDefault receiptDefault) {
+        mView.onGetDefaultAddress(receiptDefault);
     }
 }

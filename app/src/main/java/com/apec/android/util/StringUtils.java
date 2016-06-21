@@ -182,7 +182,7 @@ public class StringUtils {
         return sdf.format(d);
     }
 
-    private static final int NICKNAME_LEN = 7;
+    private static final int NICKNAME_LEN = 14;
 
     //nickname填充
     public static void setNickname(TextView textView, String nickname) {
@@ -193,4 +193,26 @@ public class StringUtils {
         }
     }
 
+    public static String checkUserName(String username) {
+        if (username.length() < 1) {
+            return "用户名长度不能为空";
+        }
+
+        if (username.length() > NICKNAME_LEN) {
+            return "用户名长度不能超过7位";
+        }
+
+        return "";
+    }
+
+    public static String checkShopName(String shopName) {
+        if (shopName.length() < 1) {
+            return "店铺名长度不能为空";
+        }
+
+        if (shopName.length() > NICKNAME_LEN) {
+            return "店铺名长度不能超过7位";
+        }
+        return "";
+    }
 }

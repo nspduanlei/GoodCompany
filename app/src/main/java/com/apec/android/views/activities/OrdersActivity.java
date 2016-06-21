@@ -37,11 +37,15 @@ public class OrdersActivity extends BaseActivity {
      * 订单状态id
      */
     protected static final int[] IDS = new int[]{
-            12, 13, 11, 15, 46
+            1, 2, 3
     };
 
+//    protected static final String[] CONTENT = new String[]{
+//            "待付款", "待处理", "备货中", "配送中", "已完成"
+//    };
+
     protected static final String[] CONTENT = new String[]{
-            "待付款", "待处理", "备货中", "配送中", "已完成"
+            "待处理", "处理中", "已完成"
     };
 
     @Override
@@ -53,7 +57,6 @@ public class OrdersActivity extends BaseActivity {
     @Override
     protected void initUi() {
         setupViewPager(mVpOrders);
-
         tabLayout();
     }
 

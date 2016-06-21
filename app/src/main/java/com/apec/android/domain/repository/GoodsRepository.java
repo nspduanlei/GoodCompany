@@ -151,7 +151,7 @@ public interface GoodsRepository {
      * 获取我的订单列表
      * @return
      */
-    Observable<OrderListBack> getAllOrder();
+    Observable<OrderListBack> getAllOrder(int state);
 
     /**
      * 获取订单详情
@@ -184,11 +184,9 @@ public interface GoodsRepository {
 
     Observable<ArrayList<OpenCity>> cityIsOpen();
 
-    //获取用户信息
-    Observable<UserBack> getUser(int skuId);
 
     //修改用户信息
-    Observable<NoBody> updateUser(int skuId);
+    Observable<NoBody> updateUser(String phone, String shop, String userName);
 
     //快速创建订单
     Observable<NoBody> createOneOrder(int skuId, int addressId, int num);

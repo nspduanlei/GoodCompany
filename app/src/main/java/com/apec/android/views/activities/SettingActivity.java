@@ -35,7 +35,7 @@ public class SettingActivity extends BaseActivity {
         File cacheDir = getCacheDir();
         mTvCacheNum.setText(FileUtils.getAutoFileOrFilesSize(cacheDir));
 
-        if (!LoginUtil.isLogin(this)) {
+        if (!LoginUtil.isLogin()) {
             mBtnLoginOut.setVisibility(View.GONE);
         }
     }
@@ -58,7 +58,7 @@ public class SettingActivity extends BaseActivity {
     @OnClick(R.id.rl_cache)
     void onClearCacheClicked(View view) {
         FileUtils.delete(getCacheDir());
-        mTvCacheNum.setText("0M");
+        mTvCacheNum.setText("0B");
     }
 
 }
