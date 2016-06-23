@@ -15,6 +15,7 @@ import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.components.DaggerUserComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.EditAddressPresenter;
+import com.apec.android.support.ImageHelp;
 import com.apec.android.util.AppUtils;
 import com.apec.android.views.activities.EditUserDataActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
@@ -29,6 +30,7 @@ import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.utils.UserUtil;
 import com.apec.android.views.widget.NoScrollListView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -171,6 +173,9 @@ public class MeFragment extends BaseFragment {
             mUser = UserUtil.getUser();
             if (mUser != null) {
                 mTvUserName.setText(mUser.getShopName());
+                if (mUser.getShopPic() != null) {
+                    ImageHelp.displayCircle(getActivity(), mUser.getShopPic(), mIvHeader);
+                }
             }
         } else {
             mTvUserName.setText("请登录");

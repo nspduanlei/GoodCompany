@@ -74,6 +74,11 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     @Override
     protected void initPresenter() {
         mStatus = getArguments().getInt(EXTRA_STATUS_ID, 0);
+
+        if (mStatus == 0) {
+            return;
+        }
+
         mPresenter.attachView(this);
         mPresenter.onCreate();
         mPresenter.getOrderList(mStatus);
@@ -96,7 +101,6 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public void onElementClick(int position) {

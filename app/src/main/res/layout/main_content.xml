@@ -27,8 +27,8 @@
             app:tl_indicator_margin_left="2dp"
             app:tl_indicator_margin_right="2dp"
             app:tl_indicator_style="BLOCK"
-            app:tl_textUnselectColor="@color/text_4"
-            app:tl_textSelectColor="@color/text_5"
+            app:tl_textUnselectColor="@color/tab_unSelect"
+            app:tl_textSelectColor="@color/tab_select"
             app:tl_textBold="true"/>
 
     </android.support.design.widget.AppBarLayout>

@@ -17,7 +17,7 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-        <com.flyco.tablayout.CommonTabLayout
+        <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -26,11 +26,10 @@
             app:tl_indicator_style="BLOCK"
             app:tl_iconVisible="false"
             app:tl_textBold="true"
-            app:tl_textSelectColor="@color/text_5"
-            app:tl_textUnselectColor="@color/text_4"
+            app:tl_textSelectColor="@color/tab_select"
+            app:tl_textUnselectColor="@color/tab_unSelect"
             app:tl_indicator_margin_left="5dp"
-            app:tl_indicator_margin_right="5dp"
-            />
+            app:tl_indicator_margin_right="5dp"/>
     </android.support.design.widget.AppBarLayout>
 
 

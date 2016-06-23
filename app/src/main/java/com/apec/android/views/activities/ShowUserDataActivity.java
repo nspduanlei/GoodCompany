@@ -13,10 +13,16 @@ import com.apec.android.injector.components.DaggerUserComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.utils.UserUtil;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import vn.tungdx.mediapicker.MediaItem;
+import vn.tungdx.mediapicker.MediaOptions;
+import vn.tungdx.mediapicker.activities.MediaPickerActivity;
 
 /**
  * Created by duanlei on 2016/6/10.
@@ -29,10 +35,14 @@ public class ShowUserDataActivity extends BaseActivity {
 
     @BindView(R.id.tv_shop_name)
     TextView mTvShopName;
-    @BindView(R.id.tv_user)
-    TextView mTvUser;
-    @BindView(R.id.tv_phone)
-    TextView mTvPhone;
+//    @BindView(R.id.tv_user)
+//    TextView mTvUser;
+//    @BindView(R.id.tv_phone)
+//    TextView mTvPhone;
+
+    private static final int REQUEST_MEDIA = 100;
+
+    User mUser;
 
     @Override
     protected void setUpContentView() {
@@ -45,11 +55,11 @@ public class ShowUserDataActivity extends BaseActivity {
     }
 
     private void bindUser() {
-        User user = UserUtil.getUser();
-        if (user != null) {
-            mTvShopName.setText(user.getShopName());
-            mTvUser.setText(user.getName());
-            mTvPhone.setText(user.getPhone());
+        mUser = UserUtil.getUser();
+        if (mUser != null) {
+            mTvShopName.setText(mUser.getShopName());
+//            mTvUser.setText(mUser.getName());
+//            mTvPhone.setText(mUser.getPhone());
         }
     }
 
@@ -65,12 +75,12 @@ public class ShowUserDataActivity extends BaseActivity {
     protected void initPresenter() {
     }
 
-    @OnClick(R.id.rl_phone)
-    void onPhoneClicked() {
-        Intent intent = new Intent(this, EditUserDataActivity.class);
-        intent.putExtra("useInfo", 1);
-        startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_USER_DATA);
-    }
+//    @OnClick(R.id.rl_phone)
+//    void onPhoneClicked() {
+//        Intent intent = new Intent(this, EditUserDataActivity.class);
+//        intent.putExtra("useInfo", 1);
+//        startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_USER_DATA);
+//    }
 
     @OnClick(R.id.rl_shop_name)
     void onShopNameClicked() {
@@ -79,16 +89,20 @@ public class ShowUserDataActivity extends BaseActivity {
         startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_USER_DATA);
     }
 
-    @OnClick(R.id.rl_user_name)
-    void onUserNameClicked() {
-        Intent intent = new Intent(this, EditUserDataActivity.class);
-        intent.putExtra("useInfo", 2);
-        startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_USER_DATA);
-    }
+//    @OnClick(R.id.rl_user_name)
+//    void onUserNameClicked() {
+//        Intent intent = new Intent(this, EditUserDataActivity.class);
+//        intent.putExtra("useInfo", 2);
+//        startActivityForResult(intent, Constants.REQUEST_CODE_EDIT_USER_DATA);
+//    }
 
     @OnClick(R.id.rl_shop_pic)
     void onShopPicClicked() {
         //TODO 选择照片
+        MediaOptions.Builder builder = new MediaOptions.Builder();
+        MediaOptions options = builder.setIsCropped(true).setFixAspectRatio(true)
+                .build();
+        MediaPickerActivity.open(this, REQUEST_MEDIA, options);
     }
 
     @Override
@@ -97,6 +111,20 @@ public class ShowUserDataActivity extends BaseActivity {
             if (resultCode == Constants.RESULT_CODE_EDIT_USER_DATA_SUCCESS) {
                 bindUser();
             }
+        } else if (requestCode == REQUEST_MEDIA) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<MediaItem> medias = MediaPickerActivity.getMediaItemSelected(data);
+                String path = medias.get(0).getPathCropped(this);
+                saveHeadImg(path);
+                Picasso.with(this).load(medias.get(0).getUriCropped()).into(mIvPic);
+                Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+                sendBroadcast(mIntent);
+            }
         }
+    }
+
+    private void saveHeadImg(String path) {
+        mUser.setShopPic(path);
+        UserUtil.updateUser(mUser);
     }
 }

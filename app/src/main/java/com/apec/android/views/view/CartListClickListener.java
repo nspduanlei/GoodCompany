@@ -8,7 +8,7 @@ import com.apec.android.domain.entities.goods.SkuData;
 public interface CartListClickListener {
     void onElementClick(int position);
 
-    void onAddClick(String skuId);
-    void onCutClick(String skuId);
-    void onCheckChange(SkuData skuData, boolean isCheck);
+    void onCheckChange(SkuData skuData, boolean isCheck, int position);
+
+    void onUpdateCount(SkuData data, int adapterPosition, int count1);
 }

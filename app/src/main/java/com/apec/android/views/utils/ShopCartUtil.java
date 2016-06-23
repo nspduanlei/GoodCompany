@@ -96,14 +96,22 @@ public class ShopCartUtil {
     /**
      * 修改选择状态
      *
-     * @param skuId
+     * @param skuData
      * @param isCheck
      */
-    public static void updateCheck(String skuId, boolean isCheck) {
-        SkuData skuData = querySkuById(skuId);
+    public static void updateCheck(SkuData skuData, boolean isCheck) {
         if (skuData != null) {
-            skuData.setSelect(isCheck);
-            skuData.update(skuData.getId());
+//            skuData.setSelect(isCheck);
+//            skuData.update(skuData.getId());
+
+            ContentValues values = new ContentValues();
+            if (isCheck) {
+                values.put("isSelect", "1");
+            } else {
+                values.put("isSelect", "0");
+            }
+
+            DataSupport.update(SkuData.class, values, skuData.getId());
         }
     }
 

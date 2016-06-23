@@ -68,16 +68,17 @@
     <color name="text_6">#404040</color>
 
     <!--滑动标题-->
-    <color name="text_4">#BBBBBB</color>
-    <color name="text_5">#555555</color>
+    <color name="tab_unSelect">#8B8B8B</color>
+    <color name="tab_select">#FF7C42</color>
 
     <color name="text_stroke">#D6D6D6</color>
 
     <color name="bg_1">#E7E6E6</color>
-    <color name="bg_button">#3D4898</color>
-
+    <color name="bg_button">#FF8002</color>
+    <color name="bg_button_add_cart">#0ECBC0</color>
 
     <color name="text_7">#8184F7</color>
+    <color name="text_8">#FF6102</color>
 
     <color name="bg_bot">#FC5A58</color>
 

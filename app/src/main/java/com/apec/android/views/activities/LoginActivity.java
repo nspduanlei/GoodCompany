@@ -25,6 +25,7 @@ import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.utils.LoginHandler;
 import com.apec.android.views.utils.SelectCityUtil;
+import com.apec.android.views.utils.UserUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -87,6 +88,8 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
     //完善资料信息
     User mUser;
 
+    boolean isNewUser = false;
+
     @Override
     protected void setUpContentView() {
         setContentView(R.layout.activity_login, R.string.title_login);
@@ -110,7 +113,6 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
         mLoginPresenter.attachView(this);
         mLoginPresenter.onCreate();
     }
-
 
     private void initTimer() {
         myHandler = new LoginHandler(this);
@@ -206,10 +208,15 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
         mAreaId = Integer.valueOf(user.getAddrRes().getAreaId());
         mCity = user.getAddrRes().getCity();
         mArea = user.getAddrRes().getArea();
+
+        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+        sendBroadcast(mIntent);
+        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
     }
 
     @Override
     public void completeData() {
+        isNewUser = true;
         //未完善资料, 显示表单填写
         showComplete();
         mTvHintComplete.setVisibility(View.VISIBLE);
@@ -217,12 +224,6 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
 
     private void showComplete() {
         mLlComplete.setVisibility(View.VISIBLE);
-
-        //成功获取到session_id
-        //发送广播
-        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
-        sendBroadcast(mIntent);
-        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
     }
 
     @Override
@@ -234,7 +235,15 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
     @Override
     public void completeSuccess() {
         //信息提交成功
+        T.showShort(this, "资料提交成功");
+
+        mUser.setPhone(phoneNumberStr);
+        UserUtil.saveUser(mUser);
         finishExit();
+
+        Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+        sendBroadcast(mIntent);
+        setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
     }
 
     @Override
@@ -268,31 +277,47 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
             T.showShort(this, "请填写完所用表单数据。。");
 
         } else {
-            boolean isEdit = false;
-            if (!mUser.getName().equals(userName)) {
+            if(isNewUser) {
+                mUser = new User();
                 mUser.setName(userName);
-            } else if (!mUser.getShopName().equals(userShop)) {
                 mUser.setShopName(userShop);
-            } else if (!mUser.getAddrRes().getCityId().equals(String.valueOf(userCity))) {
-                Address address = mUser.getAddrRes();
+
+                Address address = new Address();
                 address.setCityId(String.valueOf(userCity));
-                mUser.setAddrRes(address);
-            } else if (!mUser.getAddrRes().getAreaId().equals(String.valueOf(userArea))) {
-                Address address = mUser.getAddrRes();
                 address.setAreaId(String.valueOf(userArea));
-                mUser.setAddrRes(address);
-            } else if (!mUser.getAddrRes().getDetail().equals(userAddress)) {
-                Address address = mUser.getAddrRes();
                 address.setDetail(userAddress);
                 mUser.setAddrRes(address);
-            }
 
-            if (isEdit) {
-                //提交数据
                 mLoginPresenter.completeUser(mUser);
             } else {
-                finishExit();
+                boolean isEdit = false;
+
+                if (!mUser.getName().equals(userName)) {
+                    mUser.setName(userName);
+                } else if (!mUser.getShopName().equals(userShop)) {
+                    mUser.setShopName(userShop);
+                } else if (!mUser.getAddrRes().getCityId().equals(String.valueOf(userCity))) {
+                    Address address = mUser.getAddrRes();
+                    address.setCityId(String.valueOf(userCity));
+                    mUser.setAddrRes(address);
+                } else if (!mUser.getAddrRes().getAreaId().equals(String.valueOf(userArea))) {
+                    Address address = mUser.getAddrRes();
+                    address.setAreaId(String.valueOf(userArea));
+                    mUser.setAddrRes(address);
+                } else if (!mUser.getAddrRes().getDetail().equals(userAddress)) {
+                    Address address = mUser.getAddrRes();
+                    address.setDetail(userAddress);
+                    mUser.setAddrRes(address);
+                }
+
+                if (isEdit) {
+                    //提交数据
+                    mLoginPresenter.completeUser(mUser);
+                } else {
+                    finishExit();
+                }
             }
+
         }
     }
 

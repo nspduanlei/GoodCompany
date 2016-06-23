@@ -31,6 +31,7 @@ public class GetAllOrderUseCase extends UseCase<OrderListBack> {
         mExecutorThread = executorThread;
     }
 
+    //   "待处理", "备货中", "配送中", "已完成", "已取消"
     public void setState(int state) {
         mState = state;
     }

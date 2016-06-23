@@ -14,11 +14,9 @@ public class UserUtil {
     //获取用户信息
     public static User getUser() {
         List<User> users = DataSupport.findAll(User.class);
-
         if (users.size() > 0) {
             return DataSupport.findAll(User.class).get(0);
         }
-
         return null;
     }
 
@@ -32,5 +30,18 @@ public class UserUtil {
      */
     public static void updateUser(User user) {
         user.update(user.getId());
+    }
+
+    /**
+     * 更新用户
+     */
+    public static void saveUser(User newUser) {
+        User user = getUser();
+        if (user == null) {
+            newUser.saveThrows();
+        } else {
+            newUser.setId(user.getId());
+            newUser.update(user.getId());
+        }
     }
 }

@@ -19,7 +19,6 @@ import com.apec.android.views.adapter.AddressListAdapter;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.view.AddressListClickListener;
 import com.apec.android.views.view.DividerItemDecoration;
-import com.apec.android.views.view.RecyclerInsetsDecoration;
 
 import java.util.ArrayList;
 
@@ -67,10 +66,9 @@ public class ManageAddressActivity extends BaseActivity implements ManageAddress
         hasDefault = getIntent().getBooleanExtra(HAS_DEFAULT, false);
         isSelect = getIntent().getBooleanExtra(IS_SELECT, false);
 
-
         mRvAddress.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
         mRvAddress.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new AddressListAdapter(mGoodsReceipts, this, this);
+        mAdapter = new AddressListAdapter(mGoodsReceipts, this, this, isSelect);
         mRvAddress.setAdapter(mAdapter);
     }
 

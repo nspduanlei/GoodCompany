@@ -13,10 +13,19 @@ public class Order {
     private String orderNo;
     private double orderAmount;
     private int orderType;
+    private String orderDate;
     private Address addreRes;
     private List<ProRecord> processLogs;
     private Deliveryman orderAddress;
     private List<OrderItem> orderItems;
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
 
     public int getId() {
         return id;

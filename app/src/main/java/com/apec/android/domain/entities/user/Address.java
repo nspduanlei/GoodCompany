@@ -97,6 +97,10 @@ public class Address implements Parcelable {
         detail = in.readString();
     }
 
+    public Address() {
+
+    }
+
     public static final Creator<Address> CREATOR = new Creator<Address>() {
         @Override
         public Address createFromParcel(Parcel in) {

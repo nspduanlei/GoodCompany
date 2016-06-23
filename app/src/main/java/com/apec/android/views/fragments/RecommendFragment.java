@@ -98,7 +98,6 @@ public class RecommendFragment extends BaseFragment {
 
             //List<SkuData> list2 = DataSupport.where("skuId = ?", String.valueOf(85)).find(SkuData.class);
 
-
             //List<SkuData> list2 = DataSupport.select("price").find(SkuData.class);
 
             L.e("");

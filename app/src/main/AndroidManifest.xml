@@ -50,6 +50,11 @@
         <activity android:name=".views.activities.EditUserDataActivity"/>
 
         <activity
+            android:name="vn.tungdx.mediapicker.activities.MediaPickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MediaPickerTheme" />
+
+        <activity
             android:name=".views.activities.GuideActivity"
             android:theme="@style/GuideAppTheme"/>
 

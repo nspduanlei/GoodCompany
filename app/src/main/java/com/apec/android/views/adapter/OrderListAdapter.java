@@ -69,6 +69,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
         }
 
         public void bindData(Order order) {
+
+            mTvTime.setText(order.getOrderDate());
+
             mTvGoodsNum.setText(String.format(mContext.getString(R.string.order_goods_num),
                     order.getOrderItems().size()));
             mTvTotalPrice.setText(String.format(mContext.getString(R.string.order_goods_price),

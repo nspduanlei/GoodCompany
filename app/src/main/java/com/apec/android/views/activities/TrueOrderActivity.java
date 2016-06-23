@@ -200,12 +200,17 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     void onOrderClicked(View view) {
         JSONArray jsonArray = new JSONArray();
         try {
-            for (SkuData skuData : mData) {
+            for (int i = 0; i < mData.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("skuId", skuData.getSkuId());
-                jsonObject.put("num", skuData.getCount());
-                jsonObject.put("addressId", mGoodsReceipt.getAddressId());
-                jsonArray.put(0, jsonObject);
+                jsonObject.put("skuId", mData.get(i).getSkuId());
+                jsonObject.put("num", mData.get(i).getCount());
+
+                if (mGoodsReceipt != null) {
+                    jsonObject.put("addressId", mGoodsReceipt.getAddressId());
+                } else {
+                    T.showShort(this, "地址为空");
+                }
+                jsonArray.put(i, jsonObject);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -237,9 +242,7 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
             if (resultCode == Constants.RESULT_CODE_SET_DEFAULT_ADDR) {
                 //TODO 获取默认地址
                 mPresenter.getDefaultAddress();
-
             }
-
         }
 
         if (requestCode == Constants.REQUEST_CODE_LOGIN) {

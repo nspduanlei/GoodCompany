@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="34.5dp"
-    android:layout_margin="20dp">
+    android:layout_margin="20dp"
+    android:id="@+id/rl_update_num">
 
     <Button
         android:id="@+id/btn_cut"
@@ -26,8 +27,10 @@
 
     <TextView
         android:id="@+id/tv_add_count"
-        android:layout_width="46dp"
+        android:layout_width="match_parent"
         android:layout_height="33.5dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
         android:layout_centerHorizontal="true"
         android:text="5"
         android:textSize="18sp"

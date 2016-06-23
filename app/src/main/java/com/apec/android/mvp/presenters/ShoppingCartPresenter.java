@@ -94,7 +94,6 @@ public class ShoppingCartPresenter implements Presenter {
     }
 
     private void onSaveSkuReceived(ShopCartData shopCartData) {
-        //mView.hideLoadingView();
         mView.hideEmpty();
         if (shopCartData.getTotal() == 0) {
             mView.onDataEmpty();

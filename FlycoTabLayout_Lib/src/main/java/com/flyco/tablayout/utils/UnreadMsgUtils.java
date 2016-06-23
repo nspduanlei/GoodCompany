@@ -33,14 +33,14 @@ public class UnreadMsgUtils {
             if (num > 0 && num < 10) {//圆
                 lp.width = (int) (18 * dm.density);
                 msgView.setText(num + "");
-            } else if (num > 9 && num < 100) {//圆角矩形,圆角是高度的一半,设置默认padding
+            } else if (num > 9 && num < 10000) {//圆角矩形,圆角是高度的一半,设置默认padding
                 lp.width = RelativeLayout.LayoutParams.WRAP_CONTENT;
                 msgView.setPadding((int) (6 * dm.density), 0, (int) (6 * dm.density), 0);
                 msgView.setText(num + "");
             } else {//数字超过两位,显示99+
                 lp.width = RelativeLayout.LayoutParams.WRAP_CONTENT;
                 msgView.setPadding((int) (6 * dm.density), 0, (int) (6 * dm.density), 0);
-                msgView.setText("99+");
+                msgView.setText("9999+");
             }
             msgView.setLayoutParams(lp);
         }

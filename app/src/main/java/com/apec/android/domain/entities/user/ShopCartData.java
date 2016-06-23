@@ -1,6 +1,5 @@
 package com.apec.android.domain.entities.user;
 
-import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuData;
 
 import org.litepal.crud.DataSupport;

@@ -1,9 +1,12 @@
 package com.apec.android.views.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,24 +18,31 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.goods.SkuData;
+import com.apec.android.domain.entities.user.ShopCart;
 import com.apec.android.domain.entities.user.ShopCartData;
 import com.apec.android.injector.components.DaggerShopCartComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
 import com.apec.android.mvp.views.ShoppingCartView;
+import com.apec.android.util.T;
 import com.apec.android.views.activities.MainActivity;
 import com.apec.android.views.activities.TrueOrderActivity;
 import com.apec.android.views.adapter.CartListAdapter;
+import com.apec.android.views.adapter.CartListEditAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
+import com.apec.android.views.utils.AlertDialog;
 import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.view.CartListClickListener;
+import com.apec.android.views.view.CartListEditClickListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
@@ -58,22 +68,64 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     ProgressBar mPbLoading;
 
     CartListAdapter mAdapter;
+
     ArrayList<SkuData> mData = new ArrayList<>();
 
     @BindView(R.id.ll_empty)
     LinearLayout mLlEmpty;
 
+    //编辑购物车
+    @BindView(R.id.tv_edit)
+    TextView mTvEdit;
+    @BindView(R.id.ll_content)
+    LinearLayout mLlContent;
+    @BindView(R.id.rv_cart_edit)
+    RecyclerView mRvCartEdit;
+    @BindView(R.id.cb_select_all_edit)
+    CheckBox mCbSelectAllEdit;
+    @BindView(R.id.btn_delete_edit)
+    Button mBtnDeleteEdit;
+    @BindView(R.id.ll_edit)
+    LinearLayout mLlEdit;
+
+    boolean isEdit = false;
+    CartListEditAdapter mAdapterEdit;
+
     //总价
     private Double mTotalPrice = 0.0;
     //总数量
     private int mCount;
+    private int mCountEdit = 0;
 
+    boolean isSelectAll = true;
 
     @Override
     protected void initUI(View view) {
         mRvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CartListAdapter(mData, getActivity(), this);
         mRvCart.setAdapter(mAdapter);
+
+        mRvCartEdit.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapterEdit = new CartListEditAdapter(mData, getActivity(), new CartListEditClickListener() {
+            @Override
+            public void onElementClick(int position) {
+
+            }
+
+            @Override
+            public void onCheckChange(SkuData skuData, boolean isCheck, int position) {
+                skuData.setSelect(isCheck);
+                mData.set(position, skuData);
+                if (isCheck) {
+                    mCountEdit++;
+                } else {
+                    mCountEdit--;
+                }
+
+                mBtnDeleteEdit.setText(String.format(getString(R.string.delete_btn), mCountEdit));
+            }
+        });
+        mRvCartEdit.setAdapter(mAdapterEdit);
     }
 
     @Override
@@ -135,78 +187,132 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     }
 
     @Override
-    public void onAddClick(String skuId) {
-        //购物车数量加1
-        ShopCartUtil.updateCount(skuId, 1);
-        //GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
+    public void onUpdateCount(SkuData data, int adapterPosition, int num) {
 
-        ((MainActivity)getActivity()).updateGoods();
+        int newCount = data.getCount() + num;
+        if (newCount > Constants.MAX_GOODS_COUNT) {
+            data.setCount(Constants.MAX_GOODS_COUNT);
+            mData.set(adapterPosition, data);
+            mAdapter.notifyDataSetChanged();
+            T.showShort(getActivity(), "商品数量不能超过" + Constants.MAX_GOODS_COUNT);
+            return;
+        }
 
-        mPresenter.getData();
+        if (newCount == 0) {
+            new AlertDialog(getActivity(), "商品减为0将被删除，确定删除吗？", () -> {
+                ShopCartUtil.deleteSku(data);
+                ((MainActivity) getActivity()).updateGoods();
+
+                mData.remove(adapterPosition);
+
+                mAdapter.notifyDataSetChanged();
+                mAdapterEdit.notifyDataSetChanged();
+            }).showAlertDialog();
+
+            return;
+        }
+
+        ShopCartUtil.updateCount(data.getSkuId(), num);
+        ((MainActivity) getActivity()).updateGoods();
+
+        data.setCount(data.getCount() + num);
+        mData.set(adapterPosition, data);
+
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onCutClick(String skuId) {
-        //购物车数量减1
-        ShopCartUtil.updateCount(skuId, -1);
-        //GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
-
-        ((MainActivity)getActivity()).updateGoods();
-        mPresenter.getData();
-    }
-
-    @Override
-    public void onCheckChange(SkuData skuData, boolean isCheck) {
+    public void onCheckChange(SkuData skuData, boolean isCheck, int position) {
         if (isCheck) {
             mTotalPrice = mTotalPrice + Double.valueOf(skuData.getPrice()) * skuData.getCount();
             mCount = mCount + 1;
-
         } else {
             mCount = mCount - 1;
             mTotalPrice = mTotalPrice - Double.valueOf(skuData.getPrice()) * skuData.getCount();
         }
 
-        ShopCartUtil.updateCheck(skuData.getSkuId(), isCheck);
-        mTvTotalPrice.setText(String.format(getString(R.string.total_price_cart), String.valueOf(mTotalPrice)));
+        skuData.setSelect(isCheck);
+        mData.set(position, skuData);
+
+        ShopCartUtil.updateCheck(skuData, isCheck);
+
+        notifyData();
+    }
+
+    private void notifyData() {
+        mTvTotalPrice.setText(String.format(getString(R.string.total_price_cart),
+                String.valueOf(mTotalPrice)));
         mBtnGotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
+
+        //是否全选按钮选中
+        for (SkuData skuData:mData) {
+            if (skuData.isSelect()) {
+                isSelectAll = true;
+            } else {
+                isSelectAll = false;
+                break;
+            }
+        }
+        mCbSelectAll.setChecked(isSelectAll);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void bindCart(ShopCartData shopCart) {
         mData.clear();
         mData.addAll(shopCart.getSkus());
+
         updateAllCountAndPrice();
     }
 
     public void getData() {
-        //isSelectAll = -1;
         mTotalPrice = 0.0;
         mCount = 0;
         mPresenter.getData();
     }
 
     //全选
-    @OnCheckedChanged(R.id.cb_select_all)
-    void onSelectAllCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if (b) {
-            for (SkuData skuData:mData) {
+    @OnClick(R.id.cb_select_all)
+    void onSelectAllClicked(View view) {
+        if (mCbSelectAll.isChecked()) {
+            for (SkuData skuData : mData) {
                 if (!skuData.isSelect()) {
                     skuData.setSelect(true);
                 }
             }
             ShopCartUtil.selectAll();
         } else {
-            for (SkuData skuData:mData) {
+            for (SkuData skuData : mData) {
                 if (skuData.isSelect()) {
                     skuData.setSelect(false);
                 }
             }
-
             ShopCartUtil.cancelSelectAll();
         }
-
         updateAllCountAndPrice();
     }
+
+    //编辑状态全选
+    @OnCheckedChanged(R.id.cb_select_all_edit)
+    void onSelectAllEditCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (b) {
+            for (SkuData skuData : mData) {
+                if (!skuData.isSelect()) {
+                    skuData.setSelect(true);
+                }
+            }
+            mCountEdit = mData.size();
+        } else {
+            for (SkuData skuData : mData) {
+                if (skuData.isSelect()) {
+                    skuData.setSelect(false);
+                }
+            }
+            mCountEdit = 0;
+        }
+        updateEdit();
+    }
+
 
     @Override
     public void onStop() {
@@ -223,7 +329,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         }
 
         ArrayList<Integer> skuIds = new ArrayList<>();
-        for (SkuData item:list) {
+        for (SkuData item : list) {
             skuIds.add(Integer.valueOf(item.getSkuId()));
         }
 
@@ -234,12 +340,69 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         startActivityForResult(intent, Constants.REQUEST_CODE_TRUE_ORDER);
     }
 
-
     public void updateAllCountAndPrice() {
         mTotalPrice = ShopCartUtil.getSelectPrice();
         mCount = ShopCartUtil.getSelectCount();
-        mTvTotalPrice.setText(String.format(getString(R.string.total_price_cart), String.valueOf(mTotalPrice)));
-        mBtnGotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
-        mAdapter.notifyDataSetChanged();
+        notifyData();
     }
+
+    private void updateEdit() {
+        mBtnDeleteEdit.setText(String.format(getString(R.string.delete_btn), mCountEdit));
+        mAdapterEdit.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.tv_edit)
+    void onEditClicked(View view) {
+        if (isEdit) {
+            //如果是编辑状态退出编辑
+            isEdit = false;
+
+            mTvEdit.setText("编辑");
+
+            mLlContent.setVisibility(View.VISIBLE);
+            mLlEdit.setVisibility(View.GONE);
+
+        } else {
+            //如果不是编辑状态，进入编辑状态
+            isEdit = true;
+
+            mTvEdit.setText("完成");
+
+            for (SkuData skuData:mData) {
+                if (skuData.isSelect()) {
+                    skuData.setSelect(false);
+                }
+            }
+            mCountEdit = 0;
+            updateEdit();
+
+            mLlContent.setVisibility(View.GONE);
+            mLlEdit.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.btn_delete_edit)
+    void onDeleteClicked(View view) {
+
+        ArrayList<SkuData> skuDatas = new ArrayList<>();
+
+        Iterator iterator = mData.iterator();
+        while (iterator.hasNext()) {
+            SkuData skuData = (SkuData) iterator.next();
+
+            if (skuData.isSelect()) {
+                skuDatas.add(skuData);
+                iterator.remove();
+            }
+        }
+
+        if (skuDatas.size() > 0) {
+            ShopCartUtil.deleteSkuList(skuDatas);
+        }
+
+        mCountEdit = 0;
+        getData();
+        updateEdit();
+    }
+
 }

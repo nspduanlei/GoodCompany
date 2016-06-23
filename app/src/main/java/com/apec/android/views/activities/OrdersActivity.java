@@ -27,26 +27,23 @@ import butterknife.BindView;
 public class OrdersActivity extends BaseActivity {
 
     @BindView(R.id.tabs)
-    CommonTabLayout mTabs;
+    SlidingTabLayout mTabs;
     @BindView(R.id.vp_orders)
     ViewPager mVpOrders;
 
-    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    //private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     /**
      * 订单状态id
      */
     protected static final int[] IDS = new int[]{
-            1, 2, 3
+            1, 2, 3, 4, 5
     };
-
-//    protected static final String[] CONTENT = new String[]{
-//            "待付款", "待处理", "备货中", "配送中", "已完成"
-//    };
 
     protected static final String[] CONTENT = new String[]{
-            "待处理", "处理中", "已完成"
+            "待处理", "备货中", "配送中", "已完成", "已取消"
     };
+
 
     @Override
     protected void setUpContentView() {
@@ -56,45 +53,49 @@ public class OrdersActivity extends BaseActivity {
 
     @Override
     protected void initUi() {
+        //setupViewPager(mVpOrders);
+        //tabLayout();
+
         setupViewPager(mVpOrders);
-        tabLayout();
+        mTabs.setViewPager(mVpOrders);
+
     }
 
     private void tabLayout() {
-        for (int i = 0; i < CONTENT.length; i++) {
-            mTabEntities.add(new TabEntity(CONTENT[i], 0, 0));
-        }
-        mTabs.setTabData(mTabEntities);
+//        for (int i = 0; i < CONTENT.length; i++) {
+//            mTabEntities.add(new TabEntity(CONTENT[i], 0, 0));
+//        }
+//        mTabs.setTabData(mTabEntities);
 
-        mTabs.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                mVpOrders.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
-
-        mVpOrders.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mTabs.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        mVpOrders.setCurrentItem(0);
+//        mTabs.setOnTabSelectListener(new OnTabSelectListener() {
+//            @Override
+//            public void onTabSelect(int position) {
+//                mVpOrders.setCurrentItem(position);
+//            }
+//
+//            @Override
+//            public void onTabReselect(int position) {
+//
+//            }
+//        });
+//
+//        mVpOrders.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                mTabs.setCurrentTab(position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+//        mVpOrders.setCurrentItem(0);
     }
 
 

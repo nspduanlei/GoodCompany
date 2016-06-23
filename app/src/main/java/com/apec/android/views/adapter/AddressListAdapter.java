@@ -22,12 +22,15 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     private final AddressListClickListener mAddressListClickListener;
     private final List<GoodsReceipt> mGoodsReceipts;
     private Context mContext;
+    private boolean mIsSelect;
 
     public AddressListAdapter(List<GoodsReceipt> goodsReceipts, Context context,
-                              AddressListClickListener recyclerClickListener) {
+                              AddressListClickListener recyclerClickListener,
+                              boolean isSelect) {
         mGoodsReceipts = goodsReceipts;
         mContext = context;
         mAddressListClickListener = recyclerClickListener;
+        mIsSelect = isSelect;
     }
 
     @Override
@@ -73,6 +76,22 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             mTvPhoneNumber.setText(goodsReceipt.getPhone());
             mTvAddress.setText(goodsReceipt.getAddrRes().getDetail());
 
+            //如果是默认地址不能删除, 如果是选择地址也不能删除
+            if (mIsSelect || goodsReceipt.isDefalut()) {
+                mTvDelete.setVisibility(View.GONE);
+            } else {
+                mTvDelete.setVisibility(View.VISIBLE);
+                mTvDelete.setOnClickListener(view ->
+                        mAddressListClickListener.onDeleteClick(goodsReceipt.getAddressId()));
+            }
+
+            //默认地址的checkBox失效
+            if (goodsReceipt.isDefalut()) {
+                mCbDefaultAddress.setEnabled(false);
+            } else {
+                mCbDefaultAddress.setEnabled(true);
+            }
+
             mCbDefaultAddress.setChecked(goodsReceipt.isDefalut());
 
             mCbDefaultAddress.setOnClickListener(view -> {
@@ -80,9 +99,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                     mAddressListClickListener.onCBDefaultClick(goodsReceipt.getAddressId());
                 }
             });
-
-            mTvDelete.setOnClickListener(view ->
-                    mAddressListClickListener.onDeleteClick(goodsReceipt.getAddressId()));
 
             mTvEdit.setOnClickListener(view ->
                     mAddressListClickListener.onEditClick(goodsReceipt));

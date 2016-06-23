@@ -138,13 +138,25 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 
                 switch (mInfoType) {
                     case PHONE:
-                        msg = StringUtils.checkMobile(info);
+                        if(info.equals(mUser.getPhone())) {
+                            msg = "内容没有修改";
+                        } else {
+                            msg = StringUtils.checkMobile(info);
+                        }
                         break;
                     case USER_NAME:
-                        msg = StringUtils.checkUserName(info);
+                        if(info.equals(mUser.getName())) {
+                            msg = "内容没有修改";
+                        } else {
+                            msg = StringUtils.checkUserName(info);
+                        }
                         break;
                     case SHOP_NAME:
-                        msg = StringUtils.checkShopName(info);
+                        if(info.equals(mUser.getShopName())) {
+                            msg = "内容没有修改";
+                        } else {
+                            msg = StringUtils.checkShopName(info);
+                        }
                         break;
                     default:
                         break;

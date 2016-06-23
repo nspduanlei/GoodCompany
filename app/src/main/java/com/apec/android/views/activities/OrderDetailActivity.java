@@ -1,7 +1,9 @@
 package com.apec.android.views.activities;
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,6 +46,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
     int mOrderId;
 
     public final static String EXTRA_ORDER_ID = "order_id";
+    @BindView(R.id.ll_content)
+    LinearLayout mLlContent;
 
     @Override
     protected void setUpContentView() {
@@ -81,6 +85,9 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
 
     @Override
     public void bindOrder(Order order) {
+
+        mLlContent.setVisibility(View.VISIBLE);
+
         mBinding.setOrder(order);
 
         mLvSku.setAdapter(new CommonAdapter<OrderItem>(this, order.getOrderItems(),
@@ -140,6 +147,13 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
     @Override
     public void hideLoadingView() {
         mPbLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
 

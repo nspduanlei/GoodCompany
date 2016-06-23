@@ -5,9 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:background="@drawable/top_bar_bg"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="购物车"
+            android:textColor="@color/text_1"
+            android:textSize="@dimen/title_size"/>
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="编辑"
+            android:textColor="@color/text_2"/>
+    </RelativeLayout>
+
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/top_bar_height"
         android:background="@color/color_white"
         android:orientation="vertical">
 
@@ -21,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/color_line"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -32,9 +61,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:button="@drawable/check_selector"
                 android:text="  全选"
-                android:textColor="@color/text_2"
-                android:button="@drawable/check_selector"/>
+                android:textColor="@color/text_2"/>
 
             <!--去结算(4)-->
             <Button
@@ -43,24 +72,71 @@
                 android:layout_height="31dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="去结算"
                 android:background="@drawable/button_selector"
+                android:text="去结算"
                 android:textColor="@color/color_white"/>
 
             <TextView
                 android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="合计:￥0.0"
                 android:textColor="@color/text_6"
-                android:textStyle="bold"
-                android:layout_centerInParent="true"/>
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/top_bar_height"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_cart_edit"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <CheckBox
+                android:id="@+id/cb_select_all_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:button="@drawable/check_selector"
+                android:text="  全选"
+                android:textColor="@color/text_2"/>
+
+            <!--去结算(4)-->
+            <Button
+                android:id="@+id/btn_delete_edit"
+                android:layout_width="103dp"
+                android:layout_height="31dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_selector"
+                android:text="删除"
+                android:textColor="@color/color_white"/>
         </RelativeLayout>
     </LinearLayout>
 
     <include
         layout="@layout/loading_layout_new"/>
-
 
     <include
         layout="@layout/empty_layout"/>

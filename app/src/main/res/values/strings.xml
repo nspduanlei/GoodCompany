@@ -11,6 +11,8 @@
     <string name="add_order_total">￥%s</string>
     <string name="please_login">请先登录</string>
     <string name="goto_pay_btn">去结算(%d)</string>
+    <string name="delete_btn">删除(%d)</string>
+
     <string name="total_price_cart">合计:￥%s</string>
     <string name="open_string">test</string>
     <string name="close_string">test</string>
@@ -52,5 +54,6 @@
     <string name="order_goods_num">共计%d件商品</string>
     <string name="order_goods_price">付款金额 ￥%s</string>
     <string name="edit_data_title">修改资料</string>
+    <string name="order_time">下单时间 2016-05-20 15:00</string>
 
 </resources>

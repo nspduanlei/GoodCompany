@@ -1,1 +1,1 @@
-include ':app', ':dialogplusLibrary', ':FlycoTabLayout_Lib'
+include ':app', ':dialogplusLibrary', ':FlycoTabLayout_Lib', ':mediapicker'

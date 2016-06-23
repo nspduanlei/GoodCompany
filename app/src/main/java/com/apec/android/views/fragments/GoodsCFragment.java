@@ -60,12 +60,20 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     int mCityId;
 
+//    protected static final int[] IDS = new int[]{
+//            12, 13, 11, 15, 46
+//    };
+//
+//    protected static final String[] CONTENT = new String[]{
+//            "糖品", "米品", "油品", "面品", "调味品"
+//    };
+
     protected static final int[] IDS = new int[]{
-            12, 13, 11, 15, 46
+            12, 13
     };
 
     protected static final String[] CONTENT = new String[]{
-            "糖品", "米品", "油品", "面品", "调味品"
+            "白砂糖", "面粉"
     };
 
     boolean hasDefault = false;
@@ -196,7 +204,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
      */
     private void setupViewPager(ViewPager viewPager) {
         mAdapter = new GoodsCAdapter(getChildFragmentManager());
-        mAdapter.addFragment(new RecommendFragment(), "推荐");
+        //mAdapter.addFragment(new RecommendFragment(), "推荐");
         for (int i = 0; i < CONTENT.length; i++) {
             mAdapter.addFragment(GoodsFragment.newInstance(IDS[i]), CONTENT[i]);
         }
@@ -209,7 +217,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         hasDefault = true;
         Intent intent = new Intent(getActivity(), ManageAddressActivity.class);
         intent.putExtra(ManageAddressActivity.HAS_DEFAULT, hasDefault);
-        intent.putExtra(ManageAddressActivity.IS_SELECT, true);
+        intent.putExtra(ManageAddressActivity.IS_SELECT, false);
         startActivityForResult(intent, Constants.REQUEST_CODE_ADDR);
     }
 
@@ -223,12 +231,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
                 mTvSendAddress.setText(String.format(getString(R.string.send_address),
                         mGoodsReceipt.getAddrRes().getDetail()));
             }
-
-            //设置默认收货地址
-//            if (resultCode == Constants.RESULT_CODE_SET_DEFAULT_ADDR) {
-//                mGoodsPresenter.getDefaultAddress();
-//            }
-
         } else if (requestCode == Constants.REQUEST_CODE_LOGIN_ORDER) {
             if (resultCode == Constants.RESULT_CODE_LOGIN_SUCCESS) {
 

@@ -1,5 +1,6 @@
 package com.apec.android.views.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,17 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.apec.android.R;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.support.ImageHelp;
+import com.apec.android.views.utils.InputNumDialog;
 import com.apec.android.views.view.CartListClickListener;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -71,6 +70,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
         @BindView(R.id.iv_lose)
         ImageView mIvLose;
 
+        @BindView(R.id.rl_update_num)
+        RelativeLayout mRlUpdateNum;
+
         public GoodsViewHolder(View itemView, final CartListClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -95,14 +97,21 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
 
             mCbSelect.setChecked(data.isSelect());
 
-            mBtnAdd.setOnClickListener(view -> mListener.onAddClick(data.getSkuId()));
+            mCbSelect.setOnClickListener(view -> mListener.onCheckChange(data,
+                    mCbSelect.isChecked(), getAdapterPosition()));
 
-            mBtnCut.setOnClickListener(view -> mListener.onCutClick(data.getSkuId()));
 
-//            mCbSelect.setOnCheckedChangeListener((compoundButton, b) ->
-//                    mListener.onCheckChange(data, b));
+            mBtnAdd.setOnClickListener(view -> mListener.onUpdateCount(data, getAdapterPosition(), 1));
 
-            mCbSelect.setOnClickListener(view -> mListener.onCheckChange(data, mCbSelect.isChecked()));
+            mBtnCut.setOnClickListener(view -> mListener.onUpdateCount(data, getAdapterPosition(), -1));
+
+            //输入数字
+            mTvAddCount.setOnClickListener(view -> {
+                //TODO 显示输入数字的弹窗
+                new InputNumDialog((Activity) mContext, mTvAddCount.getText().toString(), count1 -> {
+                    mListener.onUpdateCount(data, getAdapterPosition(), count1);
+                }).showInputNumDialog();
+            });
 
         }
 

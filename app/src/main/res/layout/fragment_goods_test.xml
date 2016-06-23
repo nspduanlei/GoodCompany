@@ -6,8 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/color_bg_1">
 
-    <include
-        layout="@layout/loading_layout_new"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_goods_test"
+        android:background="@color/bg_1"/>
 
     <include
         android:id="@+id/view_error"
@@ -15,15 +20,8 @@
         android:layout_gravity="center"
         tools:ignore="IncludeLayoutParam"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_goods"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        tools:listitem="@layout/item_goods_test"
-        android:background="@color/bg_1"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"/>
+    <include
+        layout="@layout/loading_layout_new"/>
 
 </FrameLayout>
 

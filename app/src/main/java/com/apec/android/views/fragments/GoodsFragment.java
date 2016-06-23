@@ -19,6 +19,7 @@ import com.apec.android.injector.modules.GoodsListModule;
 import com.apec.android.mvp.presenters.GoodsListPresenter;
 import com.apec.android.mvp.views.GoodsListView;
 import com.apec.android.util.SPUtils;
+import com.apec.android.util.T;
 import com.apec.android.views.activities.GoodDetailActivity;
 import com.apec.android.views.activities.TrueOrderActivity;
 import com.apec.android.views.adapter.GoodsListAdapter;
@@ -107,10 +108,9 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         }
     }
 
-
     private void initRecyclerView() {
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRvGoods.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
+        //mRvGoods.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
         mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this);
 
         mRvGoods.setAdapter(mGoodsListAdapter);
@@ -175,6 +175,14 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
     @Override
     public void onUpdateCount(Sku sku, int position, int num) {
+        int newCount = sku.getCount() + num;
+        if (newCount > Constants.MAX_GOODS_COUNT) {
+            sku.setCount(Constants.MAX_GOODS_COUNT);
+            mGoods.set(position, sku);
+            mGoodsListAdapter.notifyDataSetChanged();
+            T.showShort(getActivity(), "商品数量不能超过" + Constants.MAX_GOODS_COUNT);
+            return;
+        }
 
         mGoodsListPresenter.updateCount(sku, num);
 
@@ -217,8 +225,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
         Intent intent = new Intent(getActivity(), TrueOrderActivity.class);
         intent.putIntegerArrayListExtra("sku_ids", skus);
-        //intent.putExtra("count", mOrderCount);
         startActivity(intent);
     }
-
 }

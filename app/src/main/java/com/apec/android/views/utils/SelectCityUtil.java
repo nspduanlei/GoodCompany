@@ -283,6 +283,10 @@ public class SelectCityUtil implements OnClickListener {
                 break;
 
             case R.id.rb_please_select: //切换到当前的选择
+                if (areaList == null) {
+                    return;
+                }
+
                 rbPlease.setChecked(true);
 
                 curIndex = 2;
