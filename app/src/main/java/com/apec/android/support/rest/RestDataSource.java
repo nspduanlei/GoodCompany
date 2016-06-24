@@ -17,6 +17,7 @@ import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
+import com.apec.android.domain.entities.user.Version;
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.support.rest.interceptors.CacheInterceptor;
 import com.apec.android.support.rest.interceptors.HeaderInterceptor;
@@ -218,5 +219,10 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<NoBody> addBatchShoppingCart(String json) {
         return mGoodsApi.addBatchShoppingCart(json);
+    }
+
+    @Override
+    public Observable<Version> getVersion() {
+        return mGoodsApi.getVersion();
     }
 }

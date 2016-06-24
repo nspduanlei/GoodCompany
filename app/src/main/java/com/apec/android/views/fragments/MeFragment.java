@@ -11,10 +11,13 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.domain.entities.user.MyMenu;
 import com.apec.android.domain.entities.user.User;
+import com.apec.android.domain.entities.user.Version;
 import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.components.DaggerUserComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.EditAddressPresenter;
+import com.apec.android.mvp.presenters.MePresenter;
+import com.apec.android.mvp.views.MeView;
 import com.apec.android.support.ImageHelp;
 import com.apec.android.util.AppUtils;
 import com.apec.android.views.activities.EditUserDataActivity;
@@ -34,6 +37,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,7 +46,7 @@ import butterknife.OnClick;
 /**
  * Created by duanlei on 2016/6/7.
  */
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragment implements MeView {
 
     @BindView(R.id.lv_menu)
     NoScrollListView mLvMenu;
@@ -57,6 +62,9 @@ public class MeFragment extends BaseFragment {
 
     boolean isLogin = false;
     User mUser;
+
+    @Inject
+    MePresenter mPresenter;
 
     @Override
     protected void initUI(View view) {
@@ -116,8 +124,7 @@ public class MeFragment extends BaseFragment {
                 case 4: //客服中心
                     intent = new Intent(getActivity(), ServiceActivity.class);
                     break;
-                case 5: //系统设置
-
+                case 5: //版本更新
                     //TODO 检测版本
 
                     break;
@@ -144,7 +151,8 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void initPresenter() {
-
+        mPresenter.attachView(this);
+        mPresenter.onCreate();
     }
 
     @OnClick(R.id.fl_msg)
@@ -180,5 +188,27 @@ public class MeFragment extends BaseFragment {
         } else {
             mTvUserName.setText("请登录");
         }
+    }
+
+    @Override
+    public void isNewest() {
+        //TODO  是最新版本
+    }
+
+    @Override
+    public void noNewest(Version version) {
+        //TODO 不是最新版本， 去下载最新版本
+
+
+    }
+
+    @Override
+    public void showLoadingView() {
+
+    }
+
+    @Override
+    public void hideLoadingView() {
+
     }
 }

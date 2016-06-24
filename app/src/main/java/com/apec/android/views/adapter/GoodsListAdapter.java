@@ -62,7 +62,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
     @Override
     public void onBindViewHolder(GoodsViewHolder holder, int position) {
         if (position != 0 && holder.getItemViewType() == IS_NORMAL) {
-            holder.bindGood(mGoods.get(position-1));
+            holder.bindGood(mGoods.get(position - 1));
         }
 
         if (position == 0 && holder.getItemViewType() == IS_HEADER) {
@@ -141,8 +141,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
         public void bindGood(Sku sku) {
             mNormalHolder.mTvGoodsName.setText(sku.getSkuName());
-            mNormalHolder.mTvPrice.setText(String.format(mContext.getString(R.string.add_order_total),
-                    sku.getPrice()));
+            mNormalHolder.mTvPrice.setText(sku.getPrice());
 
             //获取数据库里面的商品数量
             int count = sku.getCount();

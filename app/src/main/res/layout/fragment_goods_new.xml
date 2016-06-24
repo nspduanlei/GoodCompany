@@ -26,9 +26,11 @@
             android:textStyle="bold"/>
 
         <LinearLayout
+            android:id="@+id/ll_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_send_address"
@@ -38,9 +40,8 @@
                 android:maxWidth="200dp"
                 android:singleLine="true"
                 android:text="配送至:配送地址"
-                android:textColor="@color/text_3"
-                android:textStyle="bold"
-                android:visibility="visible"/>
+                android:textColor="@color/text_6"
+                android:textSize="14sp"/>
 
             <ImageView
                 android:layout_width="wrap_content"

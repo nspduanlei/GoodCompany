@@ -13,6 +13,7 @@ import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
+import com.apec.android.domain.entities.user.Version;
 
 import java.util.ArrayList;
 
@@ -131,4 +132,7 @@ public interface GoodsApi {
     Observable<NoBody> updateUser(@Field("userPhone") String phone,
                                   @Field("userShop") String shop,
                                   @Field("userName") String userName);
+
+    @GET("appVersion")
+    Observable<Version> getVersion();
 }

@@ -72,7 +72,8 @@ public class InputNumDialog {
                                         Integer.valueOf(etGoodsCount.getText().toString());
 
                                 if (sureCount > Constants.MAX_GOODS_COUNT) {
-                                    etGoodsCount.setText("10000");
+                                    sureCount = Constants.MAX_GOODS_COUNT;
+                                    etGoodsCount.setText(String.valueOf(Constants.MAX_GOODS_COUNT));
                                     T.showShort(mActivity, "商品数量不能超过" + Constants.MAX_GOODS_COUNT);
                                 }
 

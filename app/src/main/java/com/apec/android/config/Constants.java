@@ -14,7 +14,7 @@ public class Constants {
     public static final String OFFICIAL_BASE_URL = "";
 
     //商品最大购买数量
-    public static final int MAX_GOODS_COUNT = 10000;
+    public static final int MAX_GOODS_COUNT = 1000;
 
     public static final int SUCCESS_CODE = 200;
 

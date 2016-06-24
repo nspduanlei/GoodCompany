@@ -15,6 +15,7 @@ import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
 import com.apec.android.domain.entities.user.UserBack;
+import com.apec.android.domain.entities.user.Version;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,4 +199,7 @@ public interface GoodsRepository {
 
     //批量加入购物车
     Observable<NoBody> addBatchShoppingCart(String json);
+
+    //获取最新的版本信息
+    Observable<Version> getVersion();
 }

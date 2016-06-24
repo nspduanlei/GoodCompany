@@ -1,15 +1,19 @@
 package com.apec.android.views.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.transport.GoodsReceipt;
-import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.GoodsPresenter;
@@ -19,25 +23,16 @@ import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.adapter.GoodsCAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
-import com.apec.android.views.utils.CityUtil;
 import com.apec.android.views.utils.LocationDialog;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.view.CityChangeInterface;
-import com.apec.android.views.view.CityDialog;
 import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.SlidingTabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -89,6 +84,13 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     TextView mTvLocation;
     @BindView(R.id.tv_send_address)
     TextView mTvSendAddress;
+
+    @BindView(R.id.ll_address)
+    LinearLayout mLlAddress;
+    @BindView(R.id.v_msg_new)
+    View mVMsgNew;
+    @BindView(R.id.fl_msg)
+    FrameLayout mFlMsg;
 
     //选择城市，城市选择后的通知
 
@@ -154,10 +156,11 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     @Override
     public void bindDefaultAddress(GoodsReceipt goodsReceipt) {
         mGoodsReceipt = goodsReceipt;
+        //显示默认地址
+        mLlAddress.setVisibility(View.VISIBLE);
         mTvSendAddress.setText(String.format(getString(R.string.send_address),
                 goodsReceipt.getAddrRes().getDetail()));
-        //显示默认地址
-        mTvSendAddress.setVisibility(View.VISIBLE);
+
 
         if (mIsOrderLoginSuccess) {
             GoodsFragment fragment =
@@ -220,7 +223,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         intent.putExtra(ManageAddressActivity.IS_SELECT, false);
         startActivityForResult(intent, Constants.REQUEST_CODE_ADDR);
     }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_ADDR) {

@@ -10,18 +10,18 @@
         android:id="@+id/iv_goods"
         android:layout_width="115dp"
         android:layout_height="115dp"
+        android:layout_marginRight="5dp"
         android:scaleType="fitXY"
-        android:src="@drawable/goods_pic_test"
-        android:layout_marginRight="5dp"/>
+        android:src="@drawable/goods_pic_test"/>
 
     <TextView
         android:id="@+id/tv_goods_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="广西白砂糖"
-        android:textColor="@color/text_1"
-        android:textSize="16sp"
         android:layout_toRightOf="@id/iv_goods"
+        android:text="广西白砂糖"
+        android:textColor="@color/text_6"
+        android:textSize="15sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -30,31 +30,58 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_name"
         android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/iv_goods"
         android:text="正常颗粒"
         android:textColor="@color/text_2"
-        android:textSize="@dimen/common_text_size"
-        android:layout_toRightOf="@id/iv_goods"/>
+        android:textSize="12sp"/>
 
-    <TextView
-        android:id="@+id/tv_price"
+    <LinearLayout
+        android:id="@+id/ll_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="￥200/包"
-        android:textColor="@color/text_8"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_toRightOf="@id/iv_goods"
         android:layout_below="@id/tv_size"
-        android:layout_marginTop="7dp"/>
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/iv_goods">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1包"
+            android:textColor="@color/text_2"
+            android:textSize="10sp"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="3dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/text_8"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="1dp"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200"
+            android:textColor="@color/text_8"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_update_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:visibility="gone"
+        android:layout_marginRight="10dp"
         android:orientation="vertical"
-        android:layout_marginRight="10dp">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_add"
@@ -78,28 +105,28 @@
 
     <Button
         android:id="@+id/btn_order"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_below="@id/tv_price"
+        android:layout_width="67dp"
+        android:layout_height="22dp"
+        android:layout_below="@id/ll_price"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/iv_goods"
         android:background="@drawable/button_selector"
         android:text="快速下单"
         android:textColor="@color/color_white"
-        android:layout_toRightOf="@id/iv_goods"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/btn_add_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_below="@id/tv_price"
+        android:layout_width="80dp"
+        android:layout_height="22dp"
+        android:layout_below="@id/ll_price"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/btn_order"
         android:background="@drawable/button_selector_add_cart"
         android:text="加入购物车"
         android:textColor="@color/color_white"
-        android:layout_toRightOf="@id/btn_order"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:textStyle="bold"/>
 </RelativeLayout>
