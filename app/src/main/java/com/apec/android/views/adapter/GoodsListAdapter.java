@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.apec.android.R;
 import com.apec.android.domain.entities.goods.Pic;
 import com.apec.android.domain.entities.goods.Sku;
+import com.apec.android.domain.entities.goods.SkuAttribute;
 import com.apec.android.support.ImageHelp;
+import com.apec.android.util.DensityUtils;
 import com.apec.android.views.utils.InputNumDialog;
 import com.apec.android.views.view.RecyclerClickListener;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -89,8 +91,6 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
         class NormalHolder {
             @BindView(R.id.tv_goods_name)
             TextView mTvGoodsName;
-            @BindView(R.id.tv_size)
-            TextView mTvSize;
             @BindView(R.id.tv_price)
             TextView mTvPrice;
             @BindView(R.id.iv_goods)
@@ -107,6 +107,9 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             Button mBtnAddCart;
             @BindView(R.id.btn_order)
             Button mBtnOrder;
+
+            @BindView(R.id.ll_attr)
+            LinearLayout mLlAttr;
 
             public NormalHolder(View view) {
                 ButterKnife.bind(this, view);
@@ -143,6 +146,23 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             mNormalHolder.mTvGoodsName.setText(sku.getSkuName());
             mNormalHolder.mTvPrice.setText(sku.getPrice());
 
+            //TODO 绑定属性名
+            List<SkuAttribute> attrs = new ArrayList<>();
+            attrs.addAll(sku.getNonkeyAttr());
+            attrs.addAll(sku.getAttributeNames());
+            mNormalHolder.mLlAttr.removeAllViews();
+            for (SkuAttribute itemAttr:attrs) {
+                TextView textView = new TextView(mContext);
+                textView.setText(itemAttr.getAttributeValues().get(0).getName());
+                textView.setTextColor(mContext.getResources().getColor(R.color.text_2));
+                textView.setTextSize(12);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, 0, 10, 0);
+                mNormalHolder.mLlAttr.addView(textView, params);
+            }
+
             //获取数据库里面的商品数量
             int count = sku.getCount();
 
@@ -156,14 +176,14 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
                 mNormalHolder.mTvNum.setText(String.valueOf(count));
             }
 
-//            if (sku.getPics().size() != 0) {
-//                Pic pic = sku.getPics().get(0);
-//                if (pic != null && pic.getUrl() != null) {
-//                    ImageHelp.displayRound(mContext, 15, 0, pic.getUrl(), mNormalHolder.mIvGoods);
-//                } else {
-//                    ImageHelp.displayRoundLocal(mContext, 15, 0, R.drawable.test0010, mNormalHolder.mIvGoods);
-//                }
-//            }
+            if (sku.getPics().size() != 0) {
+                Pic pic = sku.getPics().get(0);
+                if (pic != null && pic.getUrl() != null) {
+                    ImageHelp.display(mContext, pic.getUrl(), mNormalHolder.mIvGoods);
+                } else {
+                    ImageHelp.displayLocal(mContext, R.drawable.test0010, mNormalHolder.mIvGoods);
+                }
+            }
 
             mNormalHolder.mBtnOrder.setOnClickListener(view -> {
                 if (count == 0) {

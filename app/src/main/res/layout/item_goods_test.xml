@@ -24,53 +24,67 @@
         android:textSize="15sp"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/tv_size"
+    <LinearLayout
+        android:id="@+id/ll_attr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_name"
-        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/iv_goods"
-        android:text="正常颗粒"
-        android:textColor="@color/text_2"
-        android:textSize="12sp"/>
+        android:layout_marginTop="5dp">
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="正常颗粒"-->
+            <!--android:textColor="@color/text_2"-->
+            <!--android:textSize="12sp"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="正常颗粒"-->
+            <!--android:textColor="@color/text_2"-->
+            <!--android:textSize="12sp"-->
+            <!--android:layout_marginLeft="10dp"/>-->
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_size"
+        android:layout_below="@id/ll_attr"
         android:layout_marginTop="7dp"
         android:layout_toRightOf="@id/iv_goods">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="3dp"
             android:text="1包"
             android:textColor="@color/text_2"
-            android:textSize="10sp"
-            android:layout_gravity="bottom"
-            android:layout_marginRight="3dp"/>
+            android:textSize="10sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="1dp"
             android:text="￥"
             android:textColor="@color/text_8"
             android:textSize="10sp"
-            android:textStyle="bold"
-            android:layout_gravity="bottom"
-            android:layout_marginRight="1dp"/>
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:text="200"
             android:textColor="@color/text_8"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_gravity="bottom"/>
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <Button
@@ -105,14 +119,14 @@
         android:id="@+id/ll_update_num"
         android:layout_width="93dp"
         android:layout_height="29dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
-        android:visibility="visible"
         android:layout_below="@id/ll_price"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
         android:layout_toRightOf="@id/btn_order"
+        android:background="@drawable/button_shape_bg_10"
         android:gravity="center_vertical"
-        android:background="@drawable/button_shape_bg_10">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <ImageView
             android:id="@id/iv_add"
@@ -123,9 +137,9 @@
             android:id="@+id/tv_num"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="60000"
-            android:layout_weight="1"/>
+            android:text="60000"/>
 
         <ImageView
             android:id="@id/iv_cut"

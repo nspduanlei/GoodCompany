@@ -20,6 +20,7 @@ import com.apec.android.mvp.presenters.GoodsPresenter;
 import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.activities.MessageActivity;
 import com.apec.android.views.adapter.GoodsCAdapter;
@@ -92,6 +93,9 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     View mVMsgNew;
     @BindView(R.id.fl_msg)
     FrameLayout mFlMsg;
+
+    @BindView(R.id.ll_ad)
+    LinearLayout mLlAd;
 
     //选择城市，城市选择后的通知
 
@@ -249,8 +253,10 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     public void updateUser() {
         if (LoginUtil.isLogin()) {
+            mLlAd.setVisibility(View.GONE);
             mGoodsPresenter.getDefaultAddress();
         } else {
+            mLlAd.setVisibility(View.VISIBLE);
             mLlAddress.setVisibility(View.GONE);
         }
     }
@@ -289,6 +295,12 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     @OnClick(R.id.fl_msg)
     void onMsgClicked(View view) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_ad)
+    void onAdClicked(View view) {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
 }

@@ -35,7 +35,7 @@ public class OrdersActivity extends BaseActivity {
      * 订单状态id
      */
     protected static final int[] IDS = new int[]{
-            1, 2, 3, 4, 5
+            1, 2, 5, 3, 4
     };
 
     protected static final String[] CONTENT = new String[]{

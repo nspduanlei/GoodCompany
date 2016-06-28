@@ -12,4 +12,7 @@ public interface OrderListClickListener {
 
     //取消订单
     void onCancelOrder(Order order);
+
+    //查看物流
+    void onLookSend(Order order);
 }

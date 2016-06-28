@@ -211,4 +211,40 @@
         <item name="android:scaleType">center</item>
     </style>
 
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:clipToPadding="false"-->
+
+    <!--android:background="@color/bg_1"-->
+    <!--android:paddingTop="7dp"-->
+    <!--android:paddingBottom="7dp"-->
+
+
+    <style name="listStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:background">@color/bg_1</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+    </style>
+
+
+    <style name="titleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_6</item>
+    </style>
+
+
+    <style name="contentStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_2</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
 </resources>

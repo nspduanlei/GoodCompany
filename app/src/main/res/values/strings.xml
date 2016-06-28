@@ -55,5 +55,6 @@
     <string name="order_goods_price">付款金额 ￥%s</string>
     <string name="edit_data_title">修改资料</string>
     <string name="order_time">下单时间 2016-05-20 15:00</string>
+    <string name="title_transport">物流详情</string>
 
 </resources>

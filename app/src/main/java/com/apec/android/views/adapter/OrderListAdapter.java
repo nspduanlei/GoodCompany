@@ -91,17 +91,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
                     mBtnFunc.setOnClickListener(view -> mClickListener.onCancelOrder(order));
                     break;
                 case 2:
+                    mTvHint.setVisibility(View.GONE);
                     mTvStatus.setText("备货中");
                     mBtnFunc.setVisibility(View.VISIBLE);
                     mBtnFunc.setText("提醒发货");
 
-                    mBtnFunc.setOnClickListener(view -> mTvHint.setVisibility(View.VISIBLE));
+                    mBtnFunc.setOnClickListener(view -> {
+                                mTvHint.setVisibility(View.VISIBLE);
+                                mBtnFunc.setVisibility(View.GONE);
+                            }
+                    );
 
                     break;
                 case 3:
                     mTvHint.setVisibility(View.GONE);
                     mTvStatus.setText("配送中");
-                    mBtnFunc.setVisibility(View.GONE);
+                    mBtnFunc.setVisibility(View.VISIBLE);
+                    mBtnFunc.setText("查看物流");
+
+                    mBtnFunc.setOnClickListener(view -> mClickListener.onLookSend(order)
+                    );
+
                     break;
                 case 4:
                     mTvHint.setVisibility(View.GONE);

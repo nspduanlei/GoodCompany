@@ -50,10 +50,14 @@ public class LocationHelp {
         mLocationOption.setMockEnable(false);
         //设置定位间隔,单位毫秒,默认为2000ms
         mLocationOption.setInterval(2000);
+
+        mLocationOption.setHttpTimeOut(2000);
+
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
+
     }
 
     /**

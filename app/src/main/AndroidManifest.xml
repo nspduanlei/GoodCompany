@@ -61,7 +61,7 @@
         <activity android:name=".views.activities.OrdersActivity" />
         <activity android:name=".views.activities.SettingActivity" />
         <activity android:name=".views.activities.ServiceActivity" />
-
+        <activity android:name=".views.activities.TransportsActivity" />
         <!--定位-->
         <service android:name="com.amap.api.location.APSService"/>
         <meta-data android:name="com.amap.api.v2.apikey"

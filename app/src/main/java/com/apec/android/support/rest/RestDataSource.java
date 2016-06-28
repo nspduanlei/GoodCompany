@@ -5,7 +5,6 @@ import android.content.Context;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
-import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.entities.order.OrderBack;
 import com.apec.android.domain.entities.order.OrderListBack;
@@ -24,11 +23,8 @@ import com.apec.android.support.rest.interceptors.HeaderInterceptor;
 import com.apec.android.support.rest.interceptors.LoggingInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -60,6 +56,10 @@ public class RestDataSource implements GoodsRepository {
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(new LoggingInterceptor(context))
                 .addInterceptor(new CacheInterceptor(context))
+
+                //用json文件模拟数据
+                //.addInterceptor(new MockInterceptor(context))
+
                 .addNetworkInterceptor(new HeaderInterceptor(context))
                 .addNetworkInterceptor(new StethoInterceptor()) //debug
                 .cache(new Cache(cacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE))

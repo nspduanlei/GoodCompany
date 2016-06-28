@@ -119,16 +119,20 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
             case 1: //待处理
                 mTvStatus.setText("待处理");
                 break;
-            case 2: //处理中
-                mTvStatus.setText("处理中");
+            case 2: //备货中
+                mTvStatus.setText("备货中");
                 break;
-            case 3: //已完成
+            case 3: //配送中
+                mTvStatus.setText("配送中");
+
+                break;
+            case 4: //已完成
                 mTvStatus.setText("已完成");
 
                 break;
-            case 4: //订单取消
-                mTvStatus.setText("订单取消");
 
+            case 5: //已取消
+                mTvStatus.setText("已取消");
                 break;
         }
 

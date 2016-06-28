@@ -47,6 +47,14 @@ public class ImageHelp {
                 .into(imageView);
     }
 
+    public static void displayLocal(Context context, int id, ImageView ivGoods) {
+        Picasso.with(context)
+                .load(id)
+                .placeholder(R.drawable.test)
+                .error(R.drawable.test)
+                .into(ivGoods);
+    }
+
     static class CircleTransform implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {

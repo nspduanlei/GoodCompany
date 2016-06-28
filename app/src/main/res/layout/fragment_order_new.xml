@@ -7,13 +7,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_order"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
         tools:listitem="@layout/item_goods_test"
-        android:background="@color/bg_1"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"/>
+        style="@style/listStyle"/>
 
     <include
         layout="@layout/loading_layout_new"/>
