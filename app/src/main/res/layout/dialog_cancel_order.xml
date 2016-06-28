@@ -19,7 +19,6 @@
             android:text="    确认取消吗?"
             android:textColor="@color/color_text_1"
             android:textSize="20sp"
-            android:drawableLeft="@drawable/dialog_sure_icon"
             android:gravity="center"/>
 
 

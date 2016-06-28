@@ -43,9 +43,9 @@
     <TextView
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
-        android:layout_height="34.5dp"
+        android:layout_height="29dp"
         android:text="￥645.0"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/text_8"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_toRightOf="@id/iv_goods"
@@ -55,25 +55,9 @@
     <include
         android:layout_toRightOf="@id/tv_price"
         layout="@layout/layout_change_price"
-        android:layout_width="match_parent"
-        android:layout_height="34.5dp"
+        android:layout_width="93dp"
+        android:layout_height="29dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fl_sold_out"
-        android:visibility="gone">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="该商品已下架"
-            android:gravity="center"
-            android:textColor="@color/color_text_1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:background="@color/t_bg"/>
-    </FrameLayout>
 </RelativeLayout>

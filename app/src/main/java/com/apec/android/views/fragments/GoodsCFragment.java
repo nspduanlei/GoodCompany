@@ -21,6 +21,7 @@ import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.ManageAddressActivity;
+import com.apec.android.views.activities.MessageActivity;
 import com.apec.android.views.adapter.GoodsCAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LocationDialog;
@@ -250,7 +251,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         if (LoginUtil.isLogin()) {
             mGoodsPresenter.getDefaultAddress();
         } else {
-            mTvSendAddress.setVisibility(View.GONE);
+            mLlAddress.setVisibility(View.GONE);
         }
     }
 
@@ -283,5 +284,11 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     public void onStop() {
         mGoodsPresenter.onStop();
         super.onStop();
+    }
+
+    @OnClick(R.id.fl_msg)
+    void onMsgClicked(View view) {
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        startActivity(intent);
     }
 }

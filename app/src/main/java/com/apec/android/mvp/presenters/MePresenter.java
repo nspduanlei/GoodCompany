@@ -6,6 +6,7 @@ import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.GetVersionUseCase;
 import com.apec.android.mvp.views.MeView;
 import com.apec.android.mvp.views.View;
+import com.apec.android.util.AppUtils;
 
 import javax.inject.Inject;
 
@@ -53,7 +54,7 @@ public class MePresenter implements Presenter {
 
     private void onVersionReceived(Version version) {
         if (version.getH().getCode() == 200) {
-
+            mMeView.getVersionSuccess(version);
         }
     }
 

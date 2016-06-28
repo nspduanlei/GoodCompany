@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FlycoTabLayout_Lib/FlycoTabLayout_Lib.iml" filepath="$PROJECT_DIR$/FlycoTabLayout_Lib/FlycoTabLayout_Lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/GoodCompany.iml" filepath="$PROJECT_DIR$/GoodCompany.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apkUpdateLibrary/apkUpdateLibrary.iml" filepath="$PROJECT_DIR$/apkUpdateLibrary/apkUpdateLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dialogplusLibrary/dialogplusLibrary.iml" filepath="$PROJECT_DIR$/dialogplusLibrary/dialogplusLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediapicker/mediapicker.iml" filepath="$PROJECT_DIR$/mediapicker/mediapicker.iml" />

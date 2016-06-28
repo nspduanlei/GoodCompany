@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.apec.android.R;
@@ -60,18 +61,17 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
         TextView mTvGoodsName;
         @BindView(R.id.tv_price)
         TextView mTvPrice;
-        @BindView(R.id.btn_cut)
-        Button mBtnCut;
-        @BindView(R.id.btn_add)
-        Button mBtnAdd;
-        @BindView(R.id.tv_add_count)
+
+        @BindView(R.id.iv_cut)
+        ImageView mBtnCut;
+        @BindView(R.id.iv_add)
+        ImageView mBtnAdd;
+        @BindView(R.id.tv_num)
         TextView mTvAddCount;
 
         @BindView(R.id.iv_lose)
         ImageView mIvLose;
 
-        @BindView(R.id.rl_update_num)
-        RelativeLayout mRlUpdateNum;
 
         public GoodsViewHolder(View itemView, final CartListClickListener listener) {
             super(itemView);

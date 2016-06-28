@@ -1,48 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="34.5dp"
-    android:layout_margin="20dp"
-    android:id="@+id/rl_update_num">
+<LinearLayout
+    android:id="@+id/ll_update_num"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="93dp"
+    android:layout_height="29dp"
+    android:layout_below="@id/ll_price"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="4dp"
+    android:layout_toRightOf="@id/btn_order"
+    android:background="@drawable/button_shape_bg_10"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="visible">
 
-    <Button
-        android:id="@+id/btn_cut"
-        android:layout_width="34.5dp"
-        android:layout_height="34.5dp"
-        android:background="@drawable/btn_cut" />
-
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="34.5dp"
-        android:layout_height="34.5dp"
-        android:background="@drawable/btn_add"
-        android:layout_alignParentRight="true"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_line"
-        android:layout_toRightOf="@id/btn_cut"
-        android:layout_toLeftOf="@id/btn_add"/>
+    <ImageView
+        style="@style/updateNum"
+        android:id="@id/iv_add"
+        android:src="@drawable/btn_add"/>
 
     <TextView
-        android:id="@+id/tv_add_count"
-        android:layout_width="match_parent"
-        android:layout_height="33.5dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_centerHorizontal="true"
-        android:text="5"
-        android:textSize="18sp"
-        android:textColor="@color/text_3"
+        android:id="@+id/tv_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center"
-        android:layout_centerInParent="true"/>
+        android:text="60000"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_line"
-        android:layout_toRightOf="@id/btn_cut"
-        android:layout_toLeftOf="@id/btn_add"
-        android:layout_below="@id/tv_add_count"/>
-</RelativeLayout>
+    <ImageView
+        android:id="@id/iv_cut"
+        style="@style/updateNum"
+        android:src="@drawable/btn_cut"/>
+</LinearLayout>

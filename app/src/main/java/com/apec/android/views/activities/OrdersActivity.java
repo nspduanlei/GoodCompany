@@ -31,8 +31,6 @@ public class OrdersActivity extends BaseActivity {
     @BindView(R.id.vp_orders)
     ViewPager mVpOrders;
 
-    //private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-
     /**
      * 订单状态id
      */
@@ -53,51 +51,9 @@ public class OrdersActivity extends BaseActivity {
 
     @Override
     protected void initUi() {
-        //setupViewPager(mVpOrders);
-        //tabLayout();
-
         setupViewPager(mVpOrders);
         mTabs.setViewPager(mVpOrders);
-
     }
-
-    private void tabLayout() {
-//        for (int i = 0; i < CONTENT.length; i++) {
-//            mTabEntities.add(new TabEntity(CONTENT[i], 0, 0));
-//        }
-//        mTabs.setTabData(mTabEntities);
-
-//        mTabs.setOnTabSelectListener(new OnTabSelectListener() {
-//            @Override
-//            public void onTabSelect(int position) {
-//                mVpOrders.setCurrentItem(position);
-//            }
-//
-//            @Override
-//            public void onTabReselect(int position) {
-//
-//            }
-//        });
-//
-//        mVpOrders.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                mTabs.setCurrentTab(position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-//        mVpOrders.setCurrentItem(0);
-    }
-
 
     @Override
     protected void initDependencyInjector(MyApplication application) {
@@ -125,4 +81,11 @@ public class OrdersActivity extends BaseActivity {
         LoginUtil.onActivityResult(requestCode, resultCode, this);
     }
 
+    public void setMsgCount(int count, int position) {
+        if (count == 0) {
+            mTabs.hideMsg(position);
+        } else {
+            mTabs.showMsg(position, count);
+        }
+    }
 }

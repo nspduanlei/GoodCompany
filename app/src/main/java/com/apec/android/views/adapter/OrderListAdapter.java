@@ -22,12 +22,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
     private final OrderListClickListener mClickListener;
     private final ArrayList<Order> mData;
     private Context mContext;
+    private int mStatus;
 
     public OrderListAdapter(ArrayList<Order> data, Context context,
-                            OrderListClickListener clickListener) {
+                            OrderListClickListener clickListener, int status) {
         mData = data;
         mContext = context;
         mClickListener = clickListener;
+        mStatus = status;
     }
 
     @Override
@@ -76,6 +78,42 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
                     order.getOrderItems().size()));
             mTvTotalPrice.setText(String.format(mContext.getString(R.string.order_goods_price),
                     order.getOrderAmount()));
+
+            mTvTime.setText(order.getOrderDate());
+
+            switch (mStatus) {
+                case 1:
+                    mTvHint.setVisibility(View.GONE);
+                    mTvStatus.setText("待处理");
+                    mBtnFunc.setVisibility(View.VISIBLE);
+                    mBtnFunc.setText("取消订单");
+
+                    mBtnFunc.setOnClickListener(view -> mClickListener.onCancelOrder(order));
+                    break;
+                case 2:
+                    mTvStatus.setText("备货中");
+                    mBtnFunc.setVisibility(View.VISIBLE);
+                    mBtnFunc.setText("提醒发货");
+
+                    mBtnFunc.setOnClickListener(view -> mTvHint.setVisibility(View.VISIBLE));
+
+                    break;
+                case 3:
+                    mTvHint.setVisibility(View.GONE);
+                    mTvStatus.setText("配送中");
+                    mBtnFunc.setVisibility(View.GONE);
+                    break;
+                case 4:
+                    mTvHint.setVisibility(View.GONE);
+                    mTvStatus.setText("已签收");
+                    mBtnFunc.setVisibility(View.GONE);
+                    break;
+                case 5:
+                    mTvHint.setVisibility(View.GONE);
+                    mTvStatus.setText("已取消");
+                    mBtnFunc.setVisibility(View.GONE);
+                    break;
+            }
         }
 
         private void bindListener(View itemView,

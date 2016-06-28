@@ -19,7 +19,6 @@ public class GetVerCodeUseCase extends UseCase<NoBody> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
     private String mMobile;
-    //private int mType = 3;
 
     @Inject
     public GetVerCodeUseCase(GoodsRepository repository,

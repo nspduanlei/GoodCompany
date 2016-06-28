@@ -18,8 +18,8 @@ android {
         applicationId "com.apec.android"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 10003
-        versionName "1.0.003"
+        versionCode 10005
+        versionName "1.0.005"
     }
     buildTypes {
         release {
@@ -87,4 +87,5 @@ dependencies {
     compile project(':FlycoTabLayout_Lib')
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
     compile project(':mediapicker')
+    compile project(':apkUpdateLibrary')
 }

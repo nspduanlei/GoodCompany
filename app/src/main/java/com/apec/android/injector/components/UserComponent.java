@@ -1,6 +1,7 @@
 package com.apec.android.injector.components;
 
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
+import com.apec.android.domain.usercase.GetVersionUseCase;
 import com.apec.android.domain.usercase.UpdateUserInfoUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
@@ -23,7 +24,7 @@ public interface UserComponent extends ActivityComponent {
     void inject(ShowUserDataActivity showUserDataActivity);
 
     //检测版本更新
-
+    GetVersionUseCase getVersionUseCase();
     //修该用户信息
     UpdateUserInfoUseCase updateUserInfoUseCase();
     GetVerCodeUseCase getVerCodeUseCase();

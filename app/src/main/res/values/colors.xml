@@ -51,16 +51,15 @@
     <color name="color_test">#aa0000</color>
 
     <!--重构-->
-
     <color name="grey">#808080</color>
     <color name="black">#000000</color>
 
-    <color name="colorPrimary">#30c8af</color>
-    <color name="colorPrimaryDark">#30c8af</color>
-    <color name="colorAccent">#30c8af</color>
+    <color name="colorPrimary">#FF6102</color>
+    <color name="colorPrimaryDark">#FF6102</color>
+    <color name="colorAccent">#FF6102</color>
 
-    <color name="colorAccentPress">#019682</color>
-    <color name="colorAccentRipple">#808080</color>
+    <!--<color name="colorAccentPress">#FF6102</color>-->
+    <!--<color name="colorAccentRipple">#FF6102</color>-->
 
     <color name="text_1">#202021</color>
     <color name="text_2">#8A8B8F</color>
@@ -89,4 +88,7 @@
     <color name="select_city">#0ECBC0</color>
 
     <color name="setting_bg">#4cffffff</color>
+
+    <color name="bg_update_num">#EDEDED</color>
+
 </resources>

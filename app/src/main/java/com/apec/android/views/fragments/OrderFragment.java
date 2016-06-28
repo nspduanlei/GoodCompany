@@ -1,5 +1,6 @@
 package com.apec.android.views.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,13 @@ import com.apec.android.injector.components.DaggerOrderComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.MyOrdersPresenter;
 import com.apec.android.mvp.views.MyOrdersView;
+import com.apec.android.util.DialogUtils;
+import com.apec.android.util.T;
 import com.apec.android.views.activities.OrderDetailActivity;
+import com.apec.android.views.activities.OrdersActivity;
 import com.apec.android.views.adapter.OrderListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
+import com.apec.android.views.utils.AlertDialog;
 import com.apec.android.views.view.OrderListClickListener;
 import com.apec.android.views.view.RecyclerInsetsDecoration;
 
@@ -51,9 +56,11 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
 
     @Override
     protected void initUI(View view) {
+        mStatus = getArguments().getInt(EXTRA_STATUS_ID, 0);
+
         mRvOrder.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvOrder.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
-        mOrderListAdapter = new OrderListAdapter(mOrders, getActivity(), this);
+        mOrderListAdapter = new OrderListAdapter(mOrders, getActivity(), this, mStatus);
 
         mRvOrder.setAdapter(mOrderListAdapter);
     }
@@ -73,7 +80,6 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
 
     @Override
     protected void initPresenter() {
-        mStatus = getArguments().getInt(EXTRA_STATUS_ID, 0);
 
         if (mStatus == 0) {
             return;
@@ -121,6 +127,12 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     }
 
     @Override
+    public void onCancelOrder(Order order) {
+        //TODO  确定取消订单
+        new AlertDialog(getActivity(), "确定取消订单", () -> mPresenter.cancelOrder(order.getId()));
+    }
+
+    @Override
     public void showLoadingView() {
         mPbLoading.setVisibility(View.VISIBLE);
     }
@@ -135,10 +147,14 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         mOrders.clear();
         mOrders.addAll(orderList.getData());
         mOrderListAdapter.notifyDataSetChanged();
+
+        ((OrdersActivity)getActivity()).setMsgCount(mOrders.size(), mStatus - 1);
     }
 
     @Override
     public void cancelSuccess() {
         //TODO 取消订单
+        T.showShort(getActivity(), "取消订单成功");
+        mPresenter.getOrderList(mStatus);
     }
 }

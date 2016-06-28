@@ -3,6 +3,7 @@ package com.apec.android.injector.modules;
 import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.CompleteUserUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
+import com.apec.android.domain.usercase.GetVersionUseCase;
 import com.apec.android.domain.usercase.UpdateUserInfoUseCase;
 import com.apec.android.injector.Activity;
 
@@ -35,4 +36,15 @@ public class UserModule {
             @Named("executor_thread") Scheduler executorThread) {
         return new GetVerCodeUseCase(repository, uiThread, executorThread);
     }
+
+    @Provides
+    @Activity
+    GetVersionUseCase provideGetVersionUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetVersionUseCase(repository, uiThread, executorThread);
+    }
+
+
 }

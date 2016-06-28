@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.apec.android.R;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.support.ImageHelp;
 import com.apec.android.views.view.CartListEditClickListener;
+import com.google.common.io.LineReader;
 
 import java.util.List;
 
@@ -60,12 +62,12 @@ public class CartListEditAdapter extends RecyclerView.Adapter<CartListEditAdapte
         TextView mTvGoodsName;
         @BindView(R.id.tv_price)
         TextView mTvPrice;
-        @BindView(R.id.tv_add_count)
+        @BindView(R.id.tv_num)
         TextView mTvAddCount;
 
 
-        @BindView(R.id.rl_update_num)
-        RelativeLayout mRlUpdateNum;
+        @BindView(R.id.ll_update_num)
+        LinearLayout mLlUpdateNum;
 
         public GoodsViewHolder(View itemView, final CartListEditClickListener listener) {
             super(itemView);
@@ -87,7 +89,7 @@ public class CartListEditAdapter extends RecyclerView.Adapter<CartListEditAdapte
                     mCbSelect.isChecked(), getAdapterPosition()));
 
 
-            mRlUpdateNum.setVisibility(View.GONE);
+            mLlUpdateNum.setVisibility(View.GONE);
 
         }
 

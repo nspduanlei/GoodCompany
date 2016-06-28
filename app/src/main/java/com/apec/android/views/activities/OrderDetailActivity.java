@@ -149,12 +149,6 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
         mPbLoading.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 
 //    @OnClick(R.id.btn_cancel_order)

@@ -19,7 +19,9 @@ import com.apec.android.mvp.presenters.EditAddressPresenter;
 import com.apec.android.mvp.presenters.MePresenter;
 import com.apec.android.mvp.views.MeView;
 import com.apec.android.support.ImageHelp;
+import com.apec.android.support.rest.RestDataSource;
 import com.apec.android.util.AppUtils;
+import com.apec.android.util.T;
 import com.apec.android.views.activities.EditUserDataActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.activities.MessageActivity;
@@ -31,8 +33,10 @@ import com.apec.android.views.adapter.listView.CommonAdapter;
 import com.apec.android.views.adapter.listView.MyViewHolder;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
+import com.apec.android.views.utils.UpdateVersionUtil;
 import com.apec.android.views.utils.UserUtil;
 import com.apec.android.views.widget.NoScrollListView;
+import com.loveplusplus.update.UpdateChecker;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,8 +61,8 @@ public class MeFragment extends BaseFragment implements MeView {
     ImageView mIvHeader;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
-    @BindView(R.id.v_msg_new)
-    View mVMsgNew;
+//    @BindView(R.id.v_msg_new)
+//    View mVMsgNew;
 
     boolean isLogin = false;
     User mUser;
@@ -126,7 +130,7 @@ public class MeFragment extends BaseFragment implements MeView {
                     break;
                 case 5: //版本更新
                     //TODO 检测版本
-
+                    mPresenter.getVersion();
                     break;
             }
             if (intent != null) {
@@ -155,13 +159,13 @@ public class MeFragment extends BaseFragment implements MeView {
         mPresenter.onCreate();
     }
 
-    @OnClick(R.id.fl_msg)
-    void onMsgClicked(View view) {
-        Intent intent = new Intent(getActivity(), MessageActivity.class);
-        startActivity(intent);
-    }
+//    @OnClick(R.id.fl_msg)
+//    void onMsgClicked(View view) {
+//        Intent intent = new Intent(getActivity(), MessageActivity.class);
+//        startActivity(intent);
+//    }
 
-    @OnClick(R.id.fl_setting)
+    @OnClick(R.id.tv_edit)
     void onSettingClicked(View view) {
         Intent intent = new Intent(getActivity(), SettingActivity.class);
         startActivity(intent);
@@ -191,18 +195,6 @@ public class MeFragment extends BaseFragment implements MeView {
     }
 
     @Override
-    public void isNewest() {
-        //TODO  是最新版本
-    }
-
-    @Override
-    public void noNewest(Version version) {
-        //TODO 不是最新版本， 去下载最新版本
-
-
-    }
-
-    @Override
     public void showLoadingView() {
 
     }
@@ -210,5 +202,18 @@ public class MeFragment extends BaseFragment implements MeView {
     @Override
     public void hideLoadingView() {
 
+    }
+
+    @Override
+    public void getVersionSuccess(Version version) {
+        int appCode = AppUtils.getVersionCode(getActivity());
+        if (appCode >= version.getB().getVersionNo()) {
+            //已是最新版本
+            T.showShort(getActivity(), "当前已是最新版本");
+        } else {
+            //不是最新版本
+            UpdateChecker.checkForDialog(getActivity(), RestDataSource.END_POINT + "appVersion");
+            //new UpdateVersionUtil(getActivity(), version.getB()).showDialog();
+        }
     }
 }

@@ -169,8 +169,12 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
         Intent mIntent = new Intent(MainActivity.ACTION_GOOD_UPDATE);
         sendBroadcast(mIntent);
 
-        setResult(Constants.RESULT_CODE_ORDER_SUCCESS);
-        finish();
+//        setResult(Constants.RESULT_CODE_ORDER_SUCCESS);
+//        finish();
+
+        //跳转到我的订单
+        Intent intentOrder = new Intent(this, OrdersActivity.class);
+        startActivity(intentOrder);
     }
 
     @Override

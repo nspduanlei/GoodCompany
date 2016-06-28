@@ -230,7 +230,10 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     /** 创建并添加tab */
     private void addTab(final int position, View tabView) {
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-        tv_tab_title.setText(mTabEntitys.get(position).getTabTitle());
+        //duanlei
+        //tv_tab_title.setText(mTabEntitys.get(position).getTabTitle());
+        tv_tab_title.setVisibility(GONE);
+
         ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
         iv_tab_icon.setImageResource(mTabEntitys.get(position).getTabUnselectedIcon());
 

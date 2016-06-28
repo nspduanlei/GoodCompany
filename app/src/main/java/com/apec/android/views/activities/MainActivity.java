@@ -10,6 +10,7 @@ import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.mvp.presenters.ShoppingCartPresenter;
+import com.apec.android.support.rest.RestDataSource;
 import com.apec.android.util.L;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.fragments.GoodsCFragment;
@@ -21,6 +22,7 @@ import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.loveplusplus.update.UpdateChecker;
 
 import java.util.ArrayList;
 
@@ -60,6 +62,9 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
     @Override
     protected void initUi() {
+
+        UpdateChecker.checkForDialog(this, RestDataSource.END_POINT + "appVersion");
+
         mGoodsCFragment = new GoodsCFragment();
         mGoodsCFragment.setListener(this);
 

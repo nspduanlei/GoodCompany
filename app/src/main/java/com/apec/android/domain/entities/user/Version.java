@@ -26,10 +26,42 @@ public class Version {
         this.b = b;
     }
 
-    class data {
+    public class data {
         private int id;
         private int versionNo;
         private String remake;
         private String url;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getVersionNo() {
+            return versionNo;
+        }
+
+        public void setVersionNo(int versionNo) {
+            this.versionNo = versionNo;
+        }
+
+        public String getRemake() {
+            return remake;
+        }
+
+        public void setRemake(String remake) {
+            this.remake = remake;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 }
