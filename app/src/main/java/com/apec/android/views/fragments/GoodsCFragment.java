@@ -20,6 +20,7 @@ import com.apec.android.mvp.presenters.GoodsPresenter;
 import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
+import com.apec.android.util.T;
 import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.activities.MessageActivity;
@@ -150,7 +151,11 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     @Override
     public void showErrorView(String s) {
+        if (mLocationDialog.isShow()) {
+            mLocationDialog.closeDialog();
+        }
 
+        T.showShort(getActivity(), "无法请求到数据");
     }
 
     @Override
@@ -217,7 +222,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
             mAdapter.addFragment(GoodsFragment.newInstance(IDS[i]), CONTENT[i]);
         }
         viewPager.setAdapter(mAdapter);
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     @OnClick(R.id.tv_send_address)

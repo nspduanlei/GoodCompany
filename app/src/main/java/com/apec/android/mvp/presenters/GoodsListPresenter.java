@@ -162,7 +162,7 @@ public class GoodsListPresenter implements Presenter {
     }
 
     private void manageError(Throwable throwable) {
-
+        L.e("error");
     }
 
     private void onAddCountReceived(int allCount) {

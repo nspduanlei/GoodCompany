@@ -48,14 +48,18 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     OrderListAdapter mOrderListAdapter;
 
     public static final String EXTRA_STATUS_ID = "status_id";
+    public static final String EXTRA_POSITION = "position";
+
 
     ArrayList<Order> mOrders = new ArrayList<>();
 
     int mStatus;
+    int mPosition;
 
     @Override
     protected void initUI(View view) {
         mStatus = getArguments().getInt(EXTRA_STATUS_ID, 0);
+        mPosition = getArguments().getInt(EXTRA_POSITION, 0);
 
         mRvOrder.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvOrder.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
@@ -97,9 +101,10 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
      * @param id 订单状态id
      * @return
      */
-    public static Fragment newInstance(int id) {
+    public static Fragment newInstance(int id, int position) {
         Bundle args = new Bundle();
         args.putInt(EXTRA_STATUS_ID, id);
+        args.putInt(EXTRA_POSITION, position);
         OrderFragment fragment = new OrderFragment();
         fragment.setArguments(args);
         return fragment;
@@ -133,7 +138,7 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     public void onLookSend(Order order) {
         //TODO  查看物流
         Intent intent = new Intent(getActivity(), TransportsActivity.class);
-        intent.putExtra("orderId", order.getOrderNo());
+        intent.putExtra("orderId", order.getId());
         startActivity(intent);
     }
 
@@ -155,7 +160,7 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
 
         mOrderListAdapter.notifyDataSetChanged();
 
-        ((OrdersActivity)getActivity()).setMsgCount(mOrders.size(), mStatus - 1);
+        ((OrdersActivity)getActivity()).setMsgCount(mOrders.size(), mPosition);
     }
 
     @Override

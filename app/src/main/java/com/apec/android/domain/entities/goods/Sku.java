@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Sku {
     private int id;
+    private String goodsName;
     private int goodsId;
     private String skuName;
     private String price;
@@ -22,6 +23,14 @@ public class Sku {
     private int status;
     //购物车数量
     private int count;
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
 
     public int getCount() {
         return count;

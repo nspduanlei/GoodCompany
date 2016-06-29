@@ -9,6 +9,7 @@ import com.apec.android.domain.entities.order.OrderListBack;
 import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptList;
+import com.apec.android.domain.entities.transport.TransportInfo;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
@@ -135,4 +136,7 @@ public interface GoodsApi {
 
     @GET("appVersion")
     Observable<Version> getVersion();
+
+    @GET("logistics")
+    Observable<TransportInfo> getTransport(@Query("orderId") int orderId);
 }

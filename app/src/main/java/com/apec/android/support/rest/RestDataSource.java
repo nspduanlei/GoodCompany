@@ -12,6 +12,7 @@ import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
+import com.apec.android.domain.entities.transport.TransportInfo;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
@@ -53,7 +54,11 @@ public class RestDataSource implements GoodsRepository {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .connectTimeout(15, TimeUnit.SECONDS)
+
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+
                 .addInterceptor(new LoggingInterceptor(context))
                 .addInterceptor(new CacheInterceptor(context))
 
@@ -224,5 +229,10 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<Version> getVersion() {
         return mGoodsApi.getVersion();
+    }
+
+    @Override
+    public Observable<TransportInfo> getTransport(int orderId) {
+        return mGoodsApi.getTransport(orderId);
     }
 }

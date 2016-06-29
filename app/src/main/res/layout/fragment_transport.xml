@@ -1,98 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    app:cardCornerRadius="10dp">
 
-    <LinearLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/bg_1"
+             android:padding="10dp">
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        app:cardCornerRadius="10dp">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/iv_header"
-                android:layout_width="83dp"
-                android:layout_height="83dp"
-                android:src="@drawable/transport_header"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/titleStyle"
-                android:id="@+id/tv_title_1"
-                android:text="配送"
-                android:layout_toRightOf="@id/iv_header"/>
+                <ImageView
+                    android:id="@+id/iv_header"
+                    android:layout_width="83dp"
+                    android:layout_height="83dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/transport_header"/>
 
-            <TextView
-                style="@style/titleStyle"
-                android:id="@+id/tv_title_2"
-                android:text="司机"
-                android:layout_toRightOf="@id/iv_header"
-                android:layout_below="@id/tv_title_1"/>
+                <TextView
+                    android:id="@+id/tv_title_1"
+                    style="@style/titleStyle"
+                    android:layout_toRightOf="@id/iv_header"
+                    android:text="配送"/>
 
-            <TextView
-                style="@style/titleStyle"
-                android:id="@+id/tv_title_3"
-                android:text="电话"
-                android:layout_toRightOf="@id/iv_header"
-                android:layout_below="@id/tv_title_2"/>
+                <TextView
+                    android:id="@+id/tv_title_2"
+                    style="@style/titleStyle"
+                    android:layout_below="@id/tv_title_1"
+                    android:layout_toRightOf="@id/iv_header"
+                    android:text="司机"/>
 
+                <TextView
+                    android:id="@+id/tv_title_3"
+                    style="@style/titleStyle"
+                    android:layout_below="@id/tv_title_2"
+                    android:layout_toRightOf="@id/iv_header"
+                    android:text="电话"/>
 
-            <TextView
-                style="@style/contentStyle"
-                android:id="@+id/tv_company"
-                android:text="某某货运"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_company"
+                    style="@style/contentStyle"
+                    android:text="某某货运"
+                    android:textStyle="bold"/>
 
-            <TextView
-                style="@style/contentStyle"
-                android:id="@+id/tv_driver"
-                android:text="张师傅"
-                android:layout_below="@id/tv_company"/>
+                <TextView
+                    android:id="@+id/tv_driver"
+                    style="@style/contentStyle"
+                    android:layout_below="@id/tv_company"
+                    android:text="张师傅"/>
 
-            <TextView
-                style="@style/contentStyle"
-                android:id="@+id/tv_phone"
-                android:text="12233668899"
-                android:layout_below="@id/tv_driver"/>
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/contentStyle"
+                    android:layout_below="@id/tv_driver"
+                    android:text="12233668899"/>
+            </RelativeLayout>
 
-        </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/dotted_line"
+                android:layout_marginTop="10dp"/>
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/shape_dot"
-                android:layout_centerVertical="true"/>
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_good_name"
-                style="@style/titleStyle"
-                android:text="广西白砂糖"
-                android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品详情"
+                    android:textColor="@color/text_1"/>
 
+                <ListView
+                    android:id="@+id/lv_sku"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
 
-            <TextView
-                android:id="@+id/tv_count"
-                style="@style/contentStyle"
-                android:text="x1"/>
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-
-</android.support.v7.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

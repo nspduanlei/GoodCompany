@@ -70,7 +70,7 @@ public class OrdersActivity extends BaseActivity {
                 new GoodsCAdapter(getSupportFragmentManager());
 
         for (int i = 0; i < CONTENT.length; i++) {
-            adapter.addFragment(OrderFragment.newInstance(IDS[i]), CONTENT[i]);
+            adapter.addFragment(OrderFragment.newInstance(IDS[i], i), CONTENT[i]);
         }
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(5);

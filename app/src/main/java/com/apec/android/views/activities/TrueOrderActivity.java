@@ -175,6 +175,8 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
         //跳转到我的订单
         Intent intentOrder = new Intent(this, OrdersActivity.class);
         startActivity(intentOrder);
+
+        this.finish();
     }
 
     @Override

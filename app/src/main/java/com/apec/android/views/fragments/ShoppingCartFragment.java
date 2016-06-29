@@ -269,6 +269,8 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         mTotalPrice = 0.0;
         mCount = 0;
         mPresenter.getData();
+
+        exitEdit();
     }
 
     //全选
@@ -355,13 +357,8 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     void onEditClicked(View view) {
         if (isEdit) {
             //如果是编辑状态退出编辑
-            isEdit = false;
 
-            mTvEdit.setText("编辑");
-
-            mLlContent.setVisibility(View.VISIBLE);
-            mLlEdit.setVisibility(View.GONE);
-
+            exitEdit();
         } else {
             //如果不是编辑状态，进入编辑状态
             isEdit = true;
@@ -380,6 +377,17 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
             mLlEdit.setVisibility(View.VISIBLE);
         }
     }
+
+    //退出编辑状态
+    public void exitEdit() {
+        isEdit = false;
+
+        mTvEdit.setText("编辑");
+
+        mLlContent.setVisibility(View.VISIBLE);
+        mLlEdit.setVisibility(View.GONE);
+    }
+
 
     @OnClick(R.id.btn_delete_edit)
     void onDeleteClicked(View view) {
@@ -403,6 +411,8 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         mCountEdit = 0;
         getData();
         updateEdit();
+
+        ((MainActivity) getActivity()).updateGoods();
     }
 
 }

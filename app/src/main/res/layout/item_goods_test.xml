@@ -10,7 +10,7 @@
         android:id="@+id/iv_goods"
         android:layout_width="115dp"
         android:layout_height="115dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="15dp"
         android:scaleType="fitXY"
         android:src="@drawable/goods_pic_test"/>
 
@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_name"
         android:layout_toRightOf="@id/iv_goods"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
@@ -92,7 +93,7 @@
         android:layout_width="67dp"
         android:layout_height="22dp"
         android:layout_below="@id/ll_price"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/iv_goods"
         android:background="@drawable/button_selector"
         android:text="快速下单"
@@ -106,7 +107,7 @@
         android:layout_height="22dp"
         android:layout_below="@id/ll_price"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/btn_order"
         android:background="@drawable/button_selector_add_cart"
         android:text="加入购物车"
@@ -121,7 +122,7 @@
         android:layout_height="29dp"
         android:layout_below="@id/ll_price"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:layout_toRightOf="@id/btn_order"
         android:background="@drawable/button_shape_bg_10"
         android:gravity="center_vertical"

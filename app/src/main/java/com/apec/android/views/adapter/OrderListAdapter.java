@@ -103,7 +103,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
                     );
 
                     break;
-                case 3:
+                case 5:
                     mTvHint.setVisibility(View.GONE);
                     mTvStatus.setText("配送中");
                     mBtnFunc.setVisibility(View.VISIBLE);
@@ -113,12 +113,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
                     );
 
                     break;
-                case 4:
+                case 3:
                     mTvHint.setVisibility(View.GONE);
                     mTvStatus.setText("已签收");
                     mBtnFunc.setVisibility(View.GONE);
                     break;
-                case 5:
+                case 4:
                     mTvHint.setVisibility(View.GONE);
                     mTvStatus.setText("已取消");
                     mBtnFunc.setVisibility(View.GONE);

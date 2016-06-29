@@ -7,10 +7,12 @@ import com.apec.android.domain.usercase.GetAllOrderUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
 import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.GetOrderDetailUseCase;
+import com.apec.android.domain.usercase.GetTransportUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.OrderModule;
 import com.apec.android.views.activities.OrderDetailActivity;
+import com.apec.android.views.activities.TransportsActivity;
 import com.apec.android.views.activities.TrueOrderActivity;
 import com.apec.android.views.fragments.OrderFragment;
 
@@ -26,6 +28,10 @@ public interface OrderComponent extends ActivityComponent {
     void inject(OrderDetailActivity orderDetailActivity);
     void inject(TrueOrderActivity trueOrderActivity);
     void inject(OrderFragment orderFragment);
+    void inject(TransportsActivity transportsActivity);
+
+
+    GetTransportUseCase getTransportUseCase();
 
     CreateOrderUseCase createOrderUseCase();
     GetArriveTimeUseCase getArriveTimeUseCase();

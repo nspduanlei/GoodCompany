@@ -7,6 +7,8 @@ import com.facebook.stetho.Stetho;
 
 import org.litepal.LitePalApplication;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2016/2/25.
  */
@@ -19,6 +21,12 @@ public class MyApplication extends LitePalApplication {
         super.onCreate();
         initializeInjector();
         initializeDebug();
+        initializeJPush();
+    }
+
+    private void initializeJPush() {
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
     }
 
     private void initializeDebug() {

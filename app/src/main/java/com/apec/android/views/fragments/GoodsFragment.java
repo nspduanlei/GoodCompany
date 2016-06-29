@@ -197,10 +197,12 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         mOrderSkuId = skuId;
         mOrderCount = count;
 
-        //立即下单， 如果用户没有登录则去登录
-        if (LoginUtil.gotoLoginNew(getActivity())) {
-            doOrder();
-        }
+//        //立即下单， 如果用户没有登录则去登录
+//        if (LoginUtil.gotoLoginNew(getActivity())) {
+//            doOrder();
+//        }
+
+        doOrder();
     }
 
     @Override

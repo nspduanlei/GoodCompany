@@ -9,6 +9,7 @@ import com.apec.android.domain.usercase.GetAllOrderUseCase;
 import com.apec.android.domain.usercase.GetArriveTimeUseCase;
 import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.GetOrderDetailUseCase;
+import com.apec.android.domain.usercase.GetTransportUseCase;
 import com.apec.android.injector.Activity;
 
 import javax.inject.Named;
@@ -22,6 +23,15 @@ import rx.Scheduler;
  */
 @Module
 public class OrderModule {
+
+    @Provides
+    @Activity
+    GetTransportUseCase provideGetTransportUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetTransportUseCase(repository, uiThread, executorThread);
+    }
 
     @Provides
     @Activity

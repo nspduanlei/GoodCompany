@@ -83,6 +83,7 @@ public class GoodsPresenter implements Presenter {
 
     private void manageIsOpenError(Throwable throwable) {
         L.e("error");
+        mGoodsView.showErrorView("");
     }
 
     private void cityIsOpenReceived(ArrayList<OpenCity> data) {

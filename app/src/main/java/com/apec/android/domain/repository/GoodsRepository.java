@@ -11,6 +11,7 @@ import com.apec.android.domain.entities.transport.ArrivalTime;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
 import com.apec.android.domain.entities.transport.ReceiptList;
+import com.apec.android.domain.entities.transport.TransportInfo;
 import com.apec.android.domain.entities.user.Areas;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.entities.user.ShopCartBack;
@@ -202,4 +203,6 @@ public interface GoodsRepository {
 
     //获取最新的版本信息
     Observable<Version> getVersion();
+
+    Observable<TransportInfo> getTransport(int orderId);
 }

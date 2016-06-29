@@ -8,10 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
-import com.apec.android.domain.usercase.GetAllCartUseCase;
-import com.apec.android.mvp.presenters.ShoppingCartPresenter;
 import com.apec.android.support.rest.RestDataSource;
-import com.apec.android.util.L;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.fragments.GoodsCFragment;
 import com.apec.android.views.fragments.MeFragment;
@@ -27,6 +24,7 @@ import com.loveplusplus.update.UpdateChecker;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by duanlei on 2016/6/7.
@@ -35,6 +33,9 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
     @BindView(R.id.tl_main)
     CommonTabLayout mTlMain;
+
+    //是否在前台
+    public static boolean isForeground = false;
 
     private String[] mTitles = {"首页", "购物车", "我的"};
     private int[] mIconUnselectIds = {
@@ -51,6 +52,12 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
     public static final String ACTION_USER_UPDATE = "用户修改";
     public static final String ACTION_GOOD_UPDATE = "数据更新";
+    public static final String MESSAGE_RECEIVED_ACTION = "推送消息";
+
+    //推送字段
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
 
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -62,8 +69,7 @@ public class MainActivity extends BaseActivity implements FragmentListener{
 
     @Override
     protected void initUi() {
-
-        UpdateChecker.checkForDialog(this, RestDataSource.END_POINT + "appVersion");
+        init();
 
         mGoodsCFragment = new GoodsCFragment();
         mGoodsCFragment.setListener(this);
@@ -99,6 +105,13 @@ public class MainActivity extends BaseActivity implements FragmentListener{
         });
 
         registerBroadcastReceiver();
+    }
+
+    private void init() {
+        // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
+        JPushInterface.init(getApplicationContext());
+        // 版本自动更新
+        UpdateChecker.checkForDialog(this, RestDataSource.END_POINT + "appVersion");
     }
 
     @Override
@@ -139,6 +152,9 @@ public class MainActivity extends BaseActivity implements FragmentListener{
                 case ACTION_GOOD_UPDATE:
                     updateGoods();
                     break;
+                case MESSAGE_RECEIVED_ACTION:
+
+                    break;
             }
         }
     };
@@ -153,9 +169,25 @@ public class MainActivity extends BaseActivity implements FragmentListener{
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(ACTION_USER_UPDATE);
         myIntentFilter.addAction(ACTION_GOOD_UPDATE);
+        myIntentFilter.addAction(MESSAGE_RECEIVED_ACTION);
         // 注册广播
         registerReceiver( mBroadcastReceiver, myIntentFilter) ;
     }
+
+
+    @Override
+    protected void onResume() {
+        isForeground = true;
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        isForeground = false;
+        super.onPause();
+    }
+
 
     @Override
     protected void onDestroy() {

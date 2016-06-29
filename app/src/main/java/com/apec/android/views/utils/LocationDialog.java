@@ -213,4 +213,8 @@ public class LocationDialog {
         //mTvCancel.setVisibility(View.VISIBLE);
         //mDialog.show();
     }
+
+    public boolean isShow() {
+        return mDialog.isShowing();
+    }
 }

@@ -18,8 +18,8 @@ android {
         applicationId "com.apec.android"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 10005
-        versionName "1.0.005"
+        versionCode 10004
+        versionName "1.0.004"
     }
     buildTypes {
         release {
@@ -88,4 +88,5 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
     compile project(':mediapicker')
     compile project(':apkUpdateLibrary')
+    compile files('libs/jpush-android-2.1.7.jar')
 }
