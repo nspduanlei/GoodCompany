@@ -101,6 +101,8 @@ public class TrueOrderPresenter implements Presenter {
         mView.hideLoadingView();
         if (noBody.getH().getCode() == 200) {
             mView.onOrderSuccess();
+        } else if (noBody.getH().getCode() == 3006) {
+            mView.addressNotMatch();
         }
     }
 

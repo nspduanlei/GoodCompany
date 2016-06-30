@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
@@ -31,6 +36,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by duanlei on 2016/6/10.
@@ -55,6 +61,12 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
 
     int mStatus;
     int mPosition;
+    @BindView(R.id.iv_empty)
+    ImageView mIvEmpty;
+    @BindView(R.id.tv_hint)
+    TextView mTvHint;
+    @BindView(R.id.ll_empty)
+    LinearLayout mLlEmpty;
 
     @Override
     protected void initUI(View view) {
@@ -66,6 +78,9 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         mOrderListAdapter = new OrderListAdapter(mOrders, getActivity(), this, mStatus);
 
         mRvOrder.setAdapter(mOrderListAdapter);
+
+        mIvEmpty.setImageResource(R.drawable.order_empty);
+        mTvHint.setText("亲！无相关订单哦");
     }
 
     @Override
@@ -157,15 +172,24 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         mOrders.clear();
         mOrders.addAll(orderList.getData());
 
-
         mOrderListAdapter.notifyDataSetChanged();
 
-        ((OrdersActivity)getActivity()).setMsgCount(mOrders.size(), mPosition);
+        ((OrdersActivity) getActivity()).setMsgCount(mOrders.size(), mPosition);
     }
 
     @Override
     public void cancelSuccess() {
         T.showShort(getActivity(), "取消订单成功");
         mPresenter.getOrderList(mStatus);
+    }
+
+    @Override
+    public void showEmpty() {
+        mLlEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmpty() {
+        mLlEmpty.setVisibility(View.GONE);
     }
 }

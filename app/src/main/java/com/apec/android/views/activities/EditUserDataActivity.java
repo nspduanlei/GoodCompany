@@ -132,7 +132,6 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         switch (item.getItemId()) {
             case R.id.menu_sure:
                 //TODO 提交修改
-
                 String info = mEtUserInfo.getText().toString();
                 String msg = "";
 
@@ -165,7 +164,6 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                 if (!msg.equals("")) {
                     T.showShort(this, msg);
                 } else {
-
                     mUser = UserUtil.getUser();
 
                     if (mUser == null) {
@@ -196,8 +194,6 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 
     @Override
     public void updateUserSuccess() {
-
-
         UserUtil.updateUser(mUser);
 
         Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);

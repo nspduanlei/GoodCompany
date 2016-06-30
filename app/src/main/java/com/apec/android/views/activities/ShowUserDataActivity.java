@@ -11,10 +11,12 @@ import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.user.User;
 import com.apec.android.injector.components.DaggerUserComponent;
 import com.apec.android.injector.modules.ActivityModule;
+import com.apec.android.support.ImageHelp;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.utils.UserUtil;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -60,6 +62,16 @@ public class ShowUserDataActivity extends BaseActivity {
             mTvShopName.setText(mUser.getShopName());
 //            mTvUser.setText(mUser.getName());
 //            mTvPhone.setText(mUser.getPhone());
+
+            //头像
+            if (mUser.getShopPic() != null) {
+                File file = new File(mUser.getShopPic());
+                if (file.exists()) {
+                    ImageHelp.displayLocalFile(this, file, mIvPic);
+                }
+            } else {
+                mIvPic.setImageResource(R.drawable.head_default);
+            }
         }
     }
 

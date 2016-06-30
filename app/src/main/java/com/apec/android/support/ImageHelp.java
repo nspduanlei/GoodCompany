@@ -8,8 +8,12 @@ import android.graphics.Paint;
 import android.widget.ImageView;
 
 import com.apec.android.R;
+import com.apec.android.views.activities.ShowUserDataActivity;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import java.io.File;
+
 /**
  * Created by duanlei on 2016/5/27.
  */
@@ -47,12 +51,29 @@ public class ImageHelp {
                 .into(imageView);
     }
 
-    public static void displayLocal(Context context, int id, ImageView ivGoods) {
+    public static void displayLocal(Context context, int id, ImageView imageView) {
         Picasso.with(context)
                 .load(id)
                 .placeholder(R.drawable.test)
                 .error(R.drawable.test)
-                .into(ivGoods);
+                .into(imageView);
+    }
+
+    public static void displayLocalFile(Context context, File file, ImageView imageView) {
+        Picasso.with(context)
+                .load(file)
+                .placeholder(R.drawable.test)
+                .error(R.drawable.test)
+                .into(imageView);
+    }
+
+    public static void displayLocalFileCircle(Context context, File file, ImageView imageView) {
+        Picasso.with(context)
+                .load(file)
+                .placeholder(R.drawable.test)
+                .error(R.drawable.test)
+                .transform(new CircleTransform())
+                .into(imageView);
     }
 
     static class CircleTransform implements Transformation {

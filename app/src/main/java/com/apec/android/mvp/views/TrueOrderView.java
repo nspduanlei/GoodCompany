@@ -10,4 +10,6 @@ public interface TrueOrderView extends View {
     void onOrderSuccess();
 
     void onGetDefaultAddress(ReceiptDefault receiptDefault);
+
+    void addressNotMatch();
 }

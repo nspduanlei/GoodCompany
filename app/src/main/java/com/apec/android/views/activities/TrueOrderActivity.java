@@ -187,6 +187,12 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     }
 
     @Override
+    public void addressNotMatch() {
+        //您选择的收货地址和该商品所在地址不匹配
+        T.showShort(this, "商品与您配送地址不匹配");
+    }
+
+    @Override
     public void showLoadingView() {
         mPbLoading.setVisibility(View.VISIBLE);
     }

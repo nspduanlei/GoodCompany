@@ -75,7 +75,12 @@ public class MyOrdersPresenter implements Presenter {
         mView.hideLoadingView();
 
         if (orderListBack.getH().getCode() == 200) {
-            mView.bindOrders(orderListBack.getB());
+            if (orderListBack.getB().getData().size() > 0) {
+                mView.hideEmpty();
+                mView.bindOrders(orderListBack.getB());
+            } else {
+                mView.showEmpty();
+            }
         }
     }
 

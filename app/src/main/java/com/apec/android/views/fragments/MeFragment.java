@@ -39,6 +39,7 @@ import com.apec.android.views.widget.NoScrollListView;
 import com.loveplusplus.update.UpdateChecker;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -185,8 +186,18 @@ public class MeFragment extends BaseFragment implements MeView {
             mUser = UserUtil.getUser();
             if (mUser != null) {
                 mTvUserName.setText(mUser.getShopName());
+//                if (mUser.getShopPic() != null) {
+//                    ImageHelp.displayCircle(getActivity(), mUser.getShopPic(), mIvHeader);
+//                }
+
+                //头像
                 if (mUser.getShopPic() != null) {
-                    ImageHelp.displayCircle(getActivity(), mUser.getShopPic(), mIvHeader);
+                    File file = new File(mUser.getShopPic());
+                    if (file.exists()) {
+                        ImageHelp.displayLocalFileCircle(getActivity(), file, mIvHeader);
+                    }
+                } else {
+                    mIvHeader.setImageResource(R.drawable.head_default);
                 }
             }
         } else {

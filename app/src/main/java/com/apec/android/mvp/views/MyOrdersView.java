@@ -9,4 +9,7 @@ public interface MyOrdersView extends View {
     void bindOrders(OrderList orderList);
 
     void cancelSuccess();
+
+    void showEmpty();
+    void hideEmpty();
 }
