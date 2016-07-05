@@ -20,6 +20,7 @@ import com.apec.android.mvp.presenters.LoginPresenter;
 import com.apec.android.mvp.views.LoginView;
 import com.apec.android.util.KeyBoardUtils;
 import com.apec.android.util.L;
+import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
 import com.apec.android.views.activities.core.BaseActivity;
@@ -189,8 +190,19 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
         startTimer();
     }
 
+    private void uploadArgument() {
+        String value = (String) SPUtils.get(this, SPUtils.REGISTRATION_ID, "");
+        if (!StringUtils.isNullOrEmpty(value)) {
+            mLoginPresenter.uploadArgument(value, 3);
+        }
+    }
+
     @Override
     public void bindUser(User user) {
+        //上传参数
+        uploadArgument();
+
+
         mUser = user;
 
         //登录成功，显示信息验证
@@ -216,6 +228,8 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
 
     @Override
     public void completeData() {
+        uploadArgument();
+
         isNewUser = true;
         //未完善资料, 显示表单填写
         showComplete();

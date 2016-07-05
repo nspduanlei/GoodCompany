@@ -139,4 +139,8 @@ public interface GoodsApi {
 
     @GET("logistics")
     Observable<TransportInfo> getTransport(@Query("orderId") int orderId);
+    @GET("jpush/u_bind")
+
+    Observable<NoBody> uploadArgument(@Query("name") String name,
+                                      @Query("name_type") int nameType);
 }

@@ -12,6 +12,7 @@ import com.apec.android.domain.usercase.CompleteUserUseCase;
 import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
+import com.apec.android.domain.usercase.UploadArgumentUseCase;
 import com.apec.android.mvp.views.LoginView;
 import com.apec.android.mvp.views.View;
 import com.apec.android.util.L;
@@ -38,6 +39,8 @@ public class LoginPresenter implements Presenter {
     CompleteUserUseCase mCompleteUserUseCase;
     GetAllCartUseCase mGetAllCartUseCase;
 
+    UploadArgumentUseCase mUploadArgumentUseCase;
+
     Subscription mSubscriptionGetVer;
     Subscription mSubscriptionSubmit;
     Subscription mSubscriptionComplete;
@@ -47,11 +50,13 @@ public class LoginPresenter implements Presenter {
     public LoginPresenter(GetVerCodeUseCase getVerCodeUseCase,
                           SubmitVerCodeUseCase submitVerCodeUseCase,
                           CompleteUserUseCase completeUserUseCase,
-                          GetAllCartUseCase getAllCartUseCase) {
+                          GetAllCartUseCase getAllCartUseCase,
+                          UploadArgumentUseCase uploadArgumentUseCase) {
         mGetVerCodeUseCase = getVerCodeUseCase;
         mSubmitVerCodeUseCase = submitVerCodeUseCase;
         mCompleteUserUseCase = completeUserUseCase;
         mGetAllCartUseCase = getAllCartUseCase;
+        mUploadArgumentUseCase = uploadArgumentUseCase;
     }
 
     @Override
@@ -184,6 +189,18 @@ public class LoginPresenter implements Presenter {
         mLoginView.hideLoadingView();
         if (noBody.getH().getCode() == 200) {
             mLoginView.completeSuccess();
+        }
+    }
+
+    //上传参数
+    public void uploadArgument(String name, int nameType) {
+        mUploadArgumentUseCase.setData(name, nameType);
+        mUploadArgumentUseCase.execute().subscribe(this::onUploadReceived, this::manageError);
+    }
+
+    private void onUploadReceived(NoBody noBody) {
+        if (noBody.getH().getCode() == 200) {
+            L.e("test0001", "参数长传成功");
         }
     }
 }

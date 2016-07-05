@@ -205,4 +205,7 @@ public interface GoodsRepository {
     Observable<Version> getVersion();
 
     Observable<TransportInfo> getTransport(int orderId);
+
+    //上传参数
+    Observable<NoBody> uploadArgument(String name, int nameType);
 }

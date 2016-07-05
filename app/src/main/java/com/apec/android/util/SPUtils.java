@@ -13,6 +13,8 @@ public class SPUtils {
      * =============================key====================================
      **/
 
+    //jpush 注册id
+    public static final String REGISTRATION_ID = "registration_id";
     //城市id
     public static final String LOCATION_CITY_ID = "open_city_id";
     public static final String LOCATION_CITY_NAME = "open_city_name";

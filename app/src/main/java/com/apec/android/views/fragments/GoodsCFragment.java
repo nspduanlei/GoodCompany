@@ -18,6 +18,7 @@ import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.GoodsPresenter;
 import com.apec.android.mvp.views.GoodsView;
+import com.apec.android.util.L;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.util.T;
@@ -32,11 +33,16 @@ import com.apec.android.views.view.CityChangeInterface;
 import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.SlidingTabLayout;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by duanlei on 2016/5/9.
@@ -276,6 +282,13 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     public void cityChange(int selectCityId, String selectCityName) {
         //TODO 当前城市改变
         updateCity(selectCityId, selectCityName);
+
+        //设置tag, for jpush
+        Set<String> tags = new HashSet<>();
+        tags.add(String.valueOf(selectCityId));
+        JPushInterface.setTags(getActivity(), tags, (i, s, set) -> {
+            L.e("i-->" + i + ", s-->" + s + ", set-->" + set);
+        });
     }
 
     private void updateCity(int cityId, String cityName) {

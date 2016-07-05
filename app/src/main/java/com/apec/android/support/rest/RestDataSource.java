@@ -2,6 +2,7 @@ package com.apec.android.support.rest;
 
 import android.content.Context;
 
+import com.apec.android.config.Constants;
 import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
@@ -41,7 +42,7 @@ public class RestDataSource implements GoodsRepository {
 
     private static final long HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 10 * 1024 * 1024;
 
-    public static String END_POINT = "http://shoptest.ap-ec.cn/testapi/";
+    public static String END_POINT = Constants.TEST_BASE_URL;
     public static String END_POINT_CITY = "http://shoptest.ap-ec.cn/html/javascript/";
     private final GoodsApi mGoodsApi;
     private final GoodsApi mJSONGoodsApi;
@@ -234,5 +235,10 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<TransportInfo> getTransport(int orderId) {
         return mGoodsApi.getTransport(orderId);
+    }
+
+    @Override
+    public Observable<NoBody> uploadArgument(String name, int nameType) {
+        return mGoodsApi.uploadArgument(name, nameType);
     }
 }

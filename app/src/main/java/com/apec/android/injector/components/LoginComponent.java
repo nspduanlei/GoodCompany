@@ -5,6 +5,7 @@ import com.apec.android.domain.usercase.GetAllCartUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
+import com.apec.android.domain.usercase.UploadArgumentUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.injector.modules.LoginModule;
@@ -26,5 +27,7 @@ public interface LoginComponent extends ActivityComponent {
     GetVerCodeUseCase getVerCodeUseCase();
     SubmitVerCodeUseCase submitVerCodeUseCase();
     CompleteUserUseCase completeUserUseCase();
+
+    UploadArgumentUseCase uploadArgumentUseCase();
 
 }

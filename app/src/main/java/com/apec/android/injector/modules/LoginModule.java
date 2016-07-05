@@ -7,6 +7,7 @@ import com.apec.android.domain.usercase.GetAllCityUseCase;
 import com.apec.android.domain.usercase.GetGoodsUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
+import com.apec.android.domain.usercase.UploadArgumentUseCase;
 import com.apec.android.injector.Activity;
 
 import javax.inject.Named;
@@ -20,6 +21,16 @@ import rx.Scheduler;
  */
 @Module
 public class LoginModule {
+
+    @Provides
+    @Activity
+    UploadArgumentUseCase provideUploadArgumentUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new UploadArgumentUseCase(repository, uiThread, executorThread);
+    }
+
 
     @Provides
     @Activity
