@@ -7,8 +7,8 @@ import com.apec.android.domain.entities.order.Order;
  */
 public interface OrderListClickListener {
     void onElementClick(int position);
-    void onGoodsItemClick(int goods);
-    void onDetailClick(int orderId);
+//    void onGoodsItemClick(int goods);
+//    void onDetailClick(int orderId);
 
     //取消订单
     void onCancelOrder(Order order);

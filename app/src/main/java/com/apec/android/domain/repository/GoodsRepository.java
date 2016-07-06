@@ -160,14 +160,14 @@ public interface GoodsRepository {
      * @param orderId
      * @return
      */
-    Observable<OrderBack> getOrderDetail(int orderId);
+    Observable<OrderBack> getOrderDetail(String orderId);
 
     /**
      * 取消订单
      * @param orderId
      * @return
      */
-    Observable<NoBody> cancelOrder(int orderId);
+    Observable<NoBody> cancelOrder(String orderId);
 
     /*********************************购物车*************************************/
     /**
@@ -204,7 +204,7 @@ public interface GoodsRepository {
     //获取最新的版本信息
     Observable<Version> getVersion();
 
-    Observable<TransportInfo> getTransport(int orderId);
+    Observable<TransportInfo> getTransport(String orderId);
 
     //上传参数
     Observable<NoBody> uploadArgument(String name, int nameType);

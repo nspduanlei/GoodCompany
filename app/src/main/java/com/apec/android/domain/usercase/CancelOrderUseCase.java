@@ -19,7 +19,7 @@ public class CancelOrderUseCase extends UseCase<NoBody> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
 
-    int mOrderId;
+    String mOrderId;
 
     @Inject
     public CancelOrderUseCase(GoodsRepository repository,
@@ -30,7 +30,7 @@ public class CancelOrderUseCase extends UseCase<NoBody> {
         mExecutorThread = executorThread;
     }
 
-    public void setData(int orderId) {
+    public void setData(String orderId) {
         mOrderId = orderId;
     }
 

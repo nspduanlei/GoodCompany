@@ -56,7 +56,6 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     public static final String EXTRA_STATUS_ID = "status_id";
     public static final String EXTRA_POSITION = "position";
 
-
     ArrayList<Order> mOrders = new ArrayList<>();
 
     int mStatus;
@@ -131,16 +130,6 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
         intent.putExtra(OrderDetailActivity.EXTRA_ORDER_ID, mOrders.get(position).getId());
         startActivity(intent);
-    }
-
-    @Override
-    public void onGoodsItemClick(int goods) {
-
-    }
-
-    @Override
-    public void onDetailClick(int orderId) {
-
     }
 
     @Override

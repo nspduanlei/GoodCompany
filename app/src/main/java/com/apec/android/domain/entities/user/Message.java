@@ -1,18 +1,19 @@
 package com.apec.android.domain.entities.user;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by duanlei on 2016/6/28.
  */
-public class Message {
+public class Message extends DataSupport {
     private int id;
     private String title;
-    private int time;
+    private String time;
     private String content;
     private int type;
     private int gotoId;
 
-    public Message(int id, String title, int time, String content) {
-        this.id = id;
+    public Message(String title, String time, String content) {
         this.title = title;
         this.time = time;
         this.content = content;
@@ -34,11 +35,11 @@ public class Message {
         this.title = title;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

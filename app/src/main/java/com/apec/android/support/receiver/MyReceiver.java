@@ -6,14 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.apec.android.domain.entities.user.Message;
 import com.apec.android.util.SPUtils;
 import com.apec.android.util.StringUtils;
 import com.apec.android.views.activities.MainActivity;
 import com.apec.android.views.activities.MessageActivity;
+import com.apec.android.views.activities.OrderDetailActivity;
+import com.apec.android.views.utils.MessageUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
@@ -50,13 +55,50 @@ public class MyReceiver extends BroadcastReceiver {
         	
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-            
-        	//打开自定义的Activity
-        	Intent i = new Intent(context, MessageActivity.class);
-        	i.putExtras(bundle);
-        	//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        	i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-        	context.startActivity(i);
+
+			String type = null;
+			String content = null;
+			String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
+
+			String title = "系统消息";
+
+			String message = bundle.getString(JPushInterface.EXTRA_ALERT);
+
+			String time = null;
+
+			try {
+				JSONObject jsonObject = new JSONObject(extra);
+
+				type = jsonObject.getString("content_type");
+				content = jsonObject.getString("content");
+				time = jsonObject.getString("content_time");
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			if (type != null && content != null && type.equals("2")) {
+				Intent i = new Intent(context, OrderDetailActivity.class);
+				i.putExtra(OrderDetailActivity.EXTRA_ORDER_ID, content);
+				//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				context.startActivity(i);
+			} else {
+				//添加消息进数据库
+				if (time == null) {
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					time = df.format(new Date());
+				}
+				Message messageObj = new Message(title, time, message);
+				new MessageUtils().add(messageObj);
+
+				//打开自定义的Activity
+				Intent i = new Intent(context, MessageActivity.class);
+				i.putExtras(bundle);
+				//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				context.startActivity(i);
+			}
         	
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

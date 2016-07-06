@@ -28,7 +28,7 @@ import butterknife.BindView;
  */
 public class TransportsActivity extends BaseActivity implements TransportView {
 
-    int mOrderId;
+    String mOrderId;
 
     @BindView(R.id.tabs)
     SlidingTabLayout mTabs;
@@ -50,7 +50,7 @@ public class TransportsActivity extends BaseActivity implements TransportView {
 
     @Override
     protected void initUi() {
-        mOrderId = getIntent().getIntExtra("orderId", 0);
+        mOrderId = getIntent().getStringExtra("orderId");
 
 //        setupViewPager(mVpGoods, );
 //        mTabs.setViewPager(mVpGoods);
@@ -93,5 +93,11 @@ public class TransportsActivity extends BaseActivity implements TransportView {
     public void bindTransports(List<TransportInfoItem> list) {
         setupViewPager(mVpGoods, list);
         mTabs.setViewPager(mVpGoods);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.onStop();
     }
 }

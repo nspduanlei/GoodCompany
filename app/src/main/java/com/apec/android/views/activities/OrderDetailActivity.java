@@ -43,7 +43,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
     @Inject
     OrderDetailPresenter mPresenter;
 
-    int mOrderId;
+    String mOrderId;
 
     public final static String EXTRA_ORDER_ID = "order_id";
     @BindView(R.id.ll_content)
@@ -51,7 +51,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
 
     @Override
     protected void setUpContentView() {
-        mOrderId = getIntent().getIntExtra(EXTRA_ORDER_ID, 0);
+        mOrderId = getIntent().getStringExtra(EXTRA_ORDER_ID);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_order_detail);
         ButterKnife.bind(this);
         setUpToolbar(R.string.order_detail_title, -1, MODE_BACK);
@@ -116,26 +116,22 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
 
         //订单状态
         switch (order.getOrderType()) {
-            case 1: //待处理
+            case 1:
                 mTvStatus.setText("待处理");
                 break;
-            case 2: //备货中
+            case 2:
                 mTvStatus.setText("备货中");
                 break;
-            case 3: //配送中
-                mTvStatus.setText("配送中");
-
-                break;
-            case 4: //已完成
+            case 3:
                 mTvStatus.setText("已完成");
-
                 break;
-
-            case 5: //已取消
+            case 4:
                 mTvStatus.setText("已取消");
                 break;
+            case 5:
+                mTvStatus.setText("配送中");
+                break;
         }
-
     }
 
     @Override

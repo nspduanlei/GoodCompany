@@ -9,7 +9,7 @@ import java.util.List;
  * Created by duanlei on 2016/3/10.
  */
 public class Order {
-    private int id;
+    private String id;
     private String orderNo;
     private double orderAmount;
     private int orderType;
@@ -27,11 +27,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

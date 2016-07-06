@@ -16,12 +16,19 @@ public class MyApplication extends LitePalApplication {
 
     private AppComponent mAppComponent;
 
+    private static MyApplication sInstance;
+
+    public static MyApplication getInstance() {
+        return sInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         initializeInjector();
         initializeDebug();
         initializeJPush();
+        sInstance = this;
     }
 
     private void initializeJPush() {

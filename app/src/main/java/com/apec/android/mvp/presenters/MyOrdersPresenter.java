@@ -91,7 +91,7 @@ public class MyOrdersPresenter implements Presenter {
 
     }
 
-    public void cancelOrder(int orderId) {
+    public void cancelOrder(String orderId) {
         mView.showLoadingView();
 
         mCancelOrderUseCase.setData(orderId);

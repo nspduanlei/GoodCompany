@@ -97,7 +97,8 @@
                 android:layout_width="5dp"
                 android:layout_height="5dp"
                 android:layout_gravity="right"
-                android:background="@drawable/shape_dot"/>
+                android:background="@drawable/shape_dot"
+                android:visibility="gone"/>
         </FrameLayout>
 
     </RelativeLayout>

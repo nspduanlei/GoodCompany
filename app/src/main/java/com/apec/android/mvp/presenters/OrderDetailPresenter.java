@@ -22,7 +22,7 @@ public class OrderDetailPresenter implements Presenter {
     OrderDetailView mView;
     Subscription mGetOrderSubscription;
 
-    public int mOrderId;
+    public String mOrderId;
 
     @Inject
     public OrderDetailPresenter(GetOrderDetailUseCase getOrderDetailUseCase) {

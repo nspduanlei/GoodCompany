@@ -36,6 +36,8 @@ public class TransportFragment extends BaseFragment {
     TextView mTvPhone;
     @BindView(R.id.lv_sku)
     ListView mLvSku;
+    @BindView(R.id.tv_number)
+    TextView mTvNumber;
 
     private TransportInfoItem mTransportInfo;
 
@@ -58,13 +60,14 @@ public class TransportFragment extends BaseFragment {
         mTvCompany.setText(mTransportInfo.getSupplierName());
         mTvDriver.setText(mTransportInfo.getName());
         mTvPhone.setText(mTransportInfo.getPhone());
+        mTvNumber.setText(mTransportInfo.getTrackingNumber());
 
         mLvSku.setAdapter(new CommonAdapter<SkuItem>(getActivity(), mTransportInfo.getDital(),
                 R.layout.item_sku_transport) {
             @Override
             public void convert(MyViewHolder holder, SkuItem skuItem) {
 
-                if (holder.getMPosition()%2 == 0) {
+                if (holder.getMPosition() % 2 == 0) {
                     holder.setVisibility(R.id.iv_1, View.VISIBLE);
                     holder.setVisibility(R.id.iv_2, View.GONE);
                 } else {

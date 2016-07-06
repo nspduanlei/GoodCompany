@@ -20,7 +20,7 @@ public class GetTransportUseCase extends UseCase<TransportInfo> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
 
-    int mOrderId;
+    String mOrderId;
 
     @Inject
     public GetTransportUseCase(GoodsRepository repository,
@@ -31,7 +31,7 @@ public class GetTransportUseCase extends UseCase<TransportInfo> {
         mExecutorThread = executorThread;
     }
 
-    public void setData(int orderId) {
+    public void setData(String orderId) {
         mOrderId = orderId;
     }
 

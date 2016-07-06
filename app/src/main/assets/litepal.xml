@@ -2,11 +2,12 @@
 <litepal>
     <dbname value="demo" />
 
-    <version value="11" />
+    <version value="12" />
 
     <list>
         <mapping class="com.apec.android.domain.entities.user.User"/>
         <mapping class="com.apec.android.domain.entities.user.OpenCity"/>
         <mapping class="com.apec.android.domain.entities.goods.SkuData"/>
+        <mapping class="com.apec.android.domain.entities.user.Message"/>
     </list>
 </litepal>

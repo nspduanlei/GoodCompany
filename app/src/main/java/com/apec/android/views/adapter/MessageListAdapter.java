@@ -5,13 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.apec.android.R;
-import com.apec.android.domain.entities.transport.GoodsReceipt;
 import com.apec.android.domain.entities.user.Message;
-import com.apec.android.views.view.AddressListClickListener;
+import com.apec.android.util.DateUtil;
+import com.apec.android.util.StringUtils;
 import com.apec.android.views.view.ListClickListener;
 
 import java.util.List;
@@ -51,6 +50,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     public class GoodsViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.tv_title)
+        TextView mTvTitle;
+        @BindView(R.id.tv_time)
+        TextView mTvTime;
+        @BindView(R.id.tv_message)
+        TextView mTvMessage;
 
         public GoodsViewHolder(View itemView, final ListClickListener recyclerClickListener) {
             super(itemView);
@@ -59,7 +64,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         }
 
         public void bindGood(Message message) {
-
+            mTvTitle.setText(message.getTitle());
+            mTvMessage.setText(message.getContent());
+            mTvTime.setText(message.getTime());
         }
 
         private void bindListener(View itemView,

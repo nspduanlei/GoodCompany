@@ -29,11 +29,19 @@
                     android:layout_width="83dp"
                     android:layout_height="83dp"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/transport_header"/>
+                    android:src="@drawable/transport_header"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/tv_title_0"
+                    style="@style/titleStyle"
+                    android:layout_toRightOf="@id/iv_header"
+                    android:text="运单号"/>
 
                 <TextView
                     android:id="@+id/tv_title_1"
                     style="@style/titleStyle"
+                    android:layout_below="@id/tv_title_0"
                     android:layout_toRightOf="@id/iv_header"
                     android:text="配送"/>
 
@@ -52,7 +60,14 @@
                     android:text="电话"/>
 
                 <TextView
+                    android:id="@+id/tv_number"
+                    style="@style/contentStyle"
+                    android:text="运单号"
+                    android:textStyle="bold"/>
+
+                <TextView
                     android:id="@+id/tv_company"
+                    android:layout_below="@id/tv_number"
                     style="@style/contentStyle"
                     android:text="某某货运"
                     android:textStyle="bold"/>

@@ -200,7 +200,7 @@ public class LoginPresenter implements Presenter {
 
     private void onUploadReceived(NoBody noBody) {
         if (noBody.getH().getCode() == 200) {
-            L.e("test0001", "参数长传成功");
+            L.e("test0001", "参数上传成功");
         }
     }
 }

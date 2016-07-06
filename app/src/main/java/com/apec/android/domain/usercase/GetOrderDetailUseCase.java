@@ -20,7 +20,7 @@ public class GetOrderDetailUseCase extends UseCase<OrderBack> {
     private final Scheduler mUiThread;
     private final Scheduler mExecutorThread;
 
-    int mOrderId;
+    String mOrderId;
 
     @Inject
     public GetOrderDetailUseCase(GoodsRepository repository,
@@ -31,7 +31,7 @@ public class GetOrderDetailUseCase extends UseCase<OrderBack> {
         mExecutorThread = executorThread;
     }
 
-    public void setData(int orderId) {
+    public void setData(String orderId) {
         mOrderId = orderId;
     }
 

@@ -15,6 +15,9 @@ public class TransportInfoItem implements Parcelable {
     private String name;
     private String phone;
 
+    //运单号
+    private String trackingNumber;
+
     private List<SkuItem> dital;
 
     public int getOrderId() {
@@ -55,6 +58,15 @@ public class TransportInfoItem implements Parcelable {
 
     public void setDital(List<SkuItem> dital) {
         this.dital = dital;
+    }
+
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
     }
 
     @Override

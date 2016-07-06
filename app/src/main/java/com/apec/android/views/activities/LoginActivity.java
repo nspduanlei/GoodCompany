@@ -202,7 +202,6 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
         //上传参数
         uploadArgument();
 
-
         mUser = user;
 
         //登录成功，显示信息验证

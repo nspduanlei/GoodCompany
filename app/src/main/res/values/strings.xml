@@ -57,4 +57,17 @@
     <string name="order_time">下单时间 2016-05-20 15:00</string>
     <string name="title_transport">物流详情</string>
 
+
+    <string name="year" translatable="false">年前</string>
+    <string name="month" translatable="false">月前</string>
+    <string name="day" translatable="false">天前</string>
+    <string name="hour" translatable="false">小时前</string>
+    <string name="min" translatable="false">分钟前</string>
+    <string name="sec" translatable="false">秒前</string>
+    <string name="justnow" translatable="false">刚刚</string>
+    <string name="yesterday" translatable="false">昨天</string>
+    <string name="the_day_before_yesterday" translatable="false">前天</string>
+    <string name="today" translatable="false">今天</string>
+    <string name="date_format" translatable="false">M月d日 HH:mm</string>
+    <string name="year_format" translatable="false">yyyy年 M月d日 HH:mm</string>
 </resources>

@@ -8,8 +8,8 @@ public class Constants {
 
     //测试接口地址
     //public final static String TEST_BASE_URL = "http://shoptest.ap-ec.cn/api/mall/";
-    //public static final String TEST_BASE_URL = "http://shoptest.ap-ec.cn/testapi/";
-    public static final String TEST_BASE_URL = "http://192.168.8.104:8080/";
+    public static final String TEST_BASE_URL = "http://shoptest.ap-ec.cn/testapi/";
+    //public static final String TEST_BASE_URL = "http://192.168.8.104:8080/";
 
     //正式接口地址
     public static final String OFFICIAL_BASE_URL = "";

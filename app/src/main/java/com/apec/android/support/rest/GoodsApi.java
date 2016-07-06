@@ -93,10 +93,10 @@ public interface GoodsApi {
     Observable<OrderListBack> getAllOrder(@Query("state") int state);
 
     @GET("order")
-    Observable<OrderBack> getOrderDetail(@Query("id") int orderId);
+    Observable<OrderBack> getOrderDetail(@Query("id") String orderId);
 
     @GET("order/cancel")
-    Observable<NoBody> cancelOrder(@Query("id") int orderId);
+    Observable<NoBody> cancelOrder(@Query("id") String orderId);
 
     @GET("cart/items")
     Observable<ShopCartBack> getAllCart(@Query("cityId") int cityId);
@@ -138,9 +138,9 @@ public interface GoodsApi {
     Observable<Version> getVersion();
 
     @GET("logistics")
-    Observable<TransportInfo> getTransport(@Query("orderId") int orderId);
-    @GET("jpush/u_bind")
+    Observable<TransportInfo> getTransport(@Query("orderId") String orderId);
 
+    @GET("jpush/u_bind")
     Observable<NoBody> uploadArgument(@Query("name") String name,
                                       @Query("name_type") int nameType);
 }

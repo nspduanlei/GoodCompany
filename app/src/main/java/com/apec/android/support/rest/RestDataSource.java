@@ -176,12 +176,12 @@ public class RestDataSource implements GoodsRepository {
     }
 
     @Override
-    public Observable<OrderBack> getOrderDetail(int orderId) {
+    public Observable<OrderBack> getOrderDetail(String orderId) {
         return mGoodsApi.getOrderDetail(orderId);
     }
 
     @Override
-    public Observable<NoBody> cancelOrder(int orderId) {
+    public Observable<NoBody> cancelOrder(String orderId) {
         return mGoodsApi.cancelOrder(orderId);
     }
 
@@ -233,7 +233,7 @@ public class RestDataSource implements GoodsRepository {
     }
 
     @Override
-    public Observable<TransportInfo> getTransport(int orderId) {
+    public Observable<TransportInfo> getTransport(String orderId) {
         return mGoodsApi.getTransport(orderId);
     }
 

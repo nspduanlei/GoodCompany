@@ -1,6 +1,5 @@
 package com.apec.android.mvp.presenters;
 
-import com.apec.android.domain.NoBody;
 import com.apec.android.domain.entities.transport.TransportInfo;
 import com.apec.android.domain.usercase.GetTransportUseCase;
 import com.apec.android.mvp.views.TransportView;
@@ -32,7 +31,9 @@ public class TransportPresenter implements Presenter {
 
     @Override
     public void onStop() {
-
+        if (mSubscription != null) {
+            mSubscription.unsubscribe();
+        }
     }
 
     @Override
@@ -49,7 +50,7 @@ public class TransportPresenter implements Presenter {
     public void onCreate() {
     }
 
-    public void getTransports(int orderId) {
+    public void getTransports(String orderId) {
         mView.showLoadingView();
         mGetTransportUseCase.setData(orderId);
         mSubscription = mGetTransportUseCase.execute()

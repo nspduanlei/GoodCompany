@@ -18,8 +18,8 @@ android {
         applicationId "com.apec.android"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 10006
-        versionName "1.0.006"
+        versionCode 10007
+        versionName "1.0.007"
     }
     buildTypes {
         release {

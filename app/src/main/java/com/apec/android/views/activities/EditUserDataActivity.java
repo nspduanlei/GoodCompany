@@ -67,25 +67,30 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 
     @Override
     protected void initUi() {
+
+
+
         mEtUserInfo.addTextChangedListener(new EditChangedListener());
 
         mInfoType = getIntent().getIntExtra("useInfo", 0);
-        User user = UserUtil.getUser();
-        if (user == null) {
+
+        mUser = UserUtil.getUser();
+
+        if (mUser == null) {
             return;
         }
         switch (mInfoType) {
             case PHONE: //手机号
                 mUserInfoStr = "手机号";
-                mEtUserInfo.setText(user.getPhone());
+                mEtUserInfo.setText(mUser.getPhone());
                 break;
             case USER_NAME: //联系人
                 mUserInfoStr = "联系人";
-                mEtUserInfo.setText(user.getName());
+                mEtUserInfo.setText(mUser.getName());
                 break;
             case SHOP_NAME: //店铺名
                 mUserInfoStr = "店铺名";
-                mEtUserInfo.setText(user.getShopName());
+                mEtUserInfo.setText(mUser.getShopName());
                 break;
             default:
                 break;

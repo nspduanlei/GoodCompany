@@ -8,6 +8,7 @@ import com.apec.android.app.MyApplication;
 import com.apec.android.domain.entities.user.Message;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.MessageListAdapter;
+import com.apec.android.views.utils.MessageUtils;
 import com.apec.android.views.view.ListClickListener;
 import com.apec.android.views.view.RecyclerInsetsDecoration;
 
@@ -21,27 +22,35 @@ import butterknife.BindView;
  */
 public class MessageActivity extends BaseActivity implements ListClickListener {
 
-
     @BindView(R.id.rl_message)
     RecyclerView mRlMessage;
 
     MessageListAdapter mAdapter;
     List<Message> mMessageList;
 
+
     @Override
     protected void setUpContentView() {
         setContentView(R.layout.activity_message, R.string.message_title);
     }
 
+    MessageUtils mMessageUtils;
+    Message mMessage;
+
     @Override
     protected void initUi() {
 
+        mMessageUtils = new MessageUtils();
         mMessageList = new ArrayList<>();
         //TODO
-        for(int i = 0; i < 10; i++) {
-            mMessageList.add(new Message(1, "消息提醒", 100, "嘎嘎啊发嘎嘎韩国哈哈哈哈哈哈就经济结构"));
-        }
+//        for(int i = 0; i < 10; i++) {
+//            mMessageList.add(new Message(1, "消息提醒", 100, "嘎嘎啊发嘎嘎韩国哈哈哈哈哈哈就经济结构"));
+//        }
 
+        mMessage = mMessageUtils.select();
+        if (mMessage != null) {
+            mMessageList.add(mMessage);
+        }
 
         mAdapter = new MessageListAdapter(mMessageList, this, this);
 
