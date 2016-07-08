@@ -169,16 +169,23 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     @Override
     public void cancelSuccess() {
         T.showShort(getActivity(), "取消订单成功");
-        mPresenter.getOrderList(mStatus);
+        //mPresenter.getOrderList(mStatus);
+        ((OrdersActivity)getActivity()).updateData();
     }
 
     @Override
     public void showEmpty() {
+        ((OrdersActivity) getActivity()).hideMsgCount(mPosition);
         mLlEmpty.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideEmpty() {
         mLlEmpty.setVisibility(View.GONE);
+    }
+
+
+    public void updateData() {
+        mPresenter.getOrderList(mStatus);
     }
 }

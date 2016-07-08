@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.apec.android.views.fragments.GoodsFragment;
+import com.apec.android.views.fragments.OrderFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class GoodsCAdapter extends FragmentPagerAdapter {
     public int getItemPosition(Object object) {
         if (object instanceof GoodsFragment) {
             ((GoodsFragment) object).updateData();
+        } else if (object instanceof OrderFragment) {
+            ((OrderFragment) object).updateData();
         }
         return super.getItemPosition(object);
     }

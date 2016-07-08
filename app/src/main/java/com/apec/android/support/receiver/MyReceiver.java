@@ -52,9 +52,7 @@ public class MyReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-        	
-        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-            Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+
 
 			String type = null;
 			String content = null;
@@ -72,6 +70,43 @@ public class MyReceiver extends BroadcastReceiver {
 				type = jsonObject.getString("content_type");
 				content = jsonObject.getString("content");
 				time = jsonObject.getString("content_time");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			if (type != null && content != null && type.equals("2")) {
+
+			} else {
+				if (MainActivity.isForeground) {
+					//发送广播
+					Intent mIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+					context.sendBroadcast(mIntent);
+				}
+
+				//添加消息进数据库
+				if (time == null) {
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					time = df.format(new Date());
+				}
+				Message messageObj = new Message(title, time, message);
+				new MessageUtils().add(messageObj);
+
+				SPUtils.put(context, SPUtils.HAS_NEW_MESSAGE, true);
+			}
+
+        	
+        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+            Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+
+			String type = null;
+			String content = null;
+			String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
+
+			try {
+				JSONObject jsonObject = new JSONObject(extra);
+
+				type = jsonObject.getString("content_type");
+				content = jsonObject.getString("content");
 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -84,13 +119,8 @@ public class MyReceiver extends BroadcastReceiver {
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(i);
 			} else {
-				//添加消息进数据库
-				if (time == null) {
-					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					time = df.format(new Date());
-				}
-				Message messageObj = new Message(title, time, message);
-				new MessageUtils().add(messageObj);
+
+				SPUtils.put(context, SPUtils.HAS_NEW_MESSAGE, false);
 
 				//打开自定义的Activity
 				Intent i = new Intent(context, MessageActivity.class);

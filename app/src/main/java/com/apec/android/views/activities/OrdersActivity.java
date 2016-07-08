@@ -65,14 +65,16 @@ public class OrdersActivity extends BaseActivity {
 
     }
 
+    GoodsCAdapter mAdapter;
+
     private void setupViewPager(ViewPager viewPager) {
-        GoodsCAdapter adapter =
+        mAdapter =
                 new GoodsCAdapter(getSupportFragmentManager());
 
         for (int i = 0; i < CONTENT.length; i++) {
-            adapter.addFragment(OrderFragment.newInstance(IDS[i], i), CONTENT[i]);
+            mAdapter.addFragment(OrderFragment.newInstance(IDS[i], i), CONTENT[i]);
         }
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(5);
     }
 
@@ -87,5 +89,13 @@ public class OrdersActivity extends BaseActivity {
         } else {
             mTabs.showMsg(position, count);
         }
+    }
+
+    public void updateData() {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void hideMsgCount(int position) {
+        mTabs.hideMsg(position);
     }
 }

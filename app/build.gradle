@@ -17,9 +17,10 @@ android {
     defaultConfig {
         applicationId "com.apec.android"
         minSdkVersion 15
+        minSdkVersion 15
         targetSdkVersion 23
-        versionCode 10007
-        versionName "1.0.007"
+        versionCode 10009
+        versionName "1.0.009"
     }
     buildTypes {
         release {

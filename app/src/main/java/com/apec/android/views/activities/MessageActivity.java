@@ -35,7 +35,6 @@ public class MessageActivity extends BaseActivity implements ListClickListener {
     }
 
     MessageUtils mMessageUtils;
-    Message mMessage;
 
     @Override
     protected void initUi() {
@@ -47,10 +46,7 @@ public class MessageActivity extends BaseActivity implements ListClickListener {
 //            mMessageList.add(new Message(1, "消息提醒", 100, "嘎嘎啊发嘎嘎韩国哈哈哈哈哈哈就经济结构"));
 //        }
 
-        mMessage = mMessageUtils.select();
-        if (mMessage != null) {
-            mMessageList.add(mMessage);
-        }
+        mMessageList.addAll(mMessageUtils.select());
 
         mAdapter = new MessageListAdapter(mMessageList, this, this);
 

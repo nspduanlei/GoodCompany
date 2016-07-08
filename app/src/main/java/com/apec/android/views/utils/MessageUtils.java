@@ -13,7 +13,6 @@ import java.util.List;
 public class MessageUtils {
 
     public void add(Message message) {
-        clear();
         message.saveThrows();
     }
 
@@ -21,11 +20,9 @@ public class MessageUtils {
         DataSupport.deleteAll(Message.class);
     }
 
-    public Message select() {
-        List<Message> messages = DataSupport.findAll(Message.class);
-        if (messages.size() > 0) {
-            return DataSupport.findAll(Message.class).get(0);
-        }
-        return null;
+    public List<Message> select() {
+        List<Message> messages = DataSupport.order("time desc").find(Message.class);
+
+        return messages;
     }
 }

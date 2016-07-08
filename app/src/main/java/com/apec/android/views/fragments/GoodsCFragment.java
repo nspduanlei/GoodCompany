@@ -1,11 +1,8 @@
 package com.apec.android.views.fragments;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,10 +36,8 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by duanlei on 2016/5/9.
@@ -108,6 +103,12 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     @Override
     protected void initUI(View view) {
+        if ((Boolean) SPUtils.get(getActivity(), SPUtils.HAS_NEW_MESSAGE, false)) {
+            mVMsgNew.setVisibility(View.VISIBLE);
+        } else {
+            mVMsgNew.setVisibility(View.GONE);
+        }
+
         setupViewPager(mVpGoods);
         mTabs.setViewPager(mVpGoods);
     }
@@ -176,7 +177,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         mLlAddress.setVisibility(View.VISIBLE);
         mTvSendAddress.setText(String.format(getString(R.string.send_address),
                 goodsReceipt.getAddrRes().getDetail()));
-
 
         if (mIsOrderLoginSuccess) {
             GoodsFragment fragment =
@@ -312,6 +312,9 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
 
     @OnClick(R.id.fl_msg)
     void onMsgClicked(View view) {
+        SPUtils.put(getActivity(), SPUtils.HAS_NEW_MESSAGE, false);
+        mVMsgNew.setVisibility(View.GONE);
+
         Intent intent = new Intent(getActivity(), MessageActivity.class);
         startActivity(intent);
     }
@@ -320,5 +323,9 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     void onAdClicked(View view) {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
+    }
+
+    public void hasNewMessage() {
+        mVMsgNew.setVisibility(View.VISIBLE);
     }
 }

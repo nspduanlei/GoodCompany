@@ -204,6 +204,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
                 ((MainActivity) getActivity()).updateGoods();
 
                 mData.remove(adapterPosition);
+                updateAllPrice();
 
                 mAdapter.notifyDataSetChanged();
                 mAdapterEdit.notifyDataSetChanged();
@@ -218,7 +219,36 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         data.setCount(data.getCount() + num);
         mData.set(adapterPosition, data);
 
+        updateAllPrice();
+
         mAdapter.notifyDataSetChanged();
+    }
+
+
+    /**
+     *
+     * 更新价格和数量
+     */
+    public void updateAllPrice() {
+        mTotalPrice = 0.0;
+        mCount = 0;
+        for (int i = 0; i < mData.size(); i++) {
+            if (mData.get(i).isSelect()) {
+                mTotalPrice = mTotalPrice +
+                        Double.valueOf(mData.get(i).getPrice()) * mData.get(i).getCount();
+                mCount ++;
+                isSelectAll = true;
+
+            } else {
+                isSelectAll = false;
+            }
+        }
+
+        mCbSelectAll.setChecked(isSelectAll);
+
+        mTvTotalPrice.setText(String.format(getString(R.string.total_price_cart),
+                String.valueOf(mTotalPrice)));
+        mBtnGotoPay.setText(String.format(getString(R.string.goto_pay_btn), mCount));
     }
 
     @Override

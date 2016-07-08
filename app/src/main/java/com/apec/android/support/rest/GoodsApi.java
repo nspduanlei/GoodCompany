@@ -86,10 +86,10 @@ public interface GoodsApi {
     Observable<ReceiptDefault> getDefaultAddress();
 
     @FormUrlEncoded
-    @POST("order/addBatch")
+    @POST("order/addBatch/app")
     Observable<NoBody> createOrder(@Field("orderJson") String json);
 
-    @GET("orders")
+    @GET("orders/app")
     Observable<OrderListBack> getAllOrder(@Query("state") int state);
 
     @GET("order")
@@ -109,7 +109,7 @@ public interface GoodsApi {
     Observable<ArrayList<OpenCity>> cityIsOpen();
 
     @FormUrlEncoded
-    @POST("order/add")
+    @POST("order/add/app")
     Observable<NoBody> createOneOrder(@Field("skuId") int skuId,
                                       @Field("addressId") int addressId,
                                       @Field("num") int num);

@@ -153,6 +153,7 @@ public class MainActivity extends BaseActivity implements FragmentListener{
                     updateGoods();
                     break;
                 case MESSAGE_RECEIVED_ACTION:
+                    mGoodsCFragment.hasNewMessage();
 
                     break;
             }

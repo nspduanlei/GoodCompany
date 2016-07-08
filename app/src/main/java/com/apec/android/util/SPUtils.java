@@ -37,6 +37,9 @@ public class SPUtils {
     //用户名
     public static final String USER_NAME = "user_name";
 
+    //是否有新的系统消息
+    public static final String HAS_NEW_MESSAGE = "has_new_message";
+
     /**
      * =================================================================
      **/
