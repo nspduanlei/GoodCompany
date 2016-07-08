@@ -98,6 +98,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     private int mCountEdit = 0;
 
     boolean isSelectAll = true;
+    boolean isSelectAllEdit = false;
 
     @Override
     protected void initUI(View view) {
@@ -121,11 +122,27 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
                 } else {
                     mCountEdit--;
                 }
-
-                mBtnDeleteEdit.setText(String.format(getString(R.string.delete_btn), mCountEdit));
+                //TODO
+                notifyDataEdit();
             }
         });
         mRvCartEdit.setAdapter(mAdapterEdit);
+    }
+
+    private void notifyDataEdit() {
+        mBtnDeleteEdit.setText(String.format(getString(R.string.delete_btn), mCountEdit));
+
+        //是否全选按钮选中
+        for (SkuData skuData:mData) {
+            if (skuData.isSelect()) {
+                isSelectAllEdit = true;
+            } else {
+                isSelectAllEdit = false;
+                break;
+            }
+        }
+        mCbSelectAllEdit.setChecked(isSelectAllEdit);
+        mAdapterEdit.notifyDataSetChanged();
     }
 
     @Override
@@ -204,10 +221,14 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
                 ((MainActivity) getActivity()).updateGoods();
 
                 mData.remove(adapterPosition);
-                updateAllPrice();
 
-                mAdapter.notifyDataSetChanged();
-                mAdapterEdit.notifyDataSetChanged();
+                if (mData.size() == 0) {
+                    onDataEmpty();
+                } else {
+                    updateAllPrice();
+                    mAdapter.notifyDataSetChanged();
+                    mAdapterEdit.notifyDataSetChanged();
+                }
             }).showAlertDialog();
 
             return;
@@ -388,7 +409,9 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
         if (isEdit) {
             //如果是编辑状态退出编辑
 
-            exitEdit();
+
+            getData();
+            //exitEdit();
         } else {
             //如果不是编辑状态，进入编辑状态
             isEdit = true;
@@ -405,6 +428,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
             mLlContent.setVisibility(View.GONE);
             mLlEdit.setVisibility(View.VISIBLE);
+            mCbSelectAllEdit.setChecked(false);
         }
     }
 
@@ -423,6 +447,11 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     void onDeleteClicked(View view) {
 
         ArrayList<SkuData> skuDatas = new ArrayList<>();
+
+        if (skuDatas.size() == 0) {
+            T.showShort(getActivity(), "请选择要删除的商品");
+            return;
+        }
 
         Iterator iterator = mData.iterator();
         while (iterator.hasNext()) {
