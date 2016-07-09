@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_bg_1">
+    android:background="@color/color_white">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_goods"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:listitem="@layout/item_goods_test"
-        android:background="@color/bg_1"/>
+        tools:listitem="@layout/item_goods_test"/>
 
     <include
         android:id="@+id/view_error"

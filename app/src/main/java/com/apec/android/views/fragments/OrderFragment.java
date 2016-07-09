@@ -160,9 +160,7 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
     public void bindOrders(OrderList orderList) {
         mOrders.clear();
         mOrders.addAll(orderList.getData());
-
         mOrderListAdapter.notifyDataSetChanged();
-
         ((OrdersActivity) getActivity()).setMsgCount(mOrders.size(), mPosition);
     }
 

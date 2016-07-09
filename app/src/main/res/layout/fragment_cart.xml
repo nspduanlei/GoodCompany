@@ -139,5 +139,8 @@
         layout="@layout/loading_layout_new"/>
 
     <include
-        layout="@layout/empty_layout"/>
+        layout="@layout/empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/top_bar_height"/>
 </FrameLayout>

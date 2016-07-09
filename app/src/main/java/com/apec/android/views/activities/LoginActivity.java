@@ -1,6 +1,9 @@
 package com.apec.android.views.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,6 +102,7 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
     @Override
     protected void initUi() {
         initTimer();
+        registerBroadcastReceiver();
     }
 
     @Override
@@ -349,5 +353,35 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
         setResult(Constants.RESULT_CODE_LOGIN_SUCCESS);
         finish();
     }
+
+    public static final String ACTION_OBTAIN_SMS = "获取短信";
+
+    //定义广播
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action) {
+                case ACTION_OBTAIN_SMS:
+                    mEtVerifyCode.setText(intent.getExtras().getString("vCode"));
+                    break;
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBroadcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction(ACTION_OBTAIN_SMS);
+        // 注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter) ;
+    }
+
+
+    protected void onDestroy() {
+        super .onDestroy();
+        unregisterReceiver( mBroadcastReceiver);
+    }
+
 
 }

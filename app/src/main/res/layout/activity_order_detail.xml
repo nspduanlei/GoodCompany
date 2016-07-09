@@ -23,7 +23,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp">
+            android:layout_marginTop="48dp"
+            android:background="@color/color_bg_1">
 
             <LinearLayout
                 android:id="@+id/ll_content"
@@ -31,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="30dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:background="@color/color_bg_1">
 
                 <RelativeLayout
                     style="@style/InfoItemStyle">

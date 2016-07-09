@@ -18,6 +18,10 @@
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <!--读取短信-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
     <!--jpush-->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -189,6 +193,14 @@
         <meta-data android:name="JPUSH_APPKEY" android:value="0cb47396c4b07ce9c6603f66" /> <!--  </>值来自开发者平台取得的AppKey-->
 
         <!--for jpush end-->
+
+
+        <!--读取短信-->
+        <receiver android:name="com.apec.android.support.receiver.SmsReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

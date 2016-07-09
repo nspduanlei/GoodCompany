@@ -151,7 +151,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             attrs.addAll(sku.getNonkeyAttr());
             attrs.addAll(sku.getAttributeNames());
             mNormalHolder.mLlAttr.removeAllViews();
-            for (SkuAttribute itemAttr:attrs) {
+            for (SkuAttribute itemAttr : attrs) {
                 TextView textView = new TextView(mContext);
                 textView.setText(itemAttr.getAttributeValues().get(0).getName());
                 textView.setTextColor(mContext.getResources().getColor(R.color.text_2));
@@ -169,7 +169,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             if (count == 0) {
                 mNormalHolder.mBtnAddCart.setVisibility(View.VISIBLE);
                 mNormalHolder.mLlUpdateNum.setVisibility(View.GONE);
-                mNormalHolder.mBtnAddCart.setOnClickListener(view -> addCart(sku));
+                mNormalHolder.mBtnAddCart.setOnClickListener(view -> addCart(sku, 1));
             } else {
                 mNormalHolder.mBtnAddCart.setVisibility(View.GONE);
                 mNormalHolder.mLlUpdateNum.setVisibility(View.VISIBLE);
@@ -185,9 +185,20 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
                 }
             }
 
+
+            //快速下单
             mNormalHolder.mBtnOrder.setOnClickListener(view -> {
+                final int position = getAdapterPosition() - 1;
                 if (count == 0) {
-                    addCart(sku);
+                    new InputNumDialog((Activity) mContext, "1",
+                            count1 -> {
+
+                                addCart(sku, count1 + 1);
+//                                mRecyclerListener.onUpdateCount(sku,
+//                                        position, count1 - 1);
+                                mRecyclerListener.onOrderClick(sku.getId(), count1 + 1);
+                            }).showInputNumDialog();
+
                 } else {
                     mRecyclerListener.onOrderClick(sku.getId(), count);
                 }
@@ -206,14 +217,15 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             //输入数字
             mNormalHolder.mTvNum.setOnClickListener(view -> {
                 //TODO 显示输入数字的弹窗
-                new InputNumDialog((Activity) mContext, mNormalHolder.mTvNum.getText().toString(), count1 -> {
-                    mRecyclerListener.onUpdateCount(sku, getAdapterPosition() - 1, count1);
-                }).showInputNumDialog();
+                new InputNumDialog((Activity) mContext, mNormalHolder.mTvNum.getText().toString(),
+                        count1 -> {
+                            mRecyclerListener.onUpdateCount(sku, getAdapterPosition() - 1, count1);
+                        }).showInputNumDialog();
             });
         }
 
-        void addCart(Sku sku) {
-            mRecyclerListener.onSaveCartClick(sku, getAdapterPosition() - 1);
+        void addCart(Sku sku, int count) {
+            mRecyclerListener.onSaveCartClick(sku, getAdapterPosition() - 1, count);
             mNormalHolder.mBtnAddCart.setVisibility(View.GONE);
             mNormalHolder.mLlUpdateNum.setVisibility(View.VISIBLE);
         }
@@ -226,8 +238,8 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
         //填充头部
         public void bindHeader() {
             List<Integer> localImages = new ArrayList<>();
-            localImages.add(R.drawable.ad_1);
             localImages.add(R.drawable.ad_2);
+            localImages.add(R.drawable.ad_1);
             localImages.add(R.drawable.ad_3);
 
             mHeaderHolder.mCbAd.setPages(

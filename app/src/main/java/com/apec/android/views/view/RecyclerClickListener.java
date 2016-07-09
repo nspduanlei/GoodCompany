@@ -18,5 +18,5 @@ public interface RecyclerClickListener {
 
     void onOrderClick(int skuId, int count);
 
-    void onSaveCartClick(Sku sku, int position);
+    void onSaveCartClick(Sku sku, int position, int count);
 }

@@ -177,11 +177,13 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     @Override
     public void onDataEmpty() {
         mLlEmpty.setVisibility(View.VISIBLE);
+        mTvEdit.setVisibility(View.GONE);
     }
 
     @Override
     public void hideEmpty() {
         mLlEmpty.setVisibility(View.GONE);
+        mTvEdit.setVisibility(View.VISIBLE);
     }
 
 
@@ -448,11 +450,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
         ArrayList<SkuData> skuDatas = new ArrayList<>();
 
-        if (skuDatas.size() == 0) {
-            T.showShort(getActivity(), "请选择要删除的商品");
-            return;
-        }
-
         Iterator iterator = mData.iterator();
         while (iterator.hasNext()) {
             SkuData skuData = (SkuData) iterator.next();
@@ -465,6 +462,9 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
         if (skuDatas.size() > 0) {
             ShopCartUtil.deleteSkuList(skuDatas);
+        } else {
+            T.showShort(getActivity(), "请选择要删除的商品");
+            return;
         }
 
         mCountEdit = 0;

@@ -112,7 +112,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
         //mRvGoods.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
         mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this);
-
         mRvGoods.setAdapter(mGoodsListAdapter);
     }
 
@@ -191,7 +190,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         mGoodsListAdapter.notifyDataSetChanged();
     }
 
-
     @Override
     public void onOrderClick(int skuId, int count) {
         mOrderSkuId = skuId;
@@ -206,17 +204,14 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     }
 
     @Override
-    public void onSaveCartClick(Sku sku, int position) {
+    public void onSaveCartClick(Sku sku, int position, int count) {
         SkuData skuData = new SkuData(sku);
-
-        skuData.setCount(1);
+        skuData.setCount(count);
         ShopCartUtil.addData(skuData);
 
         GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());
-
-        sku.setCount(sku.getCount() + 1);
+        sku.setCount(count);
         mGoods.set(position, sku);
-
         mGoodsListAdapter.notifyDataSetChanged();
     }
 

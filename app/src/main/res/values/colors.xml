@@ -37,7 +37,7 @@
     <color name="color_text_7">#4c4c4c</color>
 
     <color name="color_bg">#f3f3f3</color>
-    <color name="color_bg_1">#f8f8f8</color>
+    <color name="color_bg_1">#fafbfd</color>
 
     <color name="color_icon_bg_1">#009cef</color>
     <color name="color_icon_bg_2">#a59b8f</color>
@@ -72,7 +72,7 @@
 
     <color name="text_stroke">#D6D6D6</color>
 
-    <color name="bg_1">#E7E6E6</color>
+    <!--<color name="bg_1">#E7E6E6</color>-->
     <color name="bg_button">#FF8002</color>
     <color name="bg_button_add_cart">#0ECBC0</color>
 
@@ -90,5 +90,7 @@
     <color name="setting_bg">#4cffffff</color>
 
     <color name="bg_update_num">#EDEDED</color>
+
+    <color name="color_t">#ffffffff</color>
 
 </resources>
