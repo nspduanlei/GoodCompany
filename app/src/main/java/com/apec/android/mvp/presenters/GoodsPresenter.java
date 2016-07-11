@@ -1,6 +1,8 @@
 package com.apec.android.mvp.presenters;
 
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
@@ -51,17 +53,9 @@ public class GoodsPresenter implements Presenter {
     public void startLocation() {
         mGoodsView.startLocation();
         mLocationHelp.startLocation(aMapLocation -> {
-            mCityName = aMapLocation.getCity();
-            mCityCode = aMapLocation.getCityCode();
-
-            if (StringUtils.isNullOrEmpty(mCityName)) {
-                mCityName.replace("市", "");
-            }
-
-            mLocationHelp.shopLocation();
-
-            getOpenCityFile();
+            locationBack(aMapLocation);
         });
+
     }
 
     public void getOpenCityFile() {
@@ -70,7 +64,7 @@ public class GoodsPresenter implements Presenter {
                 .doOnNext(cityList -> {
                     //将开放城市信息存储在数据库中
                     for (OpenCity openCity : cityList) {
-                        if (mCityCode.equals(openCity.getCityCode())) {
+                        if (mCityCode != null && mCityCode.equals(openCity.getCityCode())) {
                             openCity.setLocation(true);
                             mCityId = openCity.getCityId();
                         }
@@ -148,19 +142,24 @@ public class GoodsPresenter implements Presenter {
         isReLocation = true;
         mGoodsView.startLocation();
         mLocationHelp.startLocation(aMapLocation -> {
+            locationBack(aMapLocation);
+        });
+    }
+
+    private void locationBack(AMapLocation aMapLocation) {
+
+        if (aMapLocation.getErrorCode() == 0) {
             mCityName = aMapLocation.getCity();
             mCityCode = aMapLocation.getCityCode();
 
             if (StringUtils.isNullOrEmpty(mCityName)) {
                 mCityName.replace("市", "");
             }
+        } else {
 
-            //mCityCode = "0755";
-            //mCityName = "深圳";
+        }
 
-            mLocationHelp.shopLocation();
-
-            getOpenCityFile();
-        });
+        mLocationHelp.shopLocation();
+        getOpenCityFile();
     }
 }

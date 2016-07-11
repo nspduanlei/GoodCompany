@@ -108,16 +108,21 @@ public class InputNumDialog {
         @Override
         public void afterTextChanged(Editable s) {
             /** 得到光标开始和结束位置 ,超过最大数后记录刚超出的数字索引进行控制 */
+            if (s.length() == 0) {
+                etGoodsCount.setText("1");
+                return;
+            }
 
             int number  = Integer.valueOf(s.toString());
 
-            if (number < 0) {
-                etGoodsCount.setText("0");
-                T.showShort(mActivity, "商品数量不能小于0");
+            if (number < 1) {
+                etGoodsCount.setText("1");
+                T.showShort(mActivity, "商品数量不能小于1");
             } else if (number > Constants.MAX_GOODS_COUNT) {
                 etGoodsCount.setText(String.valueOf(Constants.MAX_GOODS_COUNT));
                 T.showShort(mActivity, "商品数量不能超过" + Constants.MAX_GOODS_COUNT);
             }
+
 
 //            editStart = mEditTextMsg.getSelectionStart();
 //            editEnd = mEditTextMsg.getSelectionEnd();
