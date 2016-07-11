@@ -54,7 +54,7 @@ import butterknife.OnClick;
 public class MeFragment extends BaseFragment implements MeView {
 
     @BindView(R.id.lv_menu)
-    NoScrollListView mLvMenu;
+    ListView mLvMenu;
 
     ArrayList<MyMenu> mData = new ArrayList<>();
 

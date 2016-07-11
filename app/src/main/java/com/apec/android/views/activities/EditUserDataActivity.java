@@ -68,8 +68,6 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
     @Override
     protected void initUi() {
 
-
-
         mEtUserInfo.addTextChangedListener(new EditChangedListener());
 
         mInfoType = getIntent().getIntExtra("useInfo", 0);
@@ -89,7 +87,10 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                 mEtUserInfo.setText(mUser.getName());
                 break;
             case SHOP_NAME: //店铺名
-                mUserInfoStr = "店铺名";
+                mUserInfoStr = "商家店面可以由中英文、数字组成";
+
+                setUpTitle(R.string.update_shop_name);
+
                 mEtUserInfo.setText(mUser.getShopName());
                 break;
             default:
@@ -100,6 +101,8 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         if (StringUtils.isNullOrEmpty(mTvUserInfo.getText().toString())) {
             mIvTextCancel.setVisibility(View.GONE);
         }
+
+
     }
 
     @Override

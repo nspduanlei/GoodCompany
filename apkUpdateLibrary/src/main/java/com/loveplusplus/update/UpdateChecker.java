@@ -42,6 +42,7 @@ public class UpdateChecker extends Fragment {
 	private Thread mThread;
 	private int mTypeOfNotice;
 
+
 	/**
 	 * Show a Dialog if an update is available for download. Callable in a
 	 * FragmentActivity. Number of checks after the dialog will be shown:
@@ -60,8 +61,6 @@ public class UpdateChecker extends Fragment {
 		updateChecker.setArguments(args);
 		content.add(updateChecker, null).commit();
 	}
-
-	
 
 	/**
 	 * Show a Notification if an update is available for download. Callable in a

@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.config.Constants;
 import com.apec.android.util.DensityUtils;
 import com.apec.android.util.ScreenUtils;
 import com.apec.android.views.activities.core.BaseActivity;
@@ -81,6 +82,10 @@ public class OrdersActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         LoginUtil.onActivityResult(requestCode, resultCode, this);
+
+        if (requestCode == Constants.REQUEST_CODE_ORDER_DETAIL) {
+            updateData();
+        }
     }
 
     public void setMsgCount(int count, int position) {
@@ -98,4 +103,5 @@ public class OrdersActivity extends BaseActivity {
     public void hideMsgCount(int position) {
         mTabs.hideMsg(position);
     }
+
 }

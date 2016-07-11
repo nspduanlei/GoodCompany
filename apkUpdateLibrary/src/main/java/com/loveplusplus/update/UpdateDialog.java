@@ -18,8 +18,9 @@ public class UpdateDialog extends DialogFragment {
                 .setPositiveButton(R.string.dialogPositiveButton, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
-                        goToDownload();
                         dismiss();
+
+                        goToDownload();
                     }
                 })
                 .setNegativeButton(R.string.dialogNegativeButton, new DialogInterface.OnClickListener() {

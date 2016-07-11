@@ -115,7 +115,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
                     break;
                 case 3:
                     mTvHint.setVisibility(View.GONE);
-                    mTvStatus.setText("已签收");
+                    mTvStatus.setText("已完成");
                     mBtnFunc.setVisibility(View.GONE);
                     break;
                 case 4:

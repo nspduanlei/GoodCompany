@@ -74,7 +74,8 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         public void bindGood(GoodsReceipt goodsReceipt) {
             mTvUserName.setText(goodsReceipt.getName());
             mTvPhoneNumber.setText(goodsReceipt.getPhone());
-            mTvAddress.setText(goodsReceipt.getAddrRes().getDetail());
+            mTvAddress.setText(goodsReceipt.getAddrRes().getCity() +
+                    goodsReceipt.getAddrRes().getArea() + goodsReceipt.getAddrRes().getDetail());
 
             //如果是默认地址不能删除, 如果是选择地址也不能删除
             if (mIsSelect || goodsReceipt.isDefalut()) {

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.config.Constants;
 import com.apec.android.domain.entities.order.Order;
 import com.apec.android.domain.entities.order.OrderList;
 import com.apec.android.injector.components.DaggerOrderComponent;
@@ -129,7 +130,7 @@ public class OrderFragment extends BaseFragment implements OrderListClickListene
         //跳转到订单详情
         Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
         intent.putExtra(OrderDetailActivity.EXTRA_ORDER_ID, mOrders.get(position).getId());
-        startActivity(intent);
+        getActivity().startActivityForResult(intent, Constants.REQUEST_CODE_ORDER_DETAIL);
     }
 
     @Override

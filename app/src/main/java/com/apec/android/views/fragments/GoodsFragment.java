@@ -207,6 +207,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     public void onSaveCartClick(Sku sku, int position, int count) {
         SkuData skuData = new SkuData(sku);
         skuData.setCount(count);
+        skuData.setSelect(true);
         ShopCartUtil.addData(skuData);
 
         GoodsCFragment.mFragmentListener.updateCartNum(ShopCartUtil.querySkuNum());

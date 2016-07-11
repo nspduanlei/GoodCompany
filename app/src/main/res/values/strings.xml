@@ -70,4 +70,5 @@
     <string name="today" translatable="false">今天</string>
     <string name="date_format" translatable="false">M月d日 HH:mm</string>
     <string name="year_format" translatable="false">yyyy年 M月d日 HH:mm</string>
+    <string name="update_shop_name">修改商家名称</string>
 </resources>
