@@ -69,25 +69,25 @@ public class TrueOrderPresenter implements Presenter {
 
     @Override
     public void onCreate() {
-        getArriveTime();
+        //getArriveTime();
     }
 
-    public void getArriveTime() {
-        mView.showLoadingView();
-        mSubscriptionArriveTime = mGetArriveTimeUseCase.execute()
-                .subscribe(this::onArriveTimeReceived, this::managerError);
-    }
+//    public void getArriveTime() {
+//        mView.showLoadingView();
+//        mSubscriptionArriveTime = mGetArriveTimeUseCase.execute()
+//                .subscribe(this::onArriveTimeReceived, this::managerError);
+//    }
 
     private void managerError(Throwable throwable) {
         mView.hideLoadingView();
     }
 
-    private void onArriveTimeReceived(ArrivalTime arrivalTime) {
-        mView.hideLoadingView();
-        if (arrivalTime.getH().getCode() == 200) {
-            mView.bindArriveTime(arrivalTime.getB().getTime());
-        }
-    }
+//    private void onArriveTimeReceived(ArrivalTime arrivalTime) {
+//        mView.hideLoadingView();
+//        if (arrivalTime.getH().getCode() == 200) {
+//            mView.bindArriveTime(arrivalTime.getB().getTime());
+//        }
+//    }
 
     //快速下单
     public void fastOrder(int skuId, int addressId, int num) {

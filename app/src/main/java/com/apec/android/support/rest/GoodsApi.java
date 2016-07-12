@@ -92,7 +92,7 @@ public interface GoodsApi {
     @GET("orders/app")
     Observable<OrderListBack> getAllOrder(@Query("state") int state);
 
-    @GET("order")
+    @GET("order/app")
     Observable<OrderBack> getOrderDetail(@Query("id") String orderId);
 
     @GET("order/cancel")

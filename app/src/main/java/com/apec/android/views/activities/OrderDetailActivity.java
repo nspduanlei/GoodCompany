@@ -85,9 +85,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
 
     @Override
     public void bindOrder(Order order) {
-
         mLlContent.setVisibility(View.VISIBLE);
-
         mBinding.setOrder(order);
 
         mLvSku.setAdapter(new CommonAdapter<OrderItem>(this, order.getOrderItems(),
@@ -110,7 +108,6 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
                     holder.setText(R.id.tv_weight,
                             String.format(getString(R.string.true_order_3), skuData.getAttrName()));
                 }
-
             }
         });
 
@@ -148,13 +145,4 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailView
     public void hideLoadingView() {
         mPbLoading.setVisibility(View.GONE);
     }
-
-
-
-//    @OnClick(R.id.btn_cancel_order)
-//    void onCancelClicked(View view) {
-//        //取消订单
-//        mPresenter.cancelOrder(mOrderId);
-//    }
-
 }

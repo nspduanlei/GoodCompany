@@ -119,7 +119,6 @@ public class MyReceiver extends BroadcastReceiver {
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				context.startActivity(i);
 			} else {
-
 				SPUtils.put(context, SPUtils.HAS_NEW_MESSAGE, false);
 
 				//打开自定义的Activity

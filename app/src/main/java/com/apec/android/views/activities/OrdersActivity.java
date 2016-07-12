@@ -84,7 +84,7 @@ public class OrdersActivity extends BaseActivity {
         LoginUtil.onActivityResult(requestCode, resultCode, this);
 
         if (requestCode == Constants.REQUEST_CODE_ORDER_DETAIL) {
-            updateData();
+            //updateData();
         }
     }
 

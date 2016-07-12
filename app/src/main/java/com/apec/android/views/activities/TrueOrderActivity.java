@@ -57,8 +57,8 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     TextView mTvTitleFunction;
     @BindView(R.id.pb_loading)
     ProgressBar mPbLoading;
-    @BindView(R.id.tv_arrived_time)
-    TextView mTvArrivedTime;
+//    @BindView(R.id.tv_arrived_time)
+//    TextView mTvArrivedTime;
 
     @BindView(R.id.lv_goods)
     NoScrollListView mLvGoods;
@@ -155,7 +155,7 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
     @Override
     public void bindArriveTime(String time) {
-        mTvArrivedTime.setText(String.format(getString(R.string.true_order_1), time));
+        //mTvArrivedTime.setText(String.format(getString(R.string.true_order_1), time));
     }
 
     @Override
