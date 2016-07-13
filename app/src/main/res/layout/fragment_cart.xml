@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="合计:￥0.0"
-                android:textColor="@color/text_6"
+                android:textColor="@color/bg_button"
                 android:textStyle="bold"/>
         </RelativeLayout>
     </LinearLayout>

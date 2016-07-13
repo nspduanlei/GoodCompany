@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="29dp"
         android:text="￥645.0"
-        android:textColor="@color/text_8"
+        android:textColor="@color/text_6"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_toRightOf="@id/iv_goods"

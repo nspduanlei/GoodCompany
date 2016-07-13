@@ -162,7 +162,8 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
             mLocationDialog.closeDialog();
         }
 
-        T.showShort(getActivity(), "无法请求到数据");
+        T.showShort(getActivity(), "网络连接不可用，请检查网络");
+
     }
 
     @Override

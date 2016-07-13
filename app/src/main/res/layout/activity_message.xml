@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-     <include
-          layout="@layout/widget_toolbar"/>
+    <include
+        layout="@layout/widget_toolbar"/>
 
-     <android.support.v7.widget.RecyclerView
-         style="@style/listStyle"
-         android:id="@+id/rl_message"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rl_message"
+            style="@style/listStyle"/>
+
+        <TextView
+            android:id="@+id/view_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="没有消息"
+            android:visibility="gone"/>
+    </FrameLayout>
 
 </LinearLayout>

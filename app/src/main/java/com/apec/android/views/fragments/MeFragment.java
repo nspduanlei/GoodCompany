@@ -202,6 +202,7 @@ public class MeFragment extends BaseFragment implements MeView {
             }
         } else {
             mTvUserName.setText("请登录");
+            mIvHeader.setImageResource(R.drawable.head_default);
         }
     }
 

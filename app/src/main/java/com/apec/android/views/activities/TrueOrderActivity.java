@@ -79,7 +79,6 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
     protected void setUpContentView() {
         //如果没有登录去登录
         LoginUtil.gotoLogin(this);
-
         setContentView(R.layout.activity_true_order, R.string.true_order_title);
     }
 
@@ -93,7 +92,6 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 //        if (mSkuIds.size() > 0) {
 //            isCart = true;
 //        }
-
         //订单金额
         Double amount = 0.0;
 
@@ -132,11 +130,12 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
         mTvTitleTotal.setText(String.format(getString(R.string.true_order_5), String.valueOf(amount)));
     }
 
-
     private void bindGoodReceipt() {
         mTvUserName.setText(mGoodsReceipt.getName());
         mTvUserPhone.setText(mGoodsReceipt.getPhone());
-        mTvUserAddress.setText(mGoodsReceipt.getAddrRes().getDetail());
+        mTvUserAddress.setText(mGoodsReceipt.getAddrRes().getCity() +
+                mGoodsReceipt.getAddrRes().getArea() +
+                mGoodsReceipt.getAddrRes().getDetail());
     }
 
     @Override

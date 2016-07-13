@@ -2,6 +2,8 @@ package com.apec.android.views.activities;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
@@ -25,6 +27,9 @@ public class MessageActivity extends BaseActivity implements ListClickListener {
     @BindView(R.id.rl_message)
     RecyclerView mRlMessage;
 
+    @BindView(R.id.view_empty)
+    TextView mViewEmpty;
+
     MessageListAdapter mAdapter;
     List<Message> mMessageList;
 
@@ -45,6 +50,11 @@ public class MessageActivity extends BaseActivity implements ListClickListener {
 //        for(int i = 0; i < 10; i++) {
 //            mMessageList.add(new Message(1, "消息提醒", 100, "嘎嘎啊发嘎嘎韩国哈哈哈哈哈哈就经济结构"));
 //        }
+
+        if (mMessageUtils.select().size() == 0) {
+            mViewEmpty.setVisibility(View.VISIBLE);
+            return;
+        }
 
         mMessageList.addAll(mMessageUtils.select());
 

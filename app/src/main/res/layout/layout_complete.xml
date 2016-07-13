@@ -5,8 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/ll_complete"
-    android:visibility="gone"
+    android:visibility="visible"
     android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/tv_hint_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_hint_complete"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_2"/>
 
     <LinearLayout
         style="@style/FormItemStyle">
