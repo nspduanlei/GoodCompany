@@ -232,7 +232,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
                     mAdapterEdit.notifyDataSetChanged();
                 }
             }).showAlertDialog();
-
             return;
         }
 

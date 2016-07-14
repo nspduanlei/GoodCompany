@@ -7,12 +7,10 @@
                                     android:padding="10dp"
                                     app:cardCornerRadius="10dp">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp">
-
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -20,13 +18,24 @@
             android:layout_height="wrap_content"
             android:src="@drawable/order_item_icon"/>
 
+
+        <TextView
+            android:id="@+id/tv_title_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下单时间"
+            android:layout_toRightOf="@id/iv_icon"
+            android:textColor="@color/text_6"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
+
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="下单时间   2016-05-20 15:00"
-            android:layout_toRightOf="@id/iv_icon"
-            android:textColor="@color/text_6"
+            android:text="2016-05-20 15:00"
+            android:layout_toRightOf="@id/tv_title_time"
+            android:textColor="@color/text_2"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"/>
 
@@ -92,7 +101,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/tv_goods_num"
             android:layout_marginTop="12dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:textSize="13sp"/>
     </RelativeLayout>
 
 

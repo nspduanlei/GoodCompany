@@ -175,4 +175,9 @@ public class MyViewHolder {
         textView.setText(chars);
         return this;
     }
+
+    public int getVisibility(int tv_content) {
+        View view = getView(tv_content);
+        return view.getVisibility();
+    }
 }

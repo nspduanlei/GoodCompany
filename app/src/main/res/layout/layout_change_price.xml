@@ -14,9 +14,9 @@
     android:visibility="visible">
 
     <ImageView
+        android:id="@id/iv_cut"
         style="@style/updateNum"
-        android:id="@id/iv_add"
-        android:src="@drawable/btn_add"/>
+        android:src="@drawable/btn_cut"/>
 
     <TextView
         android:id="@+id/tv_num"
@@ -27,7 +27,7 @@
         android:text="60000"/>
 
     <ImageView
-        android:id="@id/iv_cut"
         style="@style/updateNum"
-        android:src="@drawable/btn_cut"/>
+        android:id="@id/iv_add"
+        android:src="@drawable/btn_add"/>
 </LinearLayout>

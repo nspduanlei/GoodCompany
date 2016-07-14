@@ -26,6 +26,7 @@ import com.apec.android.views.adapter.GoodsListAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LoginUtil;
 import com.apec.android.views.utils.ShopCartUtil;
+import com.apec.android.views.view.DividerItemDecoration;
 import com.apec.android.views.view.RecyclerClickListener;
 import com.apec.android.views.view.RecyclerInsetsDecoration;
 
@@ -110,7 +111,9 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
     private void initRecyclerView() {
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //mRvGoods.addItemDecoration(new RecyclerInsetsDecoration(getActivity()));
+
+        mRvGoods.addItemDecoration(new DividerItemDecoration(getActivity()));
+
         mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this);
         mRvGoods.setAdapter(mGoodsListAdapter);
     }

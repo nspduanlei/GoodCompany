@@ -34,6 +34,17 @@
             android:text="请登录"
             android:textColor="@color/text_8"
             android:textStyle="bold"/>
+        
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_marginTop="15dp"
+            android:layout_width="108dp"
+            android:layout_height="32dp"
+            android:text="请登录"
+            android:background="@drawable/button_shape_bg_8"
+            android:textColor="@color/bg_button"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
     <!--<FrameLayout-->

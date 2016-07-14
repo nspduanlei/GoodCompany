@@ -3,13 +3,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_goods"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginRight="20dp"
         android:scaleType="fitXY"
         android:src="@drawable/goods_pic_test"/>
@@ -22,7 +21,8 @@
         android:text="广西白砂糖"
         android:textColor="@color/text_6"
         android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginTop="21dp"/>
 
     <LinearLayout
         android:id="@+id/ll_attr"
@@ -30,23 +30,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_name"
         android:layout_toRightOf="@id/iv_goods"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:orientation="horizontal">
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="正常颗粒"-->
-            <!--android:textColor="@color/text_2"-->
-            <!--android:textSize="12sp"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正常颗粒"
+            android:textColor="@color/text_2"
+            android:textSize="12sp"/>
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="正常颗粒"-->
-            <!--android:textColor="@color/text_2"-->
-            <!--android:textSize="12sp"-->
-            <!--android:layout_marginLeft="10dp"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正常颗粒"
+            android:textColor="@color/text_2"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
@@ -93,9 +93,9 @@
         android:layout_width="67dp"
         android:layout_height="22dp"
         android:layout_below="@id/ll_price"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:layout_toRightOf="@id/iv_goods"
-        android:background="@drawable/button_selector"
+        android:background="@drawable/button_selector_add_cart"
         android:text="快速下单"
         android:textColor="@color/color_white"
         android:textSize="12sp"
@@ -107,9 +107,9 @@
         android:layout_height="22dp"
         android:layout_below="@id/ll_price"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:layout_toRightOf="@id/btn_order"
-        android:background="@drawable/button_selector_add_cart"
+        android:background="@drawable/button_selector"
         android:text="加入购物车"
         android:textColor="@color/color_white"
         android:textSize="12sp"
@@ -122,17 +122,16 @@
         android:layout_height="29dp"
         android:layout_below="@id/ll_price"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="7dp"
         android:layout_toRightOf="@id/btn_order"
         android:background="@drawable/button_shape_bg_10"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="visible">
-
         <ImageView
-            android:id="@id/iv_add"
+            android:id="@id/iv_cut"
             style="@style/updateNum"
-            android:src="@drawable/btn_add"/>
+            android:src="@drawable/btn_cut"/>
 
         <TextView
             android:id="@+id/tv_num"
@@ -143,9 +142,9 @@
             android:text="60000"/>
 
         <ImageView
-            android:id="@id/iv_cut"
+            android:id="@id/iv_add"
             style="@style/updateNum"
-            android:src="@drawable/btn_cut"/>
+            android:src="@drawable/btn_add"/>
     </LinearLayout>
 
 </RelativeLayout>

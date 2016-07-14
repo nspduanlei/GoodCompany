@@ -89,6 +89,7 @@
     <style name="button_style_6" parent="button_style_base">
         <item name="android:layout_width">183.5dp</item>
         <item name="android:layout_height">36.5dp</item>
+        <item name="android:textColor">@color/bg_button</item>
         <item name="android:background">@drawable/button_shape_bg_8</item>
     </style>
 
@@ -120,8 +121,8 @@
 
     <style name="ToolBarStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">45dp</item>
-        <item name="android:minHeight">45dp</item>
+        <item name="android:layout_height">@dimen/top_bar_height</item>
+        <item name="android:minHeight">@dimen/top_bar_height</item>
         <item name="android:background">@drawable/top_bar_bg</item>
         <item name="android:theme">@style/PopWindowStyle</item>
     </style>

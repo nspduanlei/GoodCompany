@@ -57,6 +57,14 @@ public class ServiceActivity extends BaseActivity {
                 holder.setText(R.id.tv_num, String.format("%d. ", question.getId()))
                         .setText(R.id.tv_question, question.getQuestion())
                         .setText(R.id.tv_content, question.getContent());
+
+                holder.setOnClickLister(R.id.tv_question, view -> {
+                    if (holder.getVisibility(R.id.tv_content) == View.VISIBLE) {
+                        holder.setVisibility(R.id.tv_content, View.GONE);
+                    } else if (holder.getVisibility(R.id.tv_content) == View.GONE) {
+                        holder.setVisibility(R.id.tv_content, View.VISIBLE);
+                    }
+                });
             }
         });
 
@@ -71,5 +79,4 @@ public class ServiceActivity extends BaseActivity {
     protected void initPresenter() {
 
     }
-
 }

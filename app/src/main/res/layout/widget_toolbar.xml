@@ -10,7 +10,8 @@
         android:layout_gravity="center"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/color_text_1"
-        android:textSize="@dimen/title_size" />
+        android:textColor="@color/text_6"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"/>
 
 </android.support.v7.widget.Toolbar>

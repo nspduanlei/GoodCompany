@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="购物车"
-            android:textColor="@color/text_1"
-            android:textSize="@dimen/title_size"/>
+            android:textColor="@color/text_6"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_edit"
@@ -43,7 +44,8 @@
             android:id="@+id/rv_cart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -74,7 +76,8 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/button_selector"
                 android:text="去结算"
-                android:textColor="@color/color_white"/>
+                android:textColor="@color/color_white"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_total_price"
@@ -100,7 +103,8 @@
             android:id="@+id/rv_cart_edit"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -131,7 +135,8 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/button_selector"
                 android:text="删除"
-                android:textColor="@color/color_white"/>
+                android:textColor="@color/color_white"
+                android:textSize="12sp"/>
         </RelativeLayout>
     </LinearLayout>
 

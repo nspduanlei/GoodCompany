@@ -8,7 +8,6 @@
     <include
         layout="@layout/widget_toolbar"/>
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,7 +33,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="400-1000-747"
                 android:textColor="@color/color_white"
                 android:textStyle="bold"/>
@@ -44,10 +42,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="55dp"
         android:text="您是否遇到以下问题"
-        android:textColor="@color/text_1"
+        android:textColor="@color/text_6"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -55,7 +53,10 @@
         android:id="@+id/lv_question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="20dp"
         android:divider="@color/color_line"
         android:dividerHeight="0.5dp"/>
 

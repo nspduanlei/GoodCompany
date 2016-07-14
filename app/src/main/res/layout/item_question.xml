@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tv_num"
         android:text="下单后，货物什么时候送达"
-        android:textColor="@color/text_6"/>
+        android:textColor="@color/text_6"
+        android:layout_marginRight="23dp"/>
 
     <TextView
         android:id="@+id/tv_content"
@@ -30,6 +31,6 @@
         android:layout_toRightOf="@id/tv_num"
         android:text="滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴"
         android:textColor="@color/text_2"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
 </RelativeLayout>

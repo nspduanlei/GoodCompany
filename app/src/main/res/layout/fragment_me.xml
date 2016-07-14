@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="个人中心"
-            android:textColor="@color/text_1"
-            android:textSize="@dimen/title_size"/>
+            android:textColor="@color/text_6"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/tv_edit"

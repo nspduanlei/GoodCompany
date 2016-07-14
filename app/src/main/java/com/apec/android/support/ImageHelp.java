@@ -22,7 +22,7 @@ public class ImageHelp {
     public static void display(Context context, String url, ImageView imageView) {
         Picasso.with(context)
                 .load(url)
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .error(R.drawable.test)
                 .into(imageView);
     }
@@ -54,7 +54,7 @@ public class ImageHelp {
     public static void displayLocal(Context context, int id, ImageView imageView) {
         Picasso.with(context)
                 .load(id)
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .error(R.drawable.test)
                 .into(imageView);
     }
@@ -62,7 +62,7 @@ public class ImageHelp {
     public static void displayLocalFile(Context context, File file, ImageView imageView) {
         Picasso.with(context)
                 .load(file)
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .error(R.drawable.test)
                 .into(imageView);
     }
@@ -70,7 +70,7 @@ public class ImageHelp {
     public static void displayLocalFileCircle(Context context, File file, ImageView imageView) {
         Picasso.with(context)
                 .load(file)
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .error(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(imageView);

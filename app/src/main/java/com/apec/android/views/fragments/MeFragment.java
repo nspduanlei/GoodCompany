@@ -3,6 +3,7 @@ package com.apec.android.views.fragments;
 import android.content.Intent;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.apec.android.support.rest.RestDataSource;
 import com.apec.android.util.AppUtils;
 import com.apec.android.util.T;
 import com.apec.android.views.activities.EditUserDataActivity;
+import com.apec.android.views.activities.LoginActivity;
 import com.apec.android.views.activities.ManageAddressActivity;
 import com.apec.android.views.activities.MessageActivity;
 import com.apec.android.views.activities.OrdersActivity;
@@ -62,8 +64,12 @@ public class MeFragment extends BaseFragment implements MeView {
     ImageView mIvHeader;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
+
 //    @BindView(R.id.v_msg_new)
 //    View mVMsgNew;
+
+    @BindView(R.id.btn_login)
+    Button mButtonLogin;
 
     boolean isLogin = false;
     User mUser;
@@ -140,7 +146,6 @@ public class MeFragment extends BaseFragment implements MeView {
         });
     }
 
-
     @Override
     protected int getFragmentLayout() {
         return R.layout.fragment_me;
@@ -185,6 +190,8 @@ public class MeFragment extends BaseFragment implements MeView {
         if (isLogin) {
             mUser = UserUtil.getUser();
             if (mUser != null) {
+                mButtonLogin.setVisibility(View.GONE);
+                mTvUserName.setVisibility(View.VISIBLE);
                 mTvUserName.setText(mUser.getShopName());
 //                if (mUser.getShopPic() != null) {
 //                    ImageHelp.displayCircle(getActivity(), mUser.getShopPic(), mIvHeader);
@@ -201,7 +208,8 @@ public class MeFragment extends BaseFragment implements MeView {
                 }
             }
         } else {
-            mTvUserName.setText("请登录");
+            mTvUserName.setVisibility(View.GONE);
+            mButtonLogin.setVisibility(View.VISIBLE);
             mIvHeader.setImageResource(R.drawable.head_default);
         }
     }
@@ -227,5 +235,11 @@ public class MeFragment extends BaseFragment implements MeView {
             UpdateChecker.checkForDialog(getActivity(), RestDataSource.END_POINT + "appVersion");
             //new UpdateVersionUtil(getActivity(), version.getB()).showDialog();
         }
+    }
+
+    @OnClick(R.id.btn_login)
+    void onLoginClicked(View v) {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 }
