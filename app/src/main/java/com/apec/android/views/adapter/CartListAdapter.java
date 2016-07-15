@@ -6,18 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.apec.android.R;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.support.ImageHelp;
 import com.apec.android.views.utils.InputNumDialog;
 import com.apec.android.views.view.CartListClickListener;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -72,6 +72,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
         @BindView(R.id.iv_lose)
         ImageView mIvLose;
 
+        @BindView(R.id.tv_attr_name)
+        TextView mTvAttrName;
 
         public GoodsViewHolder(View itemView, final CartListClickListener listener) {
             super(itemView);
@@ -84,6 +86,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
             mTvPrice.setText(String.format(mContext.getString(R.string.add_order_total),
                     data.getPrice()));
             mTvAddCount.setText(String.valueOf(data.getCount()));
+
+            //TODO 绑定属性名
+            mTvAttrName.setText(data.getAttrValueString());
 
             ImageHelp.display(mContext, data.getPic(), mIvGoods);
 
@@ -99,7 +104,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.GoodsV
 
             mCbSelect.setOnClickListener(view -> mListener.onCheckChange(data,
                     mCbSelect.isChecked(), getAdapterPosition()));
-
 
             mBtnAdd.setOnClickListener(view -> mListener.onUpdateCount(data, getAdapterPosition(), 1));
 

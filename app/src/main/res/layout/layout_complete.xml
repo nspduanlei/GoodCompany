@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:text="@string/login_hint_complete"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/text_2"/>
+        android:textColor="@color/text_2"
+        android:visibility="gone"/>
 
     <LinearLayout
         style="@style/FormItemStyle">

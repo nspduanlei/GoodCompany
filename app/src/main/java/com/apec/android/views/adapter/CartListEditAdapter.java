@@ -65,9 +65,11 @@ public class CartListEditAdapter extends RecyclerView.Adapter<CartListEditAdapte
         @BindView(R.id.tv_num)
         TextView mTvAddCount;
 
-
         @BindView(R.id.ll_update_num)
         LinearLayout mLlUpdateNum;
+
+        @BindView(R.id.tv_attr_name)
+        TextView mTvAttrName;
 
         public GoodsViewHolder(View itemView, final CartListEditClickListener listener) {
             super(itemView);
@@ -80,6 +82,9 @@ public class CartListEditAdapter extends RecyclerView.Adapter<CartListEditAdapte
             mTvPrice.setText(String.format(mContext.getString(R.string.add_order_total),
                     data.getPrice()));
             mTvAddCount.setText(String.valueOf(data.getCount()));
+
+            //TODO 绑定属性名
+            mTvAttrName.setText(data.getAttrValueString());
 
             ImageHelp.display(mContext, data.getPic(), mIvGoods);
 

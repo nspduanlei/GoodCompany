@@ -69,7 +69,6 @@ public interface GoodsApi {
                                       @Field("addreAreacounty") int addressAreaCounty,
                                       @Field("addreCity") int addressCity,
                                       @Field("addreDetailAddress") String detailAddress);
-
     @FormUrlEncoded
     @POST("address/del")
     Observable<NoBody> delAddress(@Field("id") int addressId);

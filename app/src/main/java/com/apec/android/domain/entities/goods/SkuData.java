@@ -38,6 +38,16 @@ public class SkuData extends DataSupport {
     //是否添加到远程数据库
     private boolean isSave;
 
+    private String attrValueString;
+
+    public String getAttrValueString() {
+        return attrValueString;
+    }
+
+    public void setAttrValueString(String attrValueString) {
+        this.attrValueString = attrValueString;
+    }
+
     public int getId() {
         return id;
     }
@@ -145,35 +155,31 @@ public class SkuData extends DataSupport {
         this.price = sku.getPrice();
         this.count = sku.getCount();
 
+        StringBuffer stringBuffer = new StringBuffer("");
+
         for (SkuAttribute skuAttribute:sku.getNonkeyAttr()) {
+
+            stringBuffer.append(skuAttribute.getAttributeValues().get(0).getName() + "  ");
+
             if (skuAttribute.getType().equals("2")) {
                 //净含量属性
                 this.attrName = skuAttribute.getName();
                 this.attrValue = skuAttribute.getAttributeValues().get(0).getName();
             }
         }
+
+        for (SkuAttribute skuAttribute:sku.getAttributeNames()) {
+            stringBuffer.append(skuAttribute.getAttributeValues().get(0).getName() + "  ");
+        }
+
+        this.attrValueString = stringBuffer.toString();
+
         this.status = sku.getStatus();
         this.pic = sku.getPics().get(0).getUrl();
     }
 
     public SkuData(Skus item) {
-        Sku sku = item.getSku();
-
-        this.skuId = String.valueOf(sku.getId());
-        this.goodsId = sku.getGoodsId();
-        this.skuName = sku.getSkuName();
-        this.price = sku.getPrice();
-        this.count = item.getCount();
-
-        for (SkuAttribute skuAttribute:sku.getNonkeyAttr()) {
-            if (skuAttribute.getType().equals("2")) {
-                //净含量属性
-                this.attrName = skuAttribute.getName();
-                this.attrValue = skuAttribute.getAttributeValues().get(0).getName();
-            }
-        }
-        this.status = sku.getStatus();
-        this.pic = sku.getPics().get(0).getUrl();
+        this(item.getSku());
     }
 
 }
