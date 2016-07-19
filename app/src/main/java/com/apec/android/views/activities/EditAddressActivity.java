@@ -79,6 +79,8 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
 
         mSelCityId = Integer.valueOf(mGoodsReceipt.getAddrRes().getCityId());
         mSelAreaId = Integer.valueOf(mGoodsReceipt.getAddrRes().getAreaId());
+        mCityName = mGoodsReceipt.getAddrRes().getCity();
+        mAreaName = mGoodsReceipt.getAddrRes().getArea();
         mAddressId = mGoodsReceipt.getAddressId();
 
         mSelectCityUtil.setData(this,

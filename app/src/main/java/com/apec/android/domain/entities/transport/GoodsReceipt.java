@@ -73,12 +73,14 @@ public class GoodsReceipt implements Parcelable {
         return 0;
     }
 
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(userId);
         dest.writeInt(addressId);
         dest.writeString(name);
         dest.writeString(phone);
+        dest.writeByte((byte)(defalut ?1:0));
         dest.writeParcelable(addrRes, flags);
     }
 
@@ -87,6 +89,7 @@ public class GoodsReceipt implements Parcelable {
         addressId = in.readInt();
         name = in.readString();
         phone = in.readString();
+        defalut = in.readByte()!=0;
         addrRes = in.readParcelable(Address.class.getClassLoader());
     }
 

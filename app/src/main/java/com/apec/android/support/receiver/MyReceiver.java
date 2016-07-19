@@ -75,7 +75,9 @@ public class MyReceiver extends BroadcastReceiver {
 			}
 
 			if (type != null && content != null && type.equals("2")) {
-
+				//发送广播
+				Intent mIntent = new Intent(MainActivity.ACTION_USER_UPDATE);
+				context.sendBroadcast(mIntent);
 			} else {
 				if (MainActivity.isForeground) {
 					//发送广播

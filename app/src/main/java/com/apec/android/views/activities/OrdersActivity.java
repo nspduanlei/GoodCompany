@@ -1,6 +1,9 @@
 package com.apec.android.views.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.view.ViewPager;
 
 import com.apec.android.R;
@@ -54,6 +57,8 @@ public class OrdersActivity extends BaseActivity {
     protected void initUi() {
         setupViewPager(mVpOrders);
         mTabs.setViewPager(mVpOrders);
+
+        registerBroadcastReceiver();
     }
 
     @Override
@@ -103,5 +108,35 @@ public class OrdersActivity extends BaseActivity {
     public void hideMsgCount(int position) {
         mTabs.hideMsg(position);
     }
+
+
+    public static final String ACTION_ORDER_STATUS_UPDATE = "订单状态更新";
+
+    //定义广播
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action) {
+                case ACTION_ORDER_STATUS_UPDATE:
+                    updateData();
+                    break;
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBroadcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction(ACTION_ORDER_STATUS_UPDATE);
+        // 注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter) ;
+    }
+    @Override
+    protected void onDestroy() {
+        super .onDestroy();
+        unregisterReceiver( mBroadcastReceiver);
+    }
+
 
 }

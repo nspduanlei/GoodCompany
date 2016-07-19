@@ -180,6 +180,7 @@ public class MainActivity extends BaseActivity implements FragmentListener{
         myIntentFilter.addAction(ACTION_USER_UPDATE);
         myIntentFilter.addAction(ACTION_GOOD_UPDATE);
         myIntentFilter.addAction(MESSAGE_RECEIVED_ACTION);
+        myIntentFilter.addAction(ADDRESS_EDIT_ACTION);
         // 注册广播
         registerReceiver( mBroadcastReceiver, myIntentFilter) ;
     }
