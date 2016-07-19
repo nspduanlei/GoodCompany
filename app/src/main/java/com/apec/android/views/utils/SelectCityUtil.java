@@ -104,7 +104,7 @@ public class SelectCityUtil implements OnClickListener {
     }
 
     public interface SelectArea {
-        void selectCityFinish(String areaStr, int selCityId, int selAreaId);
+        void selectCityFinish(String cityName, String areaName, int selCityId, int selAreaId);
     }
 
     ArrayList<Area> mData;
@@ -303,8 +303,8 @@ public class SelectCityUtil implements OnClickListener {
     }
 
     public void dismiss() {
-        String areaStr = rbCity.getText().toString() + rbArea.getText().toString();
         dialog.dismiss();
-        mSelectArea.selectCityFinish(areaStr, selCity, selArea);
+        mSelectArea.selectCityFinish(rbCity.getText().toString(),
+                rbArea.getText().toString(), selCity, selArea);
     }
 }

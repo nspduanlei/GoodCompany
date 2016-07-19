@@ -1,5 +1,6 @@
 package com.apec.android.views.activities;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import com.apec.android.config.Constants;
 import com.apec.android.databinding.ActivityEditAddressBinding;
 import com.apec.android.domain.entities.transport.GoodsReceipt;
 import com.apec.android.domain.entities.transport.ReceiptInfo;
+import com.apec.android.domain.entities.user.Address;
 import com.apec.android.injector.components.DaggerAddressComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.EditAddressPresenter;
@@ -57,6 +59,9 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
 
     private DialogPlus dialog;
     private int mSelCityId, mSelAreaId, mAddressId;
+    private String mCityName, mAreaName;
+
+    GoodsReceipt mGoodsReceipt;
 
     @Override
     protected void setUpContentView() {
@@ -67,17 +72,18 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
 
     @Override
     protected void initUi() {
-        GoodsReceipt goodsReceipt =
+        mGoodsReceipt =
                 getIntent().getParcelableExtra(ManageAddressActivity.EXTRA_EDIT_ADDRESS);
-        mBinding.setGoodsReceipt(goodsReceipt);
 
-        mSelCityId = Integer.valueOf(goodsReceipt.getAddrRes().getCityId());
-        mSelAreaId = Integer.valueOf(goodsReceipt.getAddrRes().getAreaId());
-        mAddressId = goodsReceipt.getAddressId();
+        mBinding.setGoodsReceipt(mGoodsReceipt);
+
+        mSelCityId = Integer.valueOf(mGoodsReceipt.getAddrRes().getCityId());
+        mSelAreaId = Integer.valueOf(mGoodsReceipt.getAddrRes().getAreaId());
+        mAddressId = mGoodsReceipt.getAddressId();
 
         mSelectCityUtil.setData(this,
-                goodsReceipt.getAddrRes().getCity(),
-                goodsReceipt.getAddrRes().getArea(),
+                mGoodsReceipt.getAddrRes().getCity(),
+                mGoodsReceipt.getAddrRes().getArea(),
                 mSelCityId, mSelAreaId);
 
         dialog = mSelectCityUtil.dialog;
@@ -139,11 +145,33 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
         } else if (addreAreacounty == 0) {
             T.showShort(this, "请选择地区");
         } else {
-            ReceiptInfo receiptInfo = new ReceiptInfo(mAddressId, takeGoodsPhone, takeGoodsUser,
-                    addreCity, addreAreacounty, addreDetailAddress);
 
-            //添加地址
-            mPresenter.updateAddress(receiptInfo);
+            if (takeGoodsPhone.equals(mGoodsReceipt.getPhone())
+                    && takeGoodsUser.equals(mGoodsReceipt.getName())
+                    && addreCity == Integer.valueOf(mGoodsReceipt.getAddrRes().getCityId())
+                    && addreAreacounty == Integer.valueOf(mGoodsReceipt.getAddrRes().getAreaId())
+                    && addreDetailAddress.equals(mGoodsReceipt.getAddrRes().getDetail())) {
+                T.showShort(this, "地址没有修改");
+            } else {
+
+                mGoodsReceipt.setName(takeGoodsUser);
+                mGoodsReceipt.setPhone(takeGoodsPhone);
+
+                Address address = new Address();
+                address.setAreaId(String.valueOf(addreAreacounty));
+                address.setCityId(String.valueOf(addreCity));
+                address.setArea(mAreaName);
+                address.setCity(mCityName);
+                address.setDetail(addreDetailAddress);
+
+                mGoodsReceipt.setAddrRes(address);
+
+                ReceiptInfo receiptInfo = new ReceiptInfo(mAddressId, takeGoodsPhone, takeGoodsUser,
+                        addreCity, addreAreacounty, addreDetailAddress);
+
+                //修改地址
+                mPresenter.updateAddress(receiptInfo);
+            }
         }
 
     }
@@ -157,14 +185,24 @@ public class EditAddressActivity extends BaseActivity implements EditAddressView
     }
 
     @Override
-    public void selectCityFinish(String areaStr, int selCityId, int selAreaId) {
-        mTvSelectArea.setText(areaStr);
+    public void selectCityFinish(String cityName, String areaName, int selCityId, int selAreaId) {
+        mTvSelectArea.setText(cityName + areaName);
         mSelCityId = selCityId;
         mSelAreaId = selAreaId;
+        mCityName = cityName;
+        mAreaName = areaName;
     }
 
     @Override
     public void onUpdateSuccess() {
+
+        Intent mIntent = new Intent(MainActivity.ADDRESS_EDIT_ACTION);
+        mIntent.putExtra("address", mGoodsReceipt);
+        sendBroadcast(mIntent);
+        Intent mIntentTrue = new Intent(TrueOrderActivity.ACTION_ADDRESS_UPDATE);
+        mIntentTrue.putExtra("address", mGoodsReceipt);
+        sendBroadcast(mIntentTrue);
+
         setResult(Constants.RESULT_CODE_UPDATE_ADDRESS_SUCCESS);
         this.finish();
     }

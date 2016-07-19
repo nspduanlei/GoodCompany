@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
+import com.apec.android.domain.entities.transport.GoodsReceipt;
 import com.apec.android.support.rest.RestDataSource;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.fragments.GoodsCFragment;
@@ -53,6 +54,8 @@ public class MainActivity extends BaseActivity implements FragmentListener{
     public static final String ACTION_USER_UPDATE = "用户修改";
     public static final String ACTION_GOOD_UPDATE = "数据更新";
     public static final String MESSAGE_RECEIVED_ACTION = "推送消息";
+
+    public static final String ADDRESS_EDIT_ACTION = "地址编辑";
 
     //推送字段
     public static final String KEY_TITLE = "title";
@@ -154,7 +157,13 @@ public class MainActivity extends BaseActivity implements FragmentListener{
                     break;
                 case MESSAGE_RECEIVED_ACTION:
                     mGoodsCFragment.hasNewMessage();
+                    break;
+                case ADDRESS_EDIT_ACTION:
 
+                    GoodsReceipt goodsReceipt = intent.getParcelableExtra("address");
+                    if (goodsReceipt.isDefalut()) {
+                        mGoodsCFragment.bindDefaultAddress(goodsReceipt);
+                    }
                     break;
             }
         }

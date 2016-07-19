@@ -270,9 +270,9 @@ public class LoginActivity extends BaseActivity implements LoginView, SelectCity
     }
 
     @Override
-    public void selectCityFinish(String areaStr, int selCityId, int selAreaId) {
+    public void selectCityFinish(String cityName, String areaName, int selCityId, int selAreaId) {
         //选择城市和地区的回调
-        mTvArea.setText(areaStr);
+        mTvArea.setText(cityName + areaName);
         mCityId = selCityId;
         mAreaId = selAreaId;
     }

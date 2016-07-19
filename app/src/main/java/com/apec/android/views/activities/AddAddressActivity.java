@@ -79,8 +79,8 @@ public class AddAddressActivity extends BaseActivity implements
     }
 
     @Override
-    public void selectCityFinish(String areaStr, int selCityId, int selAreaId) {
-        mTvSelectArea.setText(areaStr);
+    public void selectCityFinish(String cityName, String areaName, int selCityId, int selAreaId) {
+        mTvSelectArea.setText(cityName + areaName);
         mSelCityId = selCityId;
         mSelAreaId = selAreaId;
     }

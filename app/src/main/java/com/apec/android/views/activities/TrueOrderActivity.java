@@ -1,6 +1,9 @@
 package com.apec.android.views.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -74,7 +77,6 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
     GoodsReceipt mGoodsReceipt;
 
-
     @Override
     protected void setUpContentView() {
         //如果没有登录去登录
@@ -128,6 +130,8 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
 
         mTvTitlePrice.setText(String.format(getString(R.string.true_order_4), String.valueOf(amount)));
         mTvTitleTotal.setText(String.format(getString(R.string.true_order_5), String.valueOf(amount)));
+
+        registerBroadcastReceiver();
     }
 
     private void bindGoodReceipt() {
@@ -263,4 +267,42 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
             }
         }
     }
+
+
+    public static final String ACTION_ADDRESS_UPDATE = "地址修改";
+
+    //定义广播
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action) {
+                case ACTION_ADDRESS_UPDATE:
+                    GoodsReceipt goodsReceipt = intent.getParcelableExtra("address");
+
+                    if (goodsReceipt.getAddressId() == mGoodsReceipt.getAddressId()) {
+                        mGoodsReceipt = goodsReceipt;
+                        bindGoodReceipt();
+                    }
+
+                    break;
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBroadcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction(ACTION_ADDRESS_UPDATE);
+        // 注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter) ;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super .onDestroy();
+        unregisterReceiver( mBroadcastReceiver);
+    }
+
+
 }
