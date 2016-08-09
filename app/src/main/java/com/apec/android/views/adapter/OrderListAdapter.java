@@ -72,14 +72,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Good
 
         public void bindData(Order order) {
 
-            mTvTime.setText(order.getOrderDate());
+            //截取时间,不显示时分秒
+            String timeCut = order.getOrderDate().substring(0, order.getOrderDate().indexOf(" "));
+            mTvTime.setText(timeCut);
 
             mTvGoodsNum.setText(String.format(mContext.getString(R.string.order_goods_num),
                     order.getOrderItems().size()));
             mTvTotalPrice.setText(String.format(mContext.getString(R.string.order_goods_price),
                     order.getOrderAmount()));
 
-            mTvTime.setText(order.getOrderDate());
+            //mTvTime.setText(order.getOrderDate());
 
             switch (mStatus) {
                 case 1:

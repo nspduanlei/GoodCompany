@@ -3,13 +3,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp">
 
     <ImageView
         android:id="@+id/iv_goods"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="152dp"
+        android:layout_height="152dp"
+        android:layout_marginRight="21dp"
         android:scaleType="fitXY"
         android:src="@drawable/goods_pic_test"/>
 
@@ -22,7 +24,7 @@
         android:textColor="@color/text_6"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginTop="21dp"/>
+        android:layout_marginTop="15dp"/>
 
     <LinearLayout
         android:id="@+id/ll_attr"
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_name"
         android:layout_toRightOf="@id/iv_goods"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="6dp"
         android:orientation="horizontal">
 
         <TextView
@@ -55,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_attr"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="12dp"
         android:layout_toRightOf="@id/iv_goods">
 
         <TextView
@@ -88,63 +90,72 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_order"
-        android:layout_width="67dp"
-        android:layout_height="22dp"
-        android:layout_below="@id/ll_price"
-        android:layout_marginTop="11dp"
-        android:layout_toRightOf="@id/iv_goods"
-        android:background="@drawable/button_selector_add_cart"
-        android:text="快速下单"
-        android:textColor="@color/color_white"
-        android:textSize="12sp"
-        android:textStyle="bold"/>
-
-    <Button
-        android:id="@+id/btn_add_cart"
-        android:layout_width="80dp"
-        android:layout_height="22dp"
-        android:layout_below="@id/ll_price"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="11dp"
-        android:layout_toRightOf="@id/btn_order"
-        android:background="@drawable/button_selector"
-        android:text="加入购物车"
-        android:textColor="@color/color_white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:visibility="gone"/>
 
     <LinearLayout
-        android:id="@+id/ll_update_num"
-        android:layout_width="93dp"
-        android:layout_height="29dp"
-        android:layout_below="@id/ll_price"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="7dp"
-        android:layout_toRightOf="@id/btn_order"
-        android:background="@drawable/button_shape_bg_10"
-        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="visible">
-        <ImageView
-            android:id="@id/iv_cut"
-            style="@style/updateNum"
-            android:src="@drawable/btn_cut"/>
+        android:layout_below="@id/ll_price"
+        android:layout_toRightOf="@id/iv_goods"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginTop="14dp">
 
-        <TextView
-            android:id="@+id/tv_num"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="60000"/>
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="82dp"
+            android:layout_height="29dp"
+            android:background="@drawable/button_selector_add_cart"
+            android:text="快速下单"
+            android:textColor="@color/color_white"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@id/iv_add"
-            style="@style/updateNum"
-            android:src="@drawable/btn_add"/>
+        <Button
+            android:id="@+id/btn_add_cart"
+            android:layout_width="95dp"
+            android:layout_height="29dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/button_selector"
+            android:text="加入购物车"
+            android:textColor="@color/color_white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/ll_update_num"
+            android:layout_width="94dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/button_shape_bg_10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@id/iv_cut"
+                style="@style/updateNum"
+                android:src="@drawable/btn_cut"
+                android:background="@null"/>
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="60000"
+                android:textSize="14sp"/>
+
+            <ImageButton
+                android:id="@id/iv_add"
+                style="@style/updateNum"
+                android:src="@drawable/btn_add"
+                android:background="@null"/>
+
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </RelativeLayout>

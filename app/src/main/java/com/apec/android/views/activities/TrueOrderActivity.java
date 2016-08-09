@@ -128,8 +128,8 @@ public class TrueOrderActivity extends BaseActivity implements TrueOrderView {
             bindGoodReceipt();
         }
 
-        mTvTitlePrice.setText(String.format(getString(R.string.true_order_4), String.valueOf(amount)));
-        mTvTitleTotal.setText(String.format(getString(R.string.true_order_5), String.valueOf(amount)));
+        mTvTitlePrice.setText("￥" + String.valueOf(amount));
+        mTvTitleTotal.setText("￥" + String.valueOf(amount));
 
         registerBroadcastReceiver();
     }

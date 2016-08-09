@@ -14,7 +14,6 @@ import com.apec.android.injector.components.DaggerAddressComponent;
 import com.apec.android.injector.modules.ActivityModule;
 import com.apec.android.mvp.presenters.ManageAddressPresenter;
 import com.apec.android.mvp.views.ManageAddressView;
-import com.apec.android.util.SPUtils;
 import com.apec.android.views.activities.core.BaseActivity;
 import com.apec.android.views.adapter.AddressListAdapter;
 import com.apec.android.views.utils.LoginUtil;

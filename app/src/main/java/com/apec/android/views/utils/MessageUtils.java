@@ -21,8 +21,8 @@ public class MessageUtils {
     }
 
     public List<Message> select() {
-        List<Message> messages = DataSupport.order("time desc").find(Message.class);
-
+        List<Message> messages = DataSupport.order("id desc").find(Message.class);
+        //List<Message> messages = DataSupport.findAll(Message.class);
         return messages;
     }
 }

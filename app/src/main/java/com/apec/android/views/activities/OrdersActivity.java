@@ -94,6 +94,10 @@ public class OrdersActivity extends BaseActivity {
     }
 
     public void setMsgCount(int count, int position) {
+        if (position == 3 || position == 4) {
+            return;
+        }
+
         if (count == 0) {
             mTabs.hideMsg(position);
         } else {

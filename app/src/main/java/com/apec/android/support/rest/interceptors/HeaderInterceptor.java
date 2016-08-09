@@ -44,6 +44,5 @@ public class HeaderInterceptor implements Interceptor {
                 + ScreenUtils.getScreenHeight(mContext) + "&"
                 + AppUtils.getModel();
     }
-
 }
 

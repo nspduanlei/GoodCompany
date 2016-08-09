@@ -32,13 +32,25 @@
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/tv_send_address"
+                android:id="@+id/tv_sent_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxWidth="200dp"
                 android:singleLine="true"
-                android:text="配送至:配送地址"
+                android:text="配送至: "
+                android:textColor="@color/text_2"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_send_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxWidth="150dp"
+                android:singleLine="true"
+                android:text="地址"
                 android:textColor="@color/text_2"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -67,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="有品有料，随叫随到"
+                android:text="好伙计"
                 android:textColor="@color/text_2"
                 android:textSize="14sp"
                 android:textStyle="bold"

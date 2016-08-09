@@ -30,6 +30,8 @@
         android:name="com.apec.android.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
+    <uses-feature android:name="android.hardware.screen.portrait"/>
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -41,6 +43,7 @@
 
         <activity
             android:name=".views.activities.LaunchActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/StartAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,17 +52,28 @@
         </activity>
 
         <!--重构-->
-        <activity android:name=".views.activities.MainActivity" />
-        <activity android:name=".views.activities.LoginActivity" />
-        <activity android:name=".views.activities.GoodDetailActivity" />
-        <activity android:name=".views.activities.ManageAddressActivity" />
-        <activity android:name=".views.activities.EditAddressActivity" />
-        <activity android:name=".views.activities.AddAddressActivity" />
-        <activity android:name=".views.activities.OrderDetailActivity" />
-        <activity android:name=".views.activities.TrueOrderActivity" />
-        <activity android:name=".views.activities.MessageActivity" />
-        <activity android:name=".views.activities.ShowUserDataActivity" />
-        <activity android:name=".views.activities.EditUserDataActivity"/>
+        <activity android:name=".views.activities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.GoodDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.ManageAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.EditAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.AddAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.OrderDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.TrueOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.MessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.ShowUserDataActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.EditUserDataActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="vn.tungdx.mediapicker.activities.MediaPickerActivity"
@@ -68,15 +82,21 @@
 
         <activity
             android:name=".views.activities.GuideActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/GuideAppTheme"/>
 
-        <activity android:name=".views.activities.OrdersActivity" />
-        <activity android:name=".views.activities.SettingActivity" />
-        <activity android:name=".views.activities.ServiceActivity" />
+        <activity android:name=".views.activities.OrdersActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.SettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.activities.ServiceActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".views.activities.TransportsActivity"
+            android:screenOrientation="portrait"
                   android:hardwareAccelerated="false"/>
         <!--定位-->
-        <service android:name="com.amap.api.location.APSService"/>
+        <service android:name="com.amap.api.location.APSService" />
+
         <meta-data android:name="com.amap.api.v2.apikey"
                    android:value="3b5cf788eafa06f66b800edec4ff61d5"/>
 

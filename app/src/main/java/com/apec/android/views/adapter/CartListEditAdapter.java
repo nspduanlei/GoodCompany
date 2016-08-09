@@ -8,17 +8,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.apec.android.R;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.support.ImageHelp;
 import com.apec.android.views.view.CartListEditClickListener;
-import com.google.common.io.LineReader;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

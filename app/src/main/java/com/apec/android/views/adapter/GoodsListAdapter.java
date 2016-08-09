@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -96,11 +97,11 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
             @BindView(R.id.iv_goods)
             ImageView mIvGoods;
             @BindView(R.id.iv_cut)
-            ImageView mIvCut;
+            ImageButton mIvCut;
             @BindView(R.id.tv_num)
             TextView mTvNum;
             @BindView(R.id.iv_add)
-            ImageView mIvAdd;
+            ImageButton mIvAdd;
             @BindView(R.id.ll_update_num)
             LinearLayout mLlUpdateNum;
             @BindView(R.id.btn_add_cart)
@@ -238,16 +239,16 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
         //填充头部
         public void bindHeader() {
             List<Integer> localImages = new ArrayList<>();
+            localImages.add(R.drawable.ad_3);
             localImages.add(R.drawable.ad_2);
             localImages.add(R.drawable.ad_1);
-            localImages.add(R.drawable.ad_3);
 
             mHeaderHolder.mCbAd.setPages(
                     () -> new LocalImageHolderView(), localImages)
                     //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                     .setPageIndicator(new int[]{R.drawable.shape_page_indicator,
                             R.drawable.shape_page_indicator_focused})
-                    //.startTurning(10000)
+                    //.startTurning(20000)
                     //设置指示器的方向
                     .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                     .setScrollDuration(1000);

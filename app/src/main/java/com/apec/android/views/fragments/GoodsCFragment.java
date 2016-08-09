@@ -176,8 +176,10 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         mGoodsReceipt = goodsReceipt;
         //显示默认地址
         mLlAddress.setVisibility(View.VISIBLE);
-        mTvSendAddress.setText(String.format(getString(R.string.send_address),
-                goodsReceipt.getAddrRes().getDetail()));
+//        mTvSendAddress.setText(String.format(getString(R.string.send_address),
+//                goodsReceipt.getAddrRes().getDetail()));
+
+        mTvSendAddress.setText(goodsReceipt.getAddrRes().getDetail());
 
         if (mIsOrderLoginSuccess) {
             GoodsFragment fragment =
@@ -232,7 +234,7 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         viewPager.setOffscreenPageLimit(3);
     }
 
-    @OnClick(R.id.tv_send_address)
+    @OnClick(R.id.ll_address)
     void onAddressClicked(View view) {
         hasDefault = true;
         Intent intent = new Intent(getActivity(), ManageAddressActivity.class);

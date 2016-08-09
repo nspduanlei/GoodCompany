@@ -43,13 +43,25 @@
                 android:id="@+id/rl_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
 
                 <TextView
+                    android:layout_toRightOf="@id/iv_icon"
                     android:id="@+id/tv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_6"/>
+                    android:textColor="@color/text_6"
+                    android:text="发烧发"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_user_phone"
@@ -57,16 +69,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_user_name"
-                    android:textColor="@color/text_6"/>
+                    android:textColor="@color/text_6"
+                    android:text="15569693636"
+                    android:textStyle="bold"/>
 
                 <TextView
+                    android:layout_toRightOf="@id/iv_icon"
                     android:id="@+id/tv_user_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_user_name"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/text_6"/>
+                    android:textColor="@color/text_2"
+                    android:text="fasfafafasfasfasfafafaf"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -99,12 +115,22 @@
                     android:background="@drawable/shape_dot_black"/>
 
                 <TextView
+                    android:id="@+id/tv_title_price_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="订单金额"
+                    android:textColor="@color/text_6"/>
+
+                <TextView
                     android:id="@+id/tv_title_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="订单金额   ￥0.0"
-                    android:textColor="@color/text_6"/>
+                    android:text="￥0.0"
+                    android:textColor="@color/text_2"
+                    android:layout_toRightOf="@id/tv_title_price_1"/>
+
             </RelativeLayout>
 
             <View
@@ -123,14 +149,23 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:background="@drawable/shape_dot_black"/>
+
+                <TextView
+                    android:id="@+id/tv_title_send_coin_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="配送费"
+                    android:textColor="@color/text_6"/>
 
                 <TextView
                     android:id="@+id/tv_title_send_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="配送费        ￥0.0"
-                    android:textColor="@color/text_6"/>
+                    android:text="￥0.0"
+                    android:textColor="@color/text_2"
+                    android:layout_toRightOf="@id/tv_title_send_coin_1"/>
             </RelativeLayout>
 
             <View
@@ -149,14 +184,23 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:background="@drawable/shape_dot_black"/>
+
+                <TextView
+                    android:id="@+id/tv_title_total_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="付款金额"
+                    android:textColor="@color/text_6"/>
 
                 <TextView
                     android:id="@+id/tv_title_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="付款金额   ￥0.0"
-                    android:textColor="@color/text_6"/>
+                    android:text="￥0.0"
+                    android:textColor="@color/text_2"
+                    android:layout_toRightOf="@id/tv_title_total_1"/>
             </RelativeLayout>
 
             <View
@@ -177,12 +221,21 @@
                     android:background="@drawable/shape_dot_black"/>
 
                 <TextView
+                    android:id="@+id/tv_title_function_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="付款方式"
+                    android:textColor="@color/text_6"/>
+
+                <TextView
                     android:id="@+id/tv_title_function"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="付款方式    货到付款"
-                    android:textColor="@color/text_6"/>
+                    android:text="货到付款"
+                    android:textColor="@color/text_2"
+                    android:layout_toRightOf="@id/tv_title_function_1"/>
             </RelativeLayout>
 
             <Button

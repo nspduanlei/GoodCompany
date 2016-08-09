@@ -8,7 +8,7 @@ android {
         config {
             keyAlias 'duanlei'
             keyPassword '455483293'
-            storeFile file('D:/duanleiKey.jks')
+            storeFile file('duanleiKey.jks')
             storePassword '455483293'
         }
     }
@@ -19,8 +19,8 @@ android {
         minSdkVersion 15
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 10013
-        versionName "1.0.013"
+        versionCode 10016
+        versionName "1.0.016"
     }
     buildTypes {
         release {

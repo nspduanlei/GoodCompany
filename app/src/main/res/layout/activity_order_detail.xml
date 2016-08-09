@@ -122,15 +122,15 @@
                         android:layout_below="@id/tv_user_name"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/text_6"
+                        android:textColor="@color/text_2"
                         android:text="@{order.orderAddress.detail}"
                         android:layout_marginLeft="20dp"/>
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_line"/>
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0.5dp"-->
+                    <!--android:background="@color/color_line"/>-->
 
                 <com.apec.android.views.widget.NoScrollListView
                     android:id="@+id/lv_sku"
@@ -152,12 +152,21 @@
                         android:background="@drawable/shape_dot_black"/>
 
                     <TextView
+                        android:id="@+id/tv_title_price_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="订单金额"
+                        android:textColor="@color/text_6"/>
+
+                    <TextView
                         android:id="@+id/tv_title_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="@{@string/true_order_5(order.orderAmount)}"
-                        android:textColor="@color/text_6"/>
+                        android:text="@{@string/add_order_total(order.orderAmount)}"
+                        android:textColor="@color/text_2"
+                        android:layout_toRightOf="@id/tv_title_price_1"/>
                 </RelativeLayout>
 
                 <View
@@ -175,12 +184,21 @@
                         android:background="@drawable/shape_dot_black"/>
 
                     <TextView
+                        android:id="@+id/tv_title_send_coin_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="配送费"
+                        android:textColor="@color/text_6"/>
+
+                    <TextView
                         android:id="@+id/tv_title_send_coin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="配送费        ￥0.0"
-                        android:textColor="@color/text_6"/>
+                        android:text="￥0.0"
+                        android:textColor="@color/text_2"
+                        android:layout_toRightOf="@id/tv_title_send_coin_1"/>
                 </RelativeLayout>
 
                 <View
@@ -199,12 +217,21 @@
 
                     <!--付款金额   ￥0.0-->
                     <TextView
+                        android:id="@+id/tv_title_total_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="付款金额"
+                        android:textColor="@color/text_6"/>
+
+                    <TextView
                         android:id="@+id/tv_title_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="@{@string/true_order_5(order.orderAmount)}"
-                        android:textColor="@color/text_6"/>
+                        android:text="@{@string/add_order_total(order.orderAmount)}"
+                        android:textColor="@color/text_2"
+                        android:layout_toRightOf="@id/tv_title_total_1"/>
                 </RelativeLayout>
 
                 <View
@@ -222,12 +249,21 @@
                         android:background="@drawable/shape_dot_black"/>
 
                     <TextView
+                        android:id="@+id/tv_title_function_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="付款方式"
+                        android:textColor="@color/text_6"/>
+
+                    <TextView
                         android:id="@+id/tv_title_function"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="付款方式    货到付款"
-                        android:textColor="@color/text_6"/>
+                        android:text="货到付款"
+                        android:layout_toRightOf="@id/tv_title_function_1"
+                        android:textColor="@color/text_2"/>
                 </RelativeLayout>
 
 

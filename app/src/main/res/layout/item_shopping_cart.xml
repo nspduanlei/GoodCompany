@@ -5,35 +5,43 @@
     android:layout_height="120dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="15dp"
+    android:padding="10dp"
     android:descendantFocusability="blocksDescendants">
 
-    <CheckBox
-        android:id="@+id/cb_select"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:button="@drawable/check_selector"
-        android:gravity="center"
-        android:focusable="false"/>
 
-    <ImageView
-        android:id="@+id/iv_lose"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/cart_good_lose"
-        android:visibility="gone"/>
+    <LinearLayout
+        android:id="@+id/ll_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp">
 
-    <ImageView
-        android:id="@+id/iv_goods"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/test"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="35dp"/>
+        <CheckBox
+            android:id="@+id/cb_select"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:button="@drawable/check_selector"
+            android:gravity="center"
+            android:focusable="false"/>
+
+        <ImageView
+            android:id="@+id/iv_lose"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/cart_good_lose"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/test"
+            android:layout_marginLeft="6dp"
+            android:scaleType="centerCrop"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_goods_name"
-        android:layout_toRightOf="@id/iv_goods"
+        android:layout_toRightOf="@id/ll_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
@@ -42,7 +50,7 @@
 
     <TextView
         android:id="@+id/tv_attr_name"
-        android:layout_toRightOf="@id/iv_goods"
+        android:layout_toRightOf="@id/ll_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
@@ -59,16 +67,15 @@
         android:textColor="@color/text_6"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_toRightOf="@id/iv_goods"
+        android:layout_toRightOf="@id/ll_head"
         android:layout_alignParentBottom="true"
         android:gravity="center"/>
 
     <include
-        android:layout_toRightOf="@id/tv_price"
         layout="@layout/layout_change_price"
         android:layout_width="93dp"
         android:layout_height="29dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="35dp"/>
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

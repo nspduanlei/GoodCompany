@@ -207,7 +207,7 @@
     </style>
 
     <style name="updateNum">
-        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:scaleType">center</item>
     </style>
