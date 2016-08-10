@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/nav_arrow_right"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="5dp"/>
         </LinearLayout>
 
         <LinearLayout
