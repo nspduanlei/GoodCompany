@@ -2,9 +2,11 @@ package com.apec.android.views.utils;
 
 import android.content.ContentValues;
 
+import com.apec.android.app.MyApplication;
 import com.apec.android.domain.entities.goods.SkuData;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.util.L;
+import com.apec.android.util.SPUtils;
 
 import org.litepal.crud.DataSupport;
 
@@ -18,7 +20,9 @@ public class ShopCartUtil {
 
     //添加数据库
     public static void addData(SkuData skuData) {
+        int cityId = (int) SPUtils.get(MyApplication.getContext(), SPUtils.LOCATION_CITY_ID, 0);
         try {
+            skuData.setCityId(cityId);
             skuData.saveThrows();
         } catch (Exception e) {
             L.e(e.toString());
@@ -27,7 +31,7 @@ public class ShopCartUtil {
 
     //查询购物车数量
     public static int queryAllNum() {
-        return DataSupport.count(SkuData.class);
+        return queryAll().size();
     }
 
     public static int querySkuNum() {
@@ -53,7 +57,13 @@ public class ShopCartUtil {
 
     //查询全部数据
     public static List<SkuData> queryAll() {
-        return DataSupport.findAll(SkuData.class);
+        //更具当前城市id, 获取商品列表
+        int cityId = (int) SPUtils.get(MyApplication.getContext(), SPUtils.LOCATION_CITY_ID, 0);
+
+        List<SkuData> list = DataSupport.where("cityId = ?", String.valueOf(cityId))
+                .find(SkuData.class);
+
+        return list;
     }
 
     //修改商品数量
@@ -137,18 +147,24 @@ public class ShopCartUtil {
      * 全选
      */
     public static void selectAll() {
+        int cityId = (int) SPUtils.get(MyApplication.getContext(), SPUtils.LOCATION_CITY_ID, 0);
+
         ContentValues values = new ContentValues();
         values.put("isSelect", "1");
-        DataSupport.updateAll(SkuData.class, values, "isSelect = ?", "0");
+        DataSupport.updateAll(SkuData.class, values, "isSelect = ? and cityId = ?", "0",
+                String.valueOf(cityId));
     }
 
     /**
      * 取消全选
      */
     public static void cancelSelectAll() {
+        int cityId = (int) SPUtils.get(MyApplication.getContext(), SPUtils.LOCATION_CITY_ID, 0);
+
         ContentValues values = new ContentValues();
         values.put("isSelect", "0");
-        DataSupport.updateAll(SkuData.class, values, "isSelect = ?", "1");
+        DataSupport.updateAll(SkuData.class, values, "isSelect = ? and cityId = ?", "1",
+                String.valueOf(cityId));
     }
 
     /**
@@ -178,8 +194,11 @@ public class ShopCartUtil {
     }
 
     public static List<SkuData> getSelectList() {
+        int cityId = (int) SPUtils.get(MyApplication.getContext(), SPUtils.LOCATION_CITY_ID, 0);
+
         List<SkuData> list =
-                DataSupport.where("isSelect = ?", "1").find(SkuData.class);
+                DataSupport.where("isSelect = ? and cityId = ?", "1",
+                        String.valueOf(cityId)).find(SkuData.class);
         return list;
     }
 }

@@ -31,6 +31,8 @@ public class SkuData extends DataSupport {
     //购物车数量
     private int count;
 
+    private int cityId;
+
     private boolean isSelect;
 
     private String pic;
@@ -46,6 +48,14 @@ public class SkuData extends DataSupport {
 
     public void setAttrValueString(String attrValueString) {
         this.attrValueString = attrValueString;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     public int getId() {

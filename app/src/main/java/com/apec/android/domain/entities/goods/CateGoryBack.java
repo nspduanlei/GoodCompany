@@ -5,11 +5,11 @@ import com.apec.android.domain.H;
 import java.util.ArrayList;
 
 /**
- * Created by duanlei on 2016/3/16.
+ * Created by duanlei on 16/8/13.
  */
-public class GateGory {
+public class CategoryBack {
     private H h;
-    private ArrayList<CateGory> b;
+    private ArrayList<Category> b;
 
     public H getH() {
         return h;
@@ -19,11 +19,11 @@ public class GateGory {
         this.h = h;
     }
 
-    public ArrayList<CateGory> getB() {
+    public ArrayList<Category> getB() {
         return b;
     }
 
-    public void setB(ArrayList<CateGory> b) {
+    public void setB(ArrayList<Category> b) {
         this.b = b;
     }
 }

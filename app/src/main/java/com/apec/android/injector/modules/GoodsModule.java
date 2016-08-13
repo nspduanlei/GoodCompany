@@ -4,6 +4,7 @@ import com.apec.android.domain.repository.GoodsRepository;
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
 import com.apec.android.domain.usercase.CreateOrderUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
+import com.apec.android.domain.usercase.GetCategoryUseCase;
 import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.domain.usercase.GetVerCodeUseCase;
 import com.apec.android.domain.usercase.SubmitVerCodeUseCase;
@@ -20,6 +21,15 @@ import rx.Scheduler;
  */
 @Module
 public class GoodsModule {
+
+    @Provides
+    @Activity
+    GetCategoryUseCase provideGetCategoryUseCase(
+            GoodsRepository repository,
+            @Named("ui_thread") Scheduler uiThread,
+            @Named("executor_thread") Scheduler executorThread) {
+        return new GetCategoryUseCase(repository, uiThread, executorThread);
+    }
 
     @Provides
     @Activity

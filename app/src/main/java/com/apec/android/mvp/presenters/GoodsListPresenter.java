@@ -151,10 +151,8 @@ public class GoodsListPresenter implements Presenter {
 
             //操作数据库，数量+1
             ShopCartUtil.updateCount(String.valueOf(sku.getId()), num);
-
             //获取购物车数量
             int allCount = ShopCartUtil.querySkuNum();
-
             subscriber.onNext(allCount);
 
         }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())

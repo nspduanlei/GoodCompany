@@ -409,8 +409,6 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     void onEditClicked(View view) {
         if (isEdit) {
             //如果是编辑状态退出编辑
-
-
             getData();
             //exitEdit();
         } else {

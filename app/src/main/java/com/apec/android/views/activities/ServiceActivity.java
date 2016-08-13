@@ -1,6 +1,11 @@
 package com.apec.android.views.activities;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ListView;
 
@@ -16,6 +21,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by duanlei on 2016/6/10.
@@ -78,5 +84,20 @@ public class ServiceActivity extends BaseActivity {
     @Override
     protected void initPresenter() {
 
+    }
+
+    @OnClick(R.id.tv_phone_number)
+    void OnPhoneNumberClicked(View view) {
+        String mobile = "4001000747";
+        // 使用系统的电话拨号服务，必须去声明权限，在AndroidManifest.xml中进行声明
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                + mobile));
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return;
+        }
+        startActivity(intent);
     }
 }

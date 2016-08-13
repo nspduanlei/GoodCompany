@@ -2,6 +2,7 @@ package com.apec.android.injector.components;
 
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
 import com.apec.android.domain.usercase.GetAllCityUseCase;
+import com.apec.android.domain.usercase.GetCategoryUseCase;
 import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.injector.Activity;
 import com.apec.android.injector.modules.ActivityModule;
@@ -21,6 +22,7 @@ public interface GoodsComponent extends ActivityComponent {
 
     GetAllCityUseCase getAllCityUseCase();
     CityIsOpenUseCase getCityIsOpenUseCase();
-    GetDefaultAddressUseCase GetDefaultAddressUseCase();
+    GetDefaultAddressUseCase getDefaultAddressUseCase();
+    GetCategoryUseCase getCategoryUseCase();
 
 }

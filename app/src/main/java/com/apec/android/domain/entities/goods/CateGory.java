@@ -1,38 +1,26 @@
 package com.apec.android.domain.entities.goods;
 
-import java.util.ArrayList;
-
 /**
  * 商品分类
  * Created by duanlei on 2016/3/16.
  */
-public class CateGory {
-    private int categoryId;
-    private String categoryName;
-    private ArrayList<CateGory> subNode;
+public class Category {
+    private int id;
+    private String name;
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getId() {
+        return id;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public ArrayList<CateGory> getSubNode() {
-        return subNode;
-    }
-
-    public void setSubNode(ArrayList<CateGory> subNode) {
-        this.subNode = subNode;
-    }
-
 }

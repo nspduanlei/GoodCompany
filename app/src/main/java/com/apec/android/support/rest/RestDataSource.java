@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.apec.android.config.Constants;
 import com.apec.android.domain.NoBody;
+import com.apec.android.domain.entities.goods.CategoryBack;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
 import com.apec.android.domain.entities.goods.SkuList;
@@ -240,5 +241,10 @@ public class RestDataSource implements GoodsRepository {
     @Override
     public Observable<NoBody> uploadArgument(String name, int nameType) {
         return mGoodsApi.uploadArgument(name, nameType);
+    }
+
+    @Override
+    public Observable<CategoryBack> getCategory() {
+        return mGoodsApi.getCategory();
     }
 }

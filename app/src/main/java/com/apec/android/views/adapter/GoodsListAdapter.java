@@ -18,6 +18,7 @@ import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuAttribute;
 import com.apec.android.support.ImageHelp;
 import com.apec.android.util.DensityUtils;
+import com.apec.android.views.utils.CBTurn;
 import com.apec.android.views.utils.InputNumDialog;
 import com.apec.android.views.view.RecyclerClickListener;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -39,6 +40,8 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
     private static final int IS_NORMAL = 1;
 
     private Context mContext;
+
+    public GoodsViewHolder mHolder;
 
     public GoodsListAdapter(List<Sku> goods, Context context,
                             RecyclerClickListener recyclerClickListener) {
@@ -71,6 +74,8 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
         if (position == 0 && holder.getItemViewType() == IS_HEADER) {
             holder.bindHeader();
         }
+
+        mHolder = holder;
     }
 
     @Override
@@ -248,10 +253,18 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
                     //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                     .setPageIndicator(new int[]{R.drawable.shape_page_indicator,
                             R.drawable.shape_page_indicator_focused})
-                    //.startTurning(20000)
                     //设置指示器的方向
-                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-                    .setScrollDuration(1000);
+                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+            mHeaderHolder.mCbAd.setScrollDuration(1000);
+
+            //startTurning();
+        }
+
+        public void startTurning() {
+            mHeaderHolder.mCbAd.startTurning(5000);
+        }
+        public void stopTurning() {
+            mHeaderHolder.mCbAd.stopTurning();
         }
     }
 }

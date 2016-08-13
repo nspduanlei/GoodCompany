@@ -3,9 +3,11 @@ package com.apec.android.mvp.presenters;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
+import com.apec.android.domain.entities.goods.CategoryBack;
 import com.apec.android.domain.entities.transport.ReceiptDefault;
 import com.apec.android.domain.entities.user.OpenCity;
 import com.apec.android.domain.usercase.CityIsOpenUseCase;
+import com.apec.android.domain.usercase.GetCategoryUseCase;
 import com.apec.android.domain.usercase.GetDefaultAddressUseCase;
 import com.apec.android.mvp.views.GoodsView;
 import com.apec.android.mvp.views.View;
@@ -29,6 +31,7 @@ public class GoodsPresenter implements Presenter {
     LocationHelp mLocationHelp;
     CityIsOpenUseCase mCityIsOpenUseCase;
     GetDefaultAddressUseCase mGetDefaultAddressUseCase;
+    GetCategoryUseCase mGetCategoryUseCase;
 
     String mCityName, mCityCode;
 
@@ -41,10 +44,12 @@ public class GoodsPresenter implements Presenter {
     @Inject
     public GoodsPresenter(LocationHelp locationHelp,
                           CityIsOpenUseCase cityIsOpenUseCase,
-                          GetDefaultAddressUseCase getDefaultAddressUseCase) {
+                          GetDefaultAddressUseCase getDefaultAddressUseCase,
+                          GetCategoryUseCase getCategoryUseCase) {
         mLocationHelp = locationHelp;
         mCityIsOpenUseCase = cityIsOpenUseCase;
         mGetDefaultAddressUseCase = getDefaultAddressUseCase;
+        mGetCategoryUseCase = getCategoryUseCase;
     }
 
     /**
@@ -158,8 +163,19 @@ public class GoodsPresenter implements Presenter {
         } else {
 
         }
-
         mLocationHelp.shopLocation();
         getOpenCityFile();
+    }
+
+    //获取商品所以类型
+    public void getCategory() {
+        mGetCategoryUseCase.execute().subscribe(this::onGetCategoryReceived,
+                this::manageDefaultAddressError);
+    }
+
+    private void onGetCategoryReceived(CategoryBack categoryBack) {
+        if (categoryBack.getH().getCode() == 200) {
+            mGoodsView.onGetCategory(categoryBack.getB());
+        }
     }
 }

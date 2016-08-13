@@ -22,5 +22,8 @@
     <include
         layout="@layout/loading_layout_new"/>
 
+    <include
+        layout="@layout/view_goods_empty"/>
+
 </FrameLayout>
 

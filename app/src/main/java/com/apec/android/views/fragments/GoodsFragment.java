@@ -53,6 +53,9 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     @BindView(R.id.view_error)
     View viewError;
 
+    @BindView(R.id.ll_goods_empty)
+    View viewEmpty;
+
     @Inject
     GoodsListPresenter mGoodsListPresenter;
 
@@ -130,6 +133,12 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
     @Override
     public void bindGoods(List<Sku> goods) {
+        if (goods.size() == 0) {
+            viewEmpty.setVisibility(View.VISIBLE);
+            return;
+        } else {
+            viewEmpty.setVisibility(View.GONE);
+        }
         mGoods.clear();
         mGoods.addAll(goods);
         mGoodsListAdapter.notifyDataSetChanged();
@@ -227,5 +236,19 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         Intent intent = new Intent(getActivity(), TrueOrderActivity.class);
         intent.putIntegerArrayListExtra("sku_ids", skus);
         startActivity(intent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //mGoodsListAdapter.mHolder.stopTurning();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if (mGoodsListAdapter != null && mGoodsListAdapter.mHolder != null) {
+//            mGoodsListAdapter.mHolder.startTurning();
+//        }
     }
 }

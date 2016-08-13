@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.apec.android.R;
 import com.apec.android.app.MyApplication;
 import com.apec.android.config.Constants;
+import com.apec.android.domain.entities.goods.Category;
 import com.apec.android.domain.entities.transport.GoodsReceipt;
 import com.apec.android.injector.components.DaggerGoodsComponent;
 import com.apec.android.injector.modules.ActivityModule;
@@ -26,10 +27,12 @@ import com.apec.android.views.adapter.GoodsCAdapter;
 import com.apec.android.views.fragments.core.BaseFragment;
 import com.apec.android.views.utils.LocationDialog;
 import com.apec.android.views.utils.LoginUtil;
+import com.apec.android.views.utils.ShopCartUtil;
 import com.apec.android.views.view.CityChangeInterface;
 import com.apec.android.views.view.FragmentListener;
 import com.flyco.tablayout.SlidingTabLayout;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,22 +61,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     LocationDialog mLocationDialog;
 
     int mCityId;
-
-//    protected static final int[] IDS = new int[]{
-//            12, 13, 11, 15, 46
-//    };
-//
-//    protected static final String[] CONTENT = new String[]{
-//            "糖品", "米品", "油品", "面品", "调味品"
-//    };
-
-    protected static final int[] IDS = new int[]{
-            12, 13
-    };
-
-    protected static final String[] CONTENT = new String[]{
-            "白砂糖", "面粉"
-    };
 
     boolean hasDefault = false;
 
@@ -108,9 +95,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         } else {
             mVMsgNew.setVisibility(View.GONE);
         }
-
-        setupViewPager(mVpGoods);
-        mTabs.setViewPager(mVpGoods);
     }
 
     @Override
@@ -140,6 +124,8 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
             //mLocationDialog.setCityId(mCityId);
         }
         mLocationDialog.setCityChangeInterface(this);
+
+        mGoodsPresenter.getCategory();
     }
 
     private void initLocation() {
@@ -210,6 +196,12 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
     }
 
     @Override
+    public void onGetCategory(ArrayList<Category> categories) {
+        setupViewPager(mVpGoods, categories);
+        mTabs.setViewPager(mVpGoods);
+    }
+
+    @Override
     public void showLoadingView() {
 
     }
@@ -224,11 +216,12 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
      *
      * @param viewPager
      */
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, ArrayList<Category> categories) {
         mAdapter = new GoodsCAdapter(getChildFragmentManager());
         //mAdapter.addFragment(new RecommendFragment(), "推荐");
-        for (int i = 0; i < CONTENT.length; i++) {
-            mAdapter.addFragment(GoodsFragment.newInstance(IDS[i]), CONTENT[i]);
+        for (int i = 0; i < categories.size(); i++) {
+            mAdapter.addFragment(GoodsFragment.newInstance(categories.get(i).getId()),
+                    categories.get(i).getName());
         }
         viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(3);
@@ -301,6 +294,10 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         mCityId = cityId;
         mTvLocation.setText(cityName);
         mAdapter.notifyDataSetChanged();
+
+        //更新购物车数量
+        int allCount = ShopCartUtil.querySkuNum();
+        mFragmentListener.updateCartNum(allCount);
     }
 
     public void updateGoods() {

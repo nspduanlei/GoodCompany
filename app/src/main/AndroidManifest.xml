@@ -26,6 +26,9 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.apec.android.permission.JPUSH_MESSAGE" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <permission
         android:name="com.apec.android.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />

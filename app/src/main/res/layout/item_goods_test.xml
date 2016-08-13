@@ -101,20 +101,9 @@
         android:layout_marginTop="14dp">
 
         <Button
-            android:id="@+id/btn_order"
-            android:layout_width="82dp"
-            android:layout_height="29dp"
-            android:background="@drawable/button_selector_add_cart"
-            android:text="快速下单"
-            android:textColor="@color/color_white"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <Button
             android:id="@+id/btn_add_cart"
             android:layout_width="95dp"
             android:layout_height="29dp"
-            android:layout_marginLeft="12dp"
             android:background="@drawable/button_selector"
             android:text="加入购物车"
             android:textColor="@color/color_white"
@@ -124,9 +113,8 @@
 
         <LinearLayout
             android:id="@+id/ll_update_num"
-            android:layout_width="94dp"
+            android:layout_width="95dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="12dp"
             android:background="@drawable/button_shape_bg_10"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -154,6 +142,17 @@
                 android:background="@null"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="82dp"
+            android:layout_height="29dp"
+            android:background="@drawable/button_selector_add_cart"
+            android:text="快速下单"
+            android:textColor="@color/color_white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="12dp"/>
 
     </LinearLayout>
 

@@ -1,9 +1,10 @@
 package com.apec.android.domain.repository;
 
 import com.apec.android.domain.NoBody;
+import com.apec.android.domain.entities.goods.Category;
+import com.apec.android.domain.entities.goods.CategoryBack;
 import com.apec.android.domain.entities.goods.GetAllAttribute;
 import com.apec.android.domain.entities.goods.GoodDetail;
-import com.apec.android.domain.entities.goods.Goods;
 import com.apec.android.domain.entities.goods.SkuList;
 import com.apec.android.domain.entities.order.OrderBack;
 import com.apec.android.domain.entities.order.OrderListBack;
@@ -19,7 +20,6 @@ import com.apec.android.domain.entities.user.UserBack;
 import com.apec.android.domain.entities.user.Version;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import rx.Observable;
 
@@ -208,4 +208,6 @@ public interface GoodsRepository {
 
     //上传参数
     Observable<NoBody> uploadArgument(String name, int nameType);
+
+    Observable<CategoryBack> getCategory();
 }
