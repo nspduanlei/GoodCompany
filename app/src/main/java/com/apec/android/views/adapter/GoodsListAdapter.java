@@ -244,9 +244,8 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
         //填充头部
         public void bindHeader() {
             List<Integer> localImages = new ArrayList<>();
-            localImages.add(R.drawable.ad_3);
-            localImages.add(R.drawable.ad_2);
             localImages.add(R.drawable.ad_1);
+            localImages.add(R.drawable.ad_2);
 
             mHeaderHolder.mCbAd.setPages(
                     () -> new LocalImageHolderView(), localImages)
