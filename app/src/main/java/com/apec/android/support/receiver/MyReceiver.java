@@ -53,7 +53,6 @@ public class MyReceiver extends BroadcastReceiver {
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
-
 			String type = null;
 			String content = null;
 			String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);

@@ -44,7 +44,9 @@ import butterknife.BindView;
 public class GoodsFragment extends BaseFragment implements GoodsListView, RecyclerClickListener {
 
     public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
+    public static final String EXTRA_CATEGORY_IMAGE = "CATEGORY_IMAGE";
     private int mCid, mCityId;
+    private String mImage;
 
     @BindView(R.id.pb_loading)
     ProgressBar mPbLoading;
@@ -73,9 +75,10 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
      * @param cId 类型id
      * @return
      */
-    public static GoodsFragment newInstance(int cId) {
+    public static GoodsFragment newInstance(int cId, String image) {
         Bundle args = new Bundle();
         args.putInt(EXTRA_CATEGORY_ID, cId);
+        args.putString(EXTRA_CATEGORY_IMAGE, image);
         GoodsFragment fragment = new GoodsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -83,6 +86,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
     @Override
     protected void initUI(View view) {
+        mImage = getArguments().getString(EXTRA_CATEGORY_IMAGE);
         initRecyclerView();
     }
 
@@ -94,6 +98,7 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     @Override
     protected void initDependencyInjector(MyApplication myApplication) {
         mCid = getArguments().getInt(EXTRA_CATEGORY_ID, -1);
+
         mCityId = (int) SPUtils.get(getActivity(), SPUtils.LOCATION_CITY_ID, 0);
         DaggerGoodsListComponent.builder()
                 .activityModule(new ActivityModule(getActivity()))
@@ -114,10 +119,8 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
 
     private void initRecyclerView() {
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         mRvGoods.addItemDecoration(new DividerItemDecoration(getActivity()));
-
-        mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this);
+        mGoodsListAdapter = new GoodsListAdapter(mGoods, getActivity(), this, mImage);
         mRvGoods.setAdapter(mGoodsListAdapter);
     }
 
@@ -135,7 +138,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
     public void bindGoods(List<Sku> goods) {
         if (goods.size() == 0) {
             viewEmpty.setVisibility(View.VISIBLE);
-            return;
         } else {
             viewEmpty.setVisibility(View.GONE);
         }
@@ -207,11 +209,6 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         mOrderSkuId = skuId;
         mOrderCount = count;
 
-//        //立即下单， 如果用户没有登录则去登录
-//        if (LoginUtil.gotoLoginNew(getActivity())) {
-//            doOrder();
-//        }
-
         doOrder();
     }
 
@@ -238,17 +235,19 @@ public class GoodsFragment extends BaseFragment implements GoodsListView, Recycl
         startActivity(intent);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        //mGoodsListAdapter.mHolder.stopTurning();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        if (mGoodsListAdapter != null && mGoodsListAdapter.mHolder != null) {
+//            mGoodsListAdapter.mHolder.stopTurning();
+//        }
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
 //        if (mGoodsListAdapter != null && mGoodsListAdapter.mHolder != null) {
 //            mGoodsListAdapter.mHolder.startTurning();
 //        }
-    }
+//    }
 }

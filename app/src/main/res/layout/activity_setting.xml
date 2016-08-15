@@ -35,4 +35,9 @@
         android:text="退出登录"
         android:layout_marginTop="20dp"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:src="@drawable/test_scale"/>
+
 </LinearLayout>

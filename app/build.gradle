@@ -19,8 +19,8 @@ android {
         minSdkVersion 15
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 10019
-        versionName "1.0.019"
+        versionCode 10020
+        versionName "1.0.020"
     }
     buildTypes {
         release {
@@ -44,6 +44,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        incremental true
     }
 }
 

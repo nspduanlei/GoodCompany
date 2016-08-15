@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.ScaleDrawable;
 import android.widget.ImageView;
 
 import com.apec.android.R;
@@ -19,13 +20,23 @@ import java.io.File;
  */
 public class ImageHelp {
 
+    public static void displayAd(Context context, String url, ImageView imageView) {
+        Picasso.with(context)
+                .load(url)
+                .placeholder(R.drawable.default_ad)
+                .error(R.drawable.default_ad)
+                .into(imageView);
+    }
+
     public static void display(Context context, String url, ImageView imageView) {
         Picasso.with(context)
                 .load(url)
-                //.placeholder(R.drawable.test)
-                .error(R.drawable.test)
+                .placeholder(R.drawable.default_good)
+                .error(R.drawable.default_good)
                 .into(imageView);
     }
+
+
 
     public static void displayCircle(Context context, String url, ImageView imageView) {
         Picasso.with(context)
@@ -33,7 +44,6 @@ public class ImageHelp {
                 .transform(new CircleTransform())
                 .into(imageView);
     }
-
 
     public static void displayRound(Context context, int radius, int margin, String url, ImageView imageView) {
         Transformation transformation = new RoundedCornersTransformation(radius, margin);

@@ -149,7 +149,6 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
         }
 
         T.showShort(getActivity(), "网络连接不可用，请检查网络");
-
     }
 
     @Override
@@ -218,9 +217,9 @@ public class GoodsCFragment extends BaseFragment implements GoodsView, CityChang
      */
     private void setupViewPager(ViewPager viewPager, ArrayList<Category> categories) {
         mAdapter = new GoodsCAdapter(getChildFragmentManager());
-        //mAdapter.addFragment(new RecommendFragment(), "推荐");
         for (int i = 0; i < categories.size(); i++) {
-            mAdapter.addFragment(GoodsFragment.newInstance(categories.get(i).getId()),
+            mAdapter.addFragment(GoodsFragment.newInstance(categories.get(i).getId(),
+                    categories.get(i).getImage()),
                     categories.get(i).getName());
         }
         viewPager.setAdapter(mAdapter);

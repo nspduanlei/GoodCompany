@@ -18,6 +18,7 @@ import com.apec.android.domain.entities.goods.Sku;
 import com.apec.android.domain.entities.goods.SkuAttribute;
 import com.apec.android.support.ImageHelp;
 import com.apec.android.util.DensityUtils;
+import com.apec.android.util.L;
 import com.apec.android.views.utils.CBTurn;
 import com.apec.android.views.utils.InputNumDialog;
 import com.apec.android.views.view.RecyclerClickListener;
@@ -43,10 +44,13 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
     public GoodsViewHolder mHolder;
 
+    private String mImage;
+
     public GoodsListAdapter(List<Sku> goods, Context context,
-                            RecyclerClickListener recyclerClickListener) {
+                            RecyclerClickListener recyclerClickListener, String image) {
         mGoods = goods;
         mContext = context;
+        mImage = image;
         mRecyclerListener = recyclerClickListener;
     }
 
@@ -124,8 +128,11 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
         //头部
         class HeaderHolder {
-            @BindView(R.id.cb_ad)
-            ConvenientBanner mCbAd;
+            //@BindView(R.id.cb_ad)
+            //ConvenientBanner mCbAd;
+
+            @BindView(R.id.iv_image)
+            ImageView imageView;
 
             public HeaderHolder(View view) {
                 ButterKnife.bind(this, view);
@@ -191,7 +198,6 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
                 }
             }
 
-
             //快速下单
             mNormalHolder.mBtnOrder.setOnClickListener(view -> {
                 final int position = getAdapterPosition() - 1;
@@ -243,27 +249,38 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.Good
 
         //填充头部
         public void bindHeader() {
-            List<Integer> localImages = new ArrayList<>();
-            localImages.add(R.drawable.ad_1);
-            localImages.add(R.drawable.ad_2);
+//            List<Integer> localImages = new ArrayList<>();
+//            localImages.add(R.drawable.ad_1);
+//            localImages.add(R.drawable.ad_2);
+//
+//            mHeaderHolder.mCbAd.setPages(
+//                    () -> new LocalImageHolderView(), localImages)
+//                    //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+//                    .setPageIndicator(new int[]{R.drawable.shape_page_indicator,
+//                            R.drawable.shape_page_indicator_focused})
+//                    //设置指示器的方向
+//                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+//            mHeaderHolder.mCbAd.setScrollDuration(1000);
+//
+//
+//            startTurning();
 
-            mHeaderHolder.mCbAd.setPages(
-                    () -> new LocalImageHolderView(), localImages)
-                    //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                    .setPageIndicator(new int[]{R.drawable.shape_page_indicator,
-                            R.drawable.shape_page_indicator_focused})
-                    //设置指示器的方向
-                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
-            mHeaderHolder.mCbAd.setScrollDuration(1000);
-
-            //startTurning();
+            ImageHelp.displayAd(mContext, mImage, mHeaderHolder.imageView);
         }
 
-        public void startTurning() {
-            mHeaderHolder.mCbAd.startTurning(5000);
-        }
-        public void stopTurning() {
-            mHeaderHolder.mCbAd.stopTurning();
-        }
+//        public void startTurning() {
+//            if (mHeaderHolder != null && mHeaderHolder.mCbAd != null) {
+//                L.e("------------------start");
+//                if (!mHeaderHolder.mCbAd.isTurning()) {
+//                    mHeaderHolder.mCbAd.startTurning(5000);
+//                }
+//            }
+//        }
+//        public void stopTurning() {
+//            if (mHeaderHolder != null && mHeaderHolder.mCbAd != null) {
+//                L.e("------------------stop");
+//                mHeaderHolder.mCbAd.stopTurning();
+//            }
+//        }
     }
 }
